@@ -1,0 +1,5 @@
+Mirar las 2 imagenes de storages para ver el manejo de error dentro del server.ts
+
+
+Averiguar xq no se puede module.exports = { } en typescript
+

@@ -1,0 +1,15 @@
+Aqui llamanos a toads las rutas que contendran las "apiServices"
+quedando por ejemplo:
+
+const users = require('../apiServices/users')
+const posts = require('../apiServices/posts') //Nota, hace referencia al index de la carpeta "posts"
+
+router.use('/users', user)
+router.use('/posts', posts)
+
+module.exports = router
+
+Nota: Y dentro de nuestro "server.js" importaremos este archivo 
+
+const indexRouter = require('./routes/index')
+app.use('/api', indexRouter)
