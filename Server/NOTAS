@@ -43,31 +43,9 @@ Pasos:
    * node-config: Permite pasarle valores a nuestros parametros del "Config" por medio de las variables de entorno del .ENV 
    
 
-Explicacion de el modulo "Config":
-
-   Para hacer esto, debemos hacer los siguientes pasos:
-   * Definir dentro del archivo ".env", una variable llamada "NODE_ENV" o "NODE_CONFIG_ENV", especificando el entorno de ejecucion.
-   
-   * Crear dentro de la carpeta "config" podemos crear un archivo cualquiera con el nombre del entorno que ejecutaremos.
-   Por ejemplo: Si creamos un archivo llamado "asd.js", le definimos sus parametros y en el .env escribimos "NODE_ENV=asd", nos ejecutara ese archivo en especifico con sus parametros.
-   Sin embargo, los archivos mas comunes son:
-      - default.js: Aca definiremos todos los parametros por defecto y se utilizaran en caso de que dicho parametro no se encuentren definidos en el archivo del respectivo entorno en ejecucion (Es decir, que si estamos en produccion y dentro del archivo "production.js", no se encuentra definido X parametro, tomara automaticamente el que tiene "default.js") 
-      - development.js: Definiremos todos los parametros para cuando estemos en desarrollo
-      - production.js: Definiremos todos los parametros para cuando estemos en produccion
-
-   * Para poder utilizar algun parametro de nuestro archivo de configuracion, podemos usarlo escribiendo por ejemplo: 
-   config.get('server.port')
-   El cual corresponde a la config de:
-      module.exports = {
-         server: {
-            port: 1800,
-         },
-      }
-
-Explicacion de node-config:
 
 
-   Permite pasar valores al Config por medio de las variables de entorno creando un archivo llamado "custom-enviroment-variables.js" (aca almacenaremos las variables en vez del .env)
+
 
 
 

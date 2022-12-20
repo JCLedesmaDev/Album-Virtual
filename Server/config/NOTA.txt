@@ -1,5 +1,0 @@
-Aca tendremos las diferentes jerarquias de configuracion 
-dependiendo del entorno.
-
-
-https://www.youtube.com/watch?v=DK06ZwMdUvc&list=PLmcIacgu1FxFoMUmaa8L0w5YKxjxxY-pE&index=5&ab_channel=HackerN%C3%B3mada

@@ -26,8 +26,7 @@ function startServer(PORT: number) {
     }));
 
     app.listen(PORT, () => {
-        console.log(config.util.getEnv("NODE_ENV"))
-        console.log(`⚡️[server]: Server is running at ${config.get('server.public_url')}${PORT}`);
+        console.log(`⚡️[server]: Server is running in ${config.util.getEnv("NODE_ENV")} at ${config.get('server.public_url')}${PORT}`);
     });
 
     // app.use('/api', usersRouter);
