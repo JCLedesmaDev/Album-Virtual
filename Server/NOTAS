@@ -27,9 +27,16 @@ Pasos:
    * sequelize -> ORM de bd relacional
    * mySql2 -> Instalamos el proveedor de BD q nos permite utilizar sequelize (Instalamos este xq es el que particularmente utilizamos en este caso ya que sequelize puede utilizar diferentes proveedores)
    * mongoose-paginate-v2 -> Para paginar todos los registro de una coleccion de mongoose   
+   * swagger-ui-express 
+   * swagger-jsdoc
    * Config: Nos permite definir un conjunto de parámetros predeterminados y extenderlos para diferentes entornos de implementación (desarrollo, control de calidad, preparación, producción, etc.).
    * node-config: Permite pasarle valores a nuestros parametros del "Config" por medio de las variables de entorno del .ENV 
    
+   NOTA: Seguramente varias de estas librerias necesitaremos instalar su respectivo @types por typescript como seria el caso de:
+   @types/node 
+   @types/expres
+   @types/swagger-jsdoc 
+   @types/swagger-ui-express
 
 4) Configuraciones del package.json:
    Dentro del package, debemos especificar unas cuantas cosas:
