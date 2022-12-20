@@ -1,5 +1,3 @@
 module.exports = {
-    server: {
-        // port: 'PORT'
-    }
+    jwt_secret: 'jwt_secret'
 }

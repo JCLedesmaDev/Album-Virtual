@@ -11,19 +11,7 @@ Pasos:
    Para esto, agregaremos dentro de "compilerOptions" la sig linea:
     "outDir": "./dist", /* Specify an output folder for all emitted files. */
 
-3) Configuraciones del package.json:
-   Dentro del package, debemos especificar unas cuantas cosas:
-   - El archivo principal de nuestro proyecto: El cual sera el "app.ts"
-   - Los scripts de ejecucion: Copiaremos el siguiente obj.json
-     "scripts": {
-         "dev": "ts-node ./src/app.ts",
-         "start": "node ./dist/app.js",
-         "build": "tsc -p ."
-      },
-      Nota: Especificamos los archivos que se ejecutara en cada entorno de ejecucion.
-
-
-4) Librerias a utilizar: 
+3) Librerias a utilizar: 
    * express
    * cors -> Conexiones de los cors BE y FE
    * dotenv -> Variable entorno
@@ -42,6 +30,24 @@ Pasos:
    * Config: Nos permite definir un conjunto de parámetros predeterminados y extenderlos para diferentes entornos de implementación (desarrollo, control de calidad, preparación, producción, etc.).
    * node-config: Permite pasarle valores a nuestros parametros del "Config" por medio de las variables de entorno del .ENV 
    
+
+4) Configuraciones del package.json:
+   Dentro del package, debemos especificar unas cuantas cosas:
+   - El archivo principal de nuestro proyecto: El cual sera el "app.ts"
+   - Los scripts de ejecucion: Copiaremos el siguiente obj.json
+     "scripts": {
+         "dev": "nodemon --watch './**/*.ts' --exec ts-node app.ts",
+         "start": "node ./dist/app.js",
+         "build": "tsc -p ."
+      },
+      Nota: Especificamos los archivos que se ejecutara en cada entorno de ejecucion.
+
+
+
+
+
+
+
 
 
 

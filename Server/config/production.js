@@ -1,6 +1,6 @@
 module.exports = {
     server: {
-        port: 1800,
+        port: 5000,
         public_url: 'http://localhost:',
     },
     logger: 'tiny'

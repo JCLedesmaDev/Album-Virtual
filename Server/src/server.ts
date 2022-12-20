@@ -11,7 +11,7 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import logger from 'morgan'
 import config from 'config'
-// import usersRouter from "./routes/users";
+import indexRoutes from './routes/index.routes'
 import swaggerUi from "swagger-ui-express";
 // import swaggerSetup from "./docs/swagger";
 
@@ -21,15 +21,13 @@ function startServer(PORT: number) {
 
     app.use(logger(config.get('logger')))
     app.use(express.json()) //--> Comprende mensajes JSON
-    app.use(cors({
-        origin: '*'
-    }));
+    app.use(cors({ origin: '*' }));
 
     app.listen(PORT, () => {
         console.log(`⚡️[server]: Server is running in ${config.util.getEnv("NODE_ENV")} at ${config.get('server.public_url')}${PORT}`);
     });
 
-    // app.use('/api', usersRouter);
+    app.use('/api', indexRoutes)
     // app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerSetup))
 
 }
