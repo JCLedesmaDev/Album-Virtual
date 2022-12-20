@@ -1,4 +1,4 @@
-import { connect, ConnectOptions } from "mongoose"
+import { CallbackWithoutResult, connect, ConnectOptions, set } from "mongoose"
 
 
 const DB_URI: string = process.env.DB_URL as string
@@ -7,13 +7,16 @@ const options: ConnectOptions = {
     useUnifiedTopology: true
 } as ConnectOptions
 
+
+set('strictQuery', false)
 const dbConnect = async (): Promise<void> => {
-    try {
-        await connect(DB_URI, options)
-        console.log("⚡️[server]: Server is running at http://localhost:" + process.env.PORT);
-    } catch (error) {
-        console.log('Connection error: ' + error)
-    }
+    connect(DB_URI, options, ({ err, res }: any) => {
+        if (!err) {
+            console.log("CONEXION CORRECTA")
+        } else {
+            console.log("ERROR DE CONEXION", err)
+        }
+    })
 }
 
 export default dbConnect

@@ -1,0 +1,84 @@
+Aclaracion
+Debemos tener instalado TypeScript de manera global para poder iniciar un proyecto con TypeScript
+PD: Si surge un error, posiblemente ver este articulo: https://www.cdmon.com/es/blog/la-ejecucion-de-scripts-esta-deshabilitada-en-este-sistema-te-contamos-como-actuar
+
+Pasos:
+1) Al empezar el proyecto con "npm init", debemos indicarle a Node que tenemos un proyecto con TypeScript escribiendo: "tsc -init"
+
+2) Crearemos una carpeta llamada "dist" y otra llamada "src", seguido de esto, nos dirigimos
+   al archivo "tsconfig.json" para especificar que cuando querramos compilar todo el proyecto BE
+   se nos almacene en la carpeta "dist" que creamos recientemente.
+   Para esto, agregaremos dentro de "compilerOptions" la sig linea:
+    "outDir": "./dist", /* Specify an output folder for all emitted files. */
+
+3) Configuraciones del package.json:
+   Dentro del package, debemos especificar unas cuantas cosas:
+   - El archivo principal de nuestro proyecto: El cual sera el "app.ts"
+   - Los scripts de ejecucion: Copiaremos el siguiente obj.json
+     "scripts": {
+         "dev": "ts-node ./src/app.ts",
+         "start": "node ./dist/app.js",
+         "build": "tsc -p ."
+      },
+      Nota: Especificamos los archivos que se ejecutara en cada entorno de ejecucion.
+
+
+4) Librerias a utilizar: 
+   * express
+   * cors -> Conexiones de los cors BE y FE
+   * dotenv -> Variable entorno
+   * multer -> Permite el manejo de la carga de archivos multimedia
+   * mongoose
+   * nodemon
+   * express-validator
+   * mongoose-delete -> Este paquete nos permite indicarle a nuestros modelos (colecciones) que hagan uso de estrategias de "Soft Delete - borrado logico"
+      Esta liberria, nos agrega nuevos metodos para realizar la consulta de eliminar y nos permite persistir los registros eliminados (por medio de otra propiedad que se incorpora de manera autoamtica) sin poder obtenerlos al querer hacer un getAll o getById.
+      Nos define esa estrategia de neogico de no perder los registros eliminados. PD: Es opcional, tb podemos usar los metodos naturales
+   * jsonwebtokens 
+   * bcrypt -> Permite hashear las claves y guardalas en la BD
+   * sequelize -> ORM de bd relacional
+   * mySql2 -> Instalamos el proveedor de BD q nos permite utilizar sequelize (Instalamos este xq es el que particularmente utilizamos en este caso ya que sequelize puede utilizar diferentes proveedores)
+   * mongoose-paginate-v2 -> Para paginar todos los registro de una coleccion de mongoose   
+   * Config: Nos permite definir un conjunto de parámetros predeterminados y extenderlos para diferentes entornos de implementación (desarrollo, control de calidad, preparación, producción, etc.).
+   * node-config: Permite pasarle valores a nuestros parametros del "Config" por medio de las variables de entorno del .ENV 
+   
+
+Explicacion de el modulo "Config":
+
+   Para hacer esto, debemos hacer los siguientes pasos:
+   * Definir dentro del archivo ".env", una variable llamada "NODE_ENV" o "NODE_CONFIG_ENV", especificando el entorno de ejecucion.
+   
+   * Crear dentro de la carpeta "config" podemos crear un archivo cualquiera con el nombre del entorno que ejecutaremos.
+   Por ejemplo: Si creamos un archivo llamado "asd.js", le definimos sus parametros y en el .env escribimos "NODE_ENV=asd", nos ejecutara ese archivo en especifico con sus parametros.
+   Sin embargo, los archivos mas comunes son:
+      - default.js: Aca definiremos todos los parametros por defecto y se utilizaran en caso de que dicho parametro no se encuentren definidos en el archivo del respectivo entorno en ejecucion (Es decir, que si estamos en produccion y dentro del archivo "production.js", no se encuentra definido X parametro, tomara automaticamente el que tiene "default.js") 
+      - development.js: Definiremos todos los parametros para cuando estemos en desarrollo
+      - production.js: Definiremos todos los parametros para cuando estemos en produccion
+
+   * Para poder utilizar algun parametro de nuestro archivo de configuracion, podemos usarlo escribiendo por ejemplo: 
+   config.get('server.port')
+   El cual corresponde a la config de:
+      module.exports = {
+         server: {
+            port: 1800,
+         },
+      }
+
+Explicacion de node-config:
+
+
+   Permite pasar valores al Config por medio de las variables de entorno creando un archivo llamado "custom-enviroment-variables.js" (aca almacenaremos las variables en vez del .env)
+
+
+
+
+A FUTURO: 
+
+
+NOTAS RECORDATORIAS:
+* Dentro de la carpeta "storage", tendremos todos los archivos multimedia 
+
+
+* Al hacer uso de una BD relacional, es recomendable instalar un programa llamado Laragon, nos servira para iniciar una BD relacional en nuesrta pc. Idem XAMMP o phpMyAdmin e instalar mysql
+https://dev.mysql.com/downloads/file/?id=514518
+
