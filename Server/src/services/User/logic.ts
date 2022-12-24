@@ -1,5 +1,5 @@
 import externalDb from "./dal"
-import ApplicationError from "../../utils/ApplicationError"
+import { ApplicationError } from "../../utils/applicationError"
 
 const loginUser = async (payload: any) => {
     try {

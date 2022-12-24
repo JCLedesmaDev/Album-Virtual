@@ -13,6 +13,7 @@ import logger from 'morgan'
 import config from 'config'
 import indexRoutes from './routes/index.routes'
 import swaggerUi from "swagger-ui-express";
+import { headersHandler } from './middlewares/headersHandler';
 // import swaggerSetup from "./docs/swagger";
 
 function startServer(PORT: number) {
@@ -22,6 +23,8 @@ function startServer(PORT: number) {
     app.use(logger(config.get('logger')))
     app.use(express.json()) //--> Comprende mensajes JSON
     app.use(cors({ origin: '*' }));
+
+    app.use(headersHandler) // Definimos como manejamos todos los datos provenientes del headers
 
     app.listen(PORT, () => {
         console.log(`⚡️[server]: Server is running in ${config.util.getEnv("NODE_ENV")} at ${config.get('server.public_url')}${PORT}`);

@@ -1,5 +1,5 @@
 import { check } from 'express-validator'
-import { validateResults } from '../../../middlewares/validatorHandler'
+import { validateResults } from '../../../middlewares/validatorExpressHandler'
 import { Request, Response, NextFunction } from "express";
 
 

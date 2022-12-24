@@ -31,7 +31,10 @@ Pasos:
    * swagger-jsdoc
    * Config: Nos permite definir un conjunto de parámetros predeterminados y extenderlos para diferentes entornos de implementación (desarrollo, control de calidad, preparación, producción, etc.).
    * node-config: Permite pasarle valores a nuestros parametros del "Config" por medio de las variables de entorno del .ENV 
-   
+   * express-async-errors: Esta biblioteca trata sobre lo que sucede cuando se produce un error, es decir, nos permite manipular los Exceptions de los throw new Error() por medio de un middleware
+
+
+
    NOTA: Seguramente varias de estas librerias necesitaremos instalar su respectivo @types por typescript como seria el caso de:
    @types/node 
    @types/expres
@@ -50,7 +53,7 @@ Pasos:
       Nota: Especificamos los archivos que se ejecutara en cada entorno de ejecucion.
 
 
-
+5) Extendemmos las propeidades del Request https://github.com/3mard/ts-node-example
 
 
 

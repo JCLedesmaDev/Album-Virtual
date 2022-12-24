@@ -5,6 +5,7 @@ import CollectionAlbumes from './collections/CollectionAlbum'
 import Users from './collections/User'
 import UserAlbumes from './collections/UserAlbum'
 import Roles from './collections/Rol'
+import RegisterDb from './collections/RegisterBD'
 
 const collections = {
     Albumes,
@@ -13,7 +14,8 @@ const collections = {
     CollectionAlbumes,
     Users,
     Roles,
-    UserAlbumes
+    UserAlbumes,
+    RegisterDb
 };
 
 export default collections;

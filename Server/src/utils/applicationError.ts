@@ -1,5 +1,14 @@
-class ApplicationError extends Error {
-  constructor(message, source = undefined) {
+interface ISource {
+  message: string;
+  stack: string;
+}
+
+export class ApplicationError extends Error {
+  status: number;
+  source!: ISource; // El signo ! indica que puede ser undefined
+
+  // constructor(message: string, source: ISource = {} as ISource) {
+  constructor(message: string, source: any = undefined) {
     super()
 
     Error.captureStackTrace(this, this.constructor)
@@ -14,9 +23,3 @@ class ApplicationError extends Error {
       }
   }
 }
-
-const ApplicationError = (message, source = undefined) => {
-
-}
-
-export default ApplicationError
