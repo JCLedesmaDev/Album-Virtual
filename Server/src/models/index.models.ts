@@ -15,3 +15,5 @@ const collections = {
     Roles,
     UserAlbumes
 };
+
+export default collections;
