@@ -1,8 +1,8 @@
 import { request, response, Request, Response, NextFunction } from 'express'
-const jwt = require('jsonwebtoken')
-const decryptor = require('simple-encryptor')(Math.PI.toString())
-const config = require('config')
-const errorMsg = 'Su sesión ha expirado'
+// const jwt = require('jsonwebtoken')
+// const decryptor = require('simple-encryptor')(Math.PI.toString())
+// const config = require('config')
+// const errorMsg = 'Su sesión ha expirado'
 
 const validarJWT = (req: Request = request, res: Response = response, next: NextFunction) => {
 

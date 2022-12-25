@@ -4,10 +4,10 @@ import { Request, Response, NextFunction } from "express";
 
 
 const validatorRegister = [
-    check("name").exists().notEmpty().isLength({ max: 99, min: 3 }),
-    check("age").exists().notEmpty().isNumeric(),
-    check("password").exists().notEmpty().isLength({ max: 15, min: 3 }),
-    check("email").exists().notEmpty().isEmail(),
+    // check("name").exists().notEmpty().isLength({ max: 99, min: 3 }),
+    // check("age").exists().notEmpty().isNumeric(),
+    // check("password").exists().notEmpty().isLength({ max: 15, min: 3 }),
+    // check("email").exists().notEmpty().isEmail(),
     // check("role").exists().notEmpty(),
 
 

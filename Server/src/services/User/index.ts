@@ -1,11 +1,11 @@
 import express from "express";
-const router = express.Router();
 import { loginUser } from './controller'
 import { validatorLogin } from './Validators/auth'
 import { mockHandler } from "../../middlewares/mockHandler";
 import { validarJWT } from "../../middlewares/validateJWT";
 import { errorHandler } from "../../middlewares/errorHandler";
 import { eventHandler } from "../../middlewares/eventHandler";
+const router = express.Router();
 
 import 'express-async-errors' /// Ver si funciona igual poniendolo solo dentro del Server.ts en vez de cada router
 
