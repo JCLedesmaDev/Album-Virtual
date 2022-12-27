@@ -3,6 +3,8 @@ if (process.env.NODE_ENV !== "production") {
     dotenv.config({ path: ".env" });
 }
 
+import "./src/process"
+
 import dbConnect from "./src/database/mongo";
 import server from "./src/server"
 import config from 'config'
