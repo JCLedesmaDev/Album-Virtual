@@ -10,6 +10,7 @@ const eventHandler = async (req: Request, res: Response, next: NextFunction) => 
         params: req.params,
         url: req.url
     }
+    console.log("🚀 ~ file: eventHandler.ts:13 ~ eventHandler ~ requestInfo", requestInfo)
 
     await logger.insertLoggerDB(
         req.headers.legajo as string, /// TODO: Cambiar legajo por Id Usuario

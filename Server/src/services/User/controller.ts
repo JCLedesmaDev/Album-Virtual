@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { matchedData } from 'express-validator'
+import { ApplicationError } from "../../utils/applicationError";
 import logic from './logic'
 
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -14,6 +15,8 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     req.locals.result = data // Se utiliza en el eventHandler
     res.json(data)
     next()
+
+    // throw new ApplicationError("lalala")
 }
 
 export {

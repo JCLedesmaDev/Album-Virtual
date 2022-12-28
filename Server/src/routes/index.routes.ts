@@ -1,5 +1,5 @@
 // Aqui llamanos a toads las rutas que contendran loss "services"
-//import 'express-async-errors' /// Ver si funciona igual poniendolo solo dentro del Server.ts en vez de cada router
+import 'express-async-errors' 
 
 import express from "express";
 import UserRoutes from '../services/user'
@@ -13,18 +13,5 @@ router.use('/user', UserRoutes)
 
 
 export default router;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

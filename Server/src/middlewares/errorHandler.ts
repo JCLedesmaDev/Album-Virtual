@@ -24,7 +24,7 @@ const errorHandler = async (err: ApplicationError, req: Request, res: Response, 
             responseMessage.error(err.message)
         )
     } catch (error) {
-        console.log(error)
+        console.log("OCURRIO UN ERROR", error)
         return res.status(200).json(
             responseMessage.error('Error interno')
         )
