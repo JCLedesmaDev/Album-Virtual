@@ -28,7 +28,7 @@ const mockHandler = (req: Request, res: Response, next: NextFunction) => {
         console.log('tool:', tool)
         console.log('method:', method)
 
-        const ruta = `../routes/${functionality}${tool}/mocks/${method}.json`
+        const ruta = `../services/${functionality}${tool}/mocks/${method}.json`
         const filePath = path.join(
             __dirname,
             ruta

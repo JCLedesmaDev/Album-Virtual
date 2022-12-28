@@ -6,7 +6,7 @@ const single = (resource, authUser) => ({
 
 const multiple = (resources, authUser) => resources.map((resource) => single(resource, authUser));
 
-module.exports = {
+export {
     single,
     multiple,
 };

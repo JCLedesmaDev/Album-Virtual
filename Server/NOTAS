@@ -32,7 +32,7 @@ Pasos:
    * Config: Nos permite definir un conjunto de parámetros predeterminados y extenderlos para diferentes entornos de implementación (desarrollo, control de calidad, preparación, producción, etc.).
    * node-config: Permite pasarle valores a nuestros parametros del "Config" por medio de las variables de entorno del .ENV 
    * express-async-errors: Esta biblioteca trata sobre lo que sucede cuando se produce un error, es decir, nos permite manipular los Exceptions de los throw new Error() por medio de un middleware
-
+   * rimraf: Eliminados de carpetas por comando
 
 
    NOTA: Seguramente varias de estas librerias necesitaremos instalar su respectivo @types por typescript como seria el caso de:

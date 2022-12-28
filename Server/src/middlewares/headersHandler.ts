@@ -23,7 +23,7 @@ const headersHandler = (req: Request, res: Response, next: NextFunction) => {
     const apellido = (req.headers['apellido']) ? req.headers['apellido'] : undefined
     req.locals.apellido = apellido
 
-    console.log('Headers:' + JSON.stringify(req.locals))
+    console.log('Headers OC:' + JSON.stringify(req.locals))
     next()
 }
 export {
