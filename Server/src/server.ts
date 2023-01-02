@@ -3,11 +3,11 @@ import cors from 'cors';
 import logger from 'morgan'
 import config from 'config'
 import indexRoutes from './routes/index.routes'
-import swaggerUi from "swagger-ui-express";
 import { headersHandler } from './middlewares/headersHandler';
 import { errorHandler } from './middlewares/errorHandler';
 import { eventHandler } from './middlewares/eventHandler';
-// import swaggerSetup from "./docs/swagger";
+import swaggerUi from "swagger-ui-express";
+import swaggerSetup from "./docs/swagger";
 
 function startServer(PORT: number) {
 
@@ -25,7 +25,7 @@ function startServer(PORT: number) {
     app.use(headersHandler) // Definimos como manejamos todos los datos provenientes del headers
 
     app.use('/api', indexRoutes)
-    // app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerSetup))
+    app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerSetup))
 
     app.use(eventHandler)
     app.use(errorHandler)

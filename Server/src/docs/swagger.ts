@@ -19,19 +19,19 @@ const swaggerDefinition: OAS3Definition = {
         //         scheme: "bearer",
         //     },
         // },
-        // schemas: {
-        //     user: {
-        //         type: "object",
-        //         required: ["name", "album", "cover", "artist", "duration", "mediaId"],
-        //         properties: {
-        //             name: {
-        //                 type: "string",
-        //             },
-        //             email: {
-        //                 type: "string",
-        //             },
-        //         },
-        //     },
+        schemas: {
+            user: {
+                type: "object",
+                required: ["name", "album", "cover", "artist", "duration", "mediaId"],
+                properties: {
+                    name: {
+                        type: "string",
+                    },
+                    email: {
+                        type: "string",
+                    },
+                },
+            },
         //     item: {
         //         type: "object",
         //         required: ["price", "qty"],
@@ -44,7 +44,7 @@ const swaggerDefinition: OAS3Definition = {
         //             },
         //         },
         //     },
-        // },
+        },
     },
 };
 
@@ -52,7 +52,8 @@ const swaggerOptions: OAS3Options = { // TODO: Ver como adaptar esta parte.
     swaggerDefinition,
     // le especificamos en un arr, las rutas donde tenemos los index de los routers
     // con el fin de que busque los comentarios que tenemos escrito y los tome 
-    apis: ["./src/routes/*.ts"],
+    // apis: ["./src/routes/*.ts"],
+    apis: ["./src/services/user/index.ts"],
 };
 
 export default swaggerJSDoc(swaggerOptions);

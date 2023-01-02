@@ -1,6 +1,6 @@
 import express from "express";
 import { loginUser } from './controller'
-import { validatorLogin } from './Validators/auth'
+import { validatorLogin } from './validators/auth'
 import { mockHandler } from "../../middlewares/mockHandler";
 import { validarJWT } from "../../middlewares/validateJWT";
 
@@ -33,11 +33,6 @@ router.use(mockHandler)
  *      security: // determina que el controller necesita de autorizacion, el mismo de swagger.ts > securitySchemes
  *       - bearerAuth: []
  */
-// router.post("/users", (req: Request, res: Response) => {
-//     const { body } = req;
-//     console.log(body)
-//     res.send({ data: body });
-//   });
 router.post('/login', validatorLogin, loginUser)
 
 
