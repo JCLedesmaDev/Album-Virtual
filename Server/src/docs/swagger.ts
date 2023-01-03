@@ -3,7 +3,7 @@ import swaggerJSDoc, { OAS3Definition, OAS3Options } from "swagger-jsdoc";
 import fs from 'fs'
 import path from 'path'
 
-// const pathRoutes = `${__dirname}\..\services`
+/* Obtener la url de los index de cada service */
 const pathRoutes = path.join(__dirname, '../services')
 const arrApiUrl: string[] = []
 fs.readdirSync(pathRoutes).filter(folder => {  
@@ -13,9 +13,7 @@ fs.readdirSync(pathRoutes).filter(folder => {
     }
     arrApiUrl.push(`${pathRoutes}\\${folder}\\index.ts`)
 })
-console.log("🚀", arrApiUrl)
-
-
+/* Obtener la url de los index de cada service */
 
 
 const swaggerDefinition: OAS3Definition = {
@@ -50,24 +48,12 @@ const swaggerDefinition: OAS3Definition = {
                         type: "string",
                     },
                 },
-            },
-        //     item: {
-        //         type: "object",
-        //         required: ["price", "qty"],
-        //         properties: {
-        //             price: {
-        //                 type: "string",
-        //             },
-        //             qty: {
-        //                 type: "string",
-        //             },
-        //         },
-        //     },
+            }
         },
     },
 };
 
-const swaggerOptions: OAS3Options = { // TODO: Ver como adaptar esta parte.
+const swaggerOptions: OAS3Options = {
     swaggerDefinition,
     // le especificamos en un arr, las rutas donde tenemos los index de los routers
     // con el fin de que busque los comentarios que tenemos escrito y los tome 

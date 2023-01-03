@@ -9,7 +9,9 @@ const validatorRegister = [
     // check("password").exists().notEmpty().isLength({ max: 15, min: 3 }),
     // check("email").exists().notEmpty().isEmail(),
     // check("role").exists().notEmpty(),
-
+    // check("artist").exists().notEmpty(),
+    // check("artist.name").exists().notEmpty(),
+    // check("artist.nickname").exists().notEmpty(),
 
     (req:Request, res: Response, next: NextFunction) => validateResults(req, res, next)
 ]
