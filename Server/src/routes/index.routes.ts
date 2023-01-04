@@ -1,4 +1,3 @@
-// Aqui llamanos a toads las rutas que contendran loss "services"
 import 'express-async-errors' 
 
 import express from "express";

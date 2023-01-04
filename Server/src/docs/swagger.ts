@@ -6,7 +6,7 @@ import path from 'path'
 /* Obtener la url de los index de cada service */
 const pathRoutes = path.join(__dirname, '../services')
 const arrApiUrl: string[] = []
-fs.readdirSync(pathRoutes).filter(folder => {  
+fs.readdirSync(pathRoutes).filter(folder => {
     //Temporal 
     if (folder === 'NOTA.txt') {
         return
@@ -23,12 +23,10 @@ const swaggerDefinition: OAS3Definition = {
         version: "1.0.0",
         description: "Esta es la descripcion de mi Swagger"
     },
-    servers: [
-        {
-            url: `${config.get('server.public_url')}${config.get('server.port')}`,
-             description: "LALAA"
-        },
-    ],
+    servers: [{
+        url: `${config.get('server.public_url')}${config.get('server.port')}`,
+        description: "LALAA"
+    }],
     components: {
         // securitySchemes: {
         //     bearerAuth: {
@@ -62,3 +60,6 @@ const swaggerOptions: OAS3Options = {
 };
 
 export default swaggerJSDoc(swaggerOptions);
+
+// Definimos la estructura del metodo para que aparezca en el Swagger
+/// La manera de definir todo esta en: https://editor.swagger.io
