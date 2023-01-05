@@ -1,4 +1,12 @@
-const response = (type: string, message: string, data: any) => {
+
+/**
+ * Funcion que crea el DTO para el front
+ * @param type Tipo de respuesta
+ * @param message Mensaje de respuesta
+ * @param data Datos de respuesta
+ * @returns Objeto response 
+ */
+const response = <typeData>(type: string, message: string, data: typeData) => {
     const res = {
         info: {
             type: type,
@@ -13,25 +21,27 @@ const response = (type: string, message: string, data: any) => {
     return res
 }
 
-const warning = (message: string, data = undefined) => {
-    return response('warning', message, data)
+/**
+ * Mensaje de respuesta de peticion 200.
+ * @param message Mensaje de cordialidad
+ * @param data Datos de respuesta.
+ * @returns Objeto generico de respuesta.
+ */
+const success = <typeData>(message: string, data: typeData) => {
+    return response<typeData>('success', message, data)
 }
 
-const info = (message: string, data = undefined) => {
-    return response('info', message, data)
-}
-
-const success = (message: string, data = undefined) => {
-    return response('success', message, data)
-}
-
-const error = (message: string, data = undefined) => {
-    return response('error', message, data)
+/**
+ * Mensaje de respuesta de peticion 400 - 500.
+ * @param message Mensaje de cordialidad
+ * @param data Datos de respuesta.
+ * @returns Objeto generico de respuesta.
+ */
+const error = <typeData>(message: string, data: typeData) => {
+    return response<typeData>('error', message, data)
 }
 
 export default {
     success,
-    info,
-    warning,
     error
 }

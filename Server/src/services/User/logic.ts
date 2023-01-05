@@ -2,7 +2,8 @@ import externalDb from "./dal"
 import { ApplicationError } from "../../utils/applicationError"
 import { ILoginDto } from "./dto/frontToBack/ILogin.dto"
 import bcrypt from "../../utils/bcryptPassword"
-import { IUserDto } from "./dto/backToFront/IUser.dto"
+import responseMessage from "../../utils/responseMessage"
+import { IUserDto } from "../../../types/IUser.dto"
 
 const loginUser = async (payload: ILoginDto) => {
     try {
@@ -18,9 +19,12 @@ const loginUser = async (payload: ILoginDto) => {
             throw new ApplicationError('Contraseña incorrecta. Intentelo nuevamente')
         }
 
-        const asd : IUserDto = {
-
-        }
+        // const asd: IUserDto = {
+        //     id: user.id,
+        //     email: user.email,
+        //     fullName: user.fullName,
+        //     roles: user.ro
+        // }
 
         /* 
             TODO: Agregar interface de IUser en Types
@@ -28,13 +32,20 @@ const loginUser = async (payload: ILoginDto) => {
             Agregar mapper y crear token
         
         */
-       
+
         // const data = {
         //     token: await tokenSign(user),
-        //     user
+        //     user: {
+
+        //     }
         // }
 
-        return
+        return responseMessage.success<any>(
+            'Ha iniciado sesion correctamente!', {
+            token: 'a',
+            user: {}
+        })
+
     } catch (error) {
         throw new ApplicationError("Ocurrio un error al querer iniciar sesion.", error);
     }
