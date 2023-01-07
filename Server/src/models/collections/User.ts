@@ -1,19 +1,19 @@
 import { model, Schema, Document, Types, ObjectId } from 'mongoose';
 import mongooseDelete from 'mongoose-delete';
 import mongoosePaginate from 'mongoose-paginate-v2'
-import { IRol } from './Rol';
-import { IUserAlbum } from './UserAlbum';
+import { IRolCollection } from './Rol';
+import { IUserAlbumCollection } from './UserAlbum';
 
-export interface IUser extends Document {
+export interface IUserCollection extends Document {
     fullName: string;
     email: string;
     password: string;
     passwordSalt: string;
-    roles: ObjectId[] | IRol[];
-    albumList: ObjectId[] | IUserAlbum[];
+    roles: ObjectId[] | IRolCollection[];
+    albumList: ObjectId[] | IUserAlbumCollection[];
 }
 
-const UserSchema = new Schema<IUser>({
+const UserSchema = new Schema<IUserCollection>({
     fullName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
@@ -36,4 +36,4 @@ UserSchema.plugin(mongooseDelete, { overrideMethods: 'all' })
 // Le indicamos a nuestro modelo, que va a poder paginar
 UserSchema.plugin(mongoosePaginate)
 
-export default model<IUser>('Users', UserSchema);
+export default model<IUserCollection>('Users', UserSchema);

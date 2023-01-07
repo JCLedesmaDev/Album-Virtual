@@ -4,21 +4,18 @@ import { Request, Response, NextFunction } from "express";
 
 
 const validatorRegister = [
-    // check("name").exists().notEmpty().isLength({ max: 99, min: 3 }),
-    // check("age").exists().notEmpty().isNumeric(),
-    // check("password").exists().notEmpty().isLength({ max: 15, min: 3 }),
-    // check("email").exists().notEmpty().isEmail(),
-    // check("role").exists().notEmpty(),
-    // check("artist").exists().notEmpty(),
-    // check("artist.name").exists().notEmpty(),
-    // check("artist.nickname").exists().notEmpty(),
+    check("fullName", "Este campo es requerido").exists().notEmpty().isLength({ max: 99, min: 3 }),
+    check("email", "Este campo es requerido").exists().notEmpty().isEmail(),
+    check("password", "Este campo es requerido").exists().notEmpty().isLength({ max: 15, min: 3 }),
 
+    // TODO: Agregar comparacion de contrasñas
+    check("confirmPassword", "Este campo es requerido").exists().notEmpty().isLength({ max: 15, min: 3 }), 
     (req:Request, res: Response, next: NextFunction) => validateResults(req, res, next)
 ]
 
 const validatorLogin = [
-    check("email", "Es requerido").exists().notEmpty().isEmail(),
-    check("password", "Es requiero x2").exists().notEmpty().isLength({ max: 15, min: 3 }),
+    check("email", "Este campo es requerido").exists().notEmpty().isEmail(),
+    check("password", "Este campo es requerido").exists().notEmpty().isLength({ max: 15, min: 3 }),
     (req:Request, res: Response, next: NextFunction) => validateResults(req, res, next)
 ]
 

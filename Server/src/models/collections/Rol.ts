@@ -1,10 +1,10 @@
 import { model, Schema, Document } from 'mongoose';
 
-export interface IRol extends Document {
+export interface IRolCollection extends Document {
     name: string;
 }
 
-const RolSchema = new Schema<IRol>({
+const RolSchema = new Schema<IRolCollection>({
     name: { type: String, required: true }
 }, {
     timestamps: true, // Nos crea un campo mas con la fecha de creacion y actualizacion del registro
@@ -12,4 +12,4 @@ const RolSchema = new Schema<IRol>({
 })
 
 
-export default model<IRol>('Roles', RolSchema);
+export default model<IRolCollection>('Roles', RolSchema);

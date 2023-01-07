@@ -1,4 +1,4 @@
-import { IUser } from "../../models/collections/User";
+import { IUserCollection } from "../../models/collections/User";
 import collections from "../../models/index.models"
 import { ApplicationError } from "../../utils/applicationError";
 
@@ -8,7 +8,7 @@ import { ApplicationError } from "../../utils/applicationError";
  * @param value Valor del campo en cuestion
  * @returns Usuario encontrado o null
  */
-const getUserByField = async (field: string, value: string): Promise<IUser | null> => {
+const getUserByField = async (field: string, value: string): Promise<IUserCollection | null> => {
     try {
         return await collections.Users.findOne({ [field]: value });
     } catch (error) {

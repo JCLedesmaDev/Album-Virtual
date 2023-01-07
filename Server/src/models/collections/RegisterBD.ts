@@ -2,7 +2,7 @@ import { model, Schema, Document } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2'
 
 
-export interface IRegisterBD extends Document {
+export interface IRegisterBDCollection extends Document {
     type: string;
     user: string;
     feacture: string;
@@ -11,7 +11,7 @@ export interface IRegisterBD extends Document {
     response: any;
 }
 
-const RegisterDbSchema = new Schema<IRegisterBD>({
+const RegisterDbSchema = new Schema<IRegisterBDCollection>({
     type: { type: String, required: true },
     user: { type: String, required: true },
     feacture: { type: String, required: true },
@@ -27,4 +27,4 @@ const RegisterDbSchema = new Schema<IRegisterBD>({
 // Le indicamos a nuestro modelo, que va a poder paginar
 RegisterDbSchema.plugin(mongoosePaginate)
 
-export default model<IRegisterBD>('RegisterDb', RegisterDbSchema);
+export default model<IRegisterBDCollection>('RegisterDb', RegisterDbSchema);

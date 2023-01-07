@@ -1,12 +1,12 @@
 import { model, Schema, Document, Types, ObjectId } from 'mongoose';
 import mongooseDelete from 'mongoose-delete';
 import mongoosePaginate from 'mongoose-paginate-v2'
-import { IAlbum } from './Album';
+import { IAlbumCollection } from './Album';
 
 
 export interface ICollectionAlbum extends Document {
     titulo: string;
-    albumes: ObjectId[] | IAlbum[];
+    albumes: ObjectId[] | IAlbumCollection[];
 }
 
 const CollectionAlbumSchema = new Schema<ICollectionAlbum>({

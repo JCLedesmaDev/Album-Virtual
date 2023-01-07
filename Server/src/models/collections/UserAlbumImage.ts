@@ -1,16 +1,16 @@
 import { model, Schema, Document, Types, ObjectId } from 'mongoose';
 import mongooseDelete from 'mongoose-delete';
 import mongoosePaginate from 'mongoose-paginate-v2'
-import { IAlbumImage } from './AlbumImage';
-import { IUser } from './User';
+import { IAlbumImageCollection } from './AlbumImage';
+import { IUserCollection } from './User';
 
-export interface IUserAlbumImage extends Document {
-    albumImage: ObjectId | IAlbumImage;
-    user: ObjectId | IUser;
+export interface IUserAlbumImageCollection extends Document {
+    albumImage: ObjectId | IAlbumImageCollection;
+    user: ObjectId | IUserCollection;
     albumId: ObjectId;
 }
 
-const UserAlbumImageSchema = new Schema<IUserAlbumImage>({
+const UserAlbumImageSchema = new Schema<IUserAlbumImageCollection>({
     albumImage: { type: Types.ObjectId, ref: "AlbumImages" },
     user: { type: Types.ObjectId, ref: "Users" },
     albumId: { type: Types.ObjectId }
@@ -26,4 +26,4 @@ const UserAlbumImageSchema = new Schema<IUserAlbumImage>({
 // Le indicamos a nuestro modelo, que va a poder paginar
 UserAlbumImageSchema.plugin(mongoosePaginate)
 
-export default model<IUserAlbumImage>('UserAlbumImages', UserAlbumImageSchema);
+export default model<IUserAlbumImageCollection>('UserAlbumImages', UserAlbumImageSchema);

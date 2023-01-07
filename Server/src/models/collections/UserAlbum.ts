@@ -1,15 +1,15 @@
 import { model, Schema, Document, Types, ObjectId } from 'mongoose';
 import mongooseDelete from 'mongoose-delete';
 import mongoosePaginate from 'mongoose-paginate-v2'
-import { IAlbum } from './Album';
-import { IUser } from './User';
+import { IAlbumCollection } from './Album';
+import { IUserCollection } from './User';
 
-export interface IUserAlbum extends Document {
-    album: ObjectId | IAlbum; // TODO: cambiar por la interface de Roles
-    user: ObjectId | IUser;
+export interface IUserAlbumCollection extends Document {
+    album: ObjectId | IAlbumCollection; // TODO: cambiar por la interface de Roles
+    user: ObjectId | IUserCollection;
 }
 
-const UserAlbumSchema = new Schema<IUserAlbum>({
+const UserAlbumSchema = new Schema<IUserAlbumCollection>({
     album: { type: Types.ObjectId, ref: "Albumes" },
     user: { type: Types.ObjectId, ref: "Users" }
 }, {
@@ -24,4 +24,4 @@ const UserAlbumSchema = new Schema<IUserAlbum>({
 // Le indicamos a nuestro modelo, que va a poder paginar
 UserAlbumSchema.plugin(mongoosePaginate)
 
-export default model<IUserAlbum>('UserAlbumes', UserAlbumSchema);
+export default model<IUserAlbumCollection>('UserAlbumes', UserAlbumSchema);
