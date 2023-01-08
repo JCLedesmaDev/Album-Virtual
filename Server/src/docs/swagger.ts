@@ -37,17 +37,65 @@ const swaggerDefinition: OAS3Definition = {
         schemas: {
             user: {
                 type: "object",
-                required: ["name", "email"],
                 properties: {
-                    name: {
-                        type: "string",
-                    },
-                    email: {
-                        type: "string",
-                    },
-                },
+                    fullName: { type: "string" },
+                    id: { type: "string" },
+                    email: { type: "string" },
+                    roles: {
+                        type: "array",
+                        items: { $ref: "#/components/schemas/rol" }
+                    }
+                }
+            },
+            rol: {
+                type: "object",
+                properties: {
+                    name: { type: "string" },
+                    id: { type: "string" },
+                }
             }
         },
+        schemasDto: {
+            userLogin: {
+                type: "object",
+                required: ["email", "password"],
+                properties: {
+                    email: {
+                        type: "string",
+                        example: "lalala@gmail.com"
+                    },
+                    password: {
+                        type: "string",
+                        example: "pepe"
+                    },
+                },
+            },
+            userAuth: {
+                type: "object",
+                properties: {
+                    token: { type: "string" },
+                    user: { $ref: "#/components/schemas/user" }
+                }
+            },
+            userRegister: {
+                type: "object",
+                required: ["email","fullName", "password"],
+                properties: {
+                    email: {
+                        type: "string",
+                        example: "lalala@gmail.com"
+                    },
+                    fullName: {
+                        type: "string",
+                        example: "Pepe Quito"
+                    },
+                    password: {
+                        type: "string",
+                        example: "pepe"
+                    },
+                },
+            }, 
+        }
     },
 };
 
