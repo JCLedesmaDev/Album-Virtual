@@ -2,7 +2,6 @@ import config from 'config'
 import swaggerJSDoc, { OAS3Definition, OAS3Options } from "swagger-jsdoc";
 import fs from 'fs'
 import path from 'path'
-import { responseSwagger } from './swaggerComponents/responseSwagger';
 import schema from './swaggerComponents/schemas'
 import schemaDto from './swaggerComponents/schemasDto'
 

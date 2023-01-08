@@ -1,4 +1,26 @@
-import { responseSwagger } from "./responseSwagger"
+/* Creamos de manera dinamica la respuesta que brindara el Swagger */
+type typeError = 'Success' | 'Error'
+const responseSwagger = (type: typeError, msg: string, data?: any) => ({
+    type: "object",
+    properties: {
+        info: {
+            type: "object",
+            properties: {
+                type: {
+                    type: "string",
+                    example: type
+                },
+                msg: {
+                    type: "string",
+                    example: msg
+                },
+                ...(data && {
+                    data: data
+                })
+            }
+        }
+    }
+})
 
 const login = {
     data: {
@@ -24,7 +46,6 @@ const login = {
     }),
     error: responseSwagger('Error', 'Ha ocurrido un error al iniciar sesion')
 }
-
 const register = {
     data: {
         type: "object",
