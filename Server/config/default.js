@@ -4,7 +4,7 @@ module.exports = {
     mongoDb: {
         host: 'mongodb://localhost',
         port: 27017,
-        name: 'test',
+        name: 'TodoFiguras',
         password: 'X'
     },
     // jwt_secret: 'X',
