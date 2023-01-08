@@ -20,43 +20,20 @@ router.use(mockHandler)
  *        content:
  *          application/json:
  *            schema:
- *              $ref: "#/components/schemasDto/userLogin"
+ *              $ref: "#/components/schemasDto/loginData"
  *      responses:
  *        '200':
  *          description: Retorna los datos del Usr con el token.
  *          content:
  *            application/json:
  *              schema:
- *                type: object
- *                properties:
- *                  info:
- *                    type: object
- *                    properties:
- *                      type:
- *                        type: string
- *                        example: success
- *                      msg:
- *                        type: string
- *                        example: Ha logueado correctamente
- *                      data:
- *                        type: object
- *                        $ref: "#/components/schemasDto/userAuth"
+ *                $ref: "#/components/schemasDto/loginSuccess"
  *        '400':
  *          description: Error de validacion.
  *          content:
  *            application/json:
  *              schema:
- *                type: object
- *                properties:
- *                  info:
- *                    type: object
- *                    properties:
- *                      type:
- *                        type: string
- *                        example: error
- *                      msg:
- *                        type: string
- *                        example: Ha ocurrido un error
+ *                $ref: "#/components/schemasDto/loginError"
 */
 router.post('/login', validatorLogin, loginUser)
 
@@ -71,40 +48,20 @@ router.post('/login', validatorLogin, loginUser)
  *        content:
  *          application/json:
  *            schema:
- *              $ref: "#/components/schemasDto/userRegister"
+ *              $ref: "#/components/schemasDto/registerData"
  *      responses:
  *        '200':
  *          description: Retorna un mensaje cordial
  *          content:
  *            application/json:
  *              schema:
- *                type: object
- *                properties:
- *                  info:
- *                    type: object
- *                    properties:
- *                      type:
- *                        type: string
- *                        example: success
- *                      msg:
- *                        type: string
- *                        example: Se ha registrado correctamente!
+ *                $ref: "#/components/schemasDto/registerSuccess"
  *        '400':
  *          description: Error de validacion.
  *          content:
  *            application/json:
  *              schema:
- *                type: object
- *                properties:
- *                  info:
- *                    type: object
- *                    properties:
- *                      type:
- *                        type: string
- *                        example: error
- *                      msg:
- *                        type: string
- *                        example: Ha ocurrido un error
+ *                $ref: "#/components/schemasDto/registerError"
 */
 router.post('/register', validatorRegister, registerUser)
 

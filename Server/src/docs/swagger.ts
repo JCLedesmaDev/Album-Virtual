@@ -2,6 +2,9 @@ import config from 'config'
 import swaggerJSDoc, { OAS3Definition, OAS3Options } from "swagger-jsdoc";
 import fs from 'fs'
 import path from 'path'
+import { responseSwagger } from './swaggerComponents/responseSwagger';
+import schema from './swaggerComponents/schemas'
+import schemaDto from './swaggerComponents/schemasDto'
 
 /* Obtener la url de los index de cada service */
 const pathRoutes = path.join(__dirname, '../services')
@@ -14,7 +17,6 @@ fs.readdirSync(pathRoutes).filter(folder => {
     arrApiUrl.push(`${pathRoutes}\\${folder}\\index.ts`)
 })
 /* Obtener la url de los index de cada service */
-
 
 const swaggerDefinition: OAS3Definition = {
     openapi: "3.0.0",
@@ -35,66 +37,19 @@ const swaggerDefinition: OAS3Definition = {
         //     },
         // },
         schemas: {
-            user: {
-                type: "object",
-                properties: {
-                    fullName: { type: "string" },
-                    id: { type: "string" },
-                    email: { type: "string" },
-                    roles: {
-                        type: "array",
-                        items: { $ref: "#/components/schemas/rol" }
-                    }
-                }
-            },
-            rol: {
-                type: "object",
-                properties: {
-                    name: { type: "string" },
-                    id: { type: "string" },
-                }
-            }
+            user: schema.user,
+            rol: schema.rol
         },
         schemasDto: {
-            userLogin: {
-                type: "object",
-                required: ["email", "password"],
-                properties: {
-                    email: {
-                        type: "string",
-                        example: "lalala@gmail.com"
-                    },
-                    password: {
-                        type: "string",
-                        example: "pepe"
-                    },
-                },
-            },
-            userAuth: {
-                type: "object",
-                properties: {
-                    token: { type: "string" },
-                    user: { $ref: "#/components/schemas/user" }
-                }
-            },
-            userRegister: {
-                type: "object",
-                required: ["email","fullName", "password"],
-                properties: {
-                    email: {
-                        type: "string",
-                        example: "lalala@gmail.com"
-                    },
-                    fullName: {
-                        type: "string",
-                        example: "Pepe Quito"
-                    },
-                    password: {
-                        type: "string",
-                        example: "pepe"
-                    },
-                },
-            }, 
+            // Login
+            loginData: schemaDto.login.data,
+            loginSuccess: schemaDto.login.success,
+            loginError: schemaDto.login.error,
+            
+            // Regoster
+            registerData: schemaDto.register.data,
+            registerSuccess: schemaDto.register.success,
+            registerError: schemaDto.register.error,
         }
     },
 };
