@@ -1,4 +1,7 @@
 🕐 Agregar en el validator la comparacion de ambas contraseñas ya sea por custom validator o no
 🕐 Ver como ponia los mensajes con el ValidatorExpress en Teco
 🕐 Ver sobre como agregar en el express-validators la validacion de JWT 
+
+🕐 Cuando haga lo de validar las rutas por si estoy logueado o no o por roles, tener en cuenta el middle de "headersHandler" 
+
 👍
