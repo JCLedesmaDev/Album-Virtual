@@ -1,6 +1,7 @@
 import { IUserCollection } from "../../models/collections/User";
 import collections from "../../models/index.models"
 import { ApplicationError } from "../../utils/applicationError";
+import { IRegisterDto } from "./dto/frontToBack/IRegister.dto";
 
 /**
  * Obtener usuario por determinado campo
@@ -16,6 +17,23 @@ const getUserByField = async (field: string, value: string): Promise<IUserCollec
     }
 }
 
+/**
+ * Crear un Usuario en la coleccion
+ * @param payload Datos del futuro usuario.
+ */
+const createUser = async (payload: IRegisterDto): Promise<void> => {    
+    try {
+        await collections.Users.create({
+            email: payload.email,
+            fullName: payload.fullName,
+            password: payload.password,
+        })
+    } catch (error) {
+        throw new ApplicationError('Ha ocurrido un error al crear un usuario', error);
+    }
+}
+
 export default {
-    getUserByField
+    getUserByField,
+    createUser
 }

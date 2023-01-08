@@ -6,7 +6,7 @@
  * @param data Datos de respuesta
  * @returns Objeto response 
  */
-const response = <typeData>(type: string, message: string, data: typeData) => {
+const response = <typeData>(type: string, message: string, data?: typeData) => {
     const res = {
         info: {
             type: type,
@@ -27,7 +27,7 @@ const response = <typeData>(type: string, message: string, data: typeData) => {
  * @param data Datos de respuesta.
  * @returns Objeto generico de respuesta.
  */
-const success = <typeData>(message: string, data: typeData) => {
+const success = <typeData>(message: string, data?: typeData) => {
     return response<typeData>('success', message, data)
 }
 
@@ -37,7 +37,7 @@ const success = <typeData>(message: string, data: typeData) => {
  * @param data Datos de respuesta.
  * @returns Objeto generico de respuesta.
  */
-const error = <typeData>(message: string, data: typeData) => {
+const error = <typeData>(message: string, data?: typeData) => {
     return response<typeData>('error', message, data)
 }
 

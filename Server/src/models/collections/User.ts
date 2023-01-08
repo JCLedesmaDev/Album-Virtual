@@ -8,7 +8,6 @@ export interface IUserCollection extends Document {
     fullName: string;
     email: string;
     password: string;
-    passwordSalt: string;
     roles: ObjectId[] | IRolCollection[];
     albumList: ObjectId[] | IUserAlbumCollection[];
 }
@@ -17,11 +16,6 @@ const UserSchema = new Schema<IUserCollection>({
     fullName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    passwordSalt: {
-        type: String,
-        required: true,
-        // default: "Soy la descripcion", 
-    },
     roles: [{ type: Types.ObjectId, ref: "Roles" }],
     albumList: [{ type: Types.ObjectId, ref: "UserAlbumes" }]
 }, {
