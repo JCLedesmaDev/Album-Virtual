@@ -14,8 +14,8 @@ const RegisterDbSchema = new Schema<IRegisterBDCollection>({
     type: { type: String, required: true },
     date: { type: Date, required: true },
     request: { type: Object, required: true },
+    response: { type: Object, required: true },
     user: { type: String },
-    response: { type: Object }
 
 }, {
     timestamps: true, // Nos crea un campo mas con la fecha de creacion y actualizacion del registro

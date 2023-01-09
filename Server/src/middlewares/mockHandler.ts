@@ -8,7 +8,7 @@ import fs from 'fs'
     Enviar dentro del header un 'mockmode' == true
    */
 const mockHandler = (req: Request, res: Response, next: NextFunction) => {
-    if (req.headers.mockmode === 'true') {
+    if (req.locals.mockmode === 'true') {
         console.log('req.originalUrl: 👉', req.originalUrl)
 
         const splitArr = req.originalUrl.split('/')

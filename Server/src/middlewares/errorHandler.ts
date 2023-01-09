@@ -11,16 +11,16 @@ const errorHandler = async (err: ApplicationError, req: Request, res: Response, 
         console.log("🚀 ---------------------------------------------------")
         const requestInfo = {
             headers: req.headers,
-            body: req.body,
+            body: req.locals.info,
             params: req.params,
             url: req.url
         }
-        await logger.insertLoggerDB(
-            req.headers.legajo as string,  // TODO: Cambiar legajo por Id Usuario
-            'Error',
-            requestInfo,
-            { ...err, stack: err.stack }
-        )
+        await logger.insertLoggerDB({
+            usuarioId: req.headers.legajo as string,  // TODO: Cambiar legajo por Id Usuario
+            tipo: 'Error',
+            request: requestInfo,
+            response: { ...err, stack: err.stack }
+        })
         res.status(err.status).json(
             responseMessage.error<any>(err.message)
         )
