@@ -5,8 +5,10 @@ import logger from '../helpers/loggerBD'
 
 // eslint-disable-next-line no-unused-vars
 const errorHandler = async (err: ApplicationError, req: Request, res: Response, next: NextFunction) => {
-
     try {
+        console.log("🚀 ---------------------------------------------------")
+        console.log("🚀 ~ file: errorHandler.ts:8 ~ errorHandler ~ err", err)
+        console.log("🚀 ---------------------------------------------------")
         const requestInfo = {
             headers: req.headers,
             body: req.body,
@@ -16,17 +18,16 @@ const errorHandler = async (err: ApplicationError, req: Request, res: Response, 
         await logger.insertLoggerDB(
             req.headers.legajo as string,  // TODO: Cambiar legajo por Id Usuario
             'Error',
-            req.url,
             requestInfo,
             { ...err, stack: err.stack }
         )
-        return res.status(err.status ?? 200).json(
-            responseMessage.error(err.message)
+        res.status(err.status).json(
+            responseMessage.error<any>(err.message)
         )
     } catch (error) {
         console.log("OCURRIO UN ERROR", error)
-        return res.status(200).json(
-            responseMessage.error('Error interno')
+        res.status(500).json(
+            responseMessage.error<any>('Error interno', error)
         )
     }
 }

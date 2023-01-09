@@ -37,10 +37,9 @@ const loginUser = async (payload: ILoginDto) => {
 
 const registerUser = async (payload: IRegisterDto) => {
     try {
-
         const user = await externalDb.getUserByField('email', payload.email);
 
-        if (user === null) {
+        if (user !== null) {
             throw new ApplicationError('Este email, ya ha sido utilizado. Intentelo con otro.');
         }
 

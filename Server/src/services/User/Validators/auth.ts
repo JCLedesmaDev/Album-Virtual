@@ -9,7 +9,7 @@ const validatorRegister = [
     check("password", "Este campo es requerido").exists().notEmpty().isLength({ max: 15, min: 3 }),
 
     // TODO: Agregar comparacion de contrasñas
-    check("confirmPassword", "Este campo es requerido").exists().notEmpty().isLength({ max: 15, min: 3 }), 
+    // check("confirmPassword", "Este campo es requerido").exists().notEmpty().isLength({ max: 15, min: 3 }), 
     (req:Request, res: Response, next: NextFunction) => validateResults(req, res, next)
 ]
 

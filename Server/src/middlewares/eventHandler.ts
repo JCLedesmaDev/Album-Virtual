@@ -17,7 +17,7 @@ const eventHandler = async (req: Request, res: Response, next: NextFunction) => 
         'Evento',
         req.url,
         requestInfo,
-        res.locals.result ?? ''
+        res.locals.result ?? {}
     )
     next()
 }

@@ -5,7 +5,6 @@ import mongoosePaginate from 'mongoose-paginate-v2'
 export interface IRegisterBDCollection extends Document {
     type: string;
     user: string;
-    feacture: string;
     date: Date;
     request: any;
     response: any;
@@ -13,11 +12,10 @@ export interface IRegisterBDCollection extends Document {
 
 const RegisterDbSchema = new Schema<IRegisterBDCollection>({
     type: { type: String, required: true },
-    user: { type: String, required: true },
-    feacture: { type: String, required: true },
     date: { type: Date, required: true },
-    request: { type: String, required: true },
-    response: { type: String, required: true }
+    request: { type: Object, required: true },
+    user: { type: String },
+    response: { type: Object }
 
 }, {
     timestamps: true, // Nos crea un campo mas con la fecha de creacion y actualizacion del registro

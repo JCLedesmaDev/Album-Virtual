@@ -9,7 +9,7 @@ router.use(mockHandler)
 
 /** 
  * @swagger
- * /login:
+ * /api/user/login:
  *    post:
  *      tags: [Usuario]  
  *      summary: "Iniciar sesion"
@@ -37,7 +37,7 @@ router.post('/login', validatorLogin, loginUser)
 
 /** 
  * @swagger
- * /register:
+ * /api/user/register:
  *    post:
  *      tags: [Usuario]  
  *      summary: "Registrarse"

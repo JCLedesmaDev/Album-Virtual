@@ -15,7 +15,7 @@ export class ApplicationError extends Error {
 
     this.name = this.constructor.name
     this.message = message || 'Algo salio mal'
-    this.status = 200
+    this.status = 500
     if (source)
       this.source = {
         message: source.message ?? source,
