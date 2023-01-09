@@ -18,7 +18,7 @@ const loginUser = async (payload: ILoginDto) => {
             throw new ApplicationError('Usuario inexistente. Intentelo nuevamente');
         }
 
-        const comparePassword = await bcrypt.compare(user.password, payload.password)
+        const comparePassword = await bcrypt.compare(payload.password, user.password)
 
         if (!comparePassword) {
             throw new ApplicationError('Contraseña incorrecta. Intentelo nuevamente')
