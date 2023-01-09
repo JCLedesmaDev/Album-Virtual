@@ -5,9 +5,10 @@ import bcryptJs from 'bcryptjs'
  * @param {*} passwordPlain
  * @returns Retorna la contraseña encriptada
  */
-const encrypt = async (passwordPlain: string): Promise<string> => (
-    await bcryptJs.hash(passwordPlain, generateStringRandom(10))
-)
+const encrypt = async (passwordPlain: string): Promise<string> => {
+    const salt = await bcryptJs.genSalt(10)
+    return await bcryptJs.hash(passwordPlain, salt)
+}
 
 /**
  * Compara la contrasena recibia con la que tenemos en BD

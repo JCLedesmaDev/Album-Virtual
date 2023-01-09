@@ -7,7 +7,7 @@ import logic from './logic'
 
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
 
-    req.locals.params = req.body // Se utiliza en el eventHandler
+    req.locals.info = req.body // Se utiliza en el eventHandler
     
     //Almacenamos en "payload", los datos que cumplieron con el Validators y evita captar datos extras sin contemplar
     const payload: ILoginDto = matchedData(req) as ILoginDto
@@ -20,7 +20,7 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
 
 const registerUser = async (req: Request, res: Response, next: NextFunction) => {
 
-    req.locals.params = req.body // Se utiliza en el eventHandler
+    req.locals.info = req.body // Se utiliza en el eventHandler
     
     //Almacenamos en "payload", los datos que cumplieron con el Validators y evita captar datos extras sin contemplar
     const payload: IRegisterDto = matchedData(req) as IRegisterDto
