@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import path from 'path'
 import fs from 'fs'
+import responseMessage from '../utils/responseMessage'
 
 /* Para utilizar este middle, debemos tener dentro del servicio, una carpeta llamada mocks y dentro un archivo con el mismo nombre
    de la ruta del controller del cual queremos mockear los datos,
@@ -38,7 +39,7 @@ const mockHandler = (req: Request, res: Response, next: NextFunction) => {
         if (!fs.existsSync(filePath)) return next()
 
         const data = fs.readFileSync(filePath).toString()
-        res.status(200).json(JSON.parse(data))
+        res.json(responseMessage.success<any>('MockMode: True', JSON.parse(data)))
     } else {
         next()
     }
