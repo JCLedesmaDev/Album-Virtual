@@ -3,7 +3,7 @@
 🕐 Aprender a poner las rutas con Seguridad en swagger
 
 🕐 Hacer que el usuario creado tenga roles por defecto
-
+🕐 Corregir los responseMessage para que los parametros sean un obj y no por separados
 
 👍 Realizar el swagger de la auth
 👍

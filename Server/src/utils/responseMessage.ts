@@ -1,44 +1,51 @@
 
+interface IResponseType<TypeData> {
+    message: string;
+    data?: TypeData
+}
+interface IResponseMethod<TypeData> extends IResponseType<TypeData> {
+    typeResponse: string
+}
+
 /**
  * Funcion que crea el DTO para el front
- * @param type Tipo de respuesta
- * @param message Mensaje de respuesta
- * @param data Datos de respuesta
- * @returns Objeto response 
+ * @param infoResponse Objeto que contiene props: "message"; "data"; "typeResponse"
+ * @params typeData: Se pasa por parametro el tipo de dato que sera "data"
+ * @returns Objeto generico de respuesta.
  */
-const response = <typeData>(type: string, message: string, data?: typeData) => {
-    const res = {
+const response = <typeData>(infoResponse: IResponseMethod<typeData>) => {
+    const { data, message, typeResponse } = infoResponse
+    return {
         info: {
-            type: type,
+            type: typeResponse,
             msg: message,
-            // ...
             ...(data && {
                 data: data
             })
         },
     }
-    // if (data) res.info.data = data
-    return res
 }
 
 /**
  * Mensaje de respuesta de peticion 200.
- * @param message Mensaje de cordialidad
- * @param data Datos de respuesta.
+ * @param info Objeto que contiene props: "message"; "data";
+ * @params typeData: Se pasa por parametro el tipo de dato que sera "data"
  * @returns Objeto generico de respuesta.
  */
-const success = <typeData>(message: string, data?: typeData) => {
-    return response<typeData>('success', message, data)
+const success = <typeData>(info: IResponseType<typeData>) => {
+    const { data, message } = info
+    return response<typeData>({ typeResponse: 'success', message, data })
 }
 
 /**
  * Mensaje de respuesta de peticion 400 - 500.
- * @param message Mensaje de cordialidad
- * @param data Datos de respuesta.
+ * @param info Objeto que contiene props: "message"; "data";
+ * @params typeData: Se pasa por parametro el tipo de dato que sera "data"
  * @returns Objeto generico de respuesta.
  */
-const error = <typeData>(message: string, data?: typeData) => {
-    return response<typeData>('error', message, data)
+const error = <typeData>(info: IResponseType<typeData>) => {
+    const { data, message } = info
+    return response<typeData>({ typeResponse: 'error', message, data })
 }
 
 export default {
