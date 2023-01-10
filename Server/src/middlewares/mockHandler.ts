@@ -39,7 +39,9 @@ const mockHandler = (req: Request, res: Response, next: NextFunction) => {
         if (!fs.existsSync(filePath)) return next()
 
         const data = fs.readFileSync(filePath).toString()
-        res.json(responseMessage.success<any>('MockMode: True', JSON.parse(data)))
+        res.json(responseMessage.success<any>({
+            message: 'MockMode: True', data: JSON.parse(data)
+        }))
     } else {
         next()
     }

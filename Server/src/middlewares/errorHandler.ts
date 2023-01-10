@@ -22,12 +22,12 @@ const errorHandler = async (err: ApplicationError, req: Request, res: Response, 
             response: { ...err, stack: err.stack }
         })
         res.status(err.status).json(
-            responseMessage.error<any>(err.message)
+            responseMessage.error<any>({ message: err.message })
         )
     } catch (error) {
         console.log("OCURRIO UN ERROR", error)
         res.status(500).json(
-            responseMessage.error<any>('Error interno', error)
+            responseMessage.error<any>({ message: 'Error interno', data: error })
         )
     }
 }

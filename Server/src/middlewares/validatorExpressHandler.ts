@@ -14,7 +14,9 @@ const validateResults = (req: Request, res: Response, next: NextFunction) => {
         const extractedErrors: any[] = []
         errors.array({ onlyFirstError: true })
             .map(err => extractedErrors.push({ [err.param]: err.msg }));
-        res.json(responseMessage.error<any>('Error en datos enviados', extractedErrors))
+        res.json(responseMessage.error<any>({
+            message: 'Error en datos enviados', data: extractedErrors
+        }))
     }
 }
 

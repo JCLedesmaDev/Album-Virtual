@@ -26,9 +26,9 @@ const loginUser = async (payload: ILoginDto) => {
 
         const userMapper: IAuthDto = await mapper.singleUserAuth(user)
 
-        return responseMessage.success<IAuthDto>(
-            'Ha iniciado sesion correctamente!', userMapper
-        )
+        return responseMessage.success<IAuthDto>({
+            message: 'Ha iniciado sesion correctamente!', data: userMapper
+        })
 
     } catch (error) {
         throw new ApplicationError("Ocurrio un error al querer iniciar sesion.", error);
@@ -46,11 +46,13 @@ const registerUser = async (payload: IRegisterDto) => {
         const passwordHash = await bcrypt.encrypt(payload.password)
 
         await externalDb.createUser({
-            ...payload, 
+            ...payload,
             password: passwordHash
         })
 
-        return responseMessage.success('Se ha registrado correctamente!')
+        return responseMessage.success({
+            message: 'Se ha registrado correctamente!'
+        })
     } catch (error) {
         throw new ApplicationError("Ocurrio un error al querer registrarse.", error);
     }
