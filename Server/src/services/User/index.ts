@@ -1,5 +1,5 @@
 import express from "express";
-import 'express-async-errors' 
+// require( 'express-async-errors') 
 
 import { loginUser, registerUser } from './controller'
 import { validatorLogin, validatorRegister } from './validators/auth'

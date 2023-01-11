@@ -6,29 +6,31 @@ import responseMessage from "../../utils/responseMessage"
 import mapper from './mapper.dto'
 import { IAuthDto } from "./dto/backToFront/IAuth.dto"
 import { IRegisterDto } from "./dto/frontToBack/IRegister.dto"
+import { NextFunction } from "express"
 
 const loginUser = async (payload: ILoginDto) => {
     try {
 
-    const user = await externalDb.getUserByField('email', payload.email);
+        const user = await externalDb.getUserByField('email', payload.email);
 
-    if (user === null) {
-        throw new ApplicationError('Usuario inexistente. Intentelo nuevamente');
-    }
+        if (user === null) {
+            throw new ApplicationError('Usuario inexistente. Intentelo nuevamente');
+        }
 
-    const comparePassword = await bcrypt.compare(payload.password, user.password)
+        const comparePassword = await bcrypt.compare(payload.password, user.password)
 
-    if (!comparePassword) {
-        throw new ApplicationError('Contraseña incorrecta. Intentelo nuevamente')
-    }
+        if (!comparePassword) {
+            throw new ApplicationError('Contraseña incorrecta. Intentelo nuevamente')
+        }
 
-    const userMapper: IAuthDto = await mapper.singleUserAuth(user)
+        const userMapper: IAuthDto = await mapper.singleUserAuth(user)
 
-    return responseMessage.success<IAuthDto>({
-        message: 'Ha iniciado sesion correctamente!', data: userMapper
-    })
+        return responseMessage.success<IAuthDto>({
+            message: 'Ha iniciado sesion correctamente!', data: userMapper
+        })
 
     } catch (error: any) {
+        // next(error)
         throw new ApplicationError("Ocurrio un error al querer iniciar sesion.", error);
     }
 }
@@ -52,6 +54,7 @@ const registerUser = async (payload: IRegisterDto) => {
             message: 'Se ha registrado correctamente!'
         })
     } catch (error) {
+        // next(error)
         throw new ApplicationError("Ocurrio un error al querer registrarse.", error);
     }
 }
