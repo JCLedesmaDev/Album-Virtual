@@ -15,6 +15,7 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     req.locals.result = data // Se utiliza en el eventHandler
     res.json(data)
     next()
+    // return next()
 }
 
 const registerUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -23,10 +24,15 @@ const registerUser = async (req: Request, res: Response, next: NextFunction) => 
     const payload: IRegisterDto = matchedData(req) as IRegisterDto
 
     req.locals.info = payload // Se utiliza en el eventHandler
-    const data = await logic.registerUser(payload)
+    const data = await logic.registerUser(payload, next)
     req.locals.result = data // Se utiliza en el eventHandler
-    res.json(data)
-    next()
+    
+    if (data.error?.stack) {
+        
+    }
+    // Al poner un next en el catch de logic, me tira error con estos 2 de abajo
+    // res.json(data)
+    // next()
 }
 
 export {

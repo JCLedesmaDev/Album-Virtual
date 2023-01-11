@@ -17,7 +17,8 @@ const eventHandler = async (req: Request, res: Response, next: NextFunction) => 
         request: requestInfo,
         response: req.locals.result
     })
-    next()
+    // next()
+    return next()
 }
 
 export {

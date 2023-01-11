@@ -2,6 +2,12 @@ interface ISource {
   message: string;
   stack: string;
 }
+
+interface IConstructor {
+  message: string;
+  source: any
+}
+
 export class ApplicationError extends Error {
   name: string;
   status: number;

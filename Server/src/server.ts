@@ -29,6 +29,12 @@ function startServer(PORT: number) {
     app.use('/api', indexRoutes)
     app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerSetup))
 
+    // REspuesta del Back cuando se le pegue a una ruta no existente.
+    // app.use("*", (req: Request, res: Response, next: NextFunction) => {
+    //     const err = Error(`Requested path ${req.path} not found`);
+    //     next(err);
+    //     });
+
     app.use(eventHandler)
     app.use(errorHandler)
 

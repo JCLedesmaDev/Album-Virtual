@@ -35,7 +35,10 @@ const loginUser = async (payload: ILoginDto) => {
     }
 }
 
-const registerUser = async (payload: IRegisterDto) => {
+
+// https://diegooo.com/errores-en-nodejs-manejo-nivel-profesional/
+// https://medium.com/@aarnlpezsosa/middleware-de-manejo-de-errores-32b706dd1bc6
+const registerUser = async (payload: IRegisterDto, next: NextFunction) => {
     try {
         const user = await externalDb.getUserByField('email', payload.email);
 
@@ -55,7 +58,9 @@ const registerUser = async (payload: IRegisterDto) => {
         })
     } catch (error) {
         // next(error)
-        throw new ApplicationError("Ocurrio un error al querer registrarse.", error);
+        // throw new ApplicationError("", error);
+        // return next(error)
+        return { error }
     }
 }
 
