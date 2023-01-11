@@ -1,14 +1,14 @@
 import { Request, Response, NextFunction } from 'express'
-import { ApplicationError } from '../utils/applicationError'
 import responseMessage from '../utils/responseMessage'
 import logger from '../helpers/loggerBD'
 
 // eslint-disable-next-line no-unused-vars
-const errorHandler = async (err: ApplicationError, req: Request, res: Response, next: NextFunction) => {
+// const errorHandler = async (err: ApplicationError, req: Request, res: Response, next: NextFunction) => {
+const errorHandler = async (err: Error, req: Request, res: Response, next: NextFunction) => {
     try {
-        console.log("🚀 ---------------------------------------------------")
-        console.log("🚀 ~ file: errorHandler.ts:8 ~ errorHandler ~ err", err)
-        console.log("🚀 ---------------------------------------------------")
+        // console.log("🚀 ---------------------------------------------------")
+        // console.log("🚀 ~ file: errorHandler.ts:8 ~ errorHandler ~ err", err)
+        // console.log("🚀 ---------------------------------------------------")
         const requestInfo = {
             headers: req.headers,
             body: req.locals.info,
@@ -21,7 +21,10 @@ const errorHandler = async (err: ApplicationError, req: Request, res: Response, 
             request: requestInfo,
             response: { ...err, stack: err.stack }
         })
-        res.status(err.status).json(
+
+        // res.status(err.status).json(
+        res.json(
+            // responseMessage.error<any>({ message: err.source.message || err.message })
             responseMessage.error<any>({ message: err.message })
         )
     } catch (error) {
