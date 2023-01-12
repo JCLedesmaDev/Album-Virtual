@@ -6,8 +6,6 @@ import responseMessage from "../../utils/responseMessage"
 import mapper from './mapper.dto'
 import { IAuthDto } from "./dto/backToFront/IAuth.dto"
 import { IRegisterDto } from "./dto/frontToBack/IRegister.dto"
-import { NextFunction } from "express"
-
 const loginUser = async (payload: ILoginDto) => {
     try {
 
@@ -38,7 +36,7 @@ const loginUser = async (payload: ILoginDto) => {
 
 // https://diegooo.com/errores-en-nodejs-manejo-nivel-profesional/
 // https://medium.com/@aarnlpezsosa/middleware-de-manejo-de-errores-32b706dd1bc6
-const registerUser = async (payload: IRegisterDto, next: NextFunction) => {
+const registerUser = async (payload: IRegisterDto) => {
     try {
         const user = await externalDb.getUserByField('email', payload.email);
 
@@ -53,13 +51,10 @@ const registerUser = async (payload: IRegisterDto, next: NextFunction) => {
             password: passwordHash
         })
 
-        return responseMessage.success({
+        return responseMessage.success<any>({
             message: 'Se ha registrado correctamente!'
         })
-    } catch (error) {
-        // next(error)
-        // throw new ApplicationError("", error);
-        // return next(error)
+    } catch (error: any) {
         return { error }
     }
 }
@@ -68,3 +63,10 @@ export default {
     loginUser,
     registerUser
 }
+
+// import { Request, Response, NextFunction } from "express";
+// export const asyncWrapper = (fn: any) => {
+//     return (req: Request, res: Response, next: NextFunction) => {
+//         Promise.resolve(fn(req, res, next)).catch((err) => next(err));
+//     };
+// }

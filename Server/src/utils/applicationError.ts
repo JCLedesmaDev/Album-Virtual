@@ -19,7 +19,7 @@ export class ApplicationError extends Error {
 
     
     this.name = this.constructor.name
-    this.message = message || ''
+    this.message = message || 'Ocurrio un error al querer hacer esta operacion'
     this.status = 500
     if (source) {
       this.source = {

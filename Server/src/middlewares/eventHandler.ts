@@ -13,14 +13,12 @@ const eventHandler = async (req: Request, res: Response, next: NextFunction) => 
 
     await logger.insertLoggerDB({
         usuarioId: req.headers.legajo as string, /// TODO: Cambiar legajo por Id Usuario
-        tipo:'Evento',
+        tipo: 'Evento',
         request: requestInfo,
         response: req.locals.result
     })
-    // next()
+
     return next()
 }
 
-export {
-    eventHandler
-} 
+export { eventHandler } 

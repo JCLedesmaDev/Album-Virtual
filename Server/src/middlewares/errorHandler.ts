@@ -37,6 +37,4 @@ const errorHandler = async (err: ApplicationError, req: Request, res: Response, 
     }
 }
 
-export {
-    errorHandler
-}
+export { errorHandler }

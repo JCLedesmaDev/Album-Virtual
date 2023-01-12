@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { matchedData } from 'express-validator'
+import { ApplicationError } from "../../utils/applicationError";
+import { IResponseMethod } from "../../utils/responseMessage";
 import { ILoginDto } from "./dto/frontToBack/ILogin.dto";
 import { IRegisterDto } from "./dto/frontToBack/IRegister.dto";
 import logic from './logic'
@@ -24,15 +26,15 @@ const registerUser = async (req: Request, res: Response, next: NextFunction) => 
     const payload: IRegisterDto = matchedData(req) as IRegisterDto
 
     req.locals.info = payload // Se utiliza en el eventHandler
-    const data = await logic.registerUser(payload, next)
+    const data: any = await logic.registerUser(payload)
     req.locals.result = data // Se utiliza en el eventHandler
     
-    if (data.error?.stack) {
-        
+    if (data.error && data.error?.stack) {
+        return next(data.error)
     }
     // Al poner un next en el catch de logic, me tira error con estos 2 de abajo
-    // res.json(data)
-    // next()
+    res.json(data)
+    next()
 }
 
 export {
