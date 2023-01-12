@@ -11,11 +11,14 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     const payload: ILoginDto = matchedData(req) as ILoginDto
 
     req.locals.info = payload // Se utiliza en el eventHandler
-    const data = await logic.loginUser(payload)
+    const data: any = await logic.loginUser(payload)
     req.locals.result = data // Se utiliza en el eventHandler
+
+    // SI es true, pasa directo hacia errorHandler
+    if (data?.error) return next(data.error)
+
     res.json(data)
     next()
-    // return next()
 }
 
 const registerUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -26,11 +29,10 @@ const registerUser = async (req: Request, res: Response, next: NextFunction) => 
     req.locals.info = payload // Se utiliza en el eventHandler
     const data: any = await logic.registerUser(payload)
     req.locals.result = data // Se utiliza en el eventHandler
-    
-    if (data.error && data.error?.stack) {
-        return next(data.error)
-    }
-    // Al poner un next en el catch de logic, me tira error con estos 2 de abajo
+
+    // SI es true, pasa directo hacia errorHandler
+    if (data?.error) return next(data.error)
+
     res.json(data)
     next()
 }

@@ -1,6 +1,4 @@
 import express from "express";
-// require( 'express-async-errors') 
-
 import { loginUser, registerUser } from './controller'
 import { validatorLogin, validatorRegister } from './validators/auth'
 import { mockHandler } from "../../middlewares/mockHandler";

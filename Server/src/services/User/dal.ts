@@ -13,7 +13,7 @@ const getUserByField = async (field: string, value: string): Promise<IUserCollec
     try {
         return await collections.Users.findOne({ [field]: value });
     } catch (error) {
-        throw new ApplicationError('Ha ocurrido un error al obtener el usuario', error);
+        throw new ApplicationError({ message: 'Ha ocurrido un error al obtener el usuario', source: error });
     }
 }
 
@@ -21,7 +21,7 @@ const getUserByField = async (field: string, value: string): Promise<IUserCollec
  * Crear un Usuario en la coleccion
  * @param payload Datos del futuro usuario.
  */
-const createUser = async (payload: IRegisterDto): Promise<void> => {    
+const createUser = async (payload: IRegisterDto): Promise<void> => {
     try {
         await collections.Users.create({
             email: payload.email,
@@ -29,7 +29,7 @@ const createUser = async (payload: IRegisterDto): Promise<void> => {
             password: payload.password,
         })
     } catch (error) {
-        throw new ApplicationError('Ha ocurrido un error al crear un usuario', error);
+        throw new ApplicationError({message: 'Ha ocurrido un error al crear un usuario', source: error});
     }
 }
 

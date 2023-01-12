@@ -3,37 +3,50 @@ import responseMessage from '../utils/responseMessage'
 import logger from '../helpers/loggerBD'
 import { ApplicationError } from '../utils/applicationError'
 
-// eslint-disable-next-line no-unused-vars
-// const errorHandler = async (err: ApplicationError, req: Request, res: Response, next: NextFunction) => {
 const errorHandler = async (err: ApplicationError, req: Request, res: Response, next: NextFunction) => {
+    const requestInfo = {
+        headers: req.headers,
+        body: req.locals.info,
+        params: req.params,
+        url: req.url
+    }
+    const responseInfo = {
+        ...err,
+        stack: err.stack
+    }    
     try {
         console.log("🚀 ---------------------------------------------------")
         console.log("🚀 ~ file: errorHandler.ts:8 ~ errorHandler ~ err", err)
         console.log("🚀 ---------------------------------------------------")
 
-        const requestInfo = {
-            headers: req.headers,
-            body: req.locals.info,
-            params: req.params,
-            url: req.url
+        if (err.source) { // Solo mandara registro a la BD, cuando sea un error proveniente de la asincronia
+            await logger.insertLoggerDB({
+                usuarioId: req.headers.legajo as string,  // TODO: Cambiar legajo por Id Usuario
+                tipo: 'Error',
+                request: requestInfo,
+                response: responseInfo
+            })
         }
-
-        await logger.insertLoggerDB({
+        return res.status(err.status).json(
+            responseMessage.error<any>({ message: err.message })
+        )
+    } catch (error: any) {
+        const errorInfo = {
+            errInitial: responseInfo,
+            errSecundary: {
+                ...error,
+                stack: error.stack
+            }
+        }
+        res.status(500).json(responseMessage.error<any>({
+            message: 'Ocurrio un error interno. En breve estara resuelto'
+        }))
+        return await logger.insertLoggerDB({
             usuarioId: req.headers.legajo as string,  // TODO: Cambiar legajo por Id Usuario
             tipo: 'Error',
             request: requestInfo,
-            response: { ...err, stack: err.stack }
+            response: errorInfo
         })
-
-        return res.status(err.status).json(
-            // responseMessage.error<any>({ message: err.source.message || err.message })
-            responseMessage.error<any>({ message: err.message })
-        )
-    } catch (error) {
-        console.log("OCURRIO UN ERROR", error)
-        return res.status(err.status).json(
-            responseMessage.error<any>({ message: 'Error interno', data: error })
-        )
     }
 }
 

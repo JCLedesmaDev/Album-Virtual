@@ -21,7 +21,7 @@ const insertLoggerDB = async (infoLooger: ILogger) => {
             user: usuarioId || '',
         })
     } catch (error) {
-        throw new ApplicationError("Ocurrio un error al querer loggear la info.", error);
+        throw new ApplicationError({message: "Ocurrio un error al querer loggear la info.", source: error});
     }
 }
 

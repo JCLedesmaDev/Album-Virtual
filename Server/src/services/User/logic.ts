@@ -6,79 +6,52 @@ import responseMessage from "../../utils/responseMessage"
 import mapper from './mapper.dto'
 import { IAuthDto } from "./dto/backToFront/IAuth.dto"
 import { IRegisterDto } from "./dto/frontToBack/IRegister.dto"
+import { tryCatchWrapper } from "../../utils/tryCatchWrapper"
 
 
-const loginUser = async (payload: ILoginDto) => {
-    try {
+const loginUser = tryCatchWrapper(async (payload: ILoginDto) => {
 
-        const user = await externalDb.getUserByField('email', payload.email);
+    const user = await externalDb.getUserByField('email', payload.email);
 
-        if (user === null) {
-            throw new ApplicationError('Usuario inexistente. Intentelo nuevamente');
-        }
-
-        const comparePassword = await bcrypt.compare(payload.password, user.password)
-
-        if (!comparePassword) {
-            throw new ApplicationError('Contraseña incorrecta. Intentelo nuevamente')
-        }
-
-        const userMapper: IAuthDto = await mapper.singleUserAuth(user)
-
-        return responseMessage.success<IAuthDto>({
-            message: 'Ha iniciado sesion correctamente!', data: userMapper
-        })
-
-    } catch (error: any) {
-        // next(error)
-        throw new ApplicationError("Ocurrio un error al querer iniciar sesion.", error);
+    if (user === null) {
+        throw new ApplicationError({ message: 'Usuario inexistente. Intentelo nuevamente' });
     }
-}
 
-// https://diegooo.com/errores-en-nodejs-manejo-nivel-profesional/
-// https://medium.com/@aarnlpezsosa/middleware-de-manejo-de-errores-32b706dd1bc6
-const registerUser = async (payload: IRegisterDto) => {
-    try {
-        const user = await externalDb.getUserByField('email', payload.email);
+    const comparePassword = await bcrypt.compare(payload.password, user.password)
 
-        if (user !== null) {
-            throw new ApplicationError('Este email, ya ha sido utilizado. Intentelo con otro.');
-        }
-
-        const passwordHash = await bcrypt.encrypt(payload.password)
-
-        await externalDb.createUser({
-            ...payload,
-            password: passwordHash
-        })
-
-        return responseMessage.success<any>({
-            message: 'Se ha registrado correctamente!'
-        })
-    } catch (error: any) {
-        return { error }
+    if (!comparePassword) {
+        throw new ApplicationError({ message: 'Contraseña incorrecta. Intentelo nuevamente' })
     }
-}
+
+    const userMapper: IAuthDto = await mapper.singleUserAuth(user)
+
+    return responseMessage.success<IAuthDto>({
+        message: 'Ha iniciado sesion correctamente!', data: userMapper
+    })
+})
+
+
+const registerUser = tryCatchWrapper(async (payload: IRegisterDto) => {
+
+    const user = await externalDb.getUserByField('email', payload.email);
+
+    if (user !== null) {
+        throw new ApplicationError({ message: 'Este email, ya ha sido utilizado. Intentelo con otro.' });
+    }
+
+    const passwordHash = await bcrypt.encrypt(payload.password)
+
+    await externalDb.createUser({
+        ...payload,
+        password: passwordHash
+    })
+
+    return responseMessage.success<any>({
+        message: 'Se ha registrado correctamente!'
+    })
+})
 
 export default {
     loginUser,
     registerUser
-}
-
-// import { Request, Response, NextFunction } from "express";
-// export const asyncWrapper = (fn: any) => {
-//     return (req: Request, res: Response, next: NextFunction) => {
-//         Promise.resolve(fn(req, res, next)).catch((err) => next(err));
-//     };
-// }
-
-// Idea para omitir constantemente el tryCatch
-export const tryCatchHandler = (callback: any) => {
-    return async () => {
-        try {
-            return await callback()
-        } catch (error: any) {
-            return { error }
-        }
-    }
 }
