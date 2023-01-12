@@ -6,6 +6,7 @@ import indexRoutes from './routes/index.routes'
 import { headersHandler } from './middlewares/headersHandler';
 import { errorHandler } from './middlewares/errorHandler';
 import { eventHandler } from './middlewares/eventHandler';
+import { notFoundRouterHandler } from './middlewares/notFoundRouteHandler';
 import swaggerUi from "swagger-ui-express";
 import swaggerSetup from "./docs/swagger";
 
@@ -29,11 +30,7 @@ function startServer(PORT: number) {
     app.use('/api', indexRoutes)
     app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerSetup))
 
-    // TODO: REspuesta del Back cuando se le pegue a una ruta no existente - Hacerlo middleware.
-    // app.use("*", (req: Request, res: Response, next: NextFunction) => {
-    //     const err = Error(`Requested path ${req.path} not found`);
-    //     next(err);
-    //     });
+    app.use("*", notFoundRouterHandler);
 
     app.use(eventHandler)
     app.use(errorHandler)
