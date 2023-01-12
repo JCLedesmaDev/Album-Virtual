@@ -1,6 +1,4 @@
-import 'express-async-errors' 
 import bcryptJs from 'bcryptjs'
-import { ApplicationError } from './applicationError';
 
 /**
  * Contraseña sin encriptar
@@ -8,13 +6,8 @@ import { ApplicationError } from './applicationError';
  * @returns Retorna la contraseña encriptada
  */
 const encrypt = async (passwordPlain: string): Promise<string> => {
-    try {
-        const salt = await bcryptJs.genSalt(10)
-        // return await bcryptJs.hash(passwordPlain, salt)
-        return await bcryptJs.hash(passwordPlain, 'asdqwdas')
-    } catch (error) {
-        throw new ApplicationError("A", error);        
-    }
+    const salt = await bcryptJs.genSalt(10)
+    return await bcryptJs.hash(passwordPlain, salt)
 }
 
 /**

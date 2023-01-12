@@ -3,6 +3,7 @@ import { IRolCollection } from '../models/collections/Rol'
 import { IUserCollection } from '../models/collections/User'
 import mapper from '../services/user/mapper.dto'
 import config from 'config'
+import { ApplicationError } from './applicationError'
 
 /**
  * A partir de los datos del usuario, crea un token que expira en 1h 
@@ -35,7 +36,7 @@ const verifyToken = (tokenJwt: string) => {
     try {
         return jwt.verify(tokenJwt, config.get('jwt_secret'))
     } catch (error) {
-        return null
+        throw new ApplicationError({message: 'Ocurrio un error de autenticacion.', source: error}); 
     }
 }
 
