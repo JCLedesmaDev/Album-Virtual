@@ -6,6 +6,8 @@ import responseMessage from "../../utils/responseMessage"
 import mapper from './mapper.dto'
 import { IAuthDto } from "./dto/backToFront/IAuth.dto"
 import { IRegisterDto } from "./dto/frontToBack/IRegister.dto"
+
+
 const loginUser = async (payload: ILoginDto) => {
     try {
 
@@ -32,7 +34,6 @@ const loginUser = async (payload: ILoginDto) => {
         throw new ApplicationError("Ocurrio un error al querer iniciar sesion.", error);
     }
 }
-
 
 // https://diegooo.com/errores-en-nodejs-manejo-nivel-profesional/
 // https://medium.com/@aarnlpezsosa/middleware-de-manejo-de-errores-32b706dd1bc6
@@ -70,3 +71,14 @@ export default {
 //         Promise.resolve(fn(req, res, next)).catch((err) => next(err));
 //     };
 // }
+
+// Idea para omitir constantemente el tryCatch
+export const tryCatchHandler = (callback: any) => {
+    return async () => {
+        try {
+            return await callback()
+        } catch (error: any) {
+            return { error }
+        }
+    }
+}

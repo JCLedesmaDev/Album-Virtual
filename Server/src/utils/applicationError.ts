@@ -18,6 +18,7 @@ export class ApplicationError extends Error {
     super(message)
 
     
+    Object.setPrototypeOf(this, new.target.prototype);
     this.name = this.constructor.name
     this.message = message || 'Ocurrio un error al querer hacer esta operacion'
     this.status = 500
@@ -28,6 +29,5 @@ export class ApplicationError extends Error {
       }
     }
     Error.captureStackTrace(this, this.constructor)
-    // Object.setPrototypeOf(this, new.target.prototype);
   }
 }
