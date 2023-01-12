@@ -29,12 +29,10 @@ function startServer(PORT: number) {
 
     app.use('/api', indexRoutes)
     app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerSetup))
-
     app.use("*", notFoundRouterHandler);
 
     app.use(eventHandler)
     app.use(errorHandler)
-
 }
 
 
