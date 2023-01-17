@@ -17,7 +17,7 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     // SI es true, pasa directo hacia errorHandler
     if (data?.error) return next(data.error)
 
-    /// Ver de poner un posible res.finished = true para tomarlo en el middleware
+    req.locals.finished = true
     res.json(data)
     next()
 }
@@ -34,6 +34,7 @@ const registerUser = async (req: Request, res: Response, next: NextFunction) => 
     // SI es true, pasa directo hacia errorHandler
     if (data?.error) return next(data.error)
 
+    req.locals.finished = true // Se utiliza para prevenir el middleware de notFoundRoute
     res.json(data)
     next()
 }
