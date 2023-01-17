@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { IUserCollection } from "../../models/collections/User";
 import collections from "../../models/index.models"
 import { ApplicationError } from "../../utils/applicationError";
@@ -11,7 +12,7 @@ import { IRegisterDto } from "./dto/frontToBack/IRegister.dto";
  */
 const getUserByField = async (field: string, value: string): Promise<IUserCollection | null> => {
     try {
-        return await collections.Users.findOne({ [field]: value });
+        return await collections.Users.findOne({ [field]: value }).populate({ path: 'roles' });
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al obtener el usuario', source: error });
     }
@@ -27,9 +28,10 @@ const createUser = async (payload: IRegisterDto): Promise<void> => {
             email: payload.email,
             fullName: payload.fullName,
             password: payload.password,
+            roles: [new mongoose.Types.ObjectId('63c5d45afe1be5aea46fdada')] // Rol: User
         })
     } catch (error) {
-        throw new ApplicationError({message: 'Ha ocurrido un error al crear un usuario', source: error});
+        throw new ApplicationError({ message: 'Ha ocurrido un error al crear un usuario', source: error });
     }
 }
 

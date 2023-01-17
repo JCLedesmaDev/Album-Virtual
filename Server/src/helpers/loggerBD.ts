@@ -8,6 +8,10 @@ interface ILogger {
     response: any;
 }
 
+/**
+ * Crea un registro en la BD con los parametros ingresados.
+ * @param infoLooger  usuarioId: string; tipo: string; request: any; response: any; 
+ */
 const insertLoggerDB = async (infoLooger: ILogger) => {
     try {
         const { usuarioId, tipo, request,
@@ -21,7 +25,7 @@ const insertLoggerDB = async (infoLooger: ILogger) => {
             user: usuarioId || '',
         })
     } catch (error) {
-        throw new ApplicationError({message: "Ocurrio un error al querer loggear la info.", source: error});
+        throw new ApplicationError({ message: "Ocurrio un error al querer loggear la info.", source: error });
     }
 }
 

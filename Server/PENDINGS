@@ -2,8 +2,8 @@
 🕐 Cuando haga lo de validar las rutas por si estoy logueado o no o por roles, tener en cuenta el middle de "headersHandler" 
 🕐 Aprender a poner las rutas con Seguridad en swagger
 
-🕐 Hacer que el usuario creado tenga roles por defecto
-🕐 Corregir los responseMessage para que los parametros sean un obj y no por separados
+
+🕐 Ver como hacer lo de notFOundRouterHandler
 
 👍 Realizar el swagger de la auth
 👍

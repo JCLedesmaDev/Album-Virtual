@@ -31,7 +31,7 @@ const singleUserAuth = async (resource: IUserCollection): Promise<IAuthDto> => {
 const multipleRoles = (userRoles: IRolCollection[]): IRol[] => {
     const rolesMapper: IRol[] = userRoles.map( rol => {
         return {
-            id: rol.id,
+            id: rol._id,
             name: rol.name
         }
     })

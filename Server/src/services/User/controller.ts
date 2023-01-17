@@ -17,6 +17,7 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     // SI es true, pasa directo hacia errorHandler
     if (data?.error) return next(data.error)
 
+    /// Ver de poner un posible res.finished = true para tomarlo en el middleware
     res.json(data)
     next()
 }
