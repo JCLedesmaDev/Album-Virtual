@@ -24,11 +24,13 @@ const getUserByField = async (field: string, value: string): Promise<IUserCollec
  */
 const createUser = async (payload: IRegisterDto): Promise<void> => {
     try {
+
+        const rolUser = await collections.Roles.findOne({ name: 'User' })
         await collections.Users.create({
             email: payload.email,
             fullName: payload.fullName,
             password: payload.password,
-            roles: [new mongoose.Types.ObjectId('63c5d45afe1be5aea46fdada')] // Rol: User
+            roles: [rolUser?._id] // Rol: User
         })
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al crear un usuario', source: error });
