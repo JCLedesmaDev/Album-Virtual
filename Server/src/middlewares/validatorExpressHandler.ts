@@ -1,6 +1,7 @@
 import { validationResult } from 'express-validator'
 import { Request, Response, NextFunction } from "express";
 import responseMessage from '../utils/responseMessage';
+import { ApplicationError } from '../utils/applicationError';
 
 
 const validateResults = (req: Request, res: Response, next: NextFunction) => {
@@ -14,7 +15,8 @@ const validateResults = (req: Request, res: Response, next: NextFunction) => {
         const extractedErrors: any[] = []
         errors.array({ onlyFirstError: true })
             .map(err => extractedErrors.push({ [err.param]: err.msg }));
-        res.json(responseMessage.error<any>({
+            
+        return res.json(responseMessage.error<any>({
             message: 'Error en datos enviados', data: extractedErrors
         }))
     }

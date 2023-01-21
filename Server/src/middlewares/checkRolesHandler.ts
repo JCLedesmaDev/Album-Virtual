@@ -1,18 +1,24 @@
 import { Request, Response, NextFunction } from "express"
+import { ApplicationError } from "../utils/applicationError"
 
 const checkRolesHandler = (arrayRoles: string[]) => async (req: Request, res: Response, next: NextFunction) => {
-    // const { user } = req
+    try {
+        const rolesByUSer = req.locals.usrRoles // Default: ["user"]
 
-    // const rolesByUSer = user.roles // Default: ["user"]
-
-    // const checkValueRol = arrayRoles.some((rolSingle) => rolesByUSer.includes(rolSingle)) // True o False
-
-    // if (!checkValueRol) {
-    // error de q el usuario no tiene permisos
-    // return res.status(403)
-    // }
-
-    next()
+        const checkValueRol = arrayRoles.some((rolSingle) => {
+            rolesByUSer.includes(rolSingle)
+        }) // True o False
+    
+        if (!checkValueRol) {
+            throw new ApplicationError({
+                message: 'No tienes los permisos correspondientes para esta peticion.'
+            })
+        }
+    
+        next()
+    } catch (error) {
+        next(error)
+    }
 }
 
 export {

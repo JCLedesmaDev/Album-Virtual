@@ -21,7 +21,7 @@ const errorHandler = async (err: ApplicationError, req: Request, res: Response, 
 
         if (err.source) { // Solo mandara registro a la BD, cuando sea un error proveniente de la asincronia
             await logger.insertLoggerDB({
-                usuarioId: req.headers.legajo as string,  // TODO: Cambiar legajo por Id Usuario
+                usuarioId: req.locals.usrId as string,
                 tipo: 'Error',
                 request: requestInfo,
                 response: responseInfo

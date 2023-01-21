@@ -12,7 +12,7 @@ const eventHandler = async (req: Request, res: Response, next: NextFunction) => 
     }
 
     await logger.insertLoggerDB({
-        usuarioId: req.headers.legajo as string, /// TODO: Cambiar legajo por Id Usuario
+        usuarioId: req.locals.usrId as string, 
         tipo: 'Evento',
         request: requestInfo,
         response: req.locals.result

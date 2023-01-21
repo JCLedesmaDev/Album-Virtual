@@ -5,7 +5,6 @@ import { mockHandler } from "../../middlewares/mockHandler";
 
 const router = express.Router();
 
-router.use(authHandler)
 router.use(mockHandler)
 
 /** 

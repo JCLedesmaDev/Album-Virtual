@@ -1,11 +1,13 @@
 import express, { Request, Response } from "express";
 import { asdasd } from './controller'
 import { checkRolesHandler } from '../../middlewares/checkRolesHandler'
-
+import { mockHandler } from "../../middlewares/mockHandler";
+import { authHandler } from "../../middlewares/authHandler";
 
 const router = express.Router();
 
-// router.use(validarJWT)
+router.use(authHandler)
+router.use(mockHandler)
 
 /** 
  * @swagger
@@ -33,6 +35,6 @@ const router = express.Router();
  *        '422':
  *          description: Error de validacion.
  */
-router.get('/', checkRolesHandler(['admin']), asdasd)
+router.get('/', validatorAlbum,  checkRolesHandler(['admin']), asdasd)
 // export {...controllers }
 export default router
