@@ -1,4 +1,8 @@
 import express, { Request, Response } from "express";
+import { asdasd } from './controller'
+import { checkRolesHandler } from '../../middlewares/checkRolesHandler'
+
+
 const router = express.Router();
 
 // router.use(validarJWT)
@@ -29,8 +33,6 @@ const router = express.Router();
  *        '422':
  *          description: Error de validacion.
  */
-router.get('/', async (req: Request, res: Response) => {
-    res.send({ data: 'qwd12312' });
-})
+router.get('/', checkRolesHandler(['admin']), asdasd)
 // export {...controllers }
 export default router
