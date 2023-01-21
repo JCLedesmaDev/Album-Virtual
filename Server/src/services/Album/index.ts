@@ -7,7 +7,7 @@ import { authHandler } from "../../middlewares/authHandler";
 const router = express.Router();
 
 router.use(authHandler)
-router.use(mockHandler)
+// router.use(mockHandler)
 
 /** 
  * @swagger
@@ -35,6 +35,6 @@ router.use(mockHandler)
  *        '422':
  *          description: Error de validacion.
  */
-router.get('/', validatorAlbum,  checkRolesHandler(['admin']), asdasd)
+router.get('/', checkRolesHandler(['admin']), asdasd)
 // export {...controllers }
 export default router

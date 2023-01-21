@@ -29,11 +29,11 @@ const login = {
         properties: {
             email: {
                 type: "string",
-                example: "lalala@gmail.com"
+                example: "admin@gmail.com"
             },
             password: {
                 type: "string",
-                example: "pepe"
+                example: "administrador"
             },
         },
     },

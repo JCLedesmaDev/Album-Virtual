@@ -4,7 +4,7 @@ import jwt from '../utils/jwt'
 
 const authHandler = (req: Request = request, res: Response = response, next: NextFunction) => {
     try {
-        const usrToken = req.locals.usrToken
+        const usrToken =  req.locals.usrToken
 
         if (!usrToken) {
             throw new ApplicationError({message: 'No ha iniciado sesion!'})

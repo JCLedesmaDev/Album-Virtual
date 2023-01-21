@@ -1,6 +1,4 @@
 import { NextFunction, Request, Response } from "express"
-import { ApplicationError } from "../utils/applicationError"
-
 
 const headersHandler = (req: Request, res: Response, next: NextFunction) => {
 

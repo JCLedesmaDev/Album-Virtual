@@ -6,15 +6,15 @@ const checkRolesHandler = (arrayRoles: string[]) => async (req: Request, res: Re
         const rolesByUSer = req.locals.usrRoles // Default: ["user"]
 
         const checkValueRol = arrayRoles.some((rolSingle) => {
-            rolesByUSer.includes(rolSingle)
-        }) // True o False
-    
+            rolesByUSer.some(x => x.name === rolSingle)
+        })
+
         if (!checkValueRol) {
             throw new ApplicationError({
                 message: 'No tienes los permisos correspondientes para esta peticion.'
             })
         }
-    
+
         next()
     } catch (error) {
         next(error)
