@@ -19,10 +19,10 @@ const tokenSign = (resource: IUserCollection): string => {
             roles: mapper.multipleRoles(resource.roles as IRolCollection[])
         },
         // Pasamos la clave secreta
-        config.get('jwt_secret'),
+        config.get('jwt_secret') as string,
 
         // Indicamos algunas especificaciones opcionales
-        { expiresIn: '1h'}
+        { expiresIn: '1h' }
     )
     return sign
 }
@@ -34,9 +34,9 @@ const tokenSign = (resource: IUserCollection): string => {
  */
 const verifyToken = (tokenJwt: string) => {
     try {
-        return jwt.verify(tokenJwt, config.get('jwt_secret'))
+        return jwt.verify(tokenJwt, config.get('jwt_secret') as string)
     } catch (error) {
-        throw new ApplicationError({message: 'Ocurrio un error de autenticacion.', source: error}); 
+        throw new ApplicationError({ message: 'Ocurrio un error de autenticacion.', source: error });
     }
 }
 

@@ -1,7 +1,0 @@
-A diferencia de "apiServices" que son los servicios en particular
-(modularizados), en esta carpeta, irian los servicios
-generales, es decir, los servicios que se pueden utilziar dentro 
-de otros servicios de "apiServices"
-
-como por ejemplo: un servicio para loggin, o servicio para la BD,
-o para las push notifications, etc
