@@ -3,10 +3,10 @@ import { ApplicationError } from "../utils/applicationError"
 
 const checkRolesHandler = (arrayRoles: string[]) => async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const rolesByUSer = req.locals.usrRoles // Default: ["user"]
+        const rolesByUSer = req.locals.usrRoles 
 
         const checkValueRol = arrayRoles.some((rolSingle) => {
-            rolesByUSer.some(x => x.name === rolSingle)
+            return rolesByUSer.some(x => x.name.toLocaleLowerCase() === rolSingle.toLocaleLowerCase())
         })
 
         if (!checkValueRol) {
@@ -15,7 +15,7 @@ const checkRolesHandler = (arrayRoles: string[]) => async (req: Request, res: Re
             })
         }
 
-        next()
+        return next()
     } catch (error) {
         next(error)
     }

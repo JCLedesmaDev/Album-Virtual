@@ -1,8 +1,0 @@
-🕐 Ver sobre como agregar en el express-validators la validacion de JWT 
-🕐 Cuando haga lo de validar las rutas por si estoy logueado o no o por roles, tener en cuenta el middle de "headersHandler" 
-🕐 Aprender a poner las rutas con Seguridad en swagger
-
-Finalizar el checkRolesHandler y luego comparar el authHandler junto a validateJWT.ts
-
-👍 Realizar el swagger de la auth
-👍

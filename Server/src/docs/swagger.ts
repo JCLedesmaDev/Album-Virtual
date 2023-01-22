@@ -4,6 +4,7 @@ import fs from 'fs'
 import path from 'path'
 import schema from './swaggerComponents/schemas'
 import schemaDto from './swaggerComponents/schemasDto'
+import { type } from 'os';
 
 /* Obtener la url de los index de cada service */
 const pathRoutes = path.join(__dirname, '../services')
@@ -29,12 +30,20 @@ const swaggerDefinition: OAS3Definition = {
         description: "LALAA"
     }],
     components: {
-        // securitySchemes: {
-        //     bearerAuth: {
-        //         type: "http",
-        //         scheme: "bearer",
-        //     },
-        // },
+        securitySchemes: {
+            bearerAuth: {
+                description: 'Enviar el token obtenido al loguear sesion',
+                type: "apiKey",
+                name: 'authorization',
+                in: 'header',
+            },
+            idSecurity: {
+                description: 'Enviar el id del usuario logueado',
+                type: 'apiKey',
+                name: 'userid',
+                in: 'header'
+            }
+        },
         schemas: {
             user: schema.user,
             rol: schema.rol

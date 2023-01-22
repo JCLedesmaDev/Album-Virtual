@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from "express"
 
 const asdasd = async (req: Request, res: Response, next: NextFunction) => {
-    res.send("PASO X ACA")
-    next()
+    res.json({asd: "PASO X ACA"})
+    req.locals.finished = true
+    return next()
 }
 
 export {

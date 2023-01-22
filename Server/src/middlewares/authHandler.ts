@@ -17,7 +17,7 @@ const authHandler = (req: Request = request, res: Response = response, next: Nex
         }
 
         req.locals.usrRoles = tokenData.roles
-        next();
+        return next();
     } catch (error) {
         next(error)
     }

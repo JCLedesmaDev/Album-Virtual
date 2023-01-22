@@ -1,6 +1,7 @@
 
 const user = {
     type: "object",
+    required: ['fullName', 'email'],
     properties: {
         fullName: { type: "string" },
         id: { type: "string" },

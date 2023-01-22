@@ -10,9 +10,32 @@ router.use(authHandler)
 // router.use(mockHandler)
 
 /** 
+ * Obtener albumes
+ * @swagger
+ * /api/album/:
+ *    get:
+ *      tags: [album]  
+ *      summary: "Listar AAAAA"
+ *      description: Este endpoint es para listar los usuario totales.  
+ *      responses:
+ *        '200':
+ *          description: Retorna el objeto insertado en la coleccion.
+ *        '422':
+ *          description: Error de validacion.
+ *      security:
+ *       - bearerAuth: []
+ *       - idSecurity: []
+ */
+router.get('/', checkRolesHandler(['Admin']), asdasd)
+// export {...controllers }
+export default router
+
+/*
+/** 
+ * Obtener albumes
  * @swagger
  * /{id}:
- *    post:
+ *    get:
  *      tags: [album]  
  *      summary: "Listar AAAAA"
  *      description: Este endpoint es para listar los usuario totales.
@@ -34,7 +57,6 @@ router.use(authHandler)
  *          description: Retorna el objeto insertado en la coleccion.
  *        '422':
  *          description: Error de validacion.
- */
-router.get('/', checkRolesHandler(['admin']), asdasd)
-// export {...controllers }
-export default router
+ *      security:
+ *       - bearerAuth: []
+ */ 
