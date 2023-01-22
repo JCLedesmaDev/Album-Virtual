@@ -18,8 +18,6 @@ function startServer(PORT: number) {
     app.use(logger(config.get('logger')))
     app.use(express.json()) //--> Comprende mensajes JSON
     app.use(cors({ origin: '*' }));
-    // app.use(express.static("./app/storage")) //Definimos la carpeta "storage", como acceso publico para poder obtener los archivos.
-
 
     app.listen(PORT, () => {
         console.log(`⚡️[server]: Server is running in ${config.util.getEnv("NODE_ENV")} at ${config.get('server.public_url')}${PORT}`);

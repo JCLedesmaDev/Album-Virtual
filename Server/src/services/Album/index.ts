@@ -14,7 +14,7 @@ router.use(mockHandler)
  * @swagger
  * /api/album/:
  *    get:
- *      tags: [album]  
+ *      tags: [Albumes]  
  *      summary: "Listar AAAAA"
  *      description: Este endpoint es para listar los usuario totales.  
  *      responses:
@@ -26,7 +26,7 @@ router.use(mockHandler)
  *       - bearerAuth: []
  *       - idSecurity: []
  */
-router.get('/', checkRolesHandler(['Admin']), asdasd)
+router.get('/', checkRolesHandler(['Admin', 'User']), asdasd)
 
 
 export default router
