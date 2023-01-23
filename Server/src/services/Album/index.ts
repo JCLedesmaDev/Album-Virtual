@@ -1,5 +1,5 @@
 import express from "express";
-import { asdasd } from './controller'
+import { getListAlbumes } from './controller'
 import { checkRolesHandler } from '../../middlewares/checkRolesHandler'
 import { mockHandler } from "../../middlewares/mockHandler";
 import { authHandler } from "../../middlewares/authHandler";
@@ -10,13 +10,13 @@ router.use(authHandler)
 router.use(mockHandler)
 
 /** 
- * Obtener albumes
+ * Obtener listado de albumes
  * @swagger
- * /api/album/:
+ * /api/album/getAllList:
  *    get:
  *      tags: [Albumes]  
- *      summary: "Listar AAAAA"
- *      description: Este endpoint es para listar los usuario totales.  
+ *      summary: "Listado"
+ *      description: Este endpoint es para obtener un listado paginado de todos los albumes con sus respectivas figuritas.  
  *      responses:
  *        '200':
  *          description: Retorna el objeto insertado en la coleccion.
@@ -26,7 +26,7 @@ router.use(mockHandler)
  *       - bearerAuth: []
  *       - idSecurity: []
  */
-router.get('/', checkRolesHandler(['Admin', 'User']), asdasd)
+router.get('/getAllList', checkRolesHandler(['Admin', 'User']), getListAlbumes)
 
 
 export default router

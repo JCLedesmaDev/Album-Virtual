@@ -4,7 +4,7 @@
  * @returns Devuelve: 1) Lo que retorne el callback | 2) Un error
  */
 const tryCatchWrapper = (callback: any) => {
-    return async (payload: any) => {
+    return async (payload?: any) => {
         try {
             return await callback(payload)
         } catch (error: any) {
