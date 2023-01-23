@@ -1,6 +1,6 @@
 
 interface IResponseType<TypeData> {
-    message: string;
+    message?: string;
     data?: TypeData
 }
 interface IResponseMethod<TypeData> extends IResponseType<TypeData> {

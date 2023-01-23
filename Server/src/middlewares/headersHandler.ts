@@ -13,6 +13,8 @@ const headersHandler = (req: Request, res: Response, next: NextFunction) => {
     const usrId = (req.headers['userid']) ? req.headers['userid'].toString() : ''
     req.locals.usrId = usrId
 
+    const page = req.params['page']  
+
     next()
 }
 export {

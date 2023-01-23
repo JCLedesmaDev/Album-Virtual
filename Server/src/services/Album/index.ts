@@ -12,11 +12,19 @@ router.use(mockHandler)
 /** 
  * Obtener listado de albumes
  * @swagger
- * /api/album/getAllList:
+ * /api/album/getAllList/{page}:
  *    get:
  *      tags: [Albumes]  
  *      summary: "Listado"
  *      description: Este endpoint es para obtener un listado paginado de todos los albumes con sus respectivas figuritas.  
+ *      parameters:
+ *        - name: page
+ *          in: path
+ *          description: El numero de la pagina a traer
+ *          required: true
+ *          schema:
+ *            type: integer
+ *            format: int64  
  *      responses:
  *        '200':
  *          description: Retorna el objeto insertado en la coleccion.
@@ -26,7 +34,7 @@ router.use(mockHandler)
  *       - bearerAuth: []
  *       - idSecurity: []
  */
-router.get('/getAllList', checkRolesHandler(['Admin', 'User']), getListAlbumes)
+router.get('/getAllList/:page', checkRolesHandler(['Admin', 'User']), getListAlbumes)
 
 
 export default router
