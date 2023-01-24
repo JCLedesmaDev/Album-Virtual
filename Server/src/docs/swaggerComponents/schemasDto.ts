@@ -69,6 +69,29 @@ const register = {
     error: responseSwagger('Error', 'Ha ocurrido un error al registrarse')
 }
 
+const createAlbum = {
+    data: {
+        type: "object",
+        required: ["idCollection", "title", "image"],
+        properties: {
+            idCollection: {
+                type: "string",
+                example: "63cc1bfa7888455b8ffac623"
+            },
+            title: {
+                type: "string",
+                example: "DC Comics"
+            },
+            image: {
+                type: "string",
+                example: "https://....."
+            },
+        },
+    },
+    success: responseSwagger('Success', 'Ha creado un Album exitosamente!'),
+    error: responseSwagger('Error', 'Ha ocurrido un error')
+}
+
 export default {
-    login, register
+    login, register, createAlbum
 }

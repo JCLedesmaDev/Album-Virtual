@@ -1,10 +1,11 @@
 import { tryCatchWrapper } from "../../utils/tryCatchWrapper"
 import externalDb from "./dal"
-// import mapper from './mapper.dto'
+import mapper from './mapper.dto'
 import responseMessage from "../../utils/responseMessage"
 import { IPage } from "../../interface/IPage"
 import { IAlbumDto } from "./dto/frontToBack/IAlbum.dto."
 import { ApplicationError } from "../../utils/applicationError"
+import { paginationMapper } from "../../utils/paginationMapper"
 
 
 const createAlbum = tryCatchWrapper(async (payload: IAlbumDto) => {
@@ -26,9 +27,17 @@ const getListAlbumes = tryCatchWrapper(async (payload: IPage) => {
 
     const listAlbumes = await externalDb.getListAlbumes(payload)
 
-    const listAlbumesMapper = ''
+
+    const listAlbumesMapper = paginationMapper<any>({
+        resource: listAlbumes,
+        callBackMapper: mapper.multipleAlbums
+    })
     // TODO: Ejecutar mapper
     // TOOD: Agregar query para que sea por filtrado
+
+    // totalPages - pageCOunt
+    // page - currentPage
+    // dcos
 
     return responseMessage.success<any>({
         data: listAlbumesMapper

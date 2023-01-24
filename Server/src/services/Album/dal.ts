@@ -1,4 +1,4 @@
-import { Types } from "mongoose"
+import { PaginateResult, Types } from "mongoose"
 import { IPage } from "../../interface/IPage"
 import { IAlbumCollection } from "../../models/collections/Album"
 import collections from "../../models/index.models"
@@ -6,10 +6,10 @@ import { ApplicationError } from "../../utils/applicationError"
 import { IAlbumDto } from "./dto/frontToBack/IAlbum.dto."
 
 
-const createAlbum = async (payload: IAlbumDto) => {
+const createAlbum = async (payload: IAlbumDto): Promise<IAlbumCollection> => {
     try {
         return await collections.Albumes.create({
-            collection: new Types.ObjectId(payload.idCollection),
+            collectionAlbum: new Types.ObjectId(payload.idCollection),
             image: payload.image,
             title: payload.title
         })
@@ -23,15 +23,14 @@ const findAlbum = async (field: string, value: string): Promise<IAlbumCollection
         return await collections.Albumes.findOne({ [field]: value })
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al buscar un Album', source: error })
-
     }
 }
 
-const getListAlbumes = async ({ page }: IPage): Promise<any> => {
+const getListAlbumes = async ({ page }: IPage): Promise<PaginateResult<IAlbumCollection>> => {
     try {
         const options = {
             page,
-            limit: 10,
+            limit: 3,
             populate: 'figurites'
         }
         return await collections.Albumes.paginate({}, options)

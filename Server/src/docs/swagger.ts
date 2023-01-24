@@ -53,11 +53,17 @@ const swaggerDefinition: OAS3Definition = {
             loginData: schemaDto.login.data,
             loginSuccess: schemaDto.login.success,
             loginError: schemaDto.login.error,
-            
+
             // Regoster
             registerData: schemaDto.register.data,
             registerSuccess: schemaDto.register.success,
             registerError: schemaDto.register.error,
+
+            // Crear Album
+            createAlbumData: schemaDto.createAlbum.data,
+            createAlbumSuccess: schemaDto.createAlbum.success,
+            createAlbumError: schemaDto.createAlbum.error,
+
         }
     },
 };

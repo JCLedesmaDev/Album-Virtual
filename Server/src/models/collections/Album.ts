@@ -4,19 +4,17 @@ import mongoosePaginate from 'mongoose-paginate-v2'
 import { IAlbumImageCollection } from './AlbumImage';
 import { ICollectionAlbum } from './CollectionAlbum';
 
-
-// export interface IAlbumCollection extends Document {
-export interface IAlbumCollection {
+export interface IAlbumCollection extends Document {
     title: string;
     image: string;
-    collection: ObjectId | ICollectionAlbum;
+    collectionAlbum: ObjectId | ICollectionAlbum;
     figurites: ObjectId[] | IAlbumImageCollection[];
 }
 
 const AlbumSchema = new Schema<IAlbumCollection>({
-    title: { type: String, required: true },
+    title: { type: String, required: true, unique: true },
     image: { type: String, required: true },
-    collection: { type: Types.ObjectId, ref: "CollectionAlbumes" },
+    collectionAlbum: { type: Types.ObjectId, ref: "CollectionAlbum" },
     figurites: [{ type: Types.ObjectId, ref: "AlbumImages" }]
 }, {
     timestamps: true, // Nos crea un campo mas con la fecha de creacion y actualizacion del registro

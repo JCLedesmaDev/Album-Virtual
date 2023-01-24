@@ -1,4 +1,4 @@
-import { model, Schema, Document, Types, ObjectId } from 'mongoose';
+import { model, Schema, Document, Types, ObjectId, PaginateModel } from 'mongoose';
 import mongooseDelete from 'mongoose-delete';
 import mongoosePaginate from 'mongoose-paginate-v2'
 import { IAlbumCollection } from './Album';
@@ -24,4 +24,4 @@ CollectionAlbumSchema.plugin(mongooseDelete, { overrideMethods: 'all' })
 // Le indicamos a nuestro modelo, que va a poder paginar
 CollectionAlbumSchema.plugin(mongoosePaginate)
 
-export default model<ICollectionAlbum>('CollectionAlbumes', CollectionAlbumSchema);
+export default model<ICollectionAlbum, PaginateModel<ICollectionAlbum>>('CollectionAlbum', CollectionAlbumSchema);
