@@ -1,12 +1,23 @@
-const single = (resource, authUser) => ({
-    id: resource._id,
-    username: resource.username,
-    email: resource.email,
-});
 
-const multiple = (resources, authUser) => resources.map((resource) => single(resource, authUser));
+import { IAlbumCollection } from "../../models/collections/Album";
+// import { IAuthDto } from "./dto/backToFront/";
 
-module.exports = {
-    single,
-    multiple,
+
+const singleAlbum = async (resource: IAlbumCollection) => {
+    const mapper = {
+        id: resource._id,
+        title: resource.title,
+        image: resource.image,
+        figurites: resource.figurites // TODO: mapear las figuras
+    }
+    return mapper
+};
+
+const multipleAlbums = (Albums: IAlbumCollection[]) => {
+    const albumsMapper = Albums.map(album => singleAlbum(album))
+    return albumsMapper
+}
+
+export default {
+    multipleAlbums
 };
