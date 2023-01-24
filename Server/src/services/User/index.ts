@@ -1,6 +1,7 @@
 import express from "express";
 import { loginUser, registerUser } from './controller'
-import { validatorLogin, validatorRegister } from './validators/auth'
+import { validatorLogin } from './validators/login'
+import { validatorRegister } from './validators/register'
 import { mockHandler } from "../../middlewares/mockHandler";
 
 const router = express.Router();

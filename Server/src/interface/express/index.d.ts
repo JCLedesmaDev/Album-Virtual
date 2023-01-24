@@ -1,6 +1,6 @@
 
 declare namespace Express {
-  interface Request extends IRol {
+  interface Request {
     /**
      * Locals posee los sig. campos:
      * @field usrId: string;
@@ -19,9 +19,10 @@ declare namespace Express {
         id: string; 
       }[];
       mockmode: string;
+      page: number;
       info: any;
       result: any;
-      finished: boolean
+      finished: boolean;
     };
   }
 }

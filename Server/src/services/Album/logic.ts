@@ -2,17 +2,40 @@ import { tryCatchWrapper } from "../../utils/tryCatchWrapper"
 import externalDb from "./dal"
 // import mapper from './mapper.dto'
 import responseMessage from "../../utils/responseMessage"
+import { IPage } from "../../interface/IPage"
+import { IAlbumDto } from "./dto/frontToBack/IAlbum.dto."
+import { ApplicationError } from "../../utils/applicationError"
 
 
-const getListAlbumes = tryCatchWrapper(async () => {
+const createAlbum = tryCatchWrapper(async (payload: IAlbumDto) => {
 
-    const listAlbumes = await externalDb.getListAlbumes()
+    const album = await externalDb.findAlbum('title', payload.title)
 
-    const listAlbumesMapper = '' // Ejecutar mapper
+    if (album !== null) {
+        throw new ApplicationError({ message: 'Ya existe un Album con este nombre. Intentelo con otro.' });
+    }
+
+    await externalDb.createAlbum(payload)
+
+    return responseMessage.success<any>({
+        message: 'Ha creado un Album exitosamente!'
+    })
+})
+
+const getListAlbumes = tryCatchWrapper(async (payload: IPage) => {
+
+    const listAlbumes = await externalDb.getListAlbumes(payload)
+
+    const listAlbumesMapper = ''
+    // TODO: Ejecutar mapper
+    // TOOD: Agregar query para que sea por filtrado
 
     return responseMessage.success<any>({
         data: listAlbumesMapper
     })
 })
 
-export default { getListAlbumes }
+export default {
+    createAlbum,
+    getListAlbumes
+}
