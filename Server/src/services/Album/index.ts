@@ -1,5 +1,5 @@
 import express from "express";
-import { createAlbum, getListAlbumes } from './controller'
+import { createAlbum, getListAlbumes, deleteAlbum, updateAlbum } from './controller'
 import { checkRolesHandler } from '../../middlewares/checkRolesHandler'
 import { mockHandler } from "../../middlewares/mockHandler";
 import { authHandler } from "../../middlewares/authHandler";
@@ -39,7 +39,7 @@ router.use(mockHandler)
  *       - bearerAuth: []
  *       - idSecurity: []
  */
-router.post('/createAlbum', checkRolesHandler(['Admin']), validatorCreateAlbum,  createAlbum)
+router.post('/createAlbum', checkRolesHandler(['Admin']), validatorCreateAlbum, createAlbum)
 
 /** 
  * @swagger
@@ -73,5 +73,8 @@ router.post('/createAlbum', checkRolesHandler(['Admin']), validatorCreateAlbum, 
  */
 router.get('/getAllList', checkRolesHandler(['Admin', 'User']), getListAlbumes)
 
+router.delete('/deleteAlbum/:idAlbum', checkRolesHandler(['Admin']), deleteAlbum)
+
+router.put('/updateAlbum/:idAlbum', checkRolesHandler(['Admin']), updateAlbum)
 
 export default router

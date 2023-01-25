@@ -18,7 +18,7 @@ const headersHandler = (req: Request, res: Response, next: NextFunction) => {
     
     const filterText = (req.query['filterText']) ? req.query['filterText'].toString() : '' 
     req.locals.filterText = filterText
-
+    
     next()
 }
 export {

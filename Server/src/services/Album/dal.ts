@@ -44,8 +44,17 @@ const getListAlbumes = async ({ page, filterText }: IPage): Promise<PaginateResu
     }
 }
 
+const deleteAlbum = async (payload: string) => {
+    try {
+        return await collections.Albumes.deleteById()
+    } catch (error) {
+        
+    }
+}   
+
 export default {
     createAlbum,
     findAlbum,
-    getListAlbumes
+    getListAlbumes,
+    deleteAlbum
 }

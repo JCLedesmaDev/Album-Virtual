@@ -37,7 +37,22 @@ const getListAlbumes = tryCatchWrapper(async (payload: IPage) => {
     })
 })
 
+const deteleAlbum = tryCatchWrapper(async (payload: string) => {
+    const album = await externalDb.findAlbum('_id', payload)
+
+    if (album === null) {
+        throw new ApplicationError({ message: 'No existe este Album. Intentelo con otro.' });
+    }
+
+    await externalDb.deleteAlbum(payload)
+
+    return responseMessage.success<any>({
+        message: 'Ha eliminado un Album exitosamente!'
+    })
+})
+
 export default {
     createAlbum,
-    getListAlbumes
+    getListAlbumes,
+    deteleAlbum
 }
