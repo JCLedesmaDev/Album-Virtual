@@ -3,20 +3,19 @@ import { IAlbumCollection } from "../../models/collections/Album";
 // import { IAuthDto } from "./dto/backToFront/";
 
 
-const singleAlbum = async (resource: IAlbumCollection) => {
+const singleAlbum = (resource: IAlbumCollection) => {
     const mapper = {
         id: resource._id,
         title: resource.title,
         image: resource.image,
-        figurites: resource.figurites // TODO: mapear las figuras
+        // figurites: resource.figurites // TODO: mapear las figuras - genera problema de asincronismo
     }
     return mapper
 };
 
-const multipleAlbums = (Albums: IAlbumCollection[]) => {
-    const albumsMapper = Albums.map(album => singleAlbum(album))
-    return albumsMapper
-}
+const multipleAlbums = (Albums: IAlbumCollection[]) => (
+    Albums.map(album => singleAlbum(album))
+)
 
 export default {
     multipleAlbums

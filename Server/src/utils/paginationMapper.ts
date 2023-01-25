@@ -18,7 +18,7 @@ interface IPagination {
  * @param callBackMapper Funcion que realice el mappeo de los docs
  * @returns Un objeto del mapeo de la paginacion
  */
-const paginationMapper = async <TypeDto>(dataPagination: IPagination): Promise<IPaginationResult<TypeDto>> => {
+const paginationMapper = <TypeDto>(dataPagination: IPagination): IPaginationResult<TypeDto> => {
 
     const { resource, callBackMapper } = dataPagination
 
