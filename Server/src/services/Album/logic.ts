@@ -27,17 +27,10 @@ const getListAlbumes = tryCatchWrapper(async (payload: IPage) => {
 
     const listAlbumes = await externalDb.getListAlbumes(payload)
 
-
     const listAlbumesMapper = paginationMapper<any>({
         resource: listAlbumes,
         callBackMapper: mapper.multipleAlbums
     })
-    // TODO: Ejecutar mapper
-    // TOOD: Agregar query para que sea por filtrado
-
-    // totalPages - pageCOunt
-    // page - currentPage
-    // dcos
 
     return responseMessage.success<any>({
         data: listAlbumesMapper

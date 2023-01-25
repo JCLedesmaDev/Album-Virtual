@@ -52,10 +52,16 @@ router.post('/createAlbum', checkRolesHandler(['Admin']), validatorCreateAlbum, 
  *        - name: page
  *          in: query
  *          description: 'El numero de la pagina a traer'
- *          required: true
+ *          required: false
  *          schema:
  *            type: integer
- *            format: int64  
+ *            format: int64   
+ *        - name: filterText
+ *          in: query
+ *          description: 'Texto por el cual se filtraran los albumes'
+ *          required: false
+ *          schema:
+ *            type: string 
  *      responses:
  *        '200':
  *          description: Retorna el objeto insertado en la coleccion.

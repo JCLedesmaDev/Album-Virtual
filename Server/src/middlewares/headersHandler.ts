@@ -13,8 +13,11 @@ const headersHandler = (req: Request, res: Response, next: NextFunction) => {
     const usrId = (req.headers['userid']) ? req.headers['userid'].toString() : ''
     req.locals.usrId = usrId
 
-    const page: any = (req.query['page']) ? req.query['page'] : ''
-    req.locals.page = parseInt(page) 
+    const page = (req.query['page']) ? parseInt(req.query['page'].toString()) : NaN
+    req.locals.page = page
+    
+    const filterText = (req.query['filterText']) ? req.query['filterText'].toString() : '' 
+    req.locals.filterText = filterText
 
     next()
 }

@@ -19,6 +19,7 @@ declare namespace Express {
         id: string; 
       }[];
       mockmode: string;
+      filterText: string;
       page: number;
       info: any;
       result: any;

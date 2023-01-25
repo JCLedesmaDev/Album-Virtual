@@ -23,7 +23,10 @@ const createAlbum = async (req: Request, res: Response, next: NextFunction) => {
 
 const getListAlbumes = async (req: Request, res: Response, next: NextFunction) => {
 
-    const payload: IPage = { page: req.locals.page }
+    const payload: IPage = { 
+        page: req.locals.page | 1,
+        filterText: req.locals.filterText
+    }
     req.locals.info = payload
     const data: any = await logic.getListAlbumes(payload)
     req.locals.result = data

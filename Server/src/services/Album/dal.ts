@@ -1,4 +1,4 @@
-import { PaginateResult, Types } from "mongoose"
+import { FilterQuery, PaginateOptions, PaginateResult, Types } from "mongoose"
 import { IPage } from "../../interface/IPage"
 import { IAlbumCollection } from "../../models/collections/Album"
 import collections from "../../models/index.models"
@@ -26,14 +26,19 @@ const findAlbum = async (field: string, value: string): Promise<IAlbumCollection
     }
 }
 
-const getListAlbumes = async ({ page }: IPage): Promise<PaginateResult<IAlbumCollection>> => {
+const getListAlbumes = async ({ page, filterText }: IPage): Promise<PaginateResult<IAlbumCollection>> => {
     try {
-        const options = {
+        const options: PaginateOptions = {
             page,
             limit: 3,
             populate: 'figurites'
         }
-        return await collections.Albumes.paginate({}, options)
+        const query: FilterQuery<IAlbumCollection> = {
+            ...(filterText !== '' && {
+                title: {$regex: new RegExp(filterText), $options: 'i'},                 
+            }),
+        }
+        return await collections.Albumes.paginate(query, options)
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al obtener el listado de albumes', source: error })
     }
