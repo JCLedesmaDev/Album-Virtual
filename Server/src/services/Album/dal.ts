@@ -35,7 +35,7 @@ const getListAlbumes = async ({ page, filterText }: IPage): Promise<PaginateResu
         }
         const query: FilterQuery<IAlbumCollection> = {
             ...(filterText !== '' && {
-                title: {$regex: new RegExp(filterText), $options: 'i'},                 
+                title: { $regex: new RegExp(filterText), $options: 'i' }
             }),
         }
         return await collections.Albumes.paginate(query, options)
@@ -46,11 +46,11 @@ const getListAlbumes = async ({ page, filterText }: IPage): Promise<PaginateResu
 
 const deleteAlbum = async (payload: string) => {
     try {
-        return await collections.Albumes.deleteById()
+        return await collections.Albumes.deleteById(payload)
     } catch (error) {
-        
+        throw new ApplicationError({ message: 'Ha ocurrido un error al eliminar un album', source: error })
     }
-}   
+}
 
 export default {
     createAlbum,

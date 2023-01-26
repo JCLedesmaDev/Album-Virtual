@@ -41,13 +41,13 @@ const deleteAlbum = async (req: Request, res: Response, next: NextFunction) => {
     const payload =  req.params.idAlbum
     
     req.locals.info = {idAlbum: payload}
-    // const data: any = await logic.deteleAlbum(payload)
-    // req.locals.result = data
+    const data: any = await logic.deteleAlbum(payload)
+    req.locals.result = data
 
-    // if (data?.error) return next(data.error)
+    if (data?.error) return next(data.error)
 
-    // req.locals.finished = true
-    // res.json(data)
+    req.locals.finished = true
+    res.json(data)
     next()
 }
 

@@ -1,11 +1,10 @@
 import { model, Schema, Document, Types, ObjectId, PaginateModel } from 'mongoose';
-// import mongooseDelete from 'mongoose-delete';
-import mongooseDelete, { Deleted, DeletedSchema } from 'mongoose-delete-ts';
+import mongooseDelete, {SoftDeleteModel, SoftDeleteInterface} from 'mongoose-delete'
 import mongoosePaginate from 'mongoose-paginate-v2'
 import { IAlbumImageCollection } from './AlbumImage';
 import { ICollectionAlbum } from './CollectionAlbum';
 
-export interface IAlbumCollection extends Document {
+export interface IAlbumCollection extends Document, SoftDeleteInterface {
     title: string;
     image: string;
     collectionAlbum: ObjectId | ICollectionAlbum;
@@ -13,7 +12,7 @@ export interface IAlbumCollection extends Document {
 }
 
 const AlbumSchema = new Schema<IAlbumCollection>({
-    title: { type: String, required: true, unique: true },
+    title: { type: String, required: true },
     image: { type: String, required: true },
     collectionAlbum: { type: Types.ObjectId, ref: "CollectionAlbum" },
     figurites: [{ type: Types.ObjectId, ref: "AlbumImages" }]
@@ -24,10 +23,11 @@ const AlbumSchema = new Schema<IAlbumCollection>({
 
 /* Le indicamos a nuestro modelo, que sobre escriba los metodos
  le que brinda mongoose, por los que nos brinda mongooseDelete */
-AlbumSchema.plugin(mongooseDelete, { overrideMethods: 'all', deletedAt: true })
+AlbumSchema.plugin(mongooseDelete, {overrideMethods: 'all' })
 
 // Le indicamos a nuestro modelo, que va a poder paginar
 AlbumSchema.plugin(mongoosePaginate)
 
 
-export default model<IAlbumCollection, PaginateModel<IAlbumCollection>>('Albumes', AlbumSchema);
+// export default model<IAlbumCollection, SoftDeleteModel<IAlbumCollection> & PaginateModel<IAlbumCollection>>('Albumes', AlbumSchema);
+export default model<IAlbumCollection, SoftDeleteModel<IAlbumCollection> & PaginateModel<IAlbumCollection>>('Albumes', AlbumSchema);
