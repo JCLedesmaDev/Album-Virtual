@@ -18,7 +18,7 @@ const AlbumSchema = new Schema<IAlbumCollection>({
     figurites: [{ type: Types.ObjectId, ref: "AlbumImages" }]
 }, {
     timestamps: true, // Nos crea un campo mas con la fecha de creacion y actualizacion del registro
-    versionKey: false // Desactivamos la version del dato dentro de mongoose  
+    versionKey: false, // Desactivamos la version del dato dentro de mongoose 
 })
 
 /* Le indicamos a nuestro modelo, que sobre escriba los metodos

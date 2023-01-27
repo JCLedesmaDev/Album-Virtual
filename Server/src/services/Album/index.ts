@@ -4,6 +4,8 @@ import { checkRolesHandler } from '../../middlewares/checkRolesHandler'
 import { mockHandler } from "../../middlewares/mockHandler";
 import { authHandler } from "../../middlewares/authHandler";
 import { validatorCreateAlbum } from "./validators/createAlbum";
+import { validatorUpdateAlbum } from "./validators/updateAlbum";
+import { validatorDeleteAlbum } from "./validators/deleteAlbum";
 
 const router = express.Router();
 
@@ -73,8 +75,8 @@ router.post('/createAlbum', checkRolesHandler(['Admin']), validatorCreateAlbum, 
  */
 router.get('/getAllList', checkRolesHandler(['Admin', 'User']), getListAlbumes)
 
-router.delete('/deleteAlbum/:idAlbum', checkRolesHandler(['Admin']), deleteAlbum)
+router.delete('/deleteAlbum/:id', checkRolesHandler(['Admin']), validatorDeleteAlbum, deleteAlbum)
 
-router.put('/updateAlbum/:idAlbum', checkRolesHandler(['Admin']), updateAlbum)
+router.put('/updateAlbum/:id', checkRolesHandler(['Admin']), validatorUpdateAlbum, updateAlbum)
 
 export default router

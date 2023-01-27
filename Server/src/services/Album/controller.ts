@@ -1,16 +1,18 @@
 import { Request, Response, NextFunction } from "express"
 import { matchedData } from "express-validator"
 import { IPage } from "../../interface/IPage"
-import { IAlbumDto } from "./dto/frontToBack/IAlbum.dto."
+import { ICreateAlbumDto } from "./dto/frontToBack/ICreateAlbum.dto."
+import { IDeleteAlbumDto } from "./dto/frontToBack/IDeleteAlbum.dto"
+import { IUpdateAlbumDto } from "./dto/frontToBack/IUpdateAlbum.dto"
 import logic from './logic'
 
 
 const createAlbum = async (req: Request, res: Response, next: NextFunction) => {
 
-    const payload: IAlbumDto = matchedData(req) as IAlbumDto
+    const payload: ICreateAlbumDto = matchedData(req) as ICreateAlbumDto
     req.locals.info = payload
-    const data: any = await logic.createAlbum(payload)
-    req.locals.result = data
+    const data = await logic.createAlbum(payload)
+    req.locals.result = data 
 
     if (data?.error) return next(data.error)
 
@@ -21,12 +23,12 @@ const createAlbum = async (req: Request, res: Response, next: NextFunction) => {
 
 const getListAlbumes = async (req: Request, res: Response, next: NextFunction) => {
 
-    const payload: IPage = { 
+    const payload: IPage = {
         page: req.locals.page | 1,
         filterText: req.locals.filterText
     }
     req.locals.info = payload
-    const data: any = await logic.getListAlbumes(payload)
+    const data = await logic.getListAlbumes(payload)
     req.locals.result = data
 
     if (data?.error) return next(data.error)
@@ -36,12 +38,12 @@ const getListAlbumes = async (req: Request, res: Response, next: NextFunction) =
     next()
 }
 
-const deleteAlbum = async (req: Request, res: Response, next: NextFunction) => {    
-    
-    const payload =  req.params.idAlbum
-    
-    req.locals.info = {idAlbum: payload}
-    const data: any = await logic.deteleAlbum(payload)
+const deleteAlbum = async (req: Request, res: Response, next: NextFunction) => {
+
+    const payload: IDeleteAlbumDto = matchedData(req) as IDeleteAlbumDto
+
+    req.locals.info = { idAlbum: payload }
+    const data = await logic.deteleAlbum(payload)
     req.locals.result = data
 
     if (data?.error) return next(data.error)
@@ -51,18 +53,18 @@ const deleteAlbum = async (req: Request, res: Response, next: NextFunction) => {
     next()
 }
 
-const updateAlbum = async (req: Request, res: Response, next: NextFunction) => {    
-    
-    const payload =  req.params.idAlbum
-    
-    req.locals.info = {}
-    // const data: any = await logic.deteleAlbum(payload)
-    // req.locals.result = data
+const updateAlbum = async (req: Request, res: Response, next: NextFunction) => {
 
-    // if (data?.error) return next(data.error)
+    const payload: IUpdateAlbumDto = matchedData(req) as IUpdateAlbumDto
+    
+    req.locals.info = payload
+    const data: any = await logic.updateAlbum(payload)
+    req.locals.result = data
 
-    // req.locals.finished = true
-    // res.json(data)
+    if (data?.error) return next(data.error)
+
+    req.locals.finished = true
+    res.json(data)
     next()
 }
 

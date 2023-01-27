@@ -1,14 +1,17 @@
 import { tryCatchWrapper } from "../../utils/tryCatchWrapper"
 import externalDb from "./dal"
 import mapper from './mapper.dto'
-import responseMessage from "../../utils/responseMessage"
+import responseMessage, { IResponse } from "../../utils/responseMessage"
 import { IPage } from "../../interface/IPage"
-import { IAlbumDto } from "./dto/frontToBack/IAlbum.dto."
 import { ApplicationError } from "../../utils/applicationError"
-import { paginationMapper } from "../../utils/paginationMapper"
+import { IPaginationResult, paginationMapper } from "../../utils/paginationMapper"
+import { ICreateAlbumDto } from "./dto/frontToBack/ICreateAlbum.dto."
+import { IDeleteAlbumDto } from "./dto/frontToBack/IDeleteAlbum.dto"
+import { IUpdateAlbumDto } from "./dto/frontToBack/IUpdateAlbum.dto"
+import { IAlbum } from "../../interface/IAlbum"
 
 
-const createAlbum = tryCatchWrapper(async (payload: IAlbumDto) => {
+const createAlbum = tryCatchWrapper(async (payload: ICreateAlbumDto) => {
 
     const album = await externalDb.findAlbum('title', payload.title)
 
@@ -27,32 +30,47 @@ const getListAlbumes = tryCatchWrapper(async (payload: IPage) => {
 
     const listAlbumes = await externalDb.getListAlbumes(payload)
 
-    const listAlbumesMapper = paginationMapper<any>({
+    const listAlbumesMapper: IPaginationResult<IAlbum> = paginationMapper<IAlbum>({
         resource: listAlbumes,
         callBackMapper: mapper.multipleAlbums
     })
 
-    return responseMessage.success<any>({
+    return responseMessage.success<typeof listAlbumesMapper>({
         data: listAlbumesMapper
     })
 })
 
-const deteleAlbum = tryCatchWrapper(async (payload: string) => {
-    const album = await externalDb.findAlbum('_id', payload)
+const deteleAlbum = tryCatchWrapper(async (payload: IDeleteAlbumDto) => {
+    const album = await externalDb.findAlbum('_id', payload.id)
 
     if (album === null) {
         throw new ApplicationError({ message: 'No existe este Album. Intentelo con otro.' });
     }
 
-    await externalDb.deleteAlbum(payload)
+    await externalDb.deleteAlbum(payload.id)
 
     return responseMessage.success<any>({
         message: 'Ha eliminado un Album exitosamente!'
     })
 })
 
+const updateAlbum = tryCatchWrapper(async (payload: IUpdateAlbumDto) => {
+    const album = await externalDb.findAlbum('_id', payload.id)
+
+    if (album === null) {
+        throw new ApplicationError({ message: 'No existe este Album. Intentelo con otro.' });
+    }
+
+    await externalDb.updateAlbum(payload)
+
+    return responseMessage.success<any>({
+        message: 'Ha actualizado un Album exitosamente!'
+    })
+})
+
 export default {
     createAlbum,
     getListAlbumes,
-    deteleAlbum
+    deteleAlbum,
+    updateAlbum
 }

@@ -1,10 +1,9 @@
 
+import { IAlbum } from "../../interface/IAlbum";
 import { IAlbumCollection } from "../../models/collections/Album";
-// import { IAuthDto } from "./dto/backToFront/";
 
-
-const singleAlbum = (resource: IAlbumCollection) => {
-    const mapper = {
+const singleAlbum = (resource: IAlbumCollection): IAlbum => {
+    const mapper: IAlbum = {
         id: resource._id,
         title: resource.title,
         image: resource.image,
@@ -13,7 +12,7 @@ const singleAlbum = (resource: IAlbumCollection) => {
     return mapper
 };
 
-const multipleAlbums = (Albums: IAlbumCollection[]) => (
+const multipleAlbums = (Albums: IAlbumCollection[]): IAlbum[] => (
     Albums.map(album => singleAlbum(album))
 )
 

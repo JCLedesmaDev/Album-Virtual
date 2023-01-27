@@ -1,7 +1,7 @@
 import { PaginateResult } from "mongoose";
 
 
-interface IPaginationResult<TypeDto> {
+export interface IPaginationResult<TypeDto> {
     currentPage: number | undefined;
     totalPages: number;
     docs: TypeDto

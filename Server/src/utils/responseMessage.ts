@@ -1,11 +1,20 @@
 
-interface IResponseType<TypeData> {
+interface IResquestType<TypeData> {
     message?: string;
     data?: TypeData
 }
-interface IResponseMethod<TypeData> extends IResponseType<TypeData> {
+interface IRequestMethod<TypeData> extends IResquestType<TypeData> {
     typeResponse: string
 }
+
+export interface IResponse<typeData> {
+    info: {
+        type: string;
+        msg?: string;
+        data?: typeData
+    }
+}
+
 
 /**
  * Funcion que crea el DTO para el front
@@ -13,14 +22,14 @@ interface IResponseMethod<TypeData> extends IResponseType<TypeData> {
  * @params typeData: Se pasa por parametro el tipo de dato que sera "data"
  * @returns Objeto generico de respuesta.
  */
-const response = <typeData>(infoResponse: IResponseMethod<typeData>) => {
+const response = <typeData>(infoResponse: IRequestMethod<typeData>): IResponse<typeData> => {
     const { data, message, typeResponse } = infoResponse
     return {
         info: {
             type: typeResponse,
             msg: message,
             ...(data && {
-                data: data
+                data: data as typeData
             })
         },
     }
@@ -32,7 +41,7 @@ const response = <typeData>(infoResponse: IResponseMethod<typeData>) => {
  * @params typeData: Se pasa por parametro el tipo de dato que sera "data"
  * @returns Objeto generico de respuesta.
  */
-const success = <typeData>(info: IResponseType<typeData>) => {
+const success = <typeData>(info: IResquestType<typeData>): IResponse<typeData> => {
     const { data, message } = info
     return response<typeData>({ typeResponse: 'success', message, data })
 }
@@ -43,7 +52,7 @@ const success = <typeData>(info: IResponseType<typeData>) => {
  * @params typeData: Se pasa por parametro el tipo de dato que sera "data"
  * @returns Objeto generico de respuesta.
  */
-const error = <typeData>(info: IResponseType<typeData>) => {
+const error = <typeData>(info: IResquestType<typeData>): IResponse<typeData> => {
     const { data, message } = info
     return response<typeData>({ typeResponse: 'error', message, data })
 }
