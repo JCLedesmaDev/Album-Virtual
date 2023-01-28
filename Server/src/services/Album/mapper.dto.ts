@@ -1,8 +1,8 @@
 
 import { IAlbum } from "../../interface/IAlbum";
-import { IAlbumCollection } from "../../models/collections/Albumes";
+import { IAlbumSchema } from "../../models/collections/Albumes";
 
-const singleAlbum = (resource: IAlbumCollection): IAlbum => {
+const singleAlbum = (resource: IAlbumSchema): IAlbum => {
     const mapper: IAlbum = {
         id: resource._id,
         title: resource.title,
@@ -12,7 +12,7 @@ const singleAlbum = (resource: IAlbumCollection): IAlbum => {
     return mapper
 };
 
-const multipleAlbums = (Albums: IAlbumCollection[]): IAlbum[] => (
+const multipleAlbums = (Albums: IAlbumSchema[]): IAlbum[] => (
     Albums.map(album => singleAlbum(album))
 )
 
