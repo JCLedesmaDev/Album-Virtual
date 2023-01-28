@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { IUserCollection } from "../../models/collections/User";
+import { IUserSchema } from "../../models/collections/Users";
 import collections from "../../models/index.models"
 import { ApplicationError } from "../../utils/applicationError";
 import { IRegisterDto } from "./dto/frontToBack/IRegister.dto";
@@ -10,7 +10,7 @@ import { IRegisterDto } from "./dto/frontToBack/IRegister.dto";
  * @param value Valor del campo en cuestion
  * @returns Usuario encontrado o null
  */
-const getUserByField = async (field: string, value: string): Promise<IUserCollection | null> => {
+const getUserByField = async (field: string, value: string): Promise<IUserSchema | null> => {
     try {
         return await collections.Users.findOne({ [field]: value }).populate({ path: 'roles' });
     } catch (error) {

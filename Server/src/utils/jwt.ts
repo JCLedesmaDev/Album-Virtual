@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
-import { IRolCollection } from '../models/collections/Rol'
-import { IUserCollection } from '../models/collections/User'
+import { IRolSchema } from '../models/collections/Roles'
+import { IUserSchema } from '../models/collections/Users'
 import mapper from '../services/user/mapper.dto'
 import config from 'config'
 import { ApplicationError } from './applicationError'
@@ -10,13 +10,13 @@ import { ApplicationError } from './applicationError'
  * @param resource Datos/recursos del usuario para almacenar en el token.
  * @returns Token
  */
-const tokenSign = (resource: IUserCollection): string => {
+const tokenSign = (resource: IUserSchema): string => {
     const sign = jwt.sign(
         /* Definimos el payload del token, es deecir, los datos que contendra el token y 
            que prodremos ver al desencriptarlo */
         {
             id: resource._id,
-            roles: mapper.multipleRoles(resource.roles as IRolCollection[])
+            roles: mapper.multipleRoles(resource.roles as IRolSchema[])
         },
         // Pasamos la clave secreta
         config.get('jwt_secret') as string,

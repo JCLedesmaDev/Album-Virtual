@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express"
 import { matchedData } from "express-validator"
 import { IPage } from "../../interface/IPage"
+import { IBuyAlbumDto } from "./dto/frontToBack/IBuyAlbum.dto"
 import { ICreateAlbumDto } from "./dto/frontToBack/ICreateAlbum.dto."
 import { IDeleteAlbumDto } from "./dto/frontToBack/IDeleteAlbum.dto"
 import { IUpdateAlbumDto } from "./dto/frontToBack/IUpdateAlbum.dto"
@@ -12,7 +13,7 @@ const createAlbum = async (req: Request, res: Response, next: NextFunction) => {
     const payload: ICreateAlbumDto = matchedData(req) as ICreateAlbumDto
     req.locals.info = payload
     const data = await logic.createAlbum(payload)
-    req.locals.result = data 
+    req.locals.result = data
 
     if (data?.error) return next(data.error)
 
@@ -56,9 +57,24 @@ const deleteAlbum = async (req: Request, res: Response, next: NextFunction) => {
 const updateAlbum = async (req: Request, res: Response, next: NextFunction) => {
 
     const payload: IUpdateAlbumDto = matchedData(req) as IUpdateAlbumDto
-    
+
     req.locals.info = payload
     const data: any = await logic.updateAlbum(payload)
+    req.locals.result = data
+
+    if (data?.error) return next(data.error)
+
+    req.locals.finished = true
+    res.json(data)
+    next()
+}
+
+const buyAlbum = async (req: Request, res: Response, next: NextFunction) => {
+
+    const payload: IBuyAlbumDto = matchedData(req) as IBuyAlbumDto
+
+    req.locals.info = payload
+    const data: any = await logic.buyAlbum(payload)
     req.locals.result = data
 
     if (data?.error) return next(data.error)
@@ -72,5 +88,6 @@ export {
     createAlbum,
     getListAlbumes,
     deleteAlbum,
-    updateAlbum
+    updateAlbum,
+    buyAlbum
 }

@@ -1,6 +1,6 @@
 
 import { IAlbum } from "../../interface/IAlbum";
-import { IAlbumCollection } from "../../models/collections/Album";
+import { IAlbumCollection } from "../../models/collections/Albumes";
 
 const singleAlbum = (resource: IAlbumCollection): IAlbum => {
     const mapper: IAlbum = {

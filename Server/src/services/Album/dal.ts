@@ -1,13 +1,13 @@
 import { FilterQuery, PaginateOptions, PaginateResult, Types } from "mongoose"
 import { IPage } from "../../interface/IPage"
-import { IAlbumCollection } from "../../models/collections/Album"
+import { IAlbumSchema } from "../../models/collections/Albumes"
 import collections from "../../models/index.models"
 import { ApplicationError } from "../../utils/applicationError"
 import { ICreateAlbumDto } from "./dto/frontToBack/ICreateAlbum.dto."
 import { IUpdateAlbumDto } from "./dto/frontToBack/IUpdateAlbum.dto"
 
 
-const createAlbum = async (payload: ICreateAlbumDto): Promise<IAlbumCollection> => {
+const createAlbum = async (payload: ICreateAlbumDto): Promise<IAlbumSchema> => {
     try {
         return await collections.Albumes.create({
             collectionAlbum: new Types.ObjectId(payload.idCollection),
@@ -19,7 +19,7 @@ const createAlbum = async (payload: ICreateAlbumDto): Promise<IAlbumCollection> 
     }
 }
 
-const findAlbum = async (field: string, value: string): Promise<IAlbumCollection | null> => {
+const findAlbum = async (field: string, value: string): Promise<IAlbumSchema | null> => {
     try {
         return await collections.Albumes.findOne({ [field]: value })
     } catch (error) {
@@ -27,14 +27,14 @@ const findAlbum = async (field: string, value: string): Promise<IAlbumCollection
     }
 }
 
-const getListAlbumes = async ({ page, filterText }: IPage): Promise<PaginateResult<IAlbumCollection>> => {
+const getListAlbumes = async ({ page, filterText }: IPage): Promise<PaginateResult<IAlbumSchema>> => {
     try {
         const options: PaginateOptions = {
             page,
             limit: 3,
             populate: 'figurites'
         }
-        const query: FilterQuery<IAlbumCollection> = {
+        const query: FilterQuery<IAlbumSchema> = {
             ...(filterText !== '' && {
                 title: { $regex: new RegExp(filterText), $options: 'i' }
             }),
@@ -53,7 +53,7 @@ const deleteAlbum = async (payload: string): Promise<any > => {
     }
 }
 
-const updateAlbum = async (payload: IUpdateAlbumDto): Promise<IAlbumCollection | null> => {
+const updateAlbum = async (payload: IUpdateAlbumDto): Promise<IAlbumSchema | null> => {
     try {
         return await collections.Albumes.findByIdAndUpdate(payload.id, {
             title: payload.title,
@@ -66,10 +66,15 @@ const updateAlbum = async (payload: IUpdateAlbumDto): Promise<IAlbumCollection |
     }
 }
 
+const findPurchasedAlbum = () => {
+
+}
+
 export default {
     createAlbum,
     findAlbum,
     getListAlbumes,
     deleteAlbum,
-    updateAlbum
+    updateAlbum,
+    findPurchasedAlbum
 }

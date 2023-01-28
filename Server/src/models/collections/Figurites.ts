@@ -1,17 +1,18 @@
 import { model, Schema, Document, Types, ObjectId } from 'mongoose';
 import mongooseDelete from 'mongoose-delete';
 import mongoosePaginate from 'mongoose-paginate-v2'
-import { IAlbumCollection } from './Album';
-import { IUserCollection } from './User';
+import { IAlbumSchema } from './Albumes';
 
-export interface IUserAlbumCollection extends Document {
-    album: ObjectId | IAlbumCollection; // TODO: cambiar por la interface de Roles
-    user: ObjectId | IUserCollection;
+export interface IFiguresSchema extends Document {
+    titulo: string;
+    album: ObjectId | IAlbumSchema;
+    urlImage: string;
 }
 
-const UserAlbumSchema = new Schema<IUserAlbumCollection>({
+const FiguresSchema = new Schema<IFiguresSchema>({
+    titulo: { type: String, required: true },
+    urlImage: { type: String, required: true },
     album: { type: Types.ObjectId, ref: "Albumes" },
-    user: { type: Types.ObjectId, ref: "Users" }
 }, {
     timestamps: true, // Nos crea un campo mas con la fecha de creacion y actualizacion del registro
     versionKey: false // Desactivamos la version del dato dentro de mongoose  
@@ -19,9 +20,9 @@ const UserAlbumSchema = new Schema<IUserAlbumCollection>({
 
 /* Le indicamos a nuestro modelo, que sobre escriba los metodos
  le que brinda mongoose, por los que nos brinda mongooseDelete */
- UserAlbumSchema.plugin(mongooseDelete, { overrideMethods: 'all' })
+FiguresSchema.plugin(mongooseDelete, { overrideMethods: 'all' })
 
 // Le indicamos a nuestro modelo, que va a poder paginar
-UserAlbumSchema.plugin(mongoosePaginate)
+FiguresSchema.plugin(mongoosePaginate)
 
-export default model<IUserAlbumCollection>('UserAlbumes', UserAlbumSchema);
+export default model<IFiguresSchema>('Figurites', FiguresSchema);

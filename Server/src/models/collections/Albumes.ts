@@ -1,21 +1,21 @@
 import { model, Schema, Document, Types, ObjectId, PaginateModel } from 'mongoose';
 import mongooseDelete, {SoftDeleteModel, SoftDeleteInterface} from 'mongoose-delete'
 import mongoosePaginate from 'mongoose-paginate-v2'
-import { IAlbumImageCollection } from './AlbumImage';
-import { ICollectionAlbum } from './CollectionAlbum';
+import { IFiguresSchema } from './Figurites';
+import { IAlbumCollectionSchema } from './AlbumCollections';
 
-export interface IAlbumCollection extends Document, SoftDeleteInterface {
+export interface IAlbumSchema extends Document, SoftDeleteInterface {
     title: string;
     image: string;
-    collectionAlbum: ObjectId | ICollectionAlbum;
-    figurites: ObjectId[] | IAlbumImageCollection[];
+    collectionAlbum: ObjectId | IAlbumCollectionSchema;
+    figurites: ObjectId[] | IFiguresSchema[];
 }
 
-const AlbumSchema = new Schema<IAlbumCollection>({
+const AlbumSchema = new Schema<IAlbumSchema>({
     title: { type: String, required: true },
     image: { type: String, required: true },
     collectionAlbum: { type: Types.ObjectId, ref: "CollectionAlbum" },
-    figurites: [{ type: Types.ObjectId, ref: "AlbumImages" }]
+    figurites: [{ type: Types.ObjectId, ref: "Figurites" }]
 }, {
     timestamps: true, // Nos crea un campo mas con la fecha de creacion y actualizacion del registro
     versionKey: false, // Desactivamos la version del dato dentro de mongoose 
@@ -30,4 +30,4 @@ AlbumSchema.plugin(mongoosePaginate)
 
 
 // export default model<IAlbumCollection, SoftDeleteModel<IAlbumCollection> & PaginateModel<IAlbumCollection>>('Albumes', AlbumSchema);
-export default model<IAlbumCollection, SoftDeleteModel<IAlbumCollection> & PaginateModel<IAlbumCollection>>('Albumes', AlbumSchema);
+export default model<IAlbumSchema, SoftDeleteModel<IAlbumSchema> & PaginateModel<IAlbumSchema>>('Albumes', AlbumSchema);

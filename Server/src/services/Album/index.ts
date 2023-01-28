@@ -1,11 +1,12 @@
 import express from "express";
-import { createAlbum, getListAlbumes, deleteAlbum, updateAlbum } from './controller'
+import { createAlbum, getListAlbumes, deleteAlbum, updateAlbum, buyAlbum } from './controller'
 import { checkRolesHandler } from '../../middlewares/checkRolesHandler'
 import { mockHandler } from "../../middlewares/mockHandler";
 import { authHandler } from "../../middlewares/authHandler";
 import { validatorCreateAlbum } from "./validators/createAlbum";
 import { validatorUpdateAlbum } from "./validators/updateAlbum";
 import { validatorDeleteAlbum } from "./validators/deleteAlbum";
+import { validatorBuyAlbum } from "./validators/buyAlbum";
 
 const router = express.Router();
 
@@ -41,7 +42,7 @@ router.use(mockHandler)
  *       - bearerAuth: []
  *       - idSecurity: []
  */
-router.post('/createAlbum', checkRolesHandler(['Admin']), validatorCreateAlbum, createAlbum)
+router.post('/createAlbum', checkRolesHandler(), validatorCreateAlbum, createAlbum)
 
 /** 
  * @swagger
@@ -73,10 +74,13 @@ router.post('/createAlbum', checkRolesHandler(['Admin']), validatorCreateAlbum, 
  *       - bearerAuth: []
  *       - idSecurity: []
  */
-router.get('/getAllList', checkRolesHandler(['Admin', 'User']), getListAlbumes)
+router.get('/getAllList', checkRolesHandler(['User']), getListAlbumes)
 
-router.delete('/deleteAlbum/:id', checkRolesHandler(['Admin']), validatorDeleteAlbum, deleteAlbum)
+router.delete('/deleteAlbum/:id', checkRolesHandler(), validatorDeleteAlbum, deleteAlbum)
 
-router.put('/updateAlbum/:id', checkRolesHandler(['Admin']), validatorUpdateAlbum, updateAlbum)
+router.put('/updateAlbum/:id', checkRolesHandler(), validatorUpdateAlbum, updateAlbum)
+
+router.post('/buyAlbum', checkRolesHandler(['User']), validatorBuyAlbum, buyAlbum)
+
 
 export default router

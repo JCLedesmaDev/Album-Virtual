@@ -1,21 +1,21 @@
-import Albumes from './collections/Album'
-import UserAlbumImages from './collections/UserAlbumImage'
-import AlbumImages from './collections/AlbumImage'
-import CollectionAlbum from './collections/CollectionAlbum'
-import Users from './collections/User'
-import UserAlbumes from './collections/UserAlbum'
-import Roles from './collections/Rol'
-import RegisterDb from './collections/RegisterBD'
+import Albumes from './collections/Albumes'
+import PurchasedFigures from './collections/PurchasedFigures'
+import Figurites from './collections/Figurites'
+import AlbumCollections from './collections/AlbumCollections'
+import Users from './collections/Users'
+import PurchasedAlbumes from './collections/PurchasedAlbumes'
+import Roles from './collections/Roles'
+import RegistersDb from './collections/RegistersBD'
 
 const collections = {
-    Albumes,
-    UserAlbumImages,
-    AlbumImages,
-    CollectionAlbum,
     Users,
+    AlbumCollections,
+    Albumes,
+    Figurites,
+    PurchasedAlbumes,
+    PurchasedFigures,
     Roles,
-    UserAlbumes,
-    RegisterDb
+    RegistersDb
 };
 
 export default collections;

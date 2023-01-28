@@ -17,7 +17,7 @@ const insertLoggerDB = async (infoLooger: ILogger) => {
         const { usuarioId, tipo, request,
             response } = infoLooger
 
-        await collections.RegisterDb.create({
+        await collections.RegistersDb.create({
             type: tipo,
             date: new Date(),
             request: request,

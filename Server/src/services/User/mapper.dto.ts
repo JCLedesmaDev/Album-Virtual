@@ -1,6 +1,6 @@
 import { IRol } from "../../interface/IRol";
-import { IRolCollection } from "../../models/collections/Rol";
-import { IUserCollection } from "../../models/collections/User";
+import { IRolSchema } from "../../models/collections/Roles";
+import { IUserSchema } from "../../models/collections/Users";
 import jwt from "../../utils/jwt";
 import { IAuthDto } from "./dto/backToFront/IAuth.dto";
 
@@ -10,14 +10,14 @@ import { IAuthDto } from "./dto/backToFront/IAuth.dto";
  * @param resource Recursos a utilizar en el mapper
  * @returns Nuevo objeto con los datos a eleccion
  */
-const singleUserAuth = async (resource: IUserCollection): Promise<IAuthDto> => {
+const singleUserAuth = async (resource: IUserSchema): Promise<IAuthDto> => {
     const mapper: IAuthDto = {
         token: jwt.tokenSign(resource),
         user: {
             id: resource._id,
             fullName: resource.fullName,
             email: resource.email,
-            roles: multipleRoles(resource.roles as IRolCollection[])   
+            roles: multipleRoles(resource.roles as IRolSchema[])   
         }
     }
     return mapper
@@ -28,7 +28,7 @@ const singleUserAuth = async (resource: IUserCollection): Promise<IAuthDto> => {
  * @param userRoles Roles del usuario
  * @returns Nuevo objeto con los datos a eleccion
  */
-const multipleRoles = (userRoles: IRolCollection[]): IRol[] => {
+const multipleRoles = (userRoles: IRolSchema[]): IRol[] => {
     const rolesMapper: IRol[] = userRoles.map( rol => {
         return {
             id: rol._id,

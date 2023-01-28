@@ -1,23 +1,23 @@
 import { model, Schema, Document, Types, ObjectId } from 'mongoose';
 import mongooseDelete from 'mongoose-delete';
 import mongoosePaginate from 'mongoose-paginate-v2'
-import { IRolCollection } from './Rol';
-import { IUserAlbumCollection } from './UserAlbum';
+import { IRolSchema } from './Roles';
+import { IPurchasedAlbumSchema } from './PurchasedAlbumes';
 
-export interface IUserCollection extends Document {
+export interface IUserSchema extends Document {
     fullName: string;
     email: string;
     password: string;
-    roles: ObjectId[] | IRolCollection[];
-    albumList: ObjectId[] | IUserAlbumCollection[];
+    roles: ObjectId[] | IRolSchema[];
+    albumList: ObjectId[] | IPurchasedAlbumSchema[];
 }
 
-const UserSchema = new Schema<IUserCollection>({
+const UserSchema = new Schema<IUserSchema>({
     fullName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     roles: [{ type: Types.ObjectId, ref: "Roles" }],
-    albumList: [{ type: Types.ObjectId, ref: "UserAlbumes" }]
+    albumList: [{ type: Types.ObjectId, ref: "PurchasedAlbumes" }]
 }, {
     timestamps: true, // Nos crea un campo mas con la fecha de creacion y actualizacion del registro
     versionKey: false // Desactivamos la version del dato dentro de mongoose  
@@ -30,4 +30,4 @@ UserSchema.plugin(mongooseDelete, { overrideMethods: 'all' })
 // Le indicamos a nuestro modelo, que va a poder paginar
 UserSchema.plugin(mongoosePaginate)
 
-export default model<IUserCollection>('Users', UserSchema);
+export default model<IUserSchema>('Users', UserSchema);

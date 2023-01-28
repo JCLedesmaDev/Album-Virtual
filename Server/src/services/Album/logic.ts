@@ -9,6 +9,7 @@ import { ICreateAlbumDto } from "./dto/frontToBack/ICreateAlbum.dto."
 import { IDeleteAlbumDto } from "./dto/frontToBack/IDeleteAlbum.dto"
 import { IUpdateAlbumDto } from "./dto/frontToBack/IUpdateAlbum.dto"
 import { IAlbum } from "../../interface/IAlbum"
+import { IBuyAlbumDto } from "./dto/frontToBack/IBuyAlbum.dto"
 
 
 const createAlbum = tryCatchWrapper(async (payload: ICreateAlbumDto) => {
@@ -68,9 +69,31 @@ const updateAlbum = tryCatchWrapper(async (payload: IUpdateAlbumDto) => {
     })
 })
 
+
+const buyAlbum = tryCatchWrapper(async (payload: IBuyAlbumDto) => {
+    const album = await externalDb.findAlbum('_id', payload.idAlbum)
+
+    if (album === null) {
+        throw new ApplicationError({ message: 'No existe este Album. Intentelo con otro.' });
+    }
+    
+    const findPurchasedAlbum = await externalDb.findPurchasedAlbum(payload)
+    
+    if (findPurchasedAlbum !== null) {
+        throw new ApplicationError({ message: 'Ya compraste este Album!.' });
+    }
+
+    await externalDb.buyAlbum(payload)
+
+    return responseMessage.success<any>({
+        message: 'Compraste este Album!!'
+    })
+})
+
 export default {
     createAlbum,
     getListAlbumes,
     deteleAlbum,
-    updateAlbum
+    updateAlbum,
+    buyAlbum
 }
