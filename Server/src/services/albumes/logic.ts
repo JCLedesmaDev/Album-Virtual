@@ -5,11 +5,11 @@ import responseMessage, { IResponse } from "../../utils/responseMessage"
 import { IPage } from "../../interface/IPage"
 import { ApplicationError } from "../../utils/applicationError"
 import { IPaginationResult, paginationMapper } from "../../utils/paginationMapper"
-import { ICreateAlbumDto } from "./dto/frontToBack/ICreateAlbum.dto."
-import { IDeleteAlbumDto } from "./dto/frontToBack/IDeleteAlbum.dto"
-import { IUpdateAlbumDto } from "./dto/frontToBack/IUpdateAlbum.dto"
+import { ICreateAlbumDto } from "./dto/ICreateAlbum.dto."
+import { IDeleteAlbumDto } from "./dto/IDeleteAlbum.dto"
+import { IUpdateAlbumDto } from "./dto/IUpdateAlbum.dto"
 import { IAlbum } from "../../interface/IAlbum"
-import { IBuyAlbumDto } from "./dto/frontToBack/IBuyAlbum.dto"
+import { IBuyAlbumDto } from "./dto/IBuyAlbum.dto"
 
 
 const createAlbum = tryCatchWrapper(async (payload: ICreateAlbumDto) => {

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { matchedData } from 'express-validator'
-import { ILoginDto } from "./dto/frontToBack/ILogin.dto";
-import { IRegisterDto } from "./dto/frontToBack/IRegister.dto";
+import { ILoginDto } from "./dto/ILogin.dto";
+import { IRegisterDto } from "./dto/IRegister.dto";
 import logic from './logic'
 
 

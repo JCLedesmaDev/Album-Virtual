@@ -15,7 +15,7 @@ router.use(mockHandler)
 
 /** 
  * @swagger
- * /api/album/createAlbum:
+ * /api/albumes/createAlbum:
  *    post:
  *      tags: [Albumes]  
  *      summary: "Crear un nuevo Album"
@@ -46,7 +46,7 @@ router.post('/createAlbum', checkRolesHandler(), validatorCreateAlbum, createAlb
 
 /** 
  * @swagger
- * /api/album/getAllList:
+ * /api/albumes/getAllList:
  *    get:
  *      tags: [Albumes]  
  *      summary: "Obtener listado de albumes"

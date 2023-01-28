@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express"
 import { matchedData } from "express-validator"
 import { IPage } from "../../interface/IPage"
-import { IBuyAlbumDto } from "./dto/frontToBack/IBuyAlbum.dto"
-import { ICreateAlbumDto } from "./dto/frontToBack/ICreateAlbum.dto."
-import { IDeleteAlbumDto } from "./dto/frontToBack/IDeleteAlbum.dto"
-import { IUpdateAlbumDto } from "./dto/frontToBack/IUpdateAlbum.dto"
+import { IBuyAlbumDto } from "./dto/IBuyAlbum.dto"
+import { ICreateAlbumDto } from "./dto/ICreateAlbum.dto."
+import { IDeleteAlbumDto } from "./dto/IDeleteAlbum.dto"
+import { IUpdateAlbumDto } from "./dto/IUpdateAlbum.dto"
 import logic from './logic'
 
 

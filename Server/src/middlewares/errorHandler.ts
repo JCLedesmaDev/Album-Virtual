@@ -6,7 +6,7 @@ import { ApplicationError } from '../utils/applicationError'
 const errorHandler = async (err: ApplicationError, req: Request, res: Response, next: NextFunction) => {
     const requestInfo = {
         headers: req.headers,
-        body: req.locals.info,
+        body: req.locals?.info,
         params: req.params,
         url: req.url
     }
@@ -42,7 +42,7 @@ const errorHandler = async (err: ApplicationError, req: Request, res: Response, 
             message: 'Ocurrio un error interno. En breve estara resuelto'
         }))
         return await logger.insertLoggerDB({
-            usuarioId: req.headers.legajo as string,  // TODO: Cambiar legajo por Id Usuario
+            usuarioId: req.locals.usrId as string,  
             tipo: 'Error',
             request: requestInfo,
             response: errorInfo

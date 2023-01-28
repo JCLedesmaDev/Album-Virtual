@@ -1,11 +1,11 @@
 import express from "express";
-import UserRoutes from '../services/user'
-import AlbumRoutes from '../services/album' //Nota, hace referencia al index de la carpeta "Album" donde tenemos los http definidos
+import UsersRoutes from '../services/users'
+import AlbumesRoutes from '../services/albumes' //Nota, hace referencia al index de la carpeta "Album" donde tenemos los http definidos
 
 const router = express.Router();
 
-router.use('/album', AlbumRoutes)
-router.use('/user', UserRoutes)
+router.use('/albumes', AlbumesRoutes)
+router.use('/users', UsersRoutes)
 
 
 export default router;

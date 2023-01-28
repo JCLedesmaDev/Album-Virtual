@@ -1,10 +1,12 @@
 import { FilterQuery, PaginateOptions, PaginateResult, Types } from "mongoose"
 import { IPage } from "../../interface/IPage"
 import { IAlbumSchema } from "../../models/collections/Albumes"
+import { IPurchasedAlbumSchema } from "../../models/collections/PurchasedAlbumes"
 import collections from "../../models/index.models"
 import { ApplicationError } from "../../utils/applicationError"
-import { ICreateAlbumDto } from "./dto/frontToBack/ICreateAlbum.dto."
-import { IUpdateAlbumDto } from "./dto/frontToBack/IUpdateAlbum.dto"
+import { IBuyAlbumDto } from "./dto/IBuyAlbum.dto"
+import { ICreateAlbumDto } from "./dto/ICreateAlbum.dto."
+import { IUpdateAlbumDto } from "./dto/IUpdateAlbum.dto"
 
 
 const createAlbum = async (payload: ICreateAlbumDto): Promise<IAlbumSchema> => {
@@ -45,7 +47,7 @@ const getListAlbumes = async ({ page, filterText }: IPage): Promise<PaginateResu
     }
 }
 
-const deleteAlbum = async (payload: string): Promise<any > => {
+const deleteAlbum = async (payload: string): Promise<any> => {
     try {
         return await collections.Albumes.deleteById(payload)
     } catch (error) {
@@ -60,14 +62,31 @@ const updateAlbum = async (payload: IUpdateAlbumDto): Promise<IAlbumSchema | nul
             image: payload.image,
             collectionAlbum: new Types.ObjectId(payload.idCollection)
         })
-
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al actualziar este album', source: error })
     }
 }
 
-const findPurchasedAlbum = () => {
+const findPurchasedAlbum = async (payload: IBuyAlbumDto): Promise<IPurchasedAlbumSchema | null> => {
+    try {
+        return await collections.PurchasedAlbumes.findOne({
+            album: payload.idAlbum,
+            user: payload.idUsuario
+        })
+    } catch (error) {
+        throw new ApplicationError({ message: 'Ha ocurrido un error al verificar la compra del Album', source: error })
+    }
+}
 
+const buyAlbum = async (payload: IBuyAlbumDto): Promise<IPurchasedAlbumSchema> => {
+    try {
+        return await collections.PurchasedAlbumes.create({
+            album: new Types.ObjectId(payload.idAlbum),
+            user: new Types.ObjectId(payload.idUsuario)
+        })
+    } catch (error) {
+        throw new ApplicationError({ message: 'Ha ocurrido un error al comprar este Album', source: error })
+    }
 }
 
 export default {
@@ -76,5 +95,6 @@ export default {
     getListAlbumes,
     deleteAlbum,
     updateAlbum,
-    findPurchasedAlbum
+    findPurchasedAlbum,
+    buyAlbum
 }
