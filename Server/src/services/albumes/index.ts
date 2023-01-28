@@ -76,6 +76,29 @@ router.post('/createAlbum', checkRolesHandler(), validatorCreateAlbum, createAlb
  */
 router.get('/getAllList', checkRolesHandler(['User']), getListAlbumes)
 
+/** 
+ * @swagger
+ * /api/albumes/deleteAlbum/{id}:
+ *    delete:
+ *      tags: [Albumes]  
+ *      summary: "Eliminar un Album"
+ *      description: Recibe como parametro el Id del Album a eliminar.  
+ *      parameters:
+ *        - name: id
+ *          in: path
+ *          description: 'Id del Album'
+ *          required: true
+ *          schema:
+ *            type: string 
+ *      responses:
+ *        '200':
+ *          description: Retorna el objeto insertado en la coleccion.
+ *        '422':
+ *          description: Error de validacion.
+ *      security:
+ *       - bearerAuth: []
+ *       - idSecurity: []
+ */
 router.delete('/deleteAlbum/:id', checkRolesHandler(), validatorDeleteAlbum, deleteAlbum)
 
 router.put('/updateAlbum/:id', checkRolesHandler(), validatorUpdateAlbum, updateAlbum)
