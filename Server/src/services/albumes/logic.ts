@@ -1,6 +1,6 @@
 import { tryCatchWrapper } from "../../utils/tryCatchWrapper"
 import externalDb from "./dal"
-import mapper from './mapper.dto'
+import mapper from './mapper'
 import responseMessage, { IResponse } from "../../utils/responseMessage"
 import { IPage } from "../../interface/IPage"
 import { ApplicationError } from "../../utils/applicationError"
