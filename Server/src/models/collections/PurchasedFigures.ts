@@ -1,12 +1,12 @@
 import { model, Schema, Document, Types, ObjectId } from 'mongoose';
 import mongooseDelete from 'mongoose-delete';
 import mongoosePaginate from 'mongoose-paginate-v2'
-import { IFiguresSchema } from './Figurites';
+import { IFigurineSchema } from './Figurites';
 import { IPurchasedAlbumSchema } from './PurchasedAlbumes';
 import { IUserSchema } from './Users';
 
 export interface IPurchasedFiguresSchema extends Document {
-    figures: ObjectId | IFiguresSchema;
+    figures: ObjectId | IFigurineSchema;
     user: ObjectId | IUserSchema;
     purchasedAlbum: ObjectId | IPurchasedAlbumSchema;
 }

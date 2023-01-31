@@ -1,14 +1,14 @@
 import { model, Schema, Document, Types, ObjectId, PaginateModel } from 'mongoose';
 import mongooseDelete, {SoftDeleteModel, SoftDeleteInterface} from 'mongoose-delete'
 import mongoosePaginate from 'mongoose-paginate-v2'
-import { IFiguresSchema } from './Figurites';
+import { IFigurineSchema } from './Figurites';
 import { IAlbumCollectionSchema } from './AlbumCollections';
 
 export interface IAlbumSchema extends Document, SoftDeleteInterface {
     title: string;
     image: string;
     collectionAlbum: ObjectId | IAlbumCollectionSchema;
-    figurites: ObjectId[] | IFiguresSchema[];
+    figurites: ObjectId[] | IFigurineSchema[];
 }
 
 const AlbumSchema = new Schema<IAlbumSchema>({

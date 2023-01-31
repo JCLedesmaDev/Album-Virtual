@@ -21,9 +21,9 @@ const createAlbum = async (payload: ICreateAlbumDto): Promise<IAlbumSchema> => {
     }
 }
 
-const findAlbum = async (field: string, value: string): Promise<IAlbumSchema | null> => {
+const findAlbum = async (objFind: any): Promise<IAlbumSchema | null> => {
     try {
-        return await collections.Albumes.findOne({ [field]: value })
+        return await collections.Albumes.findOne(objFind)
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al encontrar este Album', source: error })
     }

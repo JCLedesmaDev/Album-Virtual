@@ -3,13 +3,13 @@ import mongooseDelete from 'mongoose-delete';
 import mongoosePaginate from 'mongoose-paginate-v2'
 import { IAlbumSchema } from './Albumes';
 
-export interface IFiguresSchema extends Document {
+export interface IFigurineSchema extends Document {
     titulo: string;
     album: ObjectId | IAlbumSchema;
     urlImage: string;
 }
 
-const FiguresSchema = new Schema<IFiguresSchema>({
+const FigurineSchema = new Schema<IFigurineSchema>({
     titulo: { type: String, required: true },
     urlImage: { type: String, required: true },
     album: { type: Types.ObjectId, ref: "Albumes" },
@@ -20,9 +20,9 @@ const FiguresSchema = new Schema<IFiguresSchema>({
 
 /* Le indicamos a nuestro modelo, que sobre escriba los metodos
  le que brinda mongoose, por los que nos brinda mongooseDelete */
-FiguresSchema.plugin(mongooseDelete, { overrideMethods: 'all' })
+ FigurineSchema.plugin(mongooseDelete, { overrideMethods: 'all' })
 
 // Le indicamos a nuestro modelo, que va a poder paginar
-FiguresSchema.plugin(mongoosePaginate)
+FigurineSchema.plugin(mongoosePaginate)
 
-export default model<IFiguresSchema>('Figurites', FiguresSchema);
+export default model<IFigurineSchema>('Figurites', FigurineSchema);

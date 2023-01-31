@@ -14,9 +14,11 @@ import { IBuyAlbumDto } from "./dto/IBuyAlbum.dto"
 
 const createAlbum = tryCatchWrapper(async (payload: ICreateAlbumDto) => {
 
-    const album = await externalDb.findAlbum('title', payload.title)
+    const findAlbum = await externalDb.findAlbum({
+        'title': payload.title
+    })
 
-    if (album !== null) {
+    if (findAlbum !== null) {
         throw new ApplicationError({ message: 'Ya existe un Album con este nombre. Intentelo con otro.' });
     }
 
@@ -42,7 +44,9 @@ const getListAlbumes = tryCatchWrapper(async (payload: IPage) => {
 })
 
 const deteleAlbum = tryCatchWrapper(async (payload: IDeleteAlbumDto) => {
-    const album = await externalDb.findAlbum('_id', payload.id)
+    const album = await externalDb.findAlbum({
+        '_id': payload.id
+    })
 
     if (album === null) {
         throw new ApplicationError({ message: 'No existe este Album. Intentelo con otro.' });
@@ -56,7 +60,9 @@ const deteleAlbum = tryCatchWrapper(async (payload: IDeleteAlbumDto) => {
 })
 
 const updateAlbum = tryCatchWrapper(async (payload: IUpdateAlbumDto) => {
-    const album = await externalDb.findAlbum('_id', payload.id)
+    const album = await externalDb.findAlbum({
+        '_id': payload.id
+    })
 
     if (album === null) {
         throw new ApplicationError({ message: 'No existe este Album. Intentelo con otro.' });
@@ -71,14 +77,16 @@ const updateAlbum = tryCatchWrapper(async (payload: IUpdateAlbumDto) => {
 
 
 const buyAlbum = tryCatchWrapper(async (payload: IBuyAlbumDto) => {
-    const album = await externalDb.findAlbum('_id', payload.idAlbum)
+    const album = await externalDb.findAlbum({
+        '_id': payload.idAlbum
+    })
 
     if (album === null) {
         throw new ApplicationError({ message: 'No existe este Album. Intentelo con otro.' });
     }
-    
+
     const findPurchasedAlbum = await externalDb.findPurchasedAlbum(payload)
-    
+
     if (findPurchasedAlbum !== null) {
         throw new ApplicationError({ message: 'Ya compraste este Album!.' });
     }
