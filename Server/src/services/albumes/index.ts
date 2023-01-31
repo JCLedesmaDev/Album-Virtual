@@ -46,7 +46,7 @@ router.post('/createAlbum', checkRolesHandler(), validatorCreateAlbum, createAlb
 
 /** 
  * @swagger
- * /api/albumes/getAllList:
+ * /api/albumes/getAllAlbumes:
  *    get:
  *      tags: [Albumes]  
  *      summary: "Obtener listado de albumes"
@@ -74,7 +74,7 @@ router.post('/createAlbum', checkRolesHandler(), validatorCreateAlbum, createAlb
  *       - bearerAuth: []
  *       - idSecurity: []
  */
-router.get('/getAllList', checkRolesHandler(['User']), getListAlbumes)
+router.get('/getAllAlbumes', checkRolesHandler(['User']), getListAlbumes)
 
 /** 
  * @swagger
