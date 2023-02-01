@@ -1,12 +1,13 @@
 import { tryCatchWrapper } from "../../utils/tryCatchWrapper"
 import externalDb from "./dal"
-import mapper from './mapper'
+// import mapper from './mapper'
 import responseMessage, { IResponse } from "../../utils/responseMessage"
 import { ApplicationError } from "../../utils/applicationError"
 import { IPaginationResult, paginationMapper } from "../../utils/paginationMapper"
 import { ICreateFigurineDto } from "./dto/ICreateFigurine.dto"
 import { IDeleteFigurineDto } from "./dto/IDeleteFigurine.dto"
 import { IUpdateFigurineDto } from "./dto/IUpdateFigurine.dto"
+import { IBuyFigurineDto } from "./dto/IBuyFigurine.dto"
 
 
 
@@ -63,9 +64,30 @@ const updateFigurine = tryCatchWrapper(async (payload: IUpdateFigurineDto) => {
     })
 })
 
+const buyFigurine = tryCatchWrapper(async (payload: IBuyFigurineDto) => {
+
+    const findPurchasedAlbum = await externalDb.findPurchasedAlbum(payload)
+
+    if (findPurchasedAlbum === null) {
+        throw new ApplicationError({ message: 'No tenes comprado el Album de esta Figurita!.' });
+    }
+
+    const findPurchasedFigurine = await externalDb.findPurchasedFigurine(payload)
+
+    if (findPurchasedFigurine !== null) {
+        throw new ApplicationError({ message: 'Ya has comprado esta figurita antes!.' });
+    }
+
+    await externalDb.buyFigurine(payload)
+
+    return responseMessage.success<any>({
+        message: 'Compraste esta Figurita!!'
+    })
+})
 
 export default {
     createFigurine,
     deleteFigurine,
-    updateFigurine
+    updateFigurine,
+    buyFigurine
 }

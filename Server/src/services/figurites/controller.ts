@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import { matchedData } from "express-validator"
+import { IBuyFigurineDto } from "./dto/IBuyFigurine.dto"
 import { ICreateFigurineDto } from "./dto/ICreateFigurine.dto"
 import { IDeleteFigurineDto } from "./dto/IDeleteFigurine.dto"
 import { IUpdateFigurineDto } from "./dto/IUpdateFigurine.dto"
@@ -50,10 +51,26 @@ const updateFigurine = async (req: Request, res: Response, next: NextFunction) =
     next()
 }
 
+const buyFigurine = async (req: Request, res: Response, next: NextFunction) => {
+
+    const payload: IBuyFigurineDto = matchedData(req) as IBuyFigurineDto
+    req.locals.info = payload
+    const data = await logic.buyFigurine(payload)
+    req.locals.result = data
+
+    req.locals.finished = true
+    if (data?.error) return next(data.error)
+    
+    // req.locals.finished = true
+    res.json(data)
+    next()
+}
+
 
 
 export {
     createFigurine,
     deleteFigurine,
-    updateFigurine
+    updateFigurine,
+    buyFigurine
 }

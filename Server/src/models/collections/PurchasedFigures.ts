@@ -6,13 +6,13 @@ import { IPurchasedAlbumSchema } from './PurchasedAlbumes';
 import { IUserSchema } from './Users';
 
 export interface IPurchasedFiguresSchema extends Document {
-    figures: ObjectId | IFigurineSchema;
+    figurine: ObjectId | IFigurineSchema;
     user: ObjectId | IUserSchema;
     purchasedAlbum: ObjectId | IPurchasedAlbumSchema;
 }
 
 const PurchasedFiguresSchema = new Schema<IPurchasedFiguresSchema>({
-    figures: { type: Types.ObjectId, ref: "Figurites" },
+    figurine: { type: Types.ObjectId, ref: "Figurites" },
     user: { type: Types.ObjectId, ref: "Users" },
     purchasedAlbum: { type: Types.ObjectId, ref: 'PurchasedAlbumes' }
 }, {

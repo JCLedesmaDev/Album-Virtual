@@ -5,6 +5,9 @@ import { IFigurineSchema } from "../../models/collections/Figurites"
 import { ICreateFigurineDto } from "./dto/ICreateFigurine.dto"
 import { IDeleteFigurineDto } from "./dto/IDeleteFigurine.dto"
 import { IUpdateFigurineDto } from "./dto/IUpdateFigurine.dto"
+import { IBuyFigurineDto } from "./dto/IBuyFigurine.dto"
+import { IPurchasedAlbumSchema } from "../../models/collections/PurchasedAlbumes"
+import { IPurchasedFiguresSchema } from "../../models/collections/PurchasedFigures"
 
 
 const findFigurine = async (objFind: any): Promise<IFigurineSchema | null> => {
@@ -47,9 +50,47 @@ const updateFigurine = async (payload: IUpdateFigurineDto): Promise<IFigurineSch
     }
 }
 
+const findPurchasedAlbum = async (payload: IBuyFigurineDto): Promise<IPurchasedAlbumSchema | null> => {
+    try {
+        return await collections.PurchasedAlbumes.findOne({
+            _id: payload.idPurchasedAlbum,
+            user: payload.idUsuario
+        })
+    } catch (error) {
+        throw new ApplicationError({ message: 'Ha ocurrido un error al verificar la compra del Album', source: error })
+    }
+}
+
+const findPurchasedFigurine = async (payload: IBuyFigurineDto): Promise<IPurchasedFiguresSchema | null> => {
+    try {
+        return await collections.PurchasedFigures.findOne({
+            figurine: payload.idFigurine,
+            purchasedAlbum: payload.idPurchasedAlbum,
+            user: payload.idUsuario
+        })
+    } catch (error) {
+        throw new ApplicationError({ message: 'Ha ocurrido un error al verificar la compra de la figurita', source: error })
+    }
+}
+
+const buyFigurine = async (payload: IBuyFigurineDto): Promise<IPurchasedFiguresSchema> => {
+    try {
+        return await collections.PurchasedFigures.create({
+            purchasedAlbum: new Types.ObjectId(payload.idPurchasedAlbum),
+            user: new Types.ObjectId(payload.idUsuario),
+            figurine: new Types.ObjectId(payload.idFigurine),
+        })
+    } catch (error) {
+        throw new ApplicationError({ message: 'Ha ocurrido un error al comprar esta Figurita', source: error })
+    }
+}
+
 export default {
     findFigurine,
     createFigurine,
     deleteFigurine,
-    updateFigurine
+    updateFigurine,
+    findPurchasedAlbum,
+    findPurchasedFigurine,
+    buyFigurine
 }
