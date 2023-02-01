@@ -2,8 +2,10 @@ import express from 'express'
 import { authHandler } from '../../middlewares/authHandler'
 import { checkRolesHandler } from '../../middlewares/checkRolesHandler'
 import { mockHandler } from '../../middlewares/mockHandler'
-import { createFigurine } from './controller'
+import { createFigurine, deleteFigurine, updateFigurine } from './controller'
 import { validatorCreateFigurine } from './validators/createFigurites'
+import { validatorDeleteFigurine } from './validators/deleteFigurites'
+import { validatorUpdateFigurine } from './validators/updateFigurine'
 
 const router = express.Router()
 
@@ -14,9 +16,9 @@ router.post('/createFigurine', checkRolesHandler(['User']), validatorCreateFigur
 
 // router.get('/getAllList', checkRolesHandler(['User']), getAllList)
 
-// router.put('/updateFigurites/:id', checkRolesHandler(), validatorUpdateAlbum, updateFigurites)
+router.put('/updateFigurites/:id', checkRolesHandler(), validatorUpdateFigurine, updateFigurine)
 
-// router.delete('/deleteFigurites/:id', checkRolesHandler(), validatorDeleteAlbum, deleteFigurites)
+router.delete('/deleteFigurites/:id', checkRolesHandler(), validatorDeleteFigurine, deleteFigurine)
 
 // router.post('/buyFigurites', checkRolesHandler(['User']), validatorBuyAlbum, buyFigurites)
 

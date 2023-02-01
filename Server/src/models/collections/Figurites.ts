@@ -1,17 +1,17 @@
 import { model, Schema, Document, Types, ObjectId } from 'mongoose';
-import mongooseDelete from 'mongoose-delete';
-import mongoosePaginate from 'mongoose-paginate-v2'
+import mongooseDelete, { SoftDeleteInterface, SoftDeleteModel } from 'mongoose-delete';
+// import mongoosePaginate from 'mongoose-paginate-v2'
 import { IAlbumSchema } from './Albumes';
 
-export interface IFigurineSchema extends Document {
-    titulo: string;
+export interface IFigurineSchema extends Document, SoftDeleteInterface {
+    title: string;
     album: ObjectId | IAlbumSchema;
-    urlImage: string;
+    image: string;
 }
 
 const FigurineSchema = new Schema<IFigurineSchema>({
-    titulo: { type: String, required: true },
-    urlImage: { type: String, required: true },
+    title: { type: String, required: true },
+    image: { type: String, required: true },
     album: { type: Types.ObjectId, ref: "Albumes" },
 }, {
     timestamps: true, // Nos crea un campo mas con la fecha de creacion y actualizacion del registro
@@ -23,6 +23,6 @@ const FigurineSchema = new Schema<IFigurineSchema>({
  FigurineSchema.plugin(mongooseDelete, { overrideMethods: 'all' })
 
 // Le indicamos a nuestro modelo, que va a poder paginar
-FigurineSchema.plugin(mongoosePaginate)
+// FigurineSchema.plugin(mongoosePaginate)
 
-export default model<IFigurineSchema>('Figurites', FigurineSchema);
+export default model<IFigurineSchema, SoftDeleteModel<IFigurineSchema>>('Figurites', FigurineSchema);
