@@ -64,9 +64,8 @@ const findPurchasedAlbum = async (payload: IBuyFigurineDto): Promise<IPurchasedA
 const findPurchasedFigurine = async (payload: IBuyFigurineDto): Promise<IPurchasedFiguresSchema | null> => {
     try {
         return await collections.PurchasedFigures.findOne({
-            figurine: payload.idFigurine,
+            figurineRef: payload.idFigurine,
             purchasedAlbum: payload.idPurchasedAlbum,
-            user: payload.idUsuario
         })
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al verificar la compra de la figurita', source: error })
@@ -76,9 +75,8 @@ const findPurchasedFigurine = async (payload: IBuyFigurineDto): Promise<IPurchas
 const buyFigurine = async (payload: IBuyFigurineDto): Promise<IPurchasedFiguresSchema> => {
     try {
         return await collections.PurchasedFigures.create({
+            figurineRef: new Types.ObjectId(payload.idFigurine),
             purchasedAlbum: new Types.ObjectId(payload.idPurchasedAlbum),
-            user: new Types.ObjectId(payload.idUsuario),
-            figurine: new Types.ObjectId(payload.idFigurine),
         })
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al comprar esta Figurita', source: error })

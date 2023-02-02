@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import { matchedData } from "express-validator"
-import { IPage } from "../../interface/IPage"
+import { IPagination } from "../../interface/IPagination"
 import { IBuyAlbumDto } from "./dto/IBuyAlbum.dto"
 import { ICreateAlbumDto } from "./dto/ICreateAlbum.dto."
 import { IDeleteAlbumDto } from "./dto/IDeleteAlbum.dto"
@@ -11,6 +11,7 @@ import logic from './logic'
 const createAlbum = async (req: Request, res: Response, next: NextFunction) => {
 
     const payload: ICreateAlbumDto = matchedData(req) as ICreateAlbumDto
+
     req.locals.info = payload
     const data = await logic.createAlbum(payload)
     req.locals.result = data
@@ -24,10 +25,11 @@ const createAlbum = async (req: Request, res: Response, next: NextFunction) => {
 
 const getListAlbumes = async (req: Request, res: Response, next: NextFunction) => {
 
-    const payload: IPage = {
-        page: req.locals.page | 1,
-        filterText: req.locals.filterText
-    }
+    const payload = {
+        page: req.query.page || 1,
+        filterText: req.query.filterText
+    } as IPagination
+
     req.locals.info = payload
     const data = await logic.getListAlbumes(payload)
     req.locals.result = data
@@ -59,7 +61,7 @@ const updateAlbum = async (req: Request, res: Response, next: NextFunction) => {
     const payload: IUpdateAlbumDto = matchedData(req) as IUpdateAlbumDto
 
     req.locals.info = payload
-    const data: any = await logic.updateAlbum(payload)
+    const data = await logic.updateAlbum(payload)
     req.locals.result = data
 
     req.locals.finished = true
@@ -74,7 +76,7 @@ const buyAlbum = async (req: Request, res: Response, next: NextFunction) => {
     const payload: IBuyAlbumDto = matchedData(req) as IBuyAlbumDto
 
     req.locals.info = payload
-    const data: any = await logic.buyAlbum(payload)
+    const data = await logic.buyAlbum(payload)
     req.locals.result = data
 
     req.locals.finished = true
@@ -84,10 +86,29 @@ const buyAlbum = async (req: Request, res: Response, next: NextFunction) => {
     next()
 }
 
+const getAllPurchasedAlbumes = async (req: Request, res: Response, next: NextFunction) => {
+
+    const payload = {
+        page: req.query.page || 1,
+        userId: req.locals.usrId
+    }
+ 
+    // req.locals.info = payload
+    // const data = await logic.buyAlbum(payload)
+    // req.locals.result = data
+
+    // req.locals.finished = true
+    // if (data?.error) return next(data.error)
+
+    // res.json(data)
+    next()
+}
+
 export {
     createAlbum,
     getListAlbumes,
     deleteAlbum,
     updateAlbum,
-    buyAlbum
+    buyAlbum,
+    getAllPurchasedAlbumes
 }

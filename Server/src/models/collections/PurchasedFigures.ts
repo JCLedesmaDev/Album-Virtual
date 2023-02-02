@@ -3,17 +3,14 @@ import mongooseDelete from 'mongoose-delete';
 import mongoosePaginate from 'mongoose-paginate-v2'
 import { IFigurineSchema } from './Figurites';
 import { IPurchasedAlbumSchema } from './PurchasedAlbumes';
-import { IUserSchema } from './Users';
 
 export interface IPurchasedFiguresSchema extends Document {
-    figurine: ObjectId | IFigurineSchema;
-    user: ObjectId | IUserSchema;
+    figurineRef: ObjectId | IFigurineSchema;
     purchasedAlbum: ObjectId | IPurchasedAlbumSchema;
 }
 
 const PurchasedFiguresSchema = new Schema<IPurchasedFiguresSchema>({
-    figurine: { type: Types.ObjectId, ref: "Figurites" },
-    user: { type: Types.ObjectId, ref: "Users" },
+    figurineRef: { type: Types.ObjectId, ref: "Figurites" },
     purchasedAlbum: { type: Types.ObjectId, ref: 'PurchasedAlbumes' }
 }, {
     timestamps: true, // Nos crea un campo mas con la fecha de creacion y actualizacion del registro

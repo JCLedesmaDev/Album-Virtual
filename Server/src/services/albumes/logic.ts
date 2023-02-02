@@ -1,8 +1,8 @@
 import { tryCatchWrapper } from "../../utils/tryCatchWrapper"
 import externalDb from "./dal"
 import mapper from './mapper'
-import responseMessage, { IResponse } from "../../utils/responseMessage"
-import { IPage } from "../../interface/IPage"
+import responseMessage from "../../utils/responseMessage"
+import { IPagination } from "../../interface/IPagination"
 import { ApplicationError } from "../../utils/applicationError"
 import { IPaginationResult, paginationMapper } from "../../utils/paginationMapper"
 import { ICreateAlbumDto } from "./dto/ICreateAlbum.dto."
@@ -29,7 +29,7 @@ const createAlbum = tryCatchWrapper(async (payload: ICreateAlbumDto) => {
     })
 })
 
-const getListAlbumes = tryCatchWrapper(async (payload: IPage) => {
+const getListAlbumes = tryCatchWrapper(async (payload: IPagination) => {
 
     const listAlbumes = await externalDb.getListAlbumes(payload)
 

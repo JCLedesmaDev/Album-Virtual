@@ -1,5 +1,5 @@
 import { FilterQuery, PaginateOptions, PaginateResult, Types } from "mongoose"
-import { IPage } from "../../interface/IPage"
+import { IPagination } from "../../interface/IPagination"
 import { IAlbumSchema } from "../../models/collections/Albumes"
 import { IPurchasedAlbumSchema } from "../../models/collections/PurchasedAlbumes"
 import collections from "../../models/index.models"
@@ -29,7 +29,7 @@ const findAlbum = async (objFind: any): Promise<IAlbumSchema | null> => {
     }
 }
 
-const getListAlbumes = async ({ page, filterText }: IPage): Promise<PaginateResult<IAlbumSchema>> => {
+const getListAlbumes = async ({ page, filterText }: IPagination): Promise<PaginateResult<IAlbumSchema>> => {
     try {
         const options: PaginateOptions = {
             page,

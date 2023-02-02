@@ -1,4 +1,4 @@
-export interface IPage {
+export interface IPagination {
     page: number;
     filterText: string;
 }

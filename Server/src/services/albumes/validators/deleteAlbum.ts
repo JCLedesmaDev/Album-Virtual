@@ -1,4 +1,4 @@
-import { check, param } from 'express-validator'
+import { param } from 'express-validator'
 import { validateResults } from '../../../middlewares/validatorExpressHandler'
 import { Request, Response, NextFunction } from "express";
 

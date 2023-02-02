@@ -15,12 +15,13 @@ router.use(mockHandler)
 
 router.post('/createFigurine', checkRolesHandler(), validatorCreateFigurine, createFigurine)
 
-// router.get('/getAllList', checkRolesHandler(['User']), getAllList)
-
 router.put('/updateFigurine/:id', checkRolesHandler(), validatorUpdateFigurine, updateFigurine)
 
 router.delete('/deleteFigurine/:id', checkRolesHandler(), validatorDeleteFigurine, deleteFigurine)
 
 router.post('/buyFigurine', checkRolesHandler(['User']), validatorBuyFigurine, buyFigurine)
+
+// router.get('/getAllPurchasedFigurites', checkRolesHandler(['User']), getAllList)
+
 
 export default router

@@ -1,5 +1,5 @@
 import express from "express";
-import { createAlbum, getListAlbumes, deleteAlbum, updateAlbum, buyAlbum } from './controller'
+import { createAlbum, getListAlbumes, deleteAlbum, updateAlbum, buyAlbum, getAllPurchasedAlbumes } from './controller'
 import { checkRolesHandler } from '../../middlewares/checkRolesHandler'
 import { mockHandler } from "../../middlewares/mockHandler";
 import { authHandler } from "../../middlewares/authHandler";
@@ -104,6 +104,9 @@ router.delete('/deleteAlbum/:id', checkRolesHandler(), validatorDeleteAlbum, del
 router.put('/updateAlbum/:id', checkRolesHandler(), validatorUpdateAlbum, updateAlbum)
 
 router.post('/buyAlbum', checkRolesHandler(['User']), validatorBuyAlbum, buyAlbum)
+
+router.get('/getAllPurchasedAlbumes', checkRolesHandler(['User']), getAllPurchasedAlbumes)
+
 
 
 export default router
