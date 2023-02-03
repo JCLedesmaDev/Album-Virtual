@@ -1,10 +1,10 @@
 import { model, Schema, Document, Types, ObjectId, PaginateModel } from 'mongoose';
-import mongooseDelete from 'mongoose-delete';
+import mongooseDelete, { SoftDeleteInterface, SoftDeleteModel } from 'mongoose-delete';
 import mongoosePaginate from 'mongoose-paginate-v2'
 import { IAlbumSchema } from './Albumes';
 
 
-export interface IAlbumCollectionSchema extends Document {
+export interface IAlbumCollectionSchema extends Document, SoftDeleteInterface {
     titulo: string;
     albumes: ObjectId[] | IAlbumSchema[];
 }
@@ -24,4 +24,4 @@ const AlbumCollectionSchema = new Schema<IAlbumCollectionSchema>({
 // Le indicamos a nuestro modelo, que va a poder paginar
 AlbumCollectionSchema.plugin(mongoosePaginate)
 
-export default model<IAlbumCollectionSchema, PaginateModel<IAlbumCollectionSchema>>('AlbumCollections', AlbumCollectionSchema);
+export default model<IAlbumCollectionSchema, SoftDeleteModel<IAlbumCollectionSchema> & PaginateModel<IAlbumCollectionSchema>>('AlbumCollections', AlbumCollectionSchema);

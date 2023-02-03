@@ -1,5 +1,4 @@
-import { model, Schema, Document, Types, ObjectId } from 'mongoose';
-import mongooseDelete from 'mongoose-delete';
+import { model, Schema, Document, Types, ObjectId, PaginateModel } from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2'
 import { IAlbumSchema } from './Albumes';
 import { IPurchasedFiguresSchema } from './PurchasedFigures';
@@ -20,11 +19,7 @@ const PurchasedAlbumSchema = new Schema<IPurchasedAlbumSchema>({
     versionKey: false // Desactivamos la version del dato dentro de mongoose  
 })
 
-/* Le indicamos a nuestro modelo, que sobre escriba los metodos
- le que brinda mongoose, por los que nos brinda mongooseDelete */
-PurchasedAlbumSchema.plugin(mongooseDelete, { overrideMethods: 'all' })
-
 // Le indicamos a nuestro modelo, que va a poder paginar
 PurchasedAlbumSchema.plugin(mongoosePaginate)
 
-export default model<IPurchasedAlbumSchema>('PurchasedAlbumes', PurchasedAlbumSchema);
+export default model<IPurchasedAlbumSchema, PaginateModel<IPurchasedAlbumSchema>>('PurchasedAlbumes', PurchasedAlbumSchema);

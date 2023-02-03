@@ -1,10 +1,10 @@
 import { model, Schema, Document, Types, ObjectId } from 'mongoose';
-import mongooseDelete from 'mongoose-delete';
+import mongooseDelete, { SoftDeleteInterface, SoftDeleteModel } from 'mongoose-delete';
 import mongoosePaginate from 'mongoose-paginate-v2'
 import { IRolSchema } from './Roles';
 import { IPurchasedAlbumSchema } from './PurchasedAlbumes';
 
-export interface IUserSchema extends Document {
+export interface IUserSchema extends Document, SoftDeleteInterface {
     fullName: string;
     email: string;
     password: string;
@@ -27,7 +27,5 @@ const UserSchema = new Schema<IUserSchema>({
  le que brinda mongoose, por los que nos brinda mongooseDelete */
 UserSchema.plugin(mongooseDelete, { overrideMethods: 'all' })
 
-// Le indicamos a nuestro modelo, que va a poder paginar
-UserSchema.plugin(mongoosePaginate)
 
-export default model<IUserSchema>('Users', UserSchema);
+export default model<IUserSchema, SoftDeleteModel<IUserSchema>>('Users', UserSchema);

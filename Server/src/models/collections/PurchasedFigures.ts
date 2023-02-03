@@ -1,4 +1,4 @@
-import { model, Schema, Document, Types, ObjectId } from 'mongoose';
+import { model, Schema, Document, Types, ObjectId, PaginateModel } from 'mongoose';
 import mongooseDelete from 'mongoose-delete';
 import mongoosePaginate from 'mongoose-paginate-v2'
 import { IFigurineSchema } from './Figurites';
@@ -17,11 +17,8 @@ const PurchasedFiguresSchema = new Schema<IPurchasedFiguresSchema>({
     versionKey: false // Desactivamos la version del dato dentro de mongoose  
 })
 
-/* Le indicamos a nuestro modelo, que sobre escriba los metodos
- le que brinda mongoose, por los que nos brinda mongooseDelete */
-PurchasedFiguresSchema.plugin(mongooseDelete, { overrideMethods: 'all' })
 
 // Le indicamos a nuestro modelo, que va a poder paginar
 PurchasedFiguresSchema.plugin(mongoosePaginate)
 
-export default model<IPurchasedFiguresSchema>('PurchasedFigures', PurchasedFiguresSchema);
+export default model<IPurchasedFiguresSchema, PaginateModel<IPurchasedFiguresSchema>>('PurchasedFigures', PurchasedFiguresSchema);

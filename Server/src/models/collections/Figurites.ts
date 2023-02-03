@@ -1,6 +1,5 @@
-import { model, Schema, Document, Types, ObjectId } from 'mongoose';
+import { model, Schema, Document, Types, ObjectId, PaginateModel } from 'mongoose';
 import mongooseDelete, { SoftDeleteInterface, SoftDeleteModel } from 'mongoose-delete';
-// import mongoosePaginate from 'mongoose-paginate-v2'
 import { IAlbumSchema } from './Albumes';
 
 export interface IFigurineSchema extends Document, SoftDeleteInterface {
@@ -20,9 +19,6 @@ const FigurineSchema = new Schema<IFigurineSchema>({
 
 /* Le indicamos a nuestro modelo, que sobre escriba los metodos
  le que brinda mongoose, por los que nos brinda mongooseDelete */
- FigurineSchema.plugin(mongooseDelete, { overrideMethods: 'all' })
+FigurineSchema.plugin(mongooseDelete, { overrideMethods: 'all' })
 
-// Le indicamos a nuestro modelo, que va a poder paginar
-// FigurineSchema.plugin(mongoosePaginate)
-
-export default model<IFigurineSchema, SoftDeleteModel<IFigurineSchema>>('Figurites', FigurineSchema);
+export default model<IFigurineSchema, SoftDeleteModel<IFigurineSchema> & PaginateModel<IFigurineSchema>>('Figurites', FigurineSchema);
