@@ -4,6 +4,7 @@ import { IPagination } from "../../interface/IPagination"
 import { IBuyAlbumDto } from "./dto/IBuyAlbum.dto"
 import { ICreateAlbumDto } from "./dto/ICreateAlbum.dto."
 import { IDeleteAlbumDto } from "./dto/IDeleteAlbum.dto"
+import { IGetAllPurchasedAlbumesDto } from "./dto/IGetAllPurchasedAlbumes.dto"
 import { IUpdateAlbumDto } from "./dto/IUpdateAlbum.dto"
 import logic from './logic'
 
@@ -90,17 +91,18 @@ const getAllPurchasedAlbumes = async (req: Request, res: Response, next: NextFun
 
     const payload = {
         page: req.query.page || 1,
-        userId: req.locals.usrId
-    }
- 
-    // req.locals.info = payload
-    // const data = await logic.buyAlbum(payload)
-    // req.locals.result = data
+        userId: req.locals.usrId,
+        filterText: req.query.filterText || ''
+    } as IGetAllPurchasedAlbumesDto
 
-    // req.locals.finished = true
-    // if (data?.error) return next(data.error)
+    req.locals.info = payload
+    const data = await logic.getAllPurchasedAlbumes(payload)
+    req.locals.result = data
 
-    // res.json(data)
+    req.locals.finished = true
+    if (data?.error) return next(data.error)
+
+    res.json(data)
     next()
 }
 

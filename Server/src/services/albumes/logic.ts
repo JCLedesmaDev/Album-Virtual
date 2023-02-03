@@ -10,6 +10,7 @@ import { IDeleteAlbumDto } from "./dto/IDeleteAlbum.dto"
 import { IUpdateAlbumDto } from "./dto/IUpdateAlbum.dto"
 import { IAlbum } from "../../interface/IAlbum"
 import { IBuyAlbumDto } from "./dto/IBuyAlbum.dto"
+import { IGetAllPurchasedAlbumesDto } from "./dto/IGetAllPurchasedAlbumes.dto"
 
 
 const createAlbum = tryCatchWrapper(async (payload: ICreateAlbumDto) => {
@@ -98,10 +99,25 @@ const buyAlbum = tryCatchWrapper(async (payload: IBuyAlbumDto) => {
     })
 })
 
+const getAllPurchasedAlbumes = tryCatchWrapper(async (payload: IGetAllPurchasedAlbumesDto) => {
+
+    const listAlbumes = await externalDb.getAllPurchasedAlbumes(payload)
+
+    // const listAlbumesMapper: IPaginationResult<IAlbum> = paginationMapper<IAlbum>({
+    //     resource: listAlbumes,
+    //     callBackMapper: mapper.multipleAlbums
+    // })
+
+    // return responseMessage.success<typeof listAlbumesMapper>({
+    //     data: listAlbumesMapper
+    // })
+})
+
 export default {
     createAlbum,
     getListAlbumes,
     deteleAlbum,
     updateAlbum,
-    buyAlbum
+    buyAlbum,
+    getAllPurchasedAlbumes
 }

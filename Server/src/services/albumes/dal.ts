@@ -6,6 +6,7 @@ import collections from "../../models/index.models"
 import { ApplicationError } from "../../utils/applicationError"
 import { IBuyAlbumDto } from "./dto/IBuyAlbum.dto"
 import { ICreateAlbumDto } from "./dto/ICreateAlbum.dto."
+import { IGetAllPurchasedAlbumesDto } from "./dto/IGetAllPurchasedAlbumes.dto"
 import { IUpdateAlbumDto } from "./dto/IUpdateAlbum.dto"
 
 
@@ -89,6 +90,24 @@ const buyAlbum = async (payload: IBuyAlbumDto): Promise<IPurchasedAlbumSchema> =
     }
 }
 
+const getAllPurchasedAlbumes = async (payload: IGetAllPurchasedAlbumesDto): Promise<PaginateResult<IPurchasedAlbumSchema>> => {
+    try {
+        const options: PaginateOptions = {
+            page: payload.page,
+            limit: 3,
+            populate: ['albumRef', 'purchasedFigures.figurineRef'],
+        }
+        const query: FilterQuery<IPurchasedAlbumSchema> = {
+            // ...(payload.filterText !== '' && {
+            //     title: { $regex: new RegExp(payload.filterText), $options: 'i' }
+            // }), // Investigar como hacer un filtrado aca
+        }
+        return await collections.PurchasedAlbumes.paginate(query, options)
+    } catch (error) {
+        throw new ApplicationError({ message: 'Ha ocurrido un error al obtener el listado de albumes', source: error })
+    }
+}
+
 export default {
     createAlbum,
     findAlbum,
@@ -96,5 +115,6 @@ export default {
     deleteAlbum,
     updateAlbum,
     findPurchasedAlbum,
-    buyAlbum
+    buyAlbum,
+    getAllPurchasedAlbumes
 }
