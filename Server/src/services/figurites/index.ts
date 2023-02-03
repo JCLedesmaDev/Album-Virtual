@@ -21,7 +21,5 @@ router.delete('/deleteFigurine/:id', checkRolesHandler(), validatorDeleteFigurin
 
 router.post('/buyFigurine', checkRolesHandler(['User']), validatorBuyFigurine, buyFigurine)
 
-// router.get('/getAllPurchasedFigurites', checkRolesHandler(['User']), getAllList)
-
 
 export default router

@@ -101,16 +101,16 @@ const buyAlbum = tryCatchWrapper(async (payload: IBuyAlbumDto) => {
 
 const getAllPurchasedAlbumes = tryCatchWrapper(async (payload: IGetAllPurchasedAlbumesDto) => {
 
-    const listAlbumes = await externalDb.getAllPurchasedAlbumes(payload)
+    const listPurchasedAlbumes = await externalDb.getAllPurchasedAlbumes(payload)
 
     // const listAlbumesMapper: IPaginationResult<IAlbum> = paginationMapper<IAlbum>({
     //     resource: listAlbumes,
     //     callBackMapper: mapper.multipleAlbums
     // })
 
-    // return responseMessage.success<typeof listAlbumesMapper>({
-    //     data: listAlbumesMapper
-    // })
+    return responseMessage.success<typeof listPurchasedAlbumes>({
+        data: listPurchasedAlbumes
+    })
 })
 
 export default {
