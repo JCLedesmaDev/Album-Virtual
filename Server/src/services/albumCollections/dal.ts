@@ -1,64 +1,63 @@
 import { FilterQuery, PaginateOptions, PaginateResult, Types } from "mongoose"
 import { IPagination } from "../../interface/IPagination"
+import { IAlbumCollectionSchema } from "../../models/collections/AlbumCollections"
 import collections from "../../models/index.models"
 import { ApplicationError } from "../../utils/applicationError"
+import { ICreateCollectionDto } from "./dto/ICreateCollection.dto"
+import { IUpdateCollectionDto } from "./dto/IUpdateCollection.dto"
 
 
-const createCollection = async (payload: ICreateAlbumDto): Promise<IAlbumSchema> => {
+const createCollection = async (payload: ICreateCollectionDto): Promise<IAlbumCollectionSchema> => {
     try {
-        return await collections.Albumes.create({
-            collectionAlbum: new Types.ObjectId(payload.idCollection),
-            image: payload.image,
-            title: payload.title
+        return await collections.AlbumCollections.create({
+            title: payload.title,
         })
     } catch (error) {
-        throw new ApplicationError({ message: 'Ha ocurrido un error al crear un Album', source: error })
+        throw new ApplicationError({ message: 'Ha ocurrido un error al crear esta coleccion', source: error })
     }
 }
 
-const findCollection = async (objFind: any): Promise<IAlbumSchema | null> => {
+const findCollection = async (objFind: any): Promise<IAlbumCollectionSchema | null> => {
     try {
-        return await collections.Albumes.findOne(objFind)
+        return await collections.AlbumCollections.findOne(objFind)
     } catch (error) {
-        throw new ApplicationError({ message: 'Ha ocurrido un error al encontrar este Album', source: error })
+        throw new ApplicationError({ message: 'Ha ocurrido un error al encontrar esta coleccion', source: error })
     }
 }
 
-const getListCollections = async ({ page, filterText }: IPagination): Promise<PaginateResult<IAlbumSchema>> => {
+const getListCollections = async ({ page, filterText }: IPagination): Promise<PaginateResult<IAlbumCollectionSchema>> => {
     try {
         const options: PaginateOptions = {
             page,
             limit: 3,
             populate: 'figurites'
         }
-        const query: FilterQuery<IAlbumSchema> = {
+        const query: FilterQuery<IAlbumCollectionSchema> = {
             ...(filterText !== '' && {
                 title: { $regex: new RegExp(filterText), $options: 'i' }
             }),
         }
-        return await collections.Albumes.paginate(query, options)
+        return await collections.AlbumCollections.paginate(query, options)
     } catch (error) {
-        throw new ApplicationError({ message: 'Ha ocurrido un error al obtener el listado de albumes', source: error })
+        throw new ApplicationError({ message: 'Ha ocurrido un error al obtener el listado de colecciones', source: error })
     }
 }
 
 const deleteCollection = async (payload: string): Promise<any> => {
     try {
-        return await collections.Albumes.deleteById(payload)
+        return await collections.AlbumCollections.deleteById(payload)
     } catch (error) {
-        throw new ApplicationError({ message: 'Ha ocurrido un error al eliminar este album', source: error })
+        throw new ApplicationError({ message: 'Ha ocurrido un error al eliminar esta coleccion', source: error })
     }
 }
 
-const updateCollection = async (payload: IUpdateAlbumDto): Promise<IAlbumSchema | null> => {
+const updateCollection = async (payload: IUpdateCollectionDto): Promise<IAlbumCollectionSchema | null> => {
     try {
-        return await collections.Albumes.findByIdAndUpdate(payload.id, {
-            title: payload.title,
-            image: payload.image,
-            collectionAlbum: new Types.ObjectId(payload.idCollection)
+        return await collections.AlbumCollections.findByIdAndUpdate(payload.id, {
+            title: payload.title
         })
     } catch (error) {
-        throw new ApplicationError({ message: 'Ha ocurrido un error al actualziar este album', source: error })
+        throw new ApplicationError({ message: 'Ha ocurrido un error al actualizar esta coleccionn', source: error })
     }
 }
 
