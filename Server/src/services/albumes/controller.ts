@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express"
 import { matchedData } from "express-validator"
 import { IPagination } from "../../interface/IPagination"
+import logic from './logic'
 import { IBuyAlbumDto } from "./dto/IBuyAlbum.dto"
 import { ICreateAlbumDto } from "./dto/ICreateAlbum.dto."
 import { IDeleteAlbumDto } from "./dto/IDeleteAlbum.dto"
 import { IGetAllPurchasedAlbumesDto } from "./dto/IGetAllPurchasedAlbumes.dto"
 import { IUpdateAlbumDto } from "./dto/IUpdateAlbum.dto"
-import logic from './logic'
 
 
 const createAlbum = async (req: Request, res: Response, next: NextFunction) => {

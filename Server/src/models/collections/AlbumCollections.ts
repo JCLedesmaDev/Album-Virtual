@@ -5,12 +5,12 @@ import { IAlbumSchema } from './Albumes';
 
 
 export interface IAlbumCollectionSchema extends Document, SoftDeleteInterface {
-    titulo: string;
+    title: string;
     albumes: ObjectId[] | IAlbumSchema[];
 }
 
 const AlbumCollectionSchema = new Schema<IAlbumCollectionSchema>({
-    titulo: { type: String, required: true },
+    title: { type: String, required: true },
     albumes: [{ type: Types.ObjectId, ref: "Albumes" }]
 }, {
     timestamps: true, // Nos crea un campo mas con la fecha de creacion y actualizacion del registro
