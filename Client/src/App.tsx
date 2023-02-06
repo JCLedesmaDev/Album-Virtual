@@ -22,12 +22,12 @@ function App() {
 
   return (
     <GlobalProvider>
+      
       <Navigate />
 
       <RouterProvider router={router} />
 
       <ModalLoader />
-
       <ModalStatus />
 
     </GlobalProvider>
