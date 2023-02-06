@@ -7,7 +7,7 @@ const router = express.Router();
 router.use('/albumes', AlbumesRoutes)
 router.use('/users', UsersRoutes)
 router.use('/figurites', FiguritesRoutes)
-// router.use('/albumCollections', FiguritesRoutes)
+router.use('/albumCollections', FiguritesRoutes)
 
 
 export default router;
