@@ -9,18 +9,19 @@ import { AdminCollection } from '../pages/AdminCollection/Index';
 import { AdminFiguritas } from '../pages/AdminFiguritas/Index';
 
 import { RoutePrivate } from '../components/RoutePrivate/RoutePrivate';
+import { NotFound } from "../pages/NotFound";
 
-export const router = createBrowserRouter([
-    {
-        path: '/',
-        element:
-            <RoutePrivate>
-                <AdminCollection />
-            </RoutePrivate>,
-
-    }
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <RoutePrivate>
+      <AdminCollection />
+    </RoutePrivate>,
+    errorElement: <NotFound />
+  }
 ])
 
+export default router
 
 {/* <Routes>
 
