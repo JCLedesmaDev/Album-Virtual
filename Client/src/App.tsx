@@ -1,69 +1,36 @@
 import './App.css'
-import { Route, Routes } from 'react-router-dom'
+import { RouterProvider } from 'react-router-dom'
+import { GlobalProvider } from './context/GlobalProvider';
+import { Navigate } from './components/Navigate/Navigate';
+import { AuthProvider } from './pages/Authentication/Context/AuthProvider';
+import { Authentication } from './pages/Authentication/Index';
+import { RoutePrivate } from './components/RoutePrivate/RoutePrivate';
+import { AlbumUsuario } from './pages/AlbumUsuario/Index';
+import { AlbumUsuarioImagen } from './pages/AlbumUsuarioImagen/Index';
+import { AlbumImagenes } from './pages/AlbumImagenes/Index';
+import { AdminAlbum } from './pages/AdminAlbum/Index';
+import { AdminCollection } from './pages/AdminCollection/Index';
+import { AdminFiguritas } from './pages/AdminFiguritas/Index';
+import { ModalStatus } from './components/ModalStatus/ModalStatus';
+import { ModalLoader } from './components/ModalLoader/ModalLoader';
+import { Home } from './pages/home';
 
 function App() {
 
+
+
+
   return (
-    <>
-      <GlobalProvider>
-        <Navigate />
+    <GlobalProvider>
+      <Navigate />
 
-        <Routes>
-          <Route path="/" element={
-            <AuthProvider>
-              <Authentication />
-            </AuthProvider>
-          } />
+      <RouterProvider router={router} />
 
-          <Route path="/AlbumUsuario" element={
-            <RoutePrivate>
-              <AlbumUsuario />
-            </RoutePrivate>
-          } />
+      <ModalLoader />
 
-          <Route path="/AlbumUsuarioImagen/:nombreAlbum/:id" element={
-            <RoutePrivate>
-              <AlbumUsuarioImagen />
-            </RoutePrivate>
-          } />
+      <ModalStatus />
 
-          <Route path="/AlbumImagenes" element={
-            <RoutePrivate>
-              <AlbumImagenes />
-            </RoutePrivate>
-          } />
-
-          <Route path="/Album" element={
-            <RoutePrivate>
-              <Album />
-            </RoutePrivate>
-          } />
-
-          <Route path="/AdminAlbum" element={
-            <RoutePrivate>
-              <AdminAlbum />
-            </RoutePrivate>
-          } />
-          <Route path="/AdminCollection" element={
-            <RoutePrivate>
-              <AdminCollection />
-            </RoutePrivate>
-          } />
-
-          <Route path="/AdminFigurita" element={
-            <RoutePrivate>
-              <AdminFiguritas />
-            </RoutePrivate>
-          } />
-
-        </Routes>
-
-        <ModalLoader />
-
-        <ModalStatus />
-
-      </GlobalProvider>
-    </>
+    </GlobalProvider>
   )
 }
 
