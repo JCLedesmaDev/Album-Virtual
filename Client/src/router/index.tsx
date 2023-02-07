@@ -10,14 +10,37 @@ import { AdminFiguritas } from '../pages/AdminFiguritas/Index';
 
 import { RoutePrivate } from '../components/RoutePrivate/RoutePrivate';
 import { NotFound } from "../pages/NotFound";
+import { MainLayout } from "../layout/mainLayout";
+import { Home } from "../pages/home";
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <RoutePrivate>
-      <AdminCollection />
-    </RoutePrivate>,
-    errorElement: <NotFound />
+    element: <MainLayout />,
+    errorElement: <NotFound />,
+    children: [
+      {
+        index: true, // Definimos que dentro de los componentes hijos, este es el principal
+        element: (
+          <RoutePrivate>
+            <Home />
+          </RoutePrivate>
+        ),
+        // action: (args) => args.context // Investigar si puede funcionar con ruta privada
+      },
+      {
+        path: 'admin',
+        element: (
+          <RoutePrivate>
+            <AdminCollection />
+          </RoutePrivate>
+        )
+      }
+    ]
+  },
+  {
+    path: '/loginAndRegister',
+    element: <MainLayout />,
   }
 ])
 
