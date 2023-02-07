@@ -3,7 +3,7 @@ https://reactrouter.com/en/main/start/tutorial
 (Aca esta lo del suspense) )https://reactrouter.com/en/main/start/overview
 
 
-https://bluuweb.dev/05-react/05-router-v64.html
+Reemplazar useContext por Zustand
 
 
 
