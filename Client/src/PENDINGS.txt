@@ -4,6 +4,7 @@ https://reactrouter.com/en/main/start/tutorial
 
 
 Reemplazar useContext por Zustand
+https://dev.to/franklin030601/usando-zustand-con-react-js-33le
 
 
-
+https://platzi.com/blog/react-redux-pro/
