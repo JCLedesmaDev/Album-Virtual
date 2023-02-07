@@ -1,10 +1,10 @@
 import { Input } from "../../../../Components/Input/Input";
-import FormRegisterCSS from "./FormRegister.module.css";
-import { InputsMockRegister } from "../../Mocks/InputsRegister";
-import { useAuth } from "../../Context/useAuth";
+import FormRegisterCSS from "./formRegister.module.css";
+import { InputsMockRegister } from "../../mocks/inputsRegister";
+import { useAuth } from "../../context/useAuth";
 
 import { useNavigate } from "react-router-dom"
-import AuthService from "../../Services/Auth.services";
+import AuthService from "../../services/auth.services";
 import { useGlobalContext } from "../../../../Context/useGlobalContext";
 import { IInputs } from "../../../../Components/Input/Inputs.interface";
 

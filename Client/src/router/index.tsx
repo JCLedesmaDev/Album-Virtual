@@ -1,6 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import { AuthProvider } from '../pages/Authentication/Context/AuthProvider';
-import { Authentication } from '../pages/Authentication/Index';
 import { AlbumUsuario } from '../pages/AlbumUsuario/Index';
 import { AlbumUsuarioImagen } from '../pages/AlbumUsuarioImagen/Index';
 import { AlbumImagenes } from '../pages/AlbumImagenes/Index';
@@ -9,38 +7,40 @@ import { AdminCollection } from '../pages/AdminCollection/Index';
 import { AdminFiguritas } from '../pages/AdminFiguritas/Index';
 
 import { RoutePrivate } from '../components/RoutePrivate/RoutePrivate';
-import { NotFound } from "../pages/NotFound";
-import { MainLayout } from "../layout/mainLayout";
+import { NotFound } from "../pages/notFound";
+import { MainLayout } from "../layouts/MainLayout";
 import { Home } from "../pages/home";
 
+import { AuthUser } from '../pages/authUser';
+
 const router = createBrowserRouter([
+  // {
+  //   path: '/',
+  //   element: <MainLayout />,
+  //   errorElement: <NotFound />,
+  //   children: [
+  //     {
+  //       index: true, // Definimos que dentro de los componentes hijos, este es el principal
+  //       element: (
+  //         <RoutePrivate>
+  //           <Home />
+  //         </RoutePrivate>
+  //       ),
+  //       // action: (args) => args.context // Investigar si puede funcionar con ruta privada
+  //     },
+  //     {
+  //       path: 'admin',
+  //       element: (
+  //         <RoutePrivate>
+  //           <AdminCollection />
+  //         </RoutePrivate>
+  //       )
+  //     }
+  //   ]
+  // },
   {
-    path: '/',
-    element: <MainLayout />,
-    errorElement: <NotFound />,
-    children: [
-      {
-        index: true, // Definimos que dentro de los componentes hijos, este es el principal
-        element: (
-          <RoutePrivate>
-            <Home />
-          </RoutePrivate>
-        ),
-        // action: (args) => args.context // Investigar si puede funcionar con ruta privada
-      },
-      {
-        path: 'admin',
-        element: (
-          <RoutePrivate>
-            <AdminCollection />
-          </RoutePrivate>
-        )
-      }
-    ]
-  },
-  {
-    path: '/loginAndRegister',
-    element: <MainLayout />,
+    path: '/authUser',
+    element: <AuthUser />
   }
 ])
 

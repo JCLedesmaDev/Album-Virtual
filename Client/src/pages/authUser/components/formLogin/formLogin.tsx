@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 import { Input } from "../../../../Components/Input/Input";
-import { useAuth } from "../../Context/useAuth";
+import { useAuth } from "../../context/useAuth";
 import FormLoginCSS from "./FormLogin.module.css"
 
-import { InputsMockLogin } from "../../Mocks/InputsLogin";
-import AuthService from "../../Services/Auth.services";
+import { InputsMockLogin } from "../../mocks/inputsLogin";
+import AuthService from "../../services/auth.services";
 import { useGlobalContext } from "../../../../Context/useGlobalContext";
 import { IInputs } from "../../../../Components/Input/Inputs.interface";
 import { updateStorage } from "../../../../Utils/updateStorage";

@@ -1,5 +1,5 @@
-import { useAuth } from "../../Context/useAuth";
-import MessageRegisterCSS from "./MessageRegister.module.css";
+import { useAuth } from "../../context/useAuth";
+import MessageRegisterCSS from "./messageRegister.module.css";
 
 
 

@@ -1,6 +1,6 @@
 import React from "react";
-import { useAuth } from "../../Context/useAuth";
-import MessageLoginCSS from "./MessageLogin.module.css";
+import { useAuth } from "../../context/useAuth";
+import MessageLoginCSS from "./messageLogin.module.css";
 
 
 

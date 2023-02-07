@@ -2,23 +2,22 @@ import { useReducer } from "react";
 import { useFormCustom } from "../../../Hooks/useFormCustom";
 import { IDataLoginForm } from "../../../Interface/DTO Front/Auth/IDataLoginForm";
 import { IDataRegisterForm } from "../../../Interface/DTO Front/Auth/IDataRegisterForm";
-import { AuthContext } from "./AuthContext";
-import { AuthReducer, INITIAL_STATE } from "./AuthReducer";
+import { AuthContext } from "./authContext";
+import { AuthReducer, INITIAL_STATE } from "./authReducer";
 
 
 interface Props {
   children: JSX.Element | JSX.Element[];
 }
-
 export const AuthProvider: React.FC<Props> = (props) => {
 
   /// HOOKS
   const [AuthState, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
   const formularioLogin = useFormCustom<IDataLoginForm>({
-    Email: '',  Password: ''
+    Email: '', Password: ''
   });
-    const formularioRegister = useFormCustom<IDataRegisterForm>({
-        EmailRegister: '', PasswordRegister: '', ConfirmPassword: '', NombreCompleto: ''
+  const formularioRegister = useFormCustom<IDataRegisterForm>({
+    EmailRegister: '', PasswordRegister: '', ConfirmPassword: '', NombreCompleto: ''
   })
 
   /// METODOS
@@ -31,7 +30,7 @@ export const AuthProvider: React.FC<Props> = (props) => {
     ChangeClassCssForm()
   };
 
-  const IsRegisterActive = () : boolean => AuthState.RegisterActive;
+  const IsRegisterActive = (): boolean => AuthState.RegisterActive;
   const SetRegisterActive = (value: boolean): void => {
     dispatch({
       type: "SetRegisterActive",
@@ -50,16 +49,16 @@ export const AuthProvider: React.FC<Props> = (props) => {
 
   return (
     <AuthContext.Provider value={{
-        IsLoginActive,
-        IsRegisterActive,
-        GetClassCssFormModifed,
-        formularioLogin,
-        formularioRegister,
-        
-        SetLoginActive,
-        SetRegisterActive,
-        ChangeClassCssForm
-      }}
+      IsLoginActive,
+      IsRegisterActive,
+      GetClassCssFormModifed,
+      formularioLogin,
+      formularioRegister,
+
+      SetLoginActive,
+      SetRegisterActive,
+      ChangeClassCssForm
+    }}
     >
       {props.children}
     </AuthContext.Provider>
