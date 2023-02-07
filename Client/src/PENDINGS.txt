@@ -1,9 +1,9 @@
-https://www.youtube.com/watch?v=JNhhdkCuyog
 
 https://reactrouter.com/en/main/start/tutorial
-https://reactrouter.com/en/main/start/overview
+(Aca esta lo del suspense) )https://reactrouter.com/en/main/start/overview
 
 
-min 19.04
-https://www.youtube.com/watch?v=byW9ULUScHI&ab_channel=Bluuweb
 https://bluuweb.dev/05-react/05-router-v64.html
+
+
+
