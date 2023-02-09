@@ -8,7 +8,14 @@ import AuthCSS from "./Index.module.css"
 import { AuthProvider } from "./context/authProvider";
 import { useAuth } from "./context/useAuth";
 
+
+import { useAuthUserStore } from "./store";
+import { shallow } from 'zustand/shallow'
+
 export const AuthUser: React.FC = () => {
+
+
+    const store = useAuthUserStore((state) => (state), shallow)
 
 
     /// HOOKS
@@ -23,6 +30,9 @@ export const AuthUser: React.FC = () => {
 
     return (
         <AuthProvider>
+
+            {store.user}
+            {store.isLogin}
 
             <main className={AuthCSS.mainAuthentication}>
                 <div className={AuthCSS.containerPage}>

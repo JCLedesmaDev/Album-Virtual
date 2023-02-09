@@ -15,7 +15,8 @@
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
     "react-pagination": "^1.0.0",
-    "react-router-dom": "^6.8.0"
+    "react-router-dom": "^6.8.0",
+    "zustand": "^4.3.2"
   },
   "devDependencies": {
     "@types/node": "^18.11.19",

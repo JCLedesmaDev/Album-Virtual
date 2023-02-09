@@ -7,7 +7,6 @@ import { AdminCollection } from '../pages/AdminCollection/Index';
 import { AdminFiguritas } from '../pages/AdminFiguritas/Index';
 
 import { RoutePrivate } from '../components/RoutePrivate/RoutePrivate';
-import { NotFound } from "../pages/notFound";
 import { MainLayout } from "../layouts/MainLayout";
 import { Home } from "../pages/home";
 
