@@ -15,6 +15,7 @@ import { shallow } from 'zustand/shallow'
 export const AuthUser: React.FC = () => {
 
 
+    // Utilizamos "shallow" para poder comparar a nivel atomico los {} y []
     const store = useAuthUserStore((state) => (state), shallow)
 
 
@@ -31,8 +32,8 @@ export const AuthUser: React.FC = () => {
     return (
         <AuthProvider>
 
-            {store.user}
-            {store.isLogin}
+            <span>{store.state.user}</span>
+            <span>{store.state.hola}</span>
 
             <main className={AuthCSS.mainAuthentication}>
                 <div className={AuthCSS.containerPage}>

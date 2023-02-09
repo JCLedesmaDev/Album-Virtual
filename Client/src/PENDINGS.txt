@@ -1,5 +1,4 @@
 
-https://reactrouter.com/en/main/start/tutorial
 (Aca esta lo del suspense) )https://reactrouter.com/en/main/start/overview
 
 
@@ -7,8 +6,6 @@ Reemplazar useContext por Zustand
 https://dev.to/franklin030601/usando-zustand-con-react-js-33le
 
 
-
-1) https://www.youtube.com/watch?v=pAHPHivDbuE
-2) https://www.youtube.com/watch?v=KQbgKizEjxw&t=4s
+PARA EL FINAL
 3) https://www.youtube.com/watch?v=srMBmtVeS00
 4) https://www.youtube.com/watch?v=1Ytp_M3P6Xc
