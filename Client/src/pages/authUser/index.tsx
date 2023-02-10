@@ -5,9 +5,7 @@ import { MessageLogin } from "./components/messageLogin/messageLogin";
 import { MessageRegister } from "./components/messageRegister/messageRegister";
 import AuthCSS from "./Index.module.css"
 
-import { AuthProvider } from "./context/authProvider";
-import { useAuth } from "./context/useAuth";
-
+// import { AuthProvider } from "./context/authProvider";
 
 import { useAuthUserStore } from "./store";
 import { shallow } from 'zustand/shallow'
@@ -20,20 +18,20 @@ export const AuthUser: React.FC = () => {
 
 
     /// HOOKS
-    const storeAuth = useAuth()
+    // const storeAuth = useAuth()
 
 
     /// METODOS
     useEffect(() => {
-        storeAuth.ChangeClassCssForm();
         // eslint-disable-next-line react-hooks/exhaustive-deps
+        store.actions.changeStyleForm();
     }, [])
 
     return (
         <AuthProvider>
 
-            <span>{store.state.user}</span>
-            <span>{store.state.hola}</span>
+            <span>{store.state.loginFormActive}</span>
+            <span>{store.state.registerFormActive}</span>
 
             <main className={AuthCSS.mainAuthentication}>
                 <div className={AuthCSS.containerPage}>
@@ -44,7 +42,7 @@ export const AuthUser: React.FC = () => {
                     </section>
 
                     <section className={`
-                         ${AuthCSS["containerPage__Auth"]} ${AuthCSS[storeAuth.GetClassCssFormModifed()]}
+                         ${AuthCSS["containerPage__Auth"]} ${AuthCSS[store.state.styleForm]}
                     `}>
                         <FormLogin />
 

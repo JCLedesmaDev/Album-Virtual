@@ -1,29 +1,38 @@
 import create from 'zustand'
 
 interface IStore {
-    state: {
-        user: string;
-        hola: string;
+    readonly state: {
+        loginFormActive: boolean;
+        registerFormActive: boolean;
+        styleForm: string;
     },
     actions: {
-        setUser: (user: any) => any;
-        getUser: () => string
+        setLoginFormActive: (newState: boolean) => void;
+        setRegisterFormActive: (newState: boolean) => void;
+        changeStyleForm: () => void
     }
 }
 
 export const useAuthUserStore = create<IStore>((set, get) => ({
     state: {
-        user: 'LALA', // ToDO: probar si es readOnly y q no pueda hacer store.state.user = 'ASD'
-        hola: '',
+        loginFormActive: true,
+        registerFormActive: false,
+        styleForm: ''
     },
     actions: {
-        setUser: (user: any) => {
-            console.log("🚀 ~ file: store.ts:22 ~ useAuthUserStore ~ user", user)
-            set(store => ({ state: { ...store.state, user: user } }))
+        setLoginFormActive: (newState: boolean) => set(store => ({
+            state: { ...store.state, loginFormActive: newState }
+        })),
+        setRegisterFormActive: (newState: boolean) => set(store => ({
+            state: { ...store.state, registerFormActive: newState }
+        })),
+        changeStyleForm: () => {
+            let style = (get().state.loginFormActive && !get().state.registerFormActive)
+                ? 'containerPage__Auth--loginActive'
+                : 'containerPage__Auth--registerActive'
+            set(store => ({
+                state: { ...store.state, styleForm: style }
+            }))
         },
-        getUser: () => {
-            const { user } = get().state
-            return user
-        }
     }
 }))

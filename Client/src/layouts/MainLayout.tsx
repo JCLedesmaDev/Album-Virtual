@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { Outlet,  useNavigation, useParams } from "react-router-dom"
 import { ModalLoader } from "../components/ModalLoader/ModalLoader"
 import { ModalStatus } from "../components/ModalStatus/ModalStatus"
@@ -10,6 +11,10 @@ export const MainLayout: React.FC = () => {
         - idle, submitting, loading
     */
     // useParams()
+
+    // useEffect(()=> {
+    //     if(store.state.user) 
+    // }, [])
     
     return (
         <>
@@ -27,8 +32,8 @@ export const MainLayout: React.FC = () => {
                 <Outlet />
             </main>
 
-            <ModalLoader />
-            <ModalStatus />
+            {/* <ModalLoader />
+            <ModalStatus /> */}
             
             <footer>Foooter</footer>
         </>
