@@ -1,7 +1,7 @@
 import axios from 'redaxios'
 
-let srv
-let functionAuthenticationExpire /// Es una funcion
+let srv: any
+let functionAuthenticationExpire: any /// Es una funcion
 
 export const apiSrv = {
 
@@ -42,19 +42,7 @@ export const apiSrv = {
         srv.defaults.headers.mockmode = flag
     },
 
-    async sendFile(path, params) {
-        formData.append("data", params.data)
-
-        const ctype = srv.defaults.headers['Content-Type']
-        delete srv.defaults.headers['Content-Type']
-        srv.defaults.headers['Content-Type'] = 'multipart/form-data'
-
-        const res = await srv.post(path, formData)
-        srv.defaults.headers['Content-Type'] = ctype
-        return res
-    },
-
-    async callSrv(method, path, params, saf = false) {
+    async callSrv({ method, path, params }) {
         let fecha = new Date().getTime().toString()
         if (params?.fecha) {
             fecha = params.fecha.toString()
