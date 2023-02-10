@@ -1,6 +1,6 @@
-export interface UserModels {
-    Id: number;
-    FullName: string;
-    Email: string;
-    Token: string;
+export interface IUserModels {
+    id: number;
+    fullName: string;
+    email: string;
+    token: string;
 }

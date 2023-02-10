@@ -1,11 +1,16 @@
 import axios from 'redaxios'
+import { shallow } from 'zustand/shallow'
+import { useStore } from '../pages/appStore'
 
 let srv: any
 let functionAuthenticationExpire: any /// Es una funcion
 
+const appStore = useStore((state) => (state), shallow)
+
+
 export const apiSrv = {
 
-    init: async (config) => {
+    init: async (config: any) => {
         console.log('api cfg: ', JSON.stringify(config))
         const headersDef = {
             // 'Access-Control-Allow-Credentials':'true',
@@ -33,16 +38,16 @@ export const apiSrv = {
         //)
     },
 
-    async setHeaders(headers) {
+    async setHeaders(headers: any) {
         srv.defaults.headers = { ...srv.defaults.headers, ...headers }
     },
 
-    setMockFlag: (flag) => {
+    setMockFlag: (flag: boolean) => {
         delete srv.defaults.headers.mockmode
         srv.defaults.headers.mockmode = flag
     },
 
-    async callSrv({ method, path, params }) {
+    async callSrv({ method, path, params }: any) {
         let fecha = new Date().getTime().toString()
         if (params?.fecha) {
             fecha = params.fecha.toString()
@@ -54,41 +59,52 @@ export const apiSrv = {
             if (method === "GET") res = await srv.get(path)
             if (method === "POST") res = await srv.post(path, JSON.stringify(params))
             if (method === "FORM") res = await srv.post(path, params)
-        } catch (error) {
+        } catch (error: any) {
             console.log('callSrv error:', error)
-            if (error.status === 401) functionAuthenticationExpire()
+            // if (error.status === 401) functionAuthenticationExpire()
             return
         }
         return res.data
     },
 
-    setFunctionAuthenticationExpire(fn) {
-        authExpFn = fn
+    setFunctionAuthenticationExpire(fn: any) {
+        functionAuthenticationExpire = fn
     },
 
-    async callBackend(preCallback, ops) {
+    async callBackend(preCallback: Function, ops: any) {
         let res
         let options = {
-            noLoader: false,
-            type: 'spinner', //'progressBar'
-            color: 'white',
-            timeout: -1
+            loader: false,
+            status: false
         }
 
         if (ops) {
             options = { ...options, ...ops }
         }
         try {
-            if (!options.noLoader) ui.actions.showLoading(options) // Mostrar login en pantalla por medio del appStore
+            if (options.loader) {
+                appStore.actions.setSpinnerModal({ showSpinner: options.loader })
+            }
+
             res = await preCallback()
 
-            if (res?.info?.msg) {
-                console.log("🚀 ~ file: apiSrv.js:98 ~ callBackend ~ msg", msg)
+            if (options.status && res.info.msg) {
+                appStore.actions.setSpinnerModal({
+                    showSpinner: false,
+                    showStatus: options.status,
+                    message: res?.info?.msg
+                })
             }
         } catch (error) {
             console.log("🚀 ~ file: apiSrv.js:101 ~ callBackend ~ error", error)
         } finally {
-            if (!options.noLoader) ui.actions.hideLoading() // Ocultar loader por medio del appStore
+            if (options.loader || options.status) {
+                appStore.actions.setSpinnerModal({
+                    showSpinner: false,
+                    showStatus: false,
+                    message: ''
+                })
+            }
             return res
         }
     }
