@@ -1,39 +1,41 @@
 import React from "react";
-import { useAuth } from "../../context/useAuth";
+import shallow from "zustand/shallow";
+import { useAuthUserStore } from "../../store";
 import MessageLoginCSS from "./messageLogin.module.css";
 
 
 
 export const MessageLogin: React.FC = () => {
 
-
   /// HOOKS
-  const storeAuth = useAuth()
-  const { resetForm } = storeAuth.formularioRegister;
+  const store = useAuthUserStore((state) => (state), shallow)
+
+  // const { resetForm } = storeAuth.formularioRegister;
 
   /// METOODS
   const goToLogin = (): void => {
-    storeAuth.SetLoginActive(true);
-    storeAuth.SetRegisterActive(false);
-    resetForm()
+
+    store.actions.setLoginFormActive(true)
+    store.actions.setRegisterFormActive(false)
+
+
+    // resetForm()
   }
 
   return (
 
-      <article className={`
+    <article className={`
           ${MessageLoginCSS.containerBackgroundLogin} 
-          ${storeAuth.IsLoginActive() ? MessageLoginCSS.noneElement : ""}
+          ${store.state.loginFormActive ? MessageLoginCSS.noneElement : ""}
         `}
-        style={storeAuth.IsRegisterActive() ? {"opacity": 1} : {"opacity": 0}}
-      >
+      style={store.state.registerFormActive ? { "opacity": 1 } : { "opacity": 0 }}
+    >
 
-        <h3> ¿Ya tienes una cuenta?</h3>
-        <p> Inicia sesion para entrar a la pagina</p>
-        
-        <button onClick={goToLogin}>
-            Iniciar sesion
-        </button>
+      <h3> ¿Ya tienes una cuenta?</h3>
+      <p> Inicia sesion para entrar a la pagina</p>
 
-      </article>
+      <button onClick={goToLogin}> Iniciar sesion </button>
+
+    </article>
   );
 };
