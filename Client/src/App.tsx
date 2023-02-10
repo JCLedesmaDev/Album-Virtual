@@ -1,10 +1,9 @@
 import './App.css'
 import { RouterProvider } from 'react-router-dom'
-import { GlobalProvider } from './context/GlobalProvider';
 import router from './router';
 import { useEffect, useState } from 'react';
 
-function App() {
+export default function App() {
 
 
   useEffect(() => {
@@ -15,22 +14,11 @@ function App() {
       usrId: ''
     }
 
-    
+
   }, [])
 
   return (
-    <GlobalProvider>
-
-      <RouterProvider router={router} />
-
-    </GlobalProvider>
+    <RouterProvider router={router} />
   )
 }
 
-const AppWrapper = () => (
-  // Englobamos Redux al proyecto
-  // <Provider store={store}>
-  <App />
-  /* </Provider> */
-);
-export default AppWrapper

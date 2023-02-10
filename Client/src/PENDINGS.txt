@@ -9,3 +9,7 @@ https://dev.to/franklin030601/usando-zustand-con-react-js-33le
 PARA EL FINAL
 3) https://www.youtube.com/watch?v=srMBmtVeS00
 4) https://www.youtube.com/watch?v=1Ytp_M3P6Xc
+
+
+
+⏰ Dentro del App.tsx, inicializar el apiSrv para pasarle los headers
