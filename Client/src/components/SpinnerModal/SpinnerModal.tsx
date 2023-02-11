@@ -1,9 +1,11 @@
 import { useEffect } from "react";
-import appStore from "../../pages/appStore";
+import { useAppStore } from "../../pages/appStore";
 import css from "./SpinnerModal.module.css";
 
 export const SpinnerModal: React.FC = () => {
 
+  const appStore = useAppStore()
+  
   /// VARIABLES
   const styleOpenModalStatus = `${css.containerModal} ${css["containerModal--openModal"]}`;
   const styleCloseModalStatus = `${css.containerModal}`;

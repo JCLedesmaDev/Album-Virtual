@@ -1,15 +1,16 @@
 
 import MessageRegisterCSS from "./messageRegister.module.css";
-import store from "../../store";
+import { useAuthUserStore } from "../../store";
+import { useFormsContext } from "../../context/useFormsContext";
 
 
 
-export const MessageRegister: React.FC= () => {
+export const MessageRegister: React.FC = () => {
 
   /// HOOKS
-
-  // const { resetForm } = storeAuth.formularioLogin;
-  const { resetForm} = store.state.formLogin
+  const store = useAuthUserStore()
+  const useForms = useFormsContext()  
+  const { resetForm } = useForms.formLogin
 
 
   const goToRegister = (): void => {
@@ -24,7 +25,7 @@ export const MessageRegister: React.FC= () => {
         ${MessageRegisterCSS.containerBackgroundRegister} 
         ${store.state.registerFormActive ? MessageRegisterCSS.noneElement : ""}
       `}
-      style={store.state.loginFormActive ? {"opacity": 1} : {"opacity": 0}}
+      style={store.state.loginFormActive ? { "opacity": 1 } : { "opacity": 0 }}
     >
       <h3>¿Aun no tienes una cuenta?</h3>
       <p>Registrate para que puedas iniciar sesion</p>

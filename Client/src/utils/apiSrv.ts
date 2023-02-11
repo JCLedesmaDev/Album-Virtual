@@ -1,5 +1,5 @@
 import axios from 'redaxios'
-import appStore from '../pages/appStore'
+import { useAppStore } from '../pages/appStore';
 
 let srv: any
 let functionAuthenticationExpire: any /// Es una funcion
@@ -111,6 +111,9 @@ export const apiSrv = {
 }
 
 const settingsSpinnerModal = (spinner: boolean = false, status: boolean = false, message: string = '') => {
+    // const appStore = useAppStore((state) => (state), shallow)
+    const appStore = useAppStore()
+
     appStore.actions.setSpinnerModal({
         showSpinner: spinner,
         showStatus: status,

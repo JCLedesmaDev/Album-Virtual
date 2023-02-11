@@ -7,7 +7,6 @@ import { Paginate } from "../../Components/Paginate/Paginate";
 import { ModalContainer } from "../../Components/ModalContainer";
 import { useFormCustom } from "../../Hooks/useFormCustom";
 import { Input } from "../../Components/Input/Input";
-import { IInputs } from "../../Components/Input/Inputs.interface";
 import { IListColeccion } from "../../Interface/DTO Back/ColeccionAlbum/IListColeccion";
 import { IAlbumImagenesData } from "../../Interface/DTO Back/AlbumImagenes/IAlbumImagenes";
 import { IDataFiguritaForm } from "../../Interface/DTO Front/AlbumImagen/IDataFiguritaForm";
@@ -15,6 +14,7 @@ import AdminFiguritaService from "./AdminFigurita.Services";
 import { IAlbumData } from "../../Interface/DTO Back/Album/IAlbumData";
 import { IListAlbum } from "../../Interface/DTO Back/Album/IListAlbum";
 import { InputsMockFiguritas } from "./Mocks/InputsFiguritas";
+import { IInputs } from "../../Components/Input/IInputs";
 
 export const AdminFiguritas: React.FC = () => {
   //HOOKS

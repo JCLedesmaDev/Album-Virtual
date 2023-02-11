@@ -11,7 +11,7 @@ import { useFormCustom } from "../../Hooks/useFormCustom";
 import { IDataAlbumForm } from "../../Interface/DTO Front/Album/IDataAlbumForm";
 import { Input } from "../../Components/Input/Input";
 import { InputsMockAlbum } from "./Mocks/InputsAlbum";
-import { IInputs } from "../../Components/Input/Inputs.interface";
+import { IInputs } from "../../components/Input/IInputs";
 import { IListColeccion } from "../../Interface/DTO Back/ColeccionAlbum/IListColeccion";
 
 export const AdminAlbum: React.FC = () => {

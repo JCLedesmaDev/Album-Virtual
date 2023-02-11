@@ -1,5 +1,6 @@
 import React from "react";
-import store from "../../store";
+import { useFormsContext } from "../../context/useFormsContext";
+import { useAuthUserStore } from "../../store";
 import MessageLoginCSS from "./messageLogin.module.css";
 
 
@@ -7,8 +8,9 @@ import MessageLoginCSS from "./messageLogin.module.css";
 export const MessageLogin: React.FC = () => {
 
   /// HOOKS
-
-  const { resetForm} = store.state.formRegister
+  const store = useAuthUserStore()
+  const useForms = useFormsContext()  
+  const { resetForm } = useForms.formRegister
 
   /// METOODS
   const goToLogin = (): void => {

@@ -10,8 +10,8 @@ import { useFormCustom } from "../../Hooks/useFormCustom";
 import { ModalContainer } from "../../Components/ModalContainer";
 import { Input } from "../../Components/Input/Input";
 import { InputsMockColeccion } from "./Mocks/InputsColeccion";
-import { IInputs } from "../../Components/Input/Inputs.interface";
 import { IDataColeccionForm } from "../../Interface/DTO Front/Coleccion/IDataColeccionForm";
+import { IInputs } from "../../Components/Input/IInputs";
 
 export const AdminCollection: React.FC = () => {
   //HOOKS

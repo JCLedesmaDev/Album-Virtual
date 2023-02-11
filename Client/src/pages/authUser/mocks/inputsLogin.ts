@@ -1,4 +1,4 @@
-import { IInputs } from "../../../Components/Input/Inputs.interface";
+import { IInputs } from "../../../Components/Input/IInputs";
 
 export const InputsMockLogin: IInputs[] = [
   {

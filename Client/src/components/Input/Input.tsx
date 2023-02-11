@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { IInputs } from "../../components/Input/IInputs";
 import InputCSS from "./Input.module.css";
-import { IInputs } from "./Inputs.interface";
 
 interface Props {
   handleChange: any;

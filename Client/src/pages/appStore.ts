@@ -15,7 +15,7 @@ interface IStore {
     }
 }
 
-const useAppStore = create<IStore>((set, get) => ({
+const store = create<IStore>((set, get) => ({
     state: {
         spinnerModal: {} as ISpinnerModal,
         user: getStorage<IUserModels>("User") ?? {} as IUserModels
@@ -37,4 +37,4 @@ const useAppStore = create<IStore>((set, get) => ({
     }
 }))
 
-export default useAppStore((state) => (state), shallow)
+export const useAppStore = () => ({ ...store((state) => (state), shallow) })

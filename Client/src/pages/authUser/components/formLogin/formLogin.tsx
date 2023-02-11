@@ -4,18 +4,20 @@ import { Input } from "../../../../Components/Input/Input";
 import FormLoginCSS from "./FormLogin.module.css"
 
 import { InputsMockLogin } from "../../mocks/inputsLogin";
-import { IInputs } from "../../../../Components/Input/Inputs.interface";
-import store from "../../store";
+import { IInputs } from "../../../../components/Input/IInputs";
+import { useAuthUserStore } from "../../store";
+import { useFormsContext } from "../../context/useFormsContext";
 
 
 export const FormLogin: React.FC = () => {
 
   /// HOOKS
   const navigate = useNavigate();
+  const store = useAuthUserStore()
 
 
-  // const { formulario, handleChange, resetForm } = storeAuth.formularioLogin;
-  const {form, handleChange, resetForm} = store.state.formLogin
+  const useForms = useFormsContext()  
+  const { form, handleChange, resetForm } = useForms.formLogin
 
 
   const login = async (event: any) => {

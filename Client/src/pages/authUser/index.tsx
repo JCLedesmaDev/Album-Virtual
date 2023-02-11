@@ -3,11 +3,14 @@ import { FormLogin } from "./components/formLogin/formLogin";
 import { FormRegister } from "./components/formRegister/formRegister";
 import { MessageLogin } from "./components/messageLogin/messageLogin";
 import { MessageRegister } from "./components/messageRegister/messageRegister";
+import { FormsProvider } from "./context/formsProvider";
 import AuthCSS from "./Index.module.css"
 
-import store from "./store";
+import { useAuthUserStore } from "./store";
 
 export const AuthUser: React.FC = () => {
+
+    const store = useAuthUserStore()
 
     /// METODOS
     useEffect(() => {
@@ -16,22 +19,24 @@ export const AuthUser: React.FC = () => {
     }, [])
 
     return (
-        <main className={AuthCSS.mainAuthentication}>
-            <div className={AuthCSS.containerPage}>
-                <section className={AuthCSS["containerPage__Background"]}>
-                    <MessageLogin />
+        <FormsProvider>
+            <main className={AuthCSS.mainAuthentication}>
+                <div className={AuthCSS.containerPage}>
+                    <section className={AuthCSS["containerPage__Background"]}>
+                        <MessageLogin />
 
-                    <MessageRegister />
-                </section>
+                        <MessageRegister />
+                    </section>
 
-                <section className={`
-                   ${AuthCSS["containerPage__Auth"]} ${AuthCSS[store.state.styleForm]}
-                `}>
-                    <FormLogin />
+                    <section className={`
+                        ${AuthCSS["containerPage__Auth"]} ${AuthCSS[store.state.styleForm]}
+                    `}>
+                        <FormLogin />
 
-                    <FormRegister />
-                </section>
-            </div>
-        </main>
+                        <FormRegister />
+                    </section>
+                </div>
+            </main>
+        </FormsProvider>
     )
 }
