@@ -15,16 +15,17 @@ export const FormLogin: React.FC = () => {
 
 
   // const { formulario, handleChange, resetForm } = storeAuth.formularioLogin;
-
+  const {form, handleChange, resetForm} = store.state.formLogin
 
 
   const login = async (event: any) => {
 
     event.preventDefault();
 
-    const isLogin = await store.actions.loginUser(formulario)
+    const isLogin = await store.actions.loginUser(form)
 
     if (isLogin) navigate("/Album");
+    resetForm()
 
   }
 
@@ -42,16 +43,16 @@ export const FormLogin: React.FC = () => {
 
       <form onSubmit={login} >
 
-        {/* {InputsMockLogin.map((inputProps: IInputs, index: number) => (
+        {InputsMockLogin.map((inputProps: IInputs, index: number) => (
           <Input
             key={index}
             inputProps={inputProps}
-            value={formulario[inputProps.name]}
+            value={form[inputProps.name]}
             handleChange={handleChange}
             errorMessage={inputProps.errorMessage}
             pattern={inputProps.expReg}
           />
-        ))} */}
+        ))}
         <input type="text" />
 
         <button type="submit">Entrar</button>

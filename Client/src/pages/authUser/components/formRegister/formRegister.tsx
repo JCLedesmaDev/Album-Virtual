@@ -1,67 +1,40 @@
 import { Input } from "../../../../Components/Input/Input";
 import FormRegisterCSS from "./formRegister.module.css";
 import { InputsMockRegister } from "../../mocks/inputsRegister";
-import { useAuth } from "../../context/useAuth";
 
 import { useNavigate } from "react-router-dom"
-import AuthService from "../../services/auth.services";
-import { useGlobalContext } from "../../../../Context/useGlobalContext";
 import { IInputs } from "../../../../Components/Input/Inputs.interface";
 
+import store from "../../store";
+
+
 export const FormRegister: React.FC = () => {
-  
+
   /// HOOKS
-  const storeAuth = useAuth()
-  const storeGlobal = useGlobalContext();
   const navigate = useNavigate();
 
-
-
-  const { formulario, handleChange, resetForm } = storeAuth.formularioRegister;
-
+  const { form, handleChange, resetForm } = store.state.formRegister
 
   const register = async (event: any) => {
+    event.preventDefault();
 
-    try {
-      
-      event.preventDefault();
-  
-      // storeGlobal.SetShowLoader(true)
-  
-      const { Result, MessageError } = await AuthService.Register(formulario)
-  
-      if (Result == null || MessageError != null)
-      {
-          throw new Error(MessageError);
-      }
+    const isRegister = await store.actions.registerUser(form)
 
-      storeAuth.SetLoginActive(true);
-      storeAuth.SetRegisterActive(false);
-      
-      // storeGlobal.SetShowLoader(false);
-      // storeGlobal.SetMessageModalStatus(Result);
-      // storeGlobal.SetShowModalStatus(true);
+    if (!isRegister) return
 
-    } catch (error: any) {
-      
-      //  storeGlobal.SetShowLoader(false)
-      //  storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-      //  storeGlobal.SetShowModalStatus(true)
 
-    } finally {
-      resetForm()
-      // setTimeout(() => {
-      //     storeGlobal.SetShowModalStatus(false)
-      // }, 5000);
-    }
+    store.actions.setLoginFormActive(true)
+    store.actions.setRegisterFormActive(false)
+
+    resetForm()
   }
 
   return (
 
     // ${FormRegisterCSS.containerFormRegister}} 
     <div className={`
-      ${storeAuth.IsRegisterActive() 
-        ? FormRegisterCSS["containerFormRegister--show"] 
+      ${store.state.registerFormActive
+        ? FormRegisterCSS["containerFormRegister--show"]
         : FormRegisterCSS["containerFormRegister--hide"]}
     `}>
 
@@ -69,16 +42,16 @@ export const FormRegister: React.FC = () => {
 
       <form onSubmit={register}>
 
-        {/* {InputsMockRegister.map((inputProps: IInputs, index: number) => (
+        {InputsMockRegister.map((inputProps: IInputs, index: number) => (
           <Input
             key={index}
             inputProps={inputProps}
-            value={formulario[inputProps.name]}
+            value={form[inputProps.name]}
             handleChange={handleChange}
             errorMessage={inputProps.errorMessage}
             pattern={inputProps.expReg}
           />
-        ))} */}
+        ))}
 
         <button type="submit">Registrarse</button>
       </form>

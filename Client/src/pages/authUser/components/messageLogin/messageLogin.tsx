@@ -8,7 +8,7 @@ export const MessageLogin: React.FC = () => {
 
   /// HOOKS
 
-  // const { resetForm } = storeAuth.formularioRegister;
+  const { resetForm} = store.state.formRegister
 
   /// METOODS
   const goToLogin = (): void => {
@@ -16,8 +16,7 @@ export const MessageLogin: React.FC = () => {
     store.actions.setLoginFormActive(true)
     store.actions.setRegisterFormActive(false)
 
-
-    // resetForm()
+    resetForm()
   }
 
   return (

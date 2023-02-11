@@ -1,10 +1,18 @@
 import { ChangeEvent, useState } from "react";
 
+
+export interface IResponseUseForm<TypeData> {
+  form: TypeData;
+  handleChange: () => void;
+  resetForm: () => void;
+  setForm: () => void;
+}
+
 //Custom Hook Generico Tipado
 export const useFormCustom = <TypeFormData extends Object>(
   initialState: TypeFormData
-) => {
-  const [formulario, setFormulario] = useState<any>(initialState);
+): IResponseUseForm<TypeFormData> => {
+  const [form, setForm] = useState<any>(initialState);
   /* Nota: Colocamos <any> para poner hacer un arreglo de INPUTS y luego hacer 
     value={formulario[name]} ya que nos salta mil errores y no se solucionarlo (aun)
     Caso de que no se haga un array de INPUTS, quitar el <any>
@@ -18,8 +26,8 @@ export const useFormCustom = <TypeFormData extends Object>(
     // En caso de cargar imagenes tb
     const imageInput = files != null && files[0];
 
-    setFormulario({
-      ...formulario,
+    setForm({
+      ...form,
       // [name]: value,
 
       // En caso de cargar imagenes tb
@@ -29,14 +37,14 @@ export const useFormCustom = <TypeFormData extends Object>(
 
   // console.log(formulario);
 
-  const resetForm = () => setFormulario(initialState);
+  const resetForm = () => setForm(initialState);
 
   return {
-    ...formulario,
-    formulario,
+    ...form,
+    form,
     handleChange,
     resetForm,
-    setFormulario
+    setForm
   };
 };
 

@@ -7,8 +7,20 @@ let functionAuthenticationExpire: any /// Es una funcion
 interface ICallSrv {
     method: string;
     path: string;
-    params?: any
+    data?: any
 }
+interface ICallSrvResponse {
+    info: {
+        type: string;
+        msg?: string;
+        data?: any
+    }
+}
+interface ICallBackendOptions {
+    loader?: boolean;
+    status?: boolean;
+}
+
 
 export const apiSrv = {
 
@@ -49,29 +61,20 @@ export const apiSrv = {
         srv.defaults.headers.mockmode = flag
     },
 
-    callBackend: async (preCallback: Function, ops?: any) => {
-        let res
-        let options = {
-            loader: false,
-            status: false
-        }
-
-        if (ops) options = { ...options, ...ops }
+    callBackend: async (preCallback: Function, options: ICallBackendOptions): Promise<ICallSrvResponse> => {
+        let res: ICallSrvResponse = {} as ICallSrvResponse
 
         try {
             if (options.loader) settingsSpinnerModal(true, false, '')
 
-            res = await preCallback()
+            res = await preCallback() as ICallSrvResponse
 
-            if (res.info.type === 'error') throw new Error(res.info.message)
-
+            if (res.info.type === 'error') throw new Error(res.info.msg)
 
             if (options.loader || (options.status && res.info.msg)) {
-                settingsSpinnerModal(false, options.status, res?.info?.msg)
+                settingsSpinnerModal(false, options.status, res.info.msg as string)
             }
-
         } catch (error: any) {
-            console.log("🚀 ~ file: apiSrv.js:101 ~ callBackend ~ error", error)
             if (options.loader || options.status) {
                 settingsSpinnerModal(false, options.status, error)
             }
@@ -85,17 +88,20 @@ export const apiSrv = {
         }
     },
 
-    callSrv: async ({ method, path, params }: ICallSrv) => {
+    callSrv: async ({ method, path, data }: ICallSrv): Promise<ICallSrvResponse> => {
+        let res: ICallSrvResponse = {} as ICallSrvResponse
         try {
-            let res
             if (method === "GET") res = await srv.get(path)
-            if (method === "POST") res = await srv.post(path, JSON.stringify(params))
-            if (method === "FORM") res = await srv.post(path, params)
-            return res
+            if (method === "POST") res = await srv.post(path, JSON.stringify(data))
+            if (method === "PUT") res = await srv.put(path, JSON.stringify(data))
+            if (method === "DELETE") res = await srv.delete(path)
+            if (method === "FORM") res = await srv.post(path, data)
         } catch (error: any) {
             console.log('callSrv error:', error)
             // if (error.status === 401) functionAuthenticationExpire()
-            return
+            res = { info: { type: 'error', msg: error.message } }
+        } finally {
+            return res
         }
     },
 
@@ -104,7 +110,7 @@ export const apiSrv = {
     },
 }
 
-const settingsSpinnerModal = (spinner: boolean, status: boolean, message: string) => {
+const settingsSpinnerModal = (spinner: boolean = false, status: boolean = false, message: string = '') => {
     appStore.actions.setSpinnerModal({
         showSpinner: spinner,
         showStatus: status,

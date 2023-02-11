@@ -1,9 +1,12 @@
 import { create } from "zustand";
 import { shallow } from "zustand/shallow";
-import { createMapperUser } from "../../Mappers/User.mappers";
+import { createMapperUser } from "./mappers/user.mappers";
 import { IUserModels } from "../../Models/User.models";
 import { apiSrv } from "../../utils/apiSrv";
 import appStore from '../appStore'
+import { IDataRegisterForm } from "../../interface/DTO Front/Auth/IDataRegisterForm";
+import { IDataLoginForm } from "../../interface/DTO Front/Auth/IDataLoginForm";
+import { IResponseUseForm, useFormCustom } from "../../Hooks/useFormCustom";
 
 
 interface IStore {
@@ -11,12 +14,15 @@ interface IStore {
         loginFormActive: boolean;
         registerFormActive: boolean;
         styleForm: string;
+        formLogin: IResponseUseForm<IDataLoginForm>;
+        formRegister: IResponseUseForm<IDataRegisterForm>;
     },
     actions: {
         setLoginFormActive: (newState: boolean) => void;
         setRegisterFormActive: (newState: boolean) => void;
         changeStyleForm: () => void
-        loginUser: (formData: any) => Promise<boolean>
+        loginUser: (formData: IDataLoginForm) => Promise<boolean>
+        registerUser: (formData: IDataRegisterForm) => Promise<boolean>
     }
 }
 
@@ -24,7 +30,13 @@ const useAuthUserStore = create<IStore>((set, get) => ({
     state: {
         loginFormActive: true,
         registerFormActive: false,
-        styleForm: ''
+        styleForm: '',
+        formLogin: useFormCustom<IDataLoginForm>({
+            Email: '', Password: ''
+        }),
+        formRegister: useFormCustom<IDataRegisterForm>({
+            EmailRegister: '', PasswordRegister: '', ConfirmPassword: '', NombreCompleto: ''
+        })
     },
     actions: {
         setLoginFormActive: (newState: boolean) => set(store => ({
@@ -41,16 +53,16 @@ const useAuthUserStore = create<IStore>((set, get) => ({
                 state: { ...store.state, styleForm: style }
             }))
         },
-        loginUser: async (formData: any) => {
+        loginUser: async (formData: IDataLoginForm) => {
             let flagIsLogin = true
 
             const res = await apiSrv.callBackend(async () => {
                 return await apiSrv.callSrv({
                     method: 'POST',
                     path: '/Usuario/Login',
-                    params: formData
+                    data: formData
                 })
-            })
+            }, { loader: true })
 
             if (res.info.type === 'error') return flagIsLogin = false
 
@@ -58,6 +70,21 @@ const useAuthUserStore = create<IStore>((set, get) => ({
             appStore.actions.setUser(userAdapted)
 
             return flagIsLogin
+        },
+        registerUser: async (formData: IDataRegisterForm) => {
+            let flagIsRegister = true
+
+            const res = await apiSrv.callBackend(async () => {
+                return await apiSrv.callSrv({
+                    method: 'POST',
+                    path: '/Usuario/Create',
+                    data: formData
+                })
+            }, { loader: true, status: true })
+
+            if (res.info.type === 'error') return flagIsRegister = false
+
+            return flagIsRegister
         }
     }
 }))
