@@ -1,66 +1,31 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom"
 import { Input } from "../../../../Components/Input/Input";
-import { useAuth } from "../../context/useAuth";
 import FormLoginCSS from "./FormLogin.module.css"
 
 import { InputsMockLogin } from "../../mocks/inputsLogin";
-import AuthService from "../../services/auth.services";
-import { useGlobalContext } from "../../../../Context/useGlobalContext";
 import { IInputs } from "../../../../Components/Input/Inputs.interface";
-import { updateStorage } from "../../../../Utils/updateStorage";
-import { useAuthUserStore } from "../../store";
-import { shallow } from "zustand/shallow";
+import store from "../../store";
 
 
 export const FormLogin: React.FC = () => {
 
   /// HOOKS
-  const store = useAuthUserStore((state) => (state), shallow)
-
-
-  const storeAuth = useAuth()
-  const storeGlobal = useGlobalContext();
   const navigate = useNavigate();
 
 
-  const { formulario, handleChange, resetForm } = storeAuth.formularioLogin;
+  // const { formulario, handleChange, resetForm } = storeAuth.formularioLogin;
 
 
 
   const login = async (event: any) => {
 
-    try {
+    event.preventDefault();
 
-      event.preventDefault();
+    const isLogin = await store.actions.loginUser(formulario)
 
-      storeGlobal.SetShowLoader(true)
+    if (isLogin) navigate("/Album");
 
-      const { Result: UserAdapted, MessageError } = await AuthService.Login(formulario)
-
-      if (MessageError != undefined) throw new Error(MessageError);
-
-
-      storeGlobal.SetMyUserData(UserAdapted);
-      updateStorage("User", UserAdapted)
-
-      navigate("/Album");
-      storeGlobal.SetShowLoader(false)
-
-    } catch (error: any) {
-
-      storeGlobal.SetShowLoader(false)
-      storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-      storeGlobal.SetShowModalStatus(true)
-
-    } finally {
-
-      resetForm()
-      setTimeout(() => {
-        storeGlobal.SetShowModalStatus(false)
-      }, 5000);
-
-    }
   }
 
 
@@ -68,7 +33,7 @@ export const FormLogin: React.FC = () => {
 
     // ${FormLoginCSS["containerFormLogin"]}} 
     <div className={`
-      ${storeAuth.IsLoginActive()
+      ${store.state.loginFormActive
         ? FormLoginCSS["containerFormLogin--show"]
         : FormLoginCSS["containerFormLogin--hide"]}
     `}>
@@ -77,7 +42,7 @@ export const FormLogin: React.FC = () => {
 
       <form onSubmit={login} >
 
-        {InputsMockLogin.map((inputProps: IInputs, index: number) => (
+        {/* {InputsMockLogin.map((inputProps: IInputs, index: number) => (
           <Input
             key={index}
             inputProps={inputProps}
@@ -86,7 +51,8 @@ export const FormLogin: React.FC = () => {
             errorMessage={inputProps.errorMessage}
             pattern={inputProps.expReg}
           />
-        ))}
+        ))} */}
+        <input type="text" />
 
         <button type="submit">Entrar</button>
       </form>

@@ -1,14 +1,12 @@
-import { shallow } from "zustand/shallow";
-import { useAuth } from "../../context/useAuth";
-import { useAuthUserStore } from "../../store";
+
 import MessageRegisterCSS from "./messageRegister.module.css";
+import store from "../../store";
 
 
 
 export const MessageRegister: React.FC= () => {
 
   /// HOOKS
-  const store = useAuthUserStore((state) => (state), shallow)
 
   // const { resetForm } = storeAuth.formularioLogin;
 

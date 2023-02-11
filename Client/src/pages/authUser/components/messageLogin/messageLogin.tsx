@@ -1,6 +1,5 @@
 import React from "react";
-import shallow from "zustand/shallow";
-import { useAuthUserStore } from "../../store";
+import store from "../../store";
 import MessageLoginCSS from "./messageLogin.module.css";
 
 
@@ -8,7 +7,6 @@ import MessageLoginCSS from "./messageLogin.module.css";
 export const MessageLogin: React.FC = () => {
 
   /// HOOKS
-  const store = useAuthUserStore((state) => (state), shallow)
 
   // const { resetForm } = storeAuth.formularioRegister;
 

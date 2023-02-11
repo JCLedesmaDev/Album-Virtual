@@ -9,25 +9,6 @@ import { axiosMethod } from "../../../Utils/axiosMethod";
 
 const AuthService = {
 
-    Login: async (DataLoginForm: IDataLoginForm): Promise<IResponseDTO<UserModels>> => {
-        
-        const Response = await axiosMethod<IAuthData>({
-            method: "POST",
-            url: "/Usuario/Login",
-            dataSend: DataLoginForm,
-        });
-
-        let UserAdapted = {} as UserModels;
-
-        if (Response.Result != undefined && Response.MessageError == undefined) {
-            UserAdapted = createMapperUser(Response.Result);
-        }
-
-        return {
-            Result: UserAdapted,
-            MessageError: Response.MessageError
-        };
-    },
 
     Register: async (DataRegisterForm: IDataRegisterForm): Promise<IResponseDTO<string>> => {
 

@@ -13,3 +13,4 @@ PARA EL FINAL
 
 
 ⏰ Dentro del App.tsx, inicializar el apiSrv para pasarle los headers
+⏰ Validar rutas privadas

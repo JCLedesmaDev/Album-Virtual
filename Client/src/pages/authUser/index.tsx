@@ -5,15 +5,9 @@ import { MessageLogin } from "./components/messageLogin/messageLogin";
 import { MessageRegister } from "./components/messageRegister/messageRegister";
 import AuthCSS from "./Index.module.css"
 
-import { useAuthUserStore } from "./store";
-import { shallow } from 'zustand/shallow'
+import store from "./store";
 
 export const AuthUser: React.FC = () => {
-
-    /// HOOKS
-    // Utilizamos "shallow" para poder comparar a nivel atomico los {} y []
-    const store = useAuthUserStore((state) => (state), shallow)
-
 
     /// METODOS
     useEffect(() => {
@@ -23,8 +17,6 @@ export const AuthUser: React.FC = () => {
 
     return (
         <main className={AuthCSS.mainAuthentication}>
-            <span>{store.state.loginFormActive}</span>
-            <span>{store.state.registerFormActive}</span>
             <div className={AuthCSS.containerPage}>
                 <section className={AuthCSS["containerPage__Background"]}>
                     <MessageLogin />

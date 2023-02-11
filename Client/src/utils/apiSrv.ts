@@ -1,12 +1,14 @@
 import axios from 'redaxios'
-import { shallow } from 'zustand/shallow'
-import { useStore } from '../pages/appStore'
+import appStore from '../pages/appStore'
 
 let srv: any
 let functionAuthenticationExpire: any /// Es una funcion
 
-const appStore = useStore((state) => (state), shallow)
-
+interface ICallSrv {
+    method: string;
+    path: string;
+    params?: any
+}
 
 export const apiSrv = {
 
@@ -38,7 +40,7 @@ export const apiSrv = {
         //)
     },
 
-    async setHeaders(headers: any) {
+    setHeaders: (headers: any) => {
         srv.defaults.headers = { ...srv.defaults.headers, ...headers }
     },
 
@@ -47,66 +49,65 @@ export const apiSrv = {
         srv.defaults.headers.mockmode = flag
     },
 
-    async callSrv({ method, path, params }: any) {
-        let fecha = new Date().getTime().toString()
-        if (params?.fecha) {
-            fecha = params.fecha.toString()
-            delete params.fecha
-        }
-        this.setHeaders({ fecha })
-        let res
-        try {
-            if (method === "GET") res = await srv.get(path)
-            if (method === "POST") res = await srv.post(path, JSON.stringify(params))
-            if (method === "FORM") res = await srv.post(path, params)
-        } catch (error: any) {
-            console.log('callSrv error:', error)
-            // if (error.status === 401) functionAuthenticationExpire()
-            return
-        }
-        return res.data
-    },
-
-    setFunctionAuthenticationExpire(fn: any) {
-        functionAuthenticationExpire = fn
-    },
-
-    async callBackend(preCallback: Function, ops: any) {
+    callBackend: async (preCallback: Function, ops?: any) => {
         let res
         let options = {
             loader: false,
             status: false
         }
 
-        if (ops) {
-            options = { ...options, ...ops }
-        }
+        if (ops) options = { ...options, ...ops }
+
         try {
-            if (options.loader) {
-                appStore.actions.setSpinnerModal({ showSpinner: options.loader })
-            }
+            if (options.loader) settingsSpinnerModal(true, false, '')
 
             res = await preCallback()
 
-            if (options.status && res.info.msg) {
-                appStore.actions.setSpinnerModal({
-                    showSpinner: false,
-                    showStatus: options.status,
-                    message: res?.info?.msg
-                })
+            if (res.info.type === 'error') throw new Error(res.info.message)
+
+
+            if (options.loader || (options.status && res.info.msg)) {
+                settingsSpinnerModal(false, options.status, res?.info?.msg)
             }
-        } catch (error) {
+
+        } catch (error: any) {
             console.log("🚀 ~ file: apiSrv.js:101 ~ callBackend ~ error", error)
+            if (options.loader || options.status) {
+                settingsSpinnerModal(false, options.status, error)
+            }
         } finally {
             if (options.loader || options.status) {
-                appStore.actions.setSpinnerModal({
-                    showSpinner: false,
-                    showStatus: false,
-                    message: ''
-                })
+                setTimeout(() => {
+                    settingsSpinnerModal(false, false, '')
+                }, 2000);
             }
             return res
         }
-    }
+    },
 
+    callSrv: async ({ method, path, params }: ICallSrv) => {
+        try {
+            let res
+            if (method === "GET") res = await srv.get(path)
+            if (method === "POST") res = await srv.post(path, JSON.stringify(params))
+            if (method === "FORM") res = await srv.post(path, params)
+            return res
+        } catch (error: any) {
+            console.log('callSrv error:', error)
+            // if (error.status === 401) functionAuthenticationExpire()
+            return
+        }
+    },
+
+    setFunctionAuthenticationExpire(fn: any) {
+        functionAuthenticationExpire = fn
+    },
+}
+
+const settingsSpinnerModal = (spinner: boolean, status: boolean, message: string) => {
+    appStore.actions.setSpinnerModal({
+        showSpinner: spinner,
+        showStatus: status,
+        message: message
+    })
 }

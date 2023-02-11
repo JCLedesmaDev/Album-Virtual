@@ -24,23 +24,23 @@ const router = createBrowserRouter([
     //   return true
     // },
     children: [
-      //     {
-      //       index: true, // Definimos que dentro de los componentes hijos, este es el principal
-      //       element: (
-      //         <RoutePrivate>
-      //           <Home />
-      //         </RoutePrivate>
-      //       ),
-      //       // action: (args) => args.context // Investigar si puede funcionar con ruta privada
-      //     },
-      //     {
-      //       path: 'admin',
-      //       element: (
-      //         <RoutePrivate>
-      //           <AdminCollection />
-      //         </RoutePrivate>
-      //       )
-      //     }
+      // {
+      //   index: true, // Definimos que dentro de los componentes hijos, este es el principal
+      //   element: (
+      //     <RoutePrivate>
+      //       <Home />
+      //     </RoutePrivate>
+      //   ),
+      //   // action: (args) => args.context // Investigar si puede funcionar con ruta privada
+      // },
+      // {
+      //   path: 'admin',
+      //   element: (
+      //     <RoutePrivate>
+      //       <AdminCollection />
+      //     </RoutePrivate>
+      //   )
+      // }
     ]
   },
   {

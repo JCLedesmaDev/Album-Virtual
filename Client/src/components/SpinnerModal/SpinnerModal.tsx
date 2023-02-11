@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { shallow } from "zustand/shallow";
-import { useStore } from "../../pages/appStore";
+import appStore from "../../pages/appStore";
 import css from "./SpinnerModal.module.css";
 
 export const SpinnerModal: React.FC = () => {
@@ -8,9 +7,6 @@ export const SpinnerModal: React.FC = () => {
   /// VARIABLES
   const styleOpenModalStatus = `${css.containerModal} ${css["containerModal--openModal"]}`;
   const styleCloseModalStatus = `${css.containerModal}`;
-
-  const appStore = useStore((state) => (state), shallow)
-
 
   useEffect(() => {
     const $body = document.querySelector("body") as HTMLBodyElement;

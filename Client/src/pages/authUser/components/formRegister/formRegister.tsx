@@ -26,7 +26,7 @@ export const FormRegister: React.FC = () => {
       
       event.preventDefault();
   
-      storeGlobal.SetShowLoader(true)
+      // storeGlobal.SetShowLoader(true)
   
       const { Result, MessageError } = await AuthService.Register(formulario)
   
@@ -38,21 +38,21 @@ export const FormRegister: React.FC = () => {
       storeAuth.SetLoginActive(true);
       storeAuth.SetRegisterActive(false);
       
-      storeGlobal.SetShowLoader(false);
-      storeGlobal.SetMessageModalStatus(Result);
-      storeGlobal.SetShowModalStatus(true);
+      // storeGlobal.SetShowLoader(false);
+      // storeGlobal.SetMessageModalStatus(Result);
+      // storeGlobal.SetShowModalStatus(true);
 
     } catch (error: any) {
       
-       storeGlobal.SetShowLoader(false)
-       storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-       storeGlobal.SetShowModalStatus(true)
+      //  storeGlobal.SetShowLoader(false)
+      //  storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
+      //  storeGlobal.SetShowModalStatus(true)
 
     } finally {
       resetForm()
-      setTimeout(() => {
-          storeGlobal.SetShowModalStatus(false)
-      }, 5000);
+      // setTimeout(() => {
+      //     storeGlobal.SetShowModalStatus(false)
+      // }, 5000);
     }
   }
 
@@ -69,7 +69,7 @@ export const FormRegister: React.FC = () => {
 
       <form onSubmit={register}>
 
-        {InputsMockRegister.map((inputProps: IInputs, index: number) => (
+        {/* {InputsMockRegister.map((inputProps: IInputs, index: number) => (
           <Input
             key={index}
             inputProps={inputProps}
@@ -78,7 +78,7 @@ export const FormRegister: React.FC = () => {
             errorMessage={inputProps.errorMessage}
             pattern={inputProps.expReg}
           />
-        ))}
+        ))} */}
 
         <button type="submit">Registrarse</button>
       </form>
