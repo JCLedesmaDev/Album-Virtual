@@ -27,10 +27,10 @@ const store = create<IStore>((set, get) => ({
             }))
             updateStorage("User", user)
         },
-        setSpinnerModal: (objStatus: ISpinnerModal) => set(store => ({
+        setSpinnerModal: (newObjStatus: ISpinnerModal) => set(store => ({
             state: {
                 ...store.state, modalStatus: {
-                    ...store.state.spinnerModal, ...objStatus
+                    ...store.state.spinnerModal, ...newObjStatus
                 }
             }
         })),
