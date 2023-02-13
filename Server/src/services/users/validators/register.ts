@@ -24,16 +24,14 @@ export const validatorRegister = [
         .isLength({ min: 3, max: 15 })
         .withMessage('El campo debe tener entre 3 a 15 caracteres'),
 
-    // check("confirmPassword", "Este campo es requerido")
-    //     .exists({checkFalsy: true}) // Los campos con valores falsos (por ejemplo, "", 0, falso, nulo) tampoco existirán'),
-    //     .trim() // Elimina los espacios del comienzo y final del texto
-    //     .isLength({ max: 15, min: 3 })
-    //     .withMessage('El campo debe tener entre 3 a 15 caracteres')
-    //     .custom(async (confirmPassword, { req }) => {
-    //         const password = req.body.password
-    //         if (password !== confirmPassword) {
-    //             throw new Error('Las contraseñas ingresadas no coinciden')
-    //         }
-    //     }),
+    check("confirmPassword", "Este campo es requerido")
+        .exists({ checkFalsy: true }) // Los campos con valores falsos (por ejemplo, "", 0, falso, nulo) tampoco existirán'),
+        .trim() // Elimina los espacios del comienzo y final del texto
+        .custom((confirmPassword, { req }) => {
+            if (confirmPassword !== req.body.password) {
+                throw new Error('Las contraseñas ingresadas no coinciden')
+            }
+            return true
+        }),
     (req: Request, res: Response, next: NextFunction) => validateResults(req, res, next)
 ]

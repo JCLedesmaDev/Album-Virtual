@@ -42,7 +42,8 @@ const registerUser = tryCatchWrapper(async (payload: IRegisterDto) => {
     const passwordHash = await bcrypt.encrypt(payload.password)
 
     await externalDb.createUser({
-        ...payload,
+        email: payload.email,
+        fullName: payload.fullName,
         password: passwordHash
     })
 
