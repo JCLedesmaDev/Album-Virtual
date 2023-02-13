@@ -7,7 +7,7 @@ import { IConfigInit } from './interface/IConfigInit';
 
 
 let srv: any
-let functionAuthenticationExpire: any /// Es una funcion
+// let functionAuthenticationExpire: any /// Es una funcion
 
 export const apiSrv = {
 
@@ -30,7 +30,7 @@ export const apiSrv = {
 
         srv?.interceptors?.request.use(
             (request: any) => request,
-            (error: any) => { 
+            (error: any) => {
                 console.log("🚀 ~ file: index.ts:53 ~ err", error)
                 return Promise.reject(error);
             }
@@ -44,6 +44,7 @@ export const apiSrv = {
                     window.location.href = `${window.location.origin}/login`;
                 }
                 // TODO: Ver si tengo que hacer un end-point para volver a obtener un token 
+                // functionAuthenticationExpire()
                 return Promise.reject(error);
             }
         )
@@ -108,7 +109,7 @@ export const apiSrv = {
         }
     },
 
-    setFunctionAuthenticationExpire: (fn: any) => functionAuthenticationExpire = fn,
+    // setFunctionAuthenticationExpire: (fn: any) => functionAuthenticationExpire = fn,
 
 }
 
