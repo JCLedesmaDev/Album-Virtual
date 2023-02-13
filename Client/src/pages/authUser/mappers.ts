@@ -1,12 +1,13 @@
-import { IAuthData } from "../../interface/dto/backToFront/Auth/IAuthData";
 import { IUserModels } from "../../interface/models/IUser.models";
+import { ILoginResponseDto } from "./interface/backToFront/ILoginResponse.dto";
 
-export const userMapper = (AuthData: IAuthData): IUserModels => {
+export const userMapper = (LoginResponse: ILoginResponseDto): IUserModels => {
     const formattedUser: IUserModels = {
-        id: AuthData.user?.id,
-        fullName: AuthData.user?.nombreCompleto,
-        email: AuthData.user?.email,
-        token: AuthData.token,
+        id: LoginResponse.user?.id,
+        fullName: LoginResponse.user?.fullName,
+        email: LoginResponse.user?.email,
+        // roles: 
+        token: LoginResponse.token,
     };
     return formattedUser;
 };

@@ -61,6 +61,12 @@ export const apiSrv = {
         srv.defaults.headers.mockmode = flag
     },
 
+    /**
+     * 
+     * @param preCallback Function exceute end-point to back 
+     * @param options Declare if this function has loader or status
+     * @returns Return data with these attributes: info: {type: string; msg: string; data: any}
+     */
     callBackend: async (preCallback: Function, options: ICallBackendOptions): Promise<ICallSrvResponse> => {
         let res: ICallSrvResponse = {} as ICallSrvResponse
 

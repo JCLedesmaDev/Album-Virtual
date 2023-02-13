@@ -20,10 +20,8 @@ export const AdminCollection: React.FC = () => {
   const { paginate, setPaginate } = usePaginate()
 
 
-  const [statusAction, setStatusction] = useState({
-    action: "", idColeccion: 0
-  })
-  const { formulario, handleChange, resetForm, setFormulario } = useFormCustom<IDataColeccionForm>({
+  const [statusAction, setStatusction] = useState({ action: "", idColeccion: 0 })
+  const { form, handleChange, resetForm, setForm } = useFormCustom<IDataColeccionForm>({
     Titulo: ""
   });
 

@@ -4,8 +4,10 @@ import { IUserModels } from "../../interface/models/IUser.models";
 import { apiSrv } from "../../utils/apiSrv";
 import { useAppStore } from "../appStore";
 import { shallow } from "zustand/shallow";
-import { ILoginDto } from "../../interface/dto/frontToBack/auth/ILogin.dto";
-import { IRegisterDto } from "../../interface/dto/frontToBack/auth/IRegister.dto";
+import { ILoginDto } from "./interface/frontToBack/ILogin.dto";
+import { IRegisterDto } from "./interface/frontToBack/IRegister.dto";
+import { ILoginResponseDto } from "./interface/backToFront/ILoginResponse.dto";
+import { ICallSrv } from "../../utils/apiSrv/interface/ICallSrv";
 
 
 interface IStore {
@@ -47,10 +49,8 @@ const store = create<IStore>((set, get) => {
                 }))
             },
             login: async (formData: ILoginDto) => {
-
                 let flagIsLogin = true
                 const appStore = useAppStore()
-
 
                 const res = await apiSrv.callBackend(async () => {
                     return await apiSrv.callSrv({
