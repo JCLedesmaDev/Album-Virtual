@@ -1,12 +1,12 @@
 import { create } from "zustand";
 import { shallow } from "zustand/shallow";
-import { ISpinnerModal } from "../models/Spinner.models";
-import { IUserModels } from "../Models/User.models";
-import { getStorage, updateStorage } from "../Utils/updateStorage";
+import { ISpinnerModels } from "../interface/models/ISpinner.models";
+import { IUserModels } from "../interface/models/IUser.models";
+import { getStorage, updateStorage } from "../utils/updateStorage";
 
 interface IStore {
     readonly state: {
-        spinnerModal: ISpinnerModal;
+        spinnerModal: ISpinnerModels;
         user: IUserModels;
     },
     actions: {
@@ -17,7 +17,7 @@ interface IStore {
 
 const store = create<IStore>((set, get) => ({
     state: {
-        spinnerModal: {} as ISpinnerModal,
+        spinnerModal: {} as ISpinnerModels,
         user: getStorage<IUserModels>("User") ?? {} as IUserModels
     },
     actions: {
@@ -27,7 +27,7 @@ const store = create<IStore>((set, get) => ({
             }))
             updateStorage("User", user)
         },
-        setSpinnerModal: (newObjStatus: ISpinnerModal) => set(store => ({
+        setSpinnerModal: (newObjStatus: ISpinnerModels) => set(store => ({
             state: {
                 ...store.state, modalStatus: {
                     ...store.state.spinnerModal, ...newObjStatus

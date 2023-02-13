@@ -1,5 +1,5 @@
-import { IAuthData } from "../../interface/DTO Back/Auth/IAuthData";
-import { IUserModels } from "../../Models/User.models";
+import { IAuthData } from "../../interface/dto/backToFront/Auth/IAuthData";
+import { IUserModels } from "../../interface/models/IUser.models";
 
 export const userMapper = (AuthData: IAuthData): IUserModels => {
     const formattedUser: IUserModels = {

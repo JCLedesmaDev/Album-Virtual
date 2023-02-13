@@ -7,7 +7,7 @@ import AlbumImagenesMock from './Mocks/AlbumImagenes.json'
 import { useEffect, useState } from 'react';
 import { carouselTarjets } from '../../Utils/carouselTarjets';
 import { IAlbumImagenesData } from '../../Interface/DTO Back/AlbumImagenes/IAlbumImagenes';
-import { ConfigCarrouselModels } from '../../Models/ConfigCarrousel.models';
+import { ConfigCarrouselModels } from '../../interface/models/ConfigCarrousel.models';
 import AlbumImagenService from './Services/AlbumImagen.service';
 import { IAlbumData } from '../../Interface/DTO Back/Album/IAlbumData';
 import { usePaginate } from '../../Hooks/usePaginate';

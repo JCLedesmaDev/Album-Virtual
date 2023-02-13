@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import { userMapper } from "./mappers";
-import { IUserModels } from "../../Models/User.models";
+import { IUserModels } from "../../interface/models/IUser.models";
 import { apiSrv } from "../../utils/apiSrv";
-import { ILoginDto } from "../../interface/DTO Front/Auth/ILogin.dto";
 import { useAppStore } from "../appStore";
 import { shallow } from "zustand/shallow";
-import { IRegisterDto } from "../../interface/DTO Front/Auth/IRegister.dto";
+import { ILoginDto } from "../../interface/dto/frontToBack/auth/ILogin.dto";
+import { IRegisterDto } from "../../interface/dto/frontToBack/auth/IRegister.dto";
 
 
 interface IStore {

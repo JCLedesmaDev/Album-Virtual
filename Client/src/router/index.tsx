@@ -8,10 +8,10 @@ import { AdminFiguritas } from '../pages/AdminFiguritas/Index';
 
 import { RoutePrivate } from '../components/RoutePrivate/RoutePrivate';
 import { MainLayout } from "../layouts/MainLayout";
-import { Home } from "../pages/home";
+import { Home } from "../pages/Home";
 
 import { AuthUser } from '../pages/authUser';
-import { NotFound } from "../pages/NotFound";
+import { NotFound } from "../pages/notFound";
 
 const router = createBrowserRouter([
   {

@@ -1,7 +1,7 @@
 import {  } from "react-router";
  import { Route, Navigate} from "react-router-dom";
-import { UserModels } from "../../Models/User.models";
-import { getStorage } from "../../Utils/updateStorage";
+import { IUserModels } from "../../interface/models/IUser.models";
+import { getStorage } from "../../utils/updateStorage";
 
 interface IRoutePrivate {
     children: JSX.Element;
@@ -15,7 +15,7 @@ export const RoutePrivate: React.FC<IRoutePrivate> = ({ children, redirectTo ="/
        Tb deberia hacer que el back me actualice el token cuando envie una peticion y 
        vea q mi token expiro!
     */
-    const jwt = getStorage<UserModels>("User")?.Token;
+    const jwt = getStorage<IUserModels>("User")?.token;
 
 
     if (jwt == undefined) {
