@@ -1,8 +1,8 @@
 export interface IConfigInit{
     info:{
-        usrToken: string;
+        authorization: string;
         mockmode: string;
-        usrId: string
+        usrid: string
     },
     url: string
 }

@@ -7,7 +7,7 @@ export const userMapper = (LoginResponse: ILoginResponseDto): IUserModels => {
         fullName: LoginResponse.user?.fullName,
         email: LoginResponse.user?.email,
         // roles: 
-        token: LoginResponse.token,
+        tokenAuth: LoginResponse.token,
     };
     return formattedUser;
 };

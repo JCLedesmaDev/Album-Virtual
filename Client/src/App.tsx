@@ -12,11 +12,11 @@ export default function App() {
 
     const pl: IConfigInit = {
       info: {
-        usrToken: '',
+        authorization: '',
         mockmode: 'false',
-        usrId: ''
+        usrid: ''
       },
-      url: process.env.VITE_URL_API || '' // Poner la variable de entorno
+      url: process.env.VITE_URL_API as string // Poner la variable de entorno
     }
 
     apiSrv.init(pl)

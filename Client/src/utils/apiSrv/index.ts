@@ -1,4 +1,3 @@
-import { m } from '@angular/core/src/render3';
 import axios from 'redaxios'
 import { useAppStore } from '../../pages/appStore';
 import { ICallBackendOptions } from './interface/ICallBackendOptions';
@@ -17,7 +16,6 @@ export const apiSrv = {
      * @param {*} config 
      */
     init: (config: IConfigInit) => {
-        console.log('api cfg: ', JSON.stringify(config))
         const headersDef = {
             // 'Access-Control-Allow-Credentials':'true',
             'Accept': 'application/json, text/plain, */*',
@@ -27,27 +25,26 @@ export const apiSrv = {
         const headers = { ...headersDef, ...config.info }
         srv = axios.create({
             baseURL: config.url,
-            headers: headers
+            headers: headers,
         })
 
-        // TODO: https://morioh.com/p/743584719680
-        srv.interceptors.request.use(
-            (req: any) => {
-                console.log('interceptor request:' + req)
-                return req
-            },
-            (err: any) => {
-                console.log("🚀 ~ file: index.ts:53 ~ err", err)
+        srv?.interceptors?.request.use(
+            (request: any) => request,
+            (error: any) => { 
+                console.log("🚀 ~ file: index.ts:53 ~ err", error)
+                return Promise.reject(error);
             }
         )
-        srv.interceptors.response.use(
-            (res: any) => {
-                console.log('interceptor response: ' + res)
-                return res.data
-            },  
+        srv?.interceptors?.response.use(
+            (response: any) => response,
             (error: any) => {
-                const { config } = error
-                console.log('Error FWK-API!!!! :' + error)
+                console.log('Error ApiSrv!!!! :' + error)
+                if (error.response?.status === 401) { // Hice que el 401 sea especifico de token
+                    localStorage.removeItem("User");
+                    window.location.href = `${window.location.origin}/login`;
+                }
+                // TODO: Ver si tengo que hacer un end-point para volver a obtener un token 
+                return Promise.reject(error);
             }
         )
     },

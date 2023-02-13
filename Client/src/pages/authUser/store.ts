@@ -6,8 +6,6 @@ import { useAppStore } from "../appStore";
 import { shallow } from "zustand/shallow";
 import { ILoginDto } from "./interface/frontToBack/ILogin.dto";
 import { IRegisterDto } from "./interface/frontToBack/IRegister.dto";
-import { ILoginResponseDto } from "./interface/backToFront/ILoginResponse.dto";
-import { ICallSrv } from "../../utils/apiSrv/interface/ICallSrv";
 
 
 interface IStore {
@@ -63,8 +61,12 @@ const store = create<IStore>((set, get) => {
                 if (res.info.type === 'error') return flagIsLogin = false
 
                 const userAdapted: IUserModels = userMapper(res.info.data);
-                appStore.actions.setUser(userAdapted)
 
+                appStore.actions.setUser(userAdapted)
+                apiSrv.setHeaders({
+                    usrid: userAdapted.id,
+                    authorization: userAdapted.tokenAuth
+                })
                 return flagIsLogin
             },
             register: async (formData: IRegisterDto) => {
