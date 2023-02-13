@@ -1,0 +1,189 @@
+Proyecto creado con Vite.js
+
+**_ Dependencias importantes _** {
+-> Typescript
+-> Axios
+-> react-router-dom
+-> redux
+-> redux-devtools-extension (quizas)
+-> react-redux
+-> redux-thunk
+-> react-query
+-> font awesome
+}
+
+**_ Carpetas _**
+
+Las siguientes carpetas, se pueden encontrar a nivel general, es decir, dentro del SRC/
+Dentro de estas carpetas tendran codigos que se podran utilizar a nivel general en nuestra aplicacion.
+
+> Models / Interfaces: Representa las "entidades" dentro de nuestra aplicacion. Con TypeScript, tendremos aqui todas nuestras interfaces
+
+> Components: Elementos JSX que se re utilizan en otras pages.
+
+> Adapters: Aqui adaptaremos los datos que recibimos de los end-points para que los use nuestro Front-End.
+> Es decir, indicaremos los nombres con lo que estaran presente en nuestro proyecto y pudiendo separar (o agregarle una capa de abstraccion) el nombre de los datos que nos pasa el back, con lo que utilizamos en el front.
+
+PD: Esto es para evitar que se rompa toda nuestra aplicacion cuando en el B.E se cambien los nombres de los attr. De esta manera, solamente afectara en los "Adapters" y no en todo el proyecto en si.
+
+PD: Se utliza dentro de "Services" a la hora de cuando se ejecuta un end-point y nos revuelve un valor.
+Tb utlizara los "Models" que tendran un modelo de datos que utilizaremos en el front y otro modelo de lo que nos devolvera el end-point.
+
+> Assets: Todo lo relacionado a imagenes, videos, musica.
+
+> Hooks: Aqui colocaremos todos nuestros Customs hooks.
+
+> Interceptors: Aqui pondremos las funciones que interceptan las llamadas y respuestas HTTP
+
+> Redux: Aqui manejaremos todos los estados.
+
+> Utils: Funciones con cierta logica que nos ayudan a hacer una tarea en especifico y se pueden re utilizar en cualquier parte del proyecto.
+> PD: A lo archivos es bueno que finalicen con el .utility.tsx
+
+> Context:
+
+De las carpetas mencionadas anteriormente, las siguientes, se pueden modularizar, es decir:
+Utilziar esa carpeta para una situacion en especifico (o vista en espeficia) y tendran codigo que solamente se utilizan en esa vista puntual.
+Como por ejem.: Un Login; Register; Home; etc. - Adapters - Components - Hooks - Interceptors - Models - Services - Context
+
+**_ React Router DOM v6 para el navegador _**
+
+Dentro del "Main.tsx" envolvemos a nuestro archivo principal "App.tsx" con <BrowserRouter></BrowserRouter> y dentro de "App.tsx" utilizarmeos <Routes></Routes> para envolver todas las rutas que tendra nuestro proyecto en si.
+
+Cada <Route/> tendra una direccion (path) y un elemento HTML, por ejem.: <Login/>
+
+Nota: Diferencia entre Componente y Elementos:
+Un componente es una funcion sin ejecutar que nos renderiza un elemento HTML.
+
+-------------- <h3> Diferencia entre <a> y <Link> / <NavLink>
+
+El elemento <a></a> nos vuelve a renderizar todo el proyecto cada vez que cambiamos de url mas el componente al que vamos, mientras que <Link to=""> evita ese renderizado y solo renderiza al componente que vamos.
+
+Nota: Existe un <NavLink/> idem a <Link> pero con la diferencia que dentro de su "className"/ "style", se puede ejecutar una funcion para saber si esta activo o no.
+Por ejem.:
+<NavLink className={({isActive}) => {
+return isActive ? "isActive" : undefined ;
+}}>Ejemplo</NavLink>
+
+--------------------<h3>Anidamiento de Route</h3>
+
+Dentro de un <Route> se puede hacer un anidamineto de rutas, es decir, poner un <Route> dentro de otro <Route>, esto con el fin de seguir una misma url.
+Por ejem.: proyectosList > proyectosList/detalles
+y mostrar dicho contenido dentro de la misma pagina de "ProyectosList".
+
+Por ejem.:
+<Route path="/proyectos" element={<ProyectList />}>
+
+<!--  Es una ruta relativa a "/proyectos" pero gracias al "index indica que el path de este Route, coincide con la ruta absoluta "/proyectos", por lo que al acceder en "/proyectos" se mostrara el contenido de ProyectList y ProyectIndex al mismo tiempo. -->
+
+<Route index element={<ProyectIndex />} />
+<!-- Se quita el "/" ya que es una ruta relativa a /proyectos y no absoluta como /proyectos -->
+  <Route path="detalle/:name" element={<Proyect />} />
+</Route>
+
+<Route path="*" element={<Navigate replace to="/home" />} />
+
+y dentro de "/proyectos", colocaremos la siguiente etiqueta:
+<Outlet/>, de esta manera, se reemplazara esa etiqueta, por el contenido de "detalle/:name"
+
+Nota: EL <Navigate replace to="/home" /> reemplaza al antiguo
+<Redirect to="/home" /> y este no se puede utilizar a nivel routes, por lo que debe ir si o si dentro de un <Route>
+
+------------- <h3> useNavigate() </h3>
+
+useNavigate() reemplaza al useHistory().push
+const navigate = useNavigate()
+console.log("NAVITAGTE", navigate("/login", {
+state: "SADSA",
+}))
+
+------------- <h3> useSearchParams()  - HACER </h3>
+
+Nos permite pasar parametros dentro de la URL, esto es muy bueno para hora de buscar datos en especificos. Por ejem.: Pasar una URL especifica y que al acceder a esa url, nos muestre el perfil de cierto usuario.
+Generalmente se utiliza para busqueda, filtrados, paginados y es muy bueno, porque no se pierde el dato al re cargar la pagina
+
+Tb se podria hacer esto con un State, setState pero es mas efectivo hacerlo de esta manera.
+
+const [searchParams, setSearchParams] = useSearchParams();
+
+const filter: string = searchParams.get("filter") ?? "";
+
+const handleFilter = (e: any) => {
+    setSearchParams({
+        filter: e.target.value
+    });
+};
+
+<input
+    value={filter}
+    type="text"
+    placeholder="Filter"
+    onChange={handleFilter}
+/>
+
+{projectos
+  .filter((projec) => {
+    if (!filter) return true;
+    return projec
+      .toLowerCase()
+      .includes(filter.toLowerCase());
+  })
+  .map((project) => (
+    <ol key={project}>
+      <Link to={`detalle/${project}`}>{project}</Link>
+    </ol>
+  ))}
+
+
+
+
+
+
+
+------------- <h3> Extras </h3>
+
+
+
+/// TODO: Poner despuest
+  axios.interceptors.request.use(
+    (request) => {
+      const token = JSON.parse(localStorage.getItem("jwtBO") as any);
+      request.headers["Authorization"] = `Bearer ${token}`;
+      return request;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  const protocol = window.location.origin;
+  const API = `${protocol}/`; // Apunta al login
+
+  axios.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response?.status === 401) {
+        localStorage.removeItem("jwtBO");
+        window.location.href = API;
+      }
+      return Promise.reject(error);
+    }
+  );
+
+
+-> Llamado a API > Informado retornada, la adaptamos y generamos nuevo objeto con los nuevos nombres de datos
+
+
+
+
+
+------- <h3> Redux </h3>
+
+TODO VER COMO IMPLEMENTE REDUCER CON TYPESCRIPT y copiar aca.
+TODO: Borrar todo lo de redux e implementar Redux/Toolkit
+https://redux-toolkit.js.org/usage/usage-with-typescript
+
+- npm install @reduxjs/toolkit
+- npm i react-redux
