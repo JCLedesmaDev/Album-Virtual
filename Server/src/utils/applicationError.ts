@@ -5,7 +5,8 @@ interface ISource {
 
 interface IConstructor {
   message: string;
-  source?: any
+  source?: any;
+  status?: number
 }
 
 export class ApplicationError extends Error {
@@ -15,13 +16,13 @@ export class ApplicationError extends Error {
   source!: ISource; // El signo ! indica que puede ser undefined
 
   constructor(DataConstructor: IConstructor) {
-    const { message, source } = DataConstructor
+    const { message, source, status } = DataConstructor
     super(message)
 
     Object.setPrototypeOf(this, new.target.prototype);
     this.name = this.constructor.name
     this.message = message || 'Ocurrio un error al querer hacer esta operacion'
-    this.status = 500
+    this.status = status || 500
     if (source) {
       this.source = {
         message: source.message ?? source,
