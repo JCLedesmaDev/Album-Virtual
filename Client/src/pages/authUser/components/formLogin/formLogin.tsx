@@ -24,7 +24,7 @@ export const FormLogin: React.FC = () => {
 
     event.preventDefault();
 
-    const isLogin = await store.actions.loginUser(form)
+    const isLogin = await store.actions.login(form)
 
     if (isLogin) navigate("/Album");
     resetForm()

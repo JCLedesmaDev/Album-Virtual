@@ -1,12 +1,11 @@
 import { create } from "zustand";
-import { createMapperUser } from "./mappers/user.mappers";
+import { userMapper } from "./mappers";
 import { IUserModels } from "../../Models/User.models";
 import { apiSrv } from "../../utils/apiSrv";
-import { IDataRegisterForm } from "../../interface/DTO Front/Auth/IDataRegisterForm";
-import { IDataLoginForm } from "../../interface/DTO Front/Auth/IDataLoginForm";
-import { IResponseUseForm, useFormCustom } from "../../Hooks/useFormCustom";
+import { ILoginDto } from "../../interface/DTO Front/Auth/ILogin.dto";
 import { useAppStore } from "../appStore";
 import { shallow } from "zustand/shallow";
+import { IRegisterDto } from "../../interface/DTO Front/Auth/IRegister.dto";
 
 
 interface IStore {
@@ -19,8 +18,8 @@ interface IStore {
         setLoginFormActive: (newState: boolean) => void;
         setRegisterFormActive: (newState: boolean) => void;
         changeStyleForm: () => void
-        loginUser: (formData: IDataLoginForm) => Promise<boolean>
-        registerUser: (formData: IDataRegisterForm) => Promise<boolean>
+        login: (formData: ILoginDto) => Promise<boolean>
+        register: (formData: IRegisterDto) => Promise<boolean>
     }
 }
 
@@ -47,7 +46,7 @@ const store = create<IStore>((set, get) => {
                     state: { ...store.state, styleForm: style }
                 }))
             },
-            loginUser: async (formData: IDataLoginForm) => {
+            login: async (formData: ILoginDto) => {
 
                 let flagIsLogin = true
                 const appStore = useAppStore()
@@ -56,25 +55,25 @@ const store = create<IStore>((set, get) => {
                 const res = await apiSrv.callBackend(async () => {
                     return await apiSrv.callSrv({
                         method: 'POST',
-                        path: '/Usuario/Login',
+                        path: '/users/login',
                         data: formData
                     })
                 }, { loader: true })
 
                 if (res.info.type === 'error') return flagIsLogin = false
 
-                const userAdapted: IUserModels = createMapperUser(res.info.data);
+                const userAdapted: IUserModels = userMapper(res.info.data);
                 appStore.actions.setUser(userAdapted)
 
                 return flagIsLogin
             },
-            registerUser: async (formData: IDataRegisterForm) => {
+            register: async (formData: IRegisterDto) => {
                 let flagIsRegister = true
 
                 const res = await apiSrv.callBackend(async () => {
                     return await apiSrv.callSrv({
                         method: 'POST',
-                        path: '/Usuario/Create',
+                        path: '/users/register',
                         data: formData
                     })
                 }, { loader: true, status: true })

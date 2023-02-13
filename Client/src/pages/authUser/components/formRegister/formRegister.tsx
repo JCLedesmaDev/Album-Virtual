@@ -16,7 +16,7 @@ export const FormRegister: React.FC = () => {
   const register = async (event: any) => {
     event.preventDefault();
 
-    const isRegister = await store.actions.registerUser(form)
+    const isRegister = await store.actions.register(form)
 
     if (!isRegister) return
 

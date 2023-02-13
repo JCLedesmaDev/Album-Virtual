@@ -1,8 +1,9 @@
 import { createContext } from "react";
 
 import { useFormCustom } from "../../../Hooks/useFormCustom";
-import { IDataLoginForm } from "../../../interface/DTO Front/Auth/IDataLoginForm";
+import { ILoginDto } from "../../../interface/DTO Front/Auth/ILogin.dto";
 import { IDataRegisterForm } from "../../../interface/DTO Front/Auth/IDataRegisterForm";
+import { IRegisterDto } from "../../../interface/DTO Front/Auth/IRegister.dto";
 
 
 /* Interface de las propiedades / metodos que podremos utilziar en los Componentes */
@@ -22,11 +23,9 @@ interface Props {
 export const FormsProvider: React.FC<Props> = (props) => {
 
   /// HOOKS
-  const formLogin = useFormCustom<IDataLoginForm>({
-    Email: '', Password: ''
-  });
-  const formRegister = useFormCustom<IDataRegisterForm>({
-    EmailRegister: '', PasswordRegister: '', ConfirmPassword: '', NombreCompleto: ''
+  const formLogin = useFormCustom<ILoginDto>({ email: '', password: '' });
+  const formRegister = useFormCustom<IRegisterDto>({
+    email: '', password: '', confirmPassword: '', fullName: ''
   })
 
   return (
