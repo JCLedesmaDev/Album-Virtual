@@ -1,3 +1,4 @@
+import { unstable_batchedUpdates } from "react-dom";
 import { create } from "zustand";
 import { shallow } from "zustand/shallow";
 import { ISpinnerModels } from "../interface/models/ISpinner.models";
@@ -36,5 +37,8 @@ const store = create<IStore>((set, get) => ({
         })),
     }
 }))
-
 export const useAppStore = () => ({ ...store((state) => (state), shallow) })
+
+export const executeSetUser = (user: IUserModels) => {
+    unstable_batchedUpdates(() => store.getState().actions.setUser(user))
+}

@@ -26,7 +26,7 @@ export const FormsProvider: React.FC<Props> = (props) => {
   })
 
   return (
-    <FormsContext.Provider value={{ formLogin, formRegister }}    >
+    <FormsContext.Provider value={{ formLogin, formRegister }}>
       {props.children}
     </FormsContext.Provider>
   );

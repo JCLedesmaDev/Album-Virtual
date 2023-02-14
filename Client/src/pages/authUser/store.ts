@@ -1,9 +1,9 @@
 import { create } from "zustand";
+import { shallow } from "zustand/shallow";
 import { userMapper } from "./mappers";
 import { IUserModels } from "../../interface/models/IUser.models";
 import { apiSrv } from "../../utils/apiSrv";
-import { useAppStore } from "../appStore";
-import { shallow } from "zustand/shallow";
+import { executeSetUser } from "../appStore";
 import { ILoginDto } from "./interface/frontToBack/ILogin.dto";
 import { IRegisterDto } from "./interface/frontToBack/IRegister.dto";
 
@@ -23,7 +23,6 @@ interface IStore {
     }
 }
 
-
 const store = create<IStore>((set, get) => {
     return {
         state: {
@@ -42,13 +41,12 @@ const store = create<IStore>((set, get) => {
                 let style = (get().state.loginFormActive && !get().state.registerFormActive)
                     ? 'containerPage__Auth--loginActive'
                     : 'containerPage__Auth--registerActive'
-                set(store => ({
-                    state: { ...store.state, styleForm: style }
-                }))
+                set(store => ({ state: { ...store.state, styleForm: style } }))
             },
             login: async (formData: ILoginDto) => {
                 let flagIsLogin = true
-                const appStore = useAppStore()
+                // const appStore = useAppStore()
+                // console.log("🚀 ~ file: store.ts:51 ~ login: ~ appStore", appStore)
 
                 const res = await apiSrv.callBackend(async () => {
                     return await apiSrv.callSrv({
@@ -57,16 +55,20 @@ const store = create<IStore>((set, get) => {
                         data: formData
                     })
                 }, { loader: true })
+                console.log("🚀 ~ file: store.ts:58 ~ res ~ res", res)
 
-                if (res.info.type === 'error') return flagIsLogin = false
+                // if (res.info.type === 'error') return flagIsLogin = false
 
-                const userAdapted: IUserModels = userMapper(res.info.data);
+                // const userAdapted: IUserModels = userMapper(res.info.data);
 
-                appStore.actions.setUser(userAdapted)
-                apiSrv.setHeaders({
-                    usrid: userAdapted.id,
-                    authorization: userAdapted.tokenAuth
-                })
+                // // appStore.actions.setUser(userAdapted)
+
+                // executeSetUser(userAdapted)
+                
+                // apiSrv.setHeaders({
+                //     usrid: userAdapted.id,
+                //     authorization: userAdapted.tokenAuth
+                // })
                 return flagIsLogin
             },
             register: async (formData: IRegisterDto) => {
@@ -90,3 +92,4 @@ const store = create<IStore>((set, get) => {
 
 // Utilizamos "shallow" para poder comparar a nivel atomico los {} y []
 export const useAuthUserStore = () => ({ ...store((state) => (state), shallow) })
+

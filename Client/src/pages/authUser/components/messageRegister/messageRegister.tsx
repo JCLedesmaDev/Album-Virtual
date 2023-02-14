@@ -9,7 +9,7 @@ export const MessageRegister: React.FC = () => {
 
   /// HOOKS
   const store = useAuthUserStore()
-  const useForms = useFormsContext()  
+  const useForms = useFormsContext()
   const { resetForm } = useForms.formLogin
 
 

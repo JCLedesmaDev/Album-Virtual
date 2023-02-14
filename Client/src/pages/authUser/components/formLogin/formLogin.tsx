@@ -16,25 +16,22 @@ export const FormLogin: React.FC = () => {
   const store = useAuthUserStore()
 
 
-  const useForms = useFormsContext()  
+  const useForms = useFormsContext()
   const { form, handleChange, resetForm } = useForms.formLogin
 
 
   const login = async (event: any) => {
-
     event.preventDefault();
 
     const isLogin = await store.actions.login(form)
 
     if (isLogin) navigate("/Album");
     resetForm()
-
   }
 
 
   return (
 
-    // ${FormLoginCSS["containerFormLogin"]}} 
     <div className={`
       ${store.state.loginFormActive
         ? FormLoginCSS["containerFormLogin--show"]
@@ -44,7 +41,6 @@ export const FormLogin: React.FC = () => {
       <h2>Iniciar Sesion</h2>
 
       <form onSubmit={login} >
-
         {InputsMockLogin.map((inputProps: IInputs, index: number) => (
           <Input
             key={index}
@@ -55,7 +51,6 @@ export const FormLogin: React.FC = () => {
             pattern={inputProps.expReg}
           />
         ))}
-        <input type="text" />
 
         <button type="submit">Entrar</button>
       </form>

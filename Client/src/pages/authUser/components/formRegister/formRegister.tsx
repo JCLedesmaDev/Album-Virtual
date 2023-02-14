@@ -28,8 +28,6 @@ export const FormRegister: React.FC = () => {
   }
 
   return (
-
-    // ${FormRegisterCSS.containerFormRegister}} 
     <div className={`
       ${store.state.registerFormActive
         ? FormRegisterCSS["containerFormRegister--show"]
@@ -39,7 +37,6 @@ export const FormRegister: React.FC = () => {
       <h2>Registrarse</h2>
 
       <form onSubmit={register}>
-
         {InputsMockRegister.map((inputProps: IInputs, index: number) => (<Input
           key={index}
           inputProps={inputProps}
