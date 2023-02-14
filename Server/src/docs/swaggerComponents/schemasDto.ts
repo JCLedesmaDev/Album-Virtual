@@ -33,7 +33,7 @@ const login = {
             },
             password: {
                 type: "string",
-                example: "administrador"
+                example: "Administrador123"
             },
         },
     },
