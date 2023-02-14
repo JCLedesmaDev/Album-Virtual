@@ -39,6 +39,9 @@ const store = create<IStore>((set, get) => ({
 }))
 export const useAppStore = () => ({ ...store((state) => (state), shallow) })
 
+
+// Para ejecutar dentro de un store hijo, lo que tenemos en el appStore
+// Opcion 2, ver de hacer el appStore como un provider.
 export const executeSetUser = (user: IUserModels) => {
     unstable_batchedUpdates(() => store.getState().actions.setUser(user))
 }
