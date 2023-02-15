@@ -8,7 +8,7 @@ export interface ILoginResponseDto {
     token: string;
 }
 
-interface IRol{
+export interface IRol{
     name: string;
     id: string;
 }

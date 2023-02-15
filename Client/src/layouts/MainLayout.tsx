@@ -1,19 +1,25 @@
 import { useEffect } from "react"
-import { Outlet, useNavigation, useParams } from "react-router-dom"
+import { Outlet, useNavigate, useNavigation, useParams } from "react-router-dom"
 import { Navigate } from "../components/Navigate/Navigate"
 import { SpinnerModal } from "../components/SpinnerModal/SpinnerModal"
+import appStore from "../pages/appStore"
+
 
 export const MainLayout: React.FC = () => {
 
     const navigation = useNavigation()
+    const navigate = useNavigate()
     /* Devuelve el estado de la navegacion actual
         - idle, submitting, loading
     */
     // useParams()
 
-    // useEffect(()=> {
-    //     if(store.state.user) 
-    // }, [])
+    useEffect(() => {
+        console.log("PASA X ACA")
+        if (!appStore.getState().state.user.tokenAuth) {
+            navigate('/login')
+        }
+    }, [])
 
     return (
         <>

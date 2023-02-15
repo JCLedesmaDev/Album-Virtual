@@ -16,7 +16,7 @@ import { NotFound } from "../pages/notFound";
 const router = createBrowserRouter([
   {
     // path: '/',
-    path: '/a',
+    path: '/',
     element: <MainLayout />,
     errorElement: <NotFound />,
     // shouldRevalidate: (lala) => { // Posible solucion de las rutas privadas
@@ -44,8 +44,7 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: '/',
-    // path: '/authUser',
+    path: '/login',
     element: <AuthUser />
   }
 ])
