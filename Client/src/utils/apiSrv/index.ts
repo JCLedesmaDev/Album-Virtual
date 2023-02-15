@@ -1,4 +1,5 @@
-import axios from 'redaxios'
+// import axios from 'redaxios'
+import axios, { AxiosInstance, AxiosResponse } from 'axios'
 import appStore from '../../pages/appStore';
 import { ICallBackendOptions } from './interface/ICallBackendOptions';
 import { ICallSrv } from './interface/ICallSrv';
@@ -6,7 +7,7 @@ import { ICallSrvResponse } from './interface/ICallSrvResponse';
 import { IConfigInit } from './interface/IConfigInit';
 
 
-let srv: any
+let srv: AxiosInstance
 
 export const apiSrv = {
 
@@ -24,18 +25,16 @@ export const apiSrv = {
         const headers = { ...headersDef, ...config.info }
         srv = axios.create({
             baseURL: config.url,
-            headers: headers,
+            headers: headers
         })
-
-        /// NO ANDA.
-        srv?.interceptors?.request.use(
+        srv.interceptors.request.use(
             (request: any) => request,
             (error: any) => {
                 console.log("🚀 ~ file: index.ts:53 ~ err", error)
                 return Promise.reject(error);
             }
         )
-        srv?.interceptors?.response.use(
+        srv.interceptors.response.use(
             (response: any) => response,
             (error: any) => {
                 console.log('Error ApiSrv!!!! :' + error)
@@ -43,12 +42,9 @@ export const apiSrv = {
                     localStorage.removeItem("User");
                     window.location.href = `${window.location.origin}/login`;
                 }
-                // TODO: Ver si tengo que hacer un end-point para volver a obtener un token 
-                // functionAuthenticationExpire()
                 return Promise.reject(error);
             }
         )
-        /// NO ANDA.
     },
 
     setHeaders: (headers: any) => {
@@ -93,15 +89,11 @@ export const apiSrv = {
 
     callSrv: async ({ method, path, data }: ICallSrv): Promise<ICallSrvResponse> => {
         let res: ICallSrvResponse = {} as ICallSrvResponse
-        let responseSrv: any;
         try {
-            if (method === "GET") responseSrv = await srv.get(path)
-            if (method === "POST") responseSrv = await srv.post(path, data)
-            if (method === "PUT") responseSrv = await srv.put(path, data)
-            if (method === "DELETE") responseSrv = await srv.delete(path)
-            if (method === "FORM") responseSrv = await srv.post(path, data)
-
-            res = responseSrv.data
+            if (method === "GET") res = await (await srv.get(path)).data
+            if (method === "POST") res = await (await srv.post(path, data)).data
+            if (method === "PUT") res = await (await srv.put(path, data)).data
+            if (method === "DELETE") res = await (await srv.delete(path)).data
         } catch (error: any) {
             console.log('callSrv error:', error)
             error.data.info

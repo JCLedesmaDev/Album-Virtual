@@ -24,6 +24,7 @@ const appStore = create<IStore>((set, get) => ({
     },
     actions: {
         setUser: (user: IUserModels) => {
+            console.log("🚀 ~ setUser", user)
             updateStorage("User", user)
             set(produce((store: IStore) => {
                 store.state.user = user
