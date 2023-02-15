@@ -27,6 +27,7 @@ export const apiSrv = {
             headers: headers,
         })
 
+        /// NO ANDA.
         srv?.interceptors?.request.use(
             (request: any) => request,
             (error: any) => {
@@ -47,6 +48,7 @@ export const apiSrv = {
                 return Promise.reject(error);
             }
         )
+        /// NO ANDA.
     },
 
     setHeaders: (headers: any) => {
@@ -78,9 +80,7 @@ export const apiSrv = {
                 settingsSpinnerModal(false, options.status, res.info.msg as string)
             }
         } catch (error: any) {
-            if (options.loader || options.status) {
-                settingsSpinnerModal(false, options.status, error.message)
-            }
+            settingsSpinnerModal(false, true, error.message)
         } finally {
             if (options.loader || options.status) {
                 setTimeout(() => {
