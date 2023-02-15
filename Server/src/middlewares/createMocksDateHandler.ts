@@ -16,8 +16,8 @@ const createMocksDateHandler = async (req: Request, res: Response, next: NextFun
         if (userAdmin === null) {
             await collections.Users.create({
                 email: 'admin@gmail.com',
-                fullName: 'Administrador123',
-                password: await bcrypt.encrypt('administrador'),
+                fullName: 'Administrador',
+                password: await bcrypt.encrypt('Administrador123'),
                 roles: [roles[0]._id] // Rol: Admin
             })        
         }

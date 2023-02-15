@@ -4,7 +4,7 @@ export const InputsMockRegister: IInputs[] = [
   {
     placeholder: "Correo electronico: ",
     type: "email",
-    name: "email",
+    name: "emailRegister",
     expReg: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i,
     errorMessage: "El correo solo puede contener letras, numeros, puntos, guiones y guion bajo.",
   },
@@ -18,7 +18,7 @@ export const InputsMockRegister: IInputs[] = [
   {
     placeholder: "Contraseña: ",
     type: "password",
-    name: "password",
+    name: "passwordRegister",
     expReg: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/,
     errorMessage: "La contraseña debe contener al menos: 1 letra mayuscula, 1 letra minuscula y 1 numero.",
   },

@@ -18,5 +18,3 @@ Front:
     tener dentro de cada modulo
 ⏰ Dentro del mappers.ts agregar el mapeo de roles
 ⏰ Crear pagina NotFound
-
-⏰ Solucionar bug del form de registro (copiar como el original)

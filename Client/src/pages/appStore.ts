@@ -1,7 +1,7 @@
-import { unstable_batchedUpdates } from "react-dom";
 import { create } from "zustand";
 import { shallow } from "zustand/shallow";
 import produce from 'immer'
+
 import { ISpinnerModels } from "../interface/models/ISpinner.models";
 import { IUserModels } from "../interface/models/IUser.models";
 import { getStorage, updateStorage } from "../utils/updateStorage";

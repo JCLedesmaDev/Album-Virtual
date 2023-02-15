@@ -4,3 +4,10 @@ export interface IRegisterDto {
     password: string;
     confirmPassword: string
 }
+
+export interface IFormRegister {
+    emailRegister: string;
+    fullName: string;
+    passwordRegister: string;
+    confirmPassword: string
+} 

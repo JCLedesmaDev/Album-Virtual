@@ -93,12 +93,15 @@ export const apiSrv = {
 
     callSrv: async ({ method, path, data }: ICallSrv): Promise<ICallSrvResponse> => {
         let res: ICallSrvResponse = {} as ICallSrvResponse
+        let responseSrv: any;
         try {
-            if (method === "GET") res = await srv.get(path)
-            if (method === "POST") res = await srv.post(path, data)
-            if (method === "PUT") res = await srv.put(path, data)
-            if (method === "DELETE") res = await srv.delete(path)
-            if (method === "FORM") res = await srv.post(path, data)
+            if (method === "GET") responseSrv = await srv.get(path)
+            if (method === "POST") responseSrv = await srv.post(path, data)
+            if (method === "PUT") responseSrv = await srv.put(path, data)
+            if (method === "DELETE") responseSrv = await srv.delete(path)
+            if (method === "FORM") responseSrv = await srv.post(path, data)
+
+            res = responseSrv.data
         } catch (error: any) {
             console.log('callSrv error:', error)
             error.data.info
