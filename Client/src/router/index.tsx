@@ -11,7 +11,8 @@ import { MainLayout } from "../layouts/MainLayout";
 import { Home } from "../pages/Home";
 
 import { AuthUser } from '../pages/authUser';
-import { NotFound } from "../pages/notFound";
+import { NotFound } from "../pages/NotFound";
+import { AdminLayout } from "../layouts/AdminLayout";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,37 @@ const router = createBrowserRouter([
     //   return true
     // },
     children: [
+      {
+        path: 'admin/',
+        element: <AdminLayout />,
+        errorElement: <NotFound />,
+        children: [
+          {
+            path: 'collection',
+            element: (
+              <RoutePrivate>
+                <AdminCollection />
+              </RoutePrivate>
+            )
+          },
+          // {
+          //   path: 'albumes',
+          //   element: (
+          //     <RoutePrivate>
+          //       <AdminCollection />
+          //     </RoutePrivate>
+          //   )
+          // },
+          // {
+          //   path: 'figurines',
+          //   element: (
+          //     <RoutePrivate>
+          //       <AdminCollection />
+          //     </RoutePrivate>
+          //   )
+          // }
+        ]
+      }
       // {
       //   index: true, // Definimos que dentro de los componentes hijos, este es el principal
       //   element: (
@@ -33,18 +65,10 @@ const router = createBrowserRouter([
       //   ),
       //   // action: (args) => args.context // Investigar si puede funcionar con ruta privada
       // },
-      // {
-      //   path: 'admin',
-      //   element: (
-      //     <RoutePrivate>
-      //       <AdminCollection />
-      //     </RoutePrivate>
-      //   )
-      // }
     ]
   },
   {
-    path: '/login',
+    path: '/authUser',
     element: <AuthUser />
   }
 ])
