@@ -44,7 +44,7 @@ const store = create<IStore>((set, get) => {
                 set(store => ({ state: { ...store.state, styleForm: style } }))
             },
             login: async (formData: ILoginDto) => {
-                let flagIsLogin = true
+                let flagIsLogin = false
                 // const appStore = useAppStore()
                 // console.log("🚀 ~ file: store.ts:51 ~ login: ~ appStore", appStore)
 
@@ -55,22 +55,18 @@ const store = create<IStore>((set, get) => {
                         data: formData
                     })
                 }, { loader: true, status: true })
-                console.log("🚀 ~ file: store.ts:58 ~ res ~ res", res)
 
-                // if (res.info.type === 'error') return flagIsLogin = false
+                if (res.info.type === 'error') return flagIsLogin
+                flagIsLogin = true
 
-                // const userAdapted: IUserModels = userMapper(res.info.data);
+                const userAdapted: IUserModels = userMapper(res.info.data);
+                appStore.getState().actions.setUser(userAdapted)
 
-                // // appStore.getState().actions.setUser(userAdapted)
-
-                // executeSetUser(userAdapted)
-
-                // apiSrv.setHeaders({
-                //     usrid: userAdapted.id,
-                //     authorization: userAdapted.tokenAuth
-                // })
-                // return flagIsLogin
-                return false
+                apiSrv.setHeaders({
+                    usrid: userAdapted.id,
+                    authorization: userAdapted.tokenAuth
+                })
+                return flagIsLogin
             },
             register: async (formData: IRegisterDto) => {
                 let flagIsRegister = true

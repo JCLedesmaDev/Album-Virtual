@@ -85,10 +85,9 @@ export const apiSrv = {
             if (options.loader || options.status) {
                 setTimeout(() => {
                     settingsSpinnerModal(false, false, '')
-                }, 10000);
+                }, 5000);
             }
             return res
-
         }
     },
 
@@ -96,8 +95,8 @@ export const apiSrv = {
         let res: ICallSrvResponse = {} as ICallSrvResponse
         try {
             if (method === "GET") res = await srv.get(path)
-            if (method === "POST") res = await srv.post(path, JSON.stringify(data))
-            if (method === "PUT") res = await srv.put(path, JSON.stringify(data))
+            if (method === "POST") res = await srv.post(path, data)
+            if (method === "PUT") res = await srv.put(path, data)
             if (method === "DELETE") res = await srv.delete(path)
             if (method === "FORM") res = await srv.post(path, data)
         } catch (error: any) {

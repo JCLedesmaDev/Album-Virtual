@@ -21,45 +21,44 @@ export const SpinnerModal: React.FC = () => {
   }, [appStore.state.spinnerModal.showStatus, appStore.state.spinnerModal.showSpinner])
 
 
-  if (appStore.state.spinnerModal.showStatus) {
+  if (appStore.state.spinnerModal.showSpinner) {
     return (
-      <article className={`
-          ${appStore.state.spinnerModal.showStatus
-          ? styleOpenModalStatus : styleCloseModalStatus}
-        `}>
-        <div>
-          <article className={css.contentModal}>
-            <p>{`${appStore.state.spinnerModal.message}`}</p>
-            <i className="far fa-smile-wink" />
-          </article>
+      <div className={`
+        ${appStore.state.spinnerModal.showSpinner
+          ? css.backgroundSpinner : css.CloseLoader} 
+      `}>
+
+        <div className={css.containerSpinner}>
+
+          <div className={css.spinner}>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+
+          <h5> Espere por favor...</h5>
+
         </div>
-      </article>
-    )
-  }
-
-  return (
-    <div className={`
-      ${appStore.state.spinnerModal.showSpinner
-        ? css.backgroundSpinner : css.CloseLoader} 
-    `}>
-
-      <div className={css.containerSpinner}>
-
-        <div className={css.spinner}>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-
-        <h5> Espere por favor...</h5>
 
       </div>
-
-    </div>
-  );
+    );
+  }
+  return (
+    <article className={`
+          ${appStore.state.spinnerModal.showStatus
+        ? styleOpenModalStatus : styleCloseModalStatus}
+        `}>
+      <div>
+        <article className={css.contentModal}>
+          <p>{`${appStore.state.spinnerModal.message}`}</p>
+          <i className="far fa-smile-wink" />
+        </article>
+      </div>
+    </article>
+  )
 };

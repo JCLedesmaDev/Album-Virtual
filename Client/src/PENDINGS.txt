@@ -2,9 +2,6 @@
 (Aca esta lo del suspense) )https://reactrouter.com/en/main/start/overview
 
 
-Reemplazar useContext por Zustand
-https://dev.to/franklin030601/usando-zustand-con-react-js-33le
-
 
 PARA EL FINAL
 3) https://www.youtube.com/watch?v=srMBmtVeS00
@@ -15,11 +12,11 @@ Front:
 ⏰ Dentro del App.tsx, inicializar el apiSrv para pasarle los headers
 ⏰ Validar rutas privadas
 ⏰ Aplicar interceptors por tema de token
-⏰ Ver lo de las variables de entorno con Vite para poder iniciarlizar en el apiSrv
 ⏰ Al loguearse, actualizar los headers con el usrId y usrToken
 
 ⏰ Re distribuir la carpeta interface, en vez de tener una generica, 
     tener dentro de cada modulo
 ⏰ Dentro del mappers.ts agregar el mapeo de roles
-⏰ Implementar interface de paginado
 ⏰ Crear pagina NotFound
+
+⏰ Solucionar bug del form de registro (copiar como el original)
