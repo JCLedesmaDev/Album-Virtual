@@ -1,5 +1,5 @@
 import axios from 'redaxios'
-import { useAppStore } from '../../pages/appStore';
+import appStore from '../../pages/appStore';
 import { ICallBackendOptions } from './interface/ICallBackendOptions';
 import { ICallSrv } from './interface/ICallSrv';
 import { ICallSrvResponse } from './interface/ICallSrvResponse';
@@ -7,7 +7,6 @@ import { IConfigInit } from './interface/IConfigInit';
 
 
 let srv: any
-// let functionAuthenticationExpire: any /// Es una funcion
 
 export const apiSrv = {
 
@@ -80,15 +79,16 @@ export const apiSrv = {
             }
         } catch (error: any) {
             if (options.loader || options.status) {
-                settingsSpinnerModal(false, options.status, error)
+                settingsSpinnerModal(false, options.status, error.message)
             }
         } finally {
             if (options.loader || options.status) {
                 setTimeout(() => {
                     settingsSpinnerModal(false, false, '')
-                }, 2000);
+                }, 10000);
             }
             return res
+
         }
     },
 
@@ -102,22 +102,17 @@ export const apiSrv = {
             if (method === "FORM") res = await srv.post(path, data)
         } catch (error: any) {
             console.log('callSrv error:', error)
-            // if (error.status === 401) functionAuthenticationExpire()
-            res = { info: { type: 'error', msg: error.message } }
+            error.data.info
+                ? res = error.data
+                : res = { info: { type: 'error', msg: error.message } }
         } finally {
             return res
         }
     },
-
-    // setFunctionAuthenticationExpire: (fn: any) => functionAuthenticationExpire = fn,
-
 }
 
 const settingsSpinnerModal = (spinner: boolean = false, status: boolean = false, message: string = '') => {
-    // const appStore = useAppStore((state) => (state), shallow)
-    const appStore = useAppStore()
-
-    appStore.actions.setSpinnerModal({
+    appStore.getState().actions.setSpinnerModal({
         showSpinner: spinner,
         showStatus: status,
         message: message

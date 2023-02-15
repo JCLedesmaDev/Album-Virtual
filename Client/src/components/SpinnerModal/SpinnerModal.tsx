@@ -5,7 +5,7 @@ import css from "./SpinnerModal.module.css";
 export const SpinnerModal: React.FC = () => {
 
   const appStore = useAppStore()
-  
+
   /// VARIABLES
   const styleOpenModalStatus = `${css.containerModal} ${css["containerModal--openModal"]}`;
   const styleCloseModalStatus = `${css.containerModal}`;
@@ -24,9 +24,9 @@ export const SpinnerModal: React.FC = () => {
   if (appStore.state.spinnerModal.showStatus) {
     return (
       <article className={`
-        ${appStore.state.spinnerModal.showStatus
+          ${appStore.state.spinnerModal.showStatus
           ? styleOpenModalStatus : styleCloseModalStatus}
-      `}>
+        `}>
         <div>
           <article className={css.contentModal}>
             <p>{`${appStore.state.spinnerModal.message}`}</p>

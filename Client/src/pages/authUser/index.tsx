@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { SpinnerModal } from "../../components/SpinnerModal/SpinnerModal";
 import { FormLogin } from "./components/formLogin/formLogin";
 import { FormRegister } from "./components/formRegister/formRegister";
 import { MessageLogin } from "./components/messageLogin/messageLogin";
@@ -37,6 +38,8 @@ export const AuthUser: React.FC = () => {
                     </section>
                 </div>
             </main>
+
+            <SpinnerModal />
         </FormsProvider>
     )
 }

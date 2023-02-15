@@ -3,7 +3,7 @@ import { shallow } from "zustand/shallow";
 import { userMapper } from "./mappers";
 import { IUserModels } from "../../interface/models/IUser.models";
 import { apiSrv } from "../../utils/apiSrv";
-import { executeSetUser } from "../appStore";
+import appStore from "../appStore";
 import { ILoginDto } from "./interface/frontToBack/ILogin.dto";
 import { IRegisterDto } from "./interface/frontToBack/IRegister.dto";
 
@@ -54,22 +54,23 @@ const store = create<IStore>((set, get) => {
                         path: '/users/login',
                         data: formData
                     })
-                }, { loader: true })
+                }, { loader: true, status: true })
                 console.log("🚀 ~ file: store.ts:58 ~ res ~ res", res)
 
                 // if (res.info.type === 'error') return flagIsLogin = false
 
                 // const userAdapted: IUserModels = userMapper(res.info.data);
 
-                // // appStore.actions.setUser(userAdapted)
+                // // appStore.getState().actions.setUser(userAdapted)
 
                 // executeSetUser(userAdapted)
-                
+
                 // apiSrv.setHeaders({
                 //     usrid: userAdapted.id,
                 //     authorization: userAdapted.tokenAuth
                 // })
-                return flagIsLogin
+                // return flagIsLogin
+                return false
             },
             register: async (formData: IRegisterDto) => {
                 let flagIsRegister = true
@@ -92,4 +93,4 @@ const store = create<IStore>((set, get) => {
 
 // Utilizamos "shallow" para poder comparar a nivel atomico los {} y []
 export const useAuthUserStore = () => ({ ...store((state) => (state), shallow) })
-
+export default store
