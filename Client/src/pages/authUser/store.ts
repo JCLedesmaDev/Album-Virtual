@@ -54,8 +54,6 @@ const store = create<IStore>((set, get) => {
             },
             login: async (formData: ILoginDto) => {
                 let flagIsLogin = false
-                // const appStore = useAppStore()
-                // console.log("🚀 ~ file: store.ts:51 ~ login: ~ appStore", appStore)
 
                 const res = await apiSrv.callBackend(async () => {
                     return await apiSrv.callSrv({
@@ -78,7 +76,7 @@ const store = create<IStore>((set, get) => {
                 return flagIsLogin
             },
             register: async (formData: IFormRegister) => {
-                let flagIsRegister = true
+                let flagIsRegister = false
 
                 const res = await apiSrv.callBackend(async () => {
                     return await apiSrv.callSrv({
@@ -93,7 +91,8 @@ const store = create<IStore>((set, get) => {
                     })
                 }, { loader: true, status: true })
 
-                if (res.info.type === 'error') return flagIsRegister = false
+                if (res.info.type === 'error') return flagIsRegister
+                flagIsRegister = true
 
                 return flagIsRegister
             }

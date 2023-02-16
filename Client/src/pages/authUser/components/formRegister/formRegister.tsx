@@ -1,5 +1,5 @@
 import { Input } from "../../../../Components/Input/Input";
-import FormRegisterCSS from "./formRegister.module.css";
+import styleModule from "./formRegister.module.css";
 import { InputsMockRegister } from "../../mocks/inputsRegister";
 import { IInputs } from "../../../../components/Input/IInputs";
 import { useAuthUserStore } from "../../store";
@@ -30,8 +30,8 @@ export const FormRegister: React.FC = () => {
   return (
     <div className={`
       ${store.state.registerFormActive
-        ? FormRegisterCSS["containerFormRegister--show"]
-        : FormRegisterCSS["containerFormRegister--hide"]}
+        ? styleModule["containerFormRegister--show"]
+        : styleModule["containerFormRegister--hide"]}
     `}>
 
       <h2>Registrarse</h2>

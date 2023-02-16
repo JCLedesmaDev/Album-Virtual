@@ -1,0 +1,80 @@
+.container {
+    height:  100vh;
+    background-color:burlywood;
+    background-size: cover;
+}
+.title{
+    color: purple;
+    /* padding: 50px; */
+    text-align: center;
+}
+.subTitle{
+    color: black;
+    margin-bottom: 6.25rem;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.875rem;
+}
+.tableContainer{
+    color:black;
+    width: 80%;
+    margin: auto;
+}
+.tableContainer th{
+    padding-left: 10px;
+    padding-top: 10px;
+    width: 10em;
+    font-size: 20px;
+}
+.button{
+    border-radius: 1rem;
+    margin: 10px;
+    background-color:  #bbb !important
+}
+
+
+
+
+
+.margen{
+    margin: 15px 20px 25px 30px;
+    margin-top: 100px;
+}
+
+.containerModalColeccion {
+    width: 400px !important;
+    height: 300px;
+    background: #fff
+}
+
+.containerModalColeccion h1 {
+    color: #000;
+}
+
+.containerModalColeccion input {
+    width: 350px !important;
+}
+
+.containerModalColeccion button {
+    width: 100px;
+    height: 30px;
+    border-radius: 1rem;
+    background: #aaa;
+}
+
+.containerModalColeccion__closeBtn {
+    position: relative;
+    top: 0rem;
+    right: -10rem;
+    cursor: pointer;
+}
+
+.containerModalColeccion__closeBtn > i {
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: #dc143c;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 1.5rem;
+    color: #fff;
+}

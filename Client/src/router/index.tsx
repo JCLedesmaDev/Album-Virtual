@@ -8,11 +8,10 @@ import { AdminFiguritas } from '../pages/AdminFiguritas/Index';
 
 import { RoutePrivate } from '../components/RoutePrivate/RoutePrivate';
 import { MainLayout } from "../layouts/MainLayout";
-import { Home } from "../pages/Home";
 
 import { AuthUser } from '../pages/authUser';
 import { NotFound } from "../pages/NotFound";
-import { AdminLayout } from "../layouts/AdminLayout";
+import { Administration } from "../pages/administration";
 
 const router = createBrowserRouter([
   {
@@ -26,35 +25,12 @@ const router = createBrowserRouter([
     // },
     children: [
       {
-        path: 'admin/',
-        element: <AdminLayout />,
-        errorElement: <NotFound />,
-        children: [
-          {
-            path: 'collection',
-            element: (
-              <RoutePrivate>
-                <AdminCollection />
-              </RoutePrivate>
-            )
-          },
-          // {
-          //   path: 'albumes',
-          //   element: (
-          //     <RoutePrivate>
-          //       <AdminCollection />
-          //     </RoutePrivate>
-          //   )
-          // },
-          // {
-          //   path: 'figurines',
-          //   element: (
-          //     <RoutePrivate>
-          //       <AdminCollection />
-          //     </RoutePrivate>
-          //   )
-          // }
-        ]
+        path: 'administration/',
+        element: (
+          <RoutePrivate>
+            <Administration />
+          </RoutePrivate>
+        ),
       }
       // {
       //   index: true, // Definimos que dentro de los componentes hijos, este es el principal

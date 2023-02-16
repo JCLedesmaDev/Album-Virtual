@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"
 import { Input } from "../../../../Components/Input/Input";
-import FormLoginCSS from "./FormLogin.module.css"
+import styleModule from "./FormLogin.module.css"
 
 import { InputsMockLogin } from "../../mocks/inputsLogin";
 import { IInputs } from "../../../../components/Input/IInputs";
@@ -34,8 +34,8 @@ export const FormLogin: React.FC = () => {
 
     <div className={`
       ${store.state.loginFormActive
-        ? FormLoginCSS["containerFormLogin--show"]
-        : FormLoginCSS["containerFormLogin--hide"]}
+        ? styleModule["containerFormLogin--show"]
+        : styleModule["containerFormLogin--hide"]}
     `}>
 
       <h2>Iniciar Sesion</h2>

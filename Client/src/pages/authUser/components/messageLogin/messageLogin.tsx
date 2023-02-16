@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormsContext } from "../../context/useFormsContext";
 import { useAuthUserStore } from "../../store";
-import MessageLoginCSS from "./messageLogin.module.css";
+import styleModule from "./messageLogin.module.css";
 
 
 
@@ -24,8 +24,8 @@ export const MessageLogin: React.FC = () => {
   return (
 
     <article className={`
-          ${MessageLoginCSS.containerBackgroundLogin} 
-          ${store.state.loginFormActive ? MessageLoginCSS.noneElement : ""}
+          ${styleModule.containerBackgroundLogin} 
+          ${store.state.loginFormActive ? styleModule.noneElement : ""}
         `}
       style={store.state.registerFormActive ? { "opacity": 1 } : { "opacity": 0 }}
     >

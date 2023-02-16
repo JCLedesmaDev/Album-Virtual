@@ -1,5 +1,5 @@
 
-import MessageRegisterCSS from "./messageRegister.module.css";
+import styleModule from "./messageRegister.module.css";
 import { useAuthUserStore } from "../../store";
 import { useFormsContext } from "../../context/useFormsContext";
 
@@ -22,8 +22,8 @@ export const MessageRegister: React.FC = () => {
 
   return (
     <article className={`
-        ${MessageRegisterCSS.containerBackgroundRegister} 
-        ${store.state.registerFormActive ? MessageRegisterCSS.noneElement : ""}
+        ${styleModule.containerBackgroundRegister} 
+        ${store.state.registerFormActive ? styleModule.noneElement : ""}
       `}
       style={store.state.loginFormActive ? { "opacity": 1 } : { "opacity": 0 }}
     >
