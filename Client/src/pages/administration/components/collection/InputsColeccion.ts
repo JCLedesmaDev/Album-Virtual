@@ -1,4 +1,4 @@
-import { IInputs } from "../../../Components/Input/IInputs";
+import { IInputs } from "../../../../components/Input/IInputs";
 
 export const InputsMockColeccion: IInputs[] = [
     {
