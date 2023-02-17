@@ -13,20 +13,16 @@ const router = createBrowserRouter([
   {
     // path: '/',
     path: '/',
-    element: <MainLayout />,
+    element: (
+      <RoutePrivate>
+        <MainLayout />
+      </RoutePrivate >
+    ),
     errorElement: <NotFound />,
-    // shouldRevalidate: (lala) => { // Posible solucion de las rutas privadas
-    //   console.log("🚀 ~ file: index.tsx:44 ~ lala", lala)
-    //   return true
-    // },
     children: [
       {
-        path: 'administration/',
-        element: (
-          <RoutePrivate>
-            <Administration />
-          </RoutePrivate>
-        ),
+        path: 'administration',
+        element: (<Administration />),
       }
       // {
       //   index: true, // Definimos que dentro de los componentes hijos, este es el principal

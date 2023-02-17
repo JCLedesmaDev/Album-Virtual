@@ -40,9 +40,9 @@ export const apiSrv = {
                 console.log('Error ApiSrv!!!! :' + error)
                 if (error.response?.status === 401) { // Hice que el 401 sea especifico de token
                     localStorage.removeItem("User");
-                    window.location.href = `${window.location.origin}/login`;
+                    window.location.href = `${window.location.origin}/authUser`;
+                    return Promise.reject(error);
                 }
-                return Promise.reject(error);
             }
         )
     },

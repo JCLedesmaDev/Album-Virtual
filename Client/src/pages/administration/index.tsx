@@ -8,11 +8,11 @@ import styleModule from './index.module.css'
 
 export const Administration: React.FC = () => {
     
-    enum typeActionsAdmin {
-        Collection = 'Collection',
-        Figurites = 'Figurites',
-        Albumes = 'Albumes'
-    }
+    // enum typeActionsAdmin {
+    //     Collection = 'Collection',
+    //     Figurites = 'Figurites',
+    //     Albumes = 'Albumes'
+    // }
 
     const [admin, setAdmin] = useState({
         title: 'Titulo de Coleccion de Album',
@@ -44,7 +44,7 @@ export const Administration: React.FC = () => {
                     </tr>
 
                     {/* COMPONENTES */}
-                    {admin.action === typeActionsAdmin.Collection && <Collection />}
+                    {/* {admin.action === typeActionsAdmin.Collection && <Collection />} */}
                     
                     {/* {admin.action === typeActionsAdmin.Albumes && <Albumes />}
                     

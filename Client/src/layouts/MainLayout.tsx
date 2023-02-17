@@ -14,13 +14,6 @@ export const MainLayout: React.FC = () => {
     */
     // useParams()
 
-    useEffect(() => {
-        console.log("PASA X ACA")
-        if (!appStore.getState().state.user.tokenAuth) {
-            navigate('/authUser')
-        }
-    }, [])
-
     return (
         <>
             <Navigate />

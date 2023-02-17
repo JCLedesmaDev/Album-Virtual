@@ -5,7 +5,7 @@ export const Collection: React.FC = () => {
 
     const store = useAdministrationStore()
 
-    const [allAlbunesColecion, setAllAlbumes] = useState<IColeccionData[]>([]);
+    // const [allAlbunesColecion, setAllAlbumes] = useState<IColeccionData[]>([]);
     // const { paginate, setPaginate } = usePaginate()
 
 
@@ -27,7 +27,7 @@ export const Collection: React.FC = () => {
         //     pagesTotal: data.Result.pages
         // })
 
-        setAllAlbumes(data.Result.listItems);
+        // setAllAlbumes(data.Result.listItems);
     };
 
     // const openAddColeccion = () => {
@@ -155,51 +155,51 @@ export const Collection: React.FC = () => {
 
 
     return (
+      <p>asdasd</p>
+        // { allAlbunesColecion?.map((ColeccionAlbumes: IColeccionData, indexColeccion: number) => (
+        //     <tr>
+        //         <th>{ColeccionAlbumes.tituloColeccion}</th>
+        //         <th>
+        //             <button className={`${AdminColeccionCSS.buttonAdmin}`} onClick={() => openUpdateColeccion(ColeccionAlbumes)}>Modificar</button>
+        //             <button
+        //                 className={`${AdminColeccionCSS.buttonAdmin}`}
+        //                 onClick={() => Delete(ColeccionAlbumes.id)}
+        //             >
+        //                 Eliminar
+        //             </button>
+        //         </th>
+        //     </tr>
+        // ))}
 
-        { allAlbunesColecion?.map((ColeccionAlbumes: IColeccionData, indexColeccion: number) => (
-            <tr>
-                <th>{ColeccionAlbumes.tituloColeccion}</th>
-                <th>
-                    <button className={`${AdminColeccionCSS.buttonAdmin}`} onClick={() => openUpdateColeccion(ColeccionAlbumes)}>Modificar</button>
-                    <button
-                        className={`${AdminColeccionCSS.buttonAdmin}`}
-                        onClick={() => Delete(ColeccionAlbumes.id)}
-                    >
-                        Eliminar
-                    </button>
-                </th>
-            </tr>
-        ))}
-
-        {allAlbunesColecion.length === 0 && <Loader />}
+        // {allAlbunesColecion.length === 0 && <Loader />}
 
 
-        <ModalContainer personCss={`${AdminColeccionCSS.containerModalColeccion}`}>
+        // <ModalContainer personCss={`${AdminColeccionCSS.containerModalColeccion}`}>
 
-          <p onClick={() => {
-            storeGlobal.SetShowModalContainer(false)
-          }} className={AdminColeccionCSS.containerModalColeccion__closeBtn}>
-            <i className="fas fa-times"></i>
-          </p>
+        //   <p onClick={() => {
+        //     storeGlobal.SetShowModalContainer(false)
+        //   }} className={AdminColeccionCSS.containerModalColeccion__closeBtn}>
+        //     <i className="fas fa-times"></i>
+        //   </p>
 
-          <h1>{statusAction.action === 'add' ? 'Crear' : 'Actualizar'}</h1>
+        //   <h1>{statusAction.action === 'add' ? 'Crear' : 'Actualizar'}</h1>
 
-          <form onSubmit={statusAction.action === 'add' ? Add : Put} >
+        //   <form onSubmit={statusAction.action === 'add' ? Add : Put} >
 
-            {InputsMockColeccion.map((inputProps: IInputs, index: number) => (
-              <Input
-                key={index}
-                inputProps={inputProps}
-                value={formulario[inputProps.name]}
-                handleChange={handleChange}
-                errorMessage={inputProps.errorMessage}
-                pattern={inputProps.expReg}
-              />
-            ))}
+        //     {InputsMockColeccion.map((inputProps: IInputs, index: number) => (
+        //       <Input
+        //         key={index}
+        //         inputProps={inputProps}
+        //         value={formulario[inputProps.name]}
+        //         handleChange={handleChange}
+        //         errorMessage={inputProps.errorMessage}
+        //         pattern={inputProps.expReg}
+        //       />
+        //     ))}
 
-            <button type="submit">{statusAction.action === 'add' ? 'Crear' : 'Actualizar'}</button>
-          </form>
+        //     <button type="submit">{statusAction.action === 'add' ? 'Crear' : 'Actualizar'}</button>
+        //   </form>
 
-        </ModalContainer>
+        // </ModalContainer>
     )
 }
