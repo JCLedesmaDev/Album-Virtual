@@ -90,7 +90,10 @@ export const apiSrv = {
     callSrv: async ({ method, path, data }: ICallSrv): Promise<ICallSrvResponse> => {
         let res: ICallSrvResponse = {} as ICallSrvResponse
         try {
-            if (method === "GET") res = await (await srv.get(path)).data
+            if (method === "GET") {
+                const params = { ...(data && data) }
+                res = await (await srv.get(path, { params: params })).data
+            }
             if (method === "POST") res = await (await srv.post(path, data)).data
             if (method === "PUT") res = await (await srv.put(path, data)).data
             if (method === "DELETE") res = await (await srv.delete(path)).data

@@ -22,8 +22,6 @@ export default function App() {
     apiSrv.init(pl)
   }, [])
 
-  return (
-    <RouterProvider router={router} />
-  )
+  return (<RouterProvider router={router} />)
 }
 

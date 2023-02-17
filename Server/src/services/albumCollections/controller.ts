@@ -27,8 +27,8 @@ const createCollection = async (req: Request, res: Response, next: NextFunction)
 const getAllCollections = async (req: Request, res: Response, next: NextFunction) => {
 
     const payload = {
-        page: req.query.page || 1,
-        filterText: req.query.filterText
+        page: req.params.page || 1,
+        filterText: req.params.filterText
     } as IPagination
 
     req.locals.info = payload

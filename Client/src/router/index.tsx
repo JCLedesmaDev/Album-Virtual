@@ -2,10 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import { AlbumUsuario } from '../pages/AlbumUsuario/Index';
 import { AlbumUsuarioImagen } from '../pages/AlbumUsuarioImagen/Index';
 import { AlbumImagenes } from '../pages/AlbumImagenes/Index';
-import { AdminAlbum } from '../pages/AdminAlbum/Index';
-import { AdminCollection } from '../pages/AdminCollection/Index';
-import { AdminFiguritas } from '../pages/AdminFiguritas/Index';
-
 import { RoutePrivate } from '../components/RoutePrivate/RoutePrivate';
 import { MainLayout } from "../layouts/MainLayout";
 

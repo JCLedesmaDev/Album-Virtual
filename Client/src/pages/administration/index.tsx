@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Paginate } from '../../Components/Paginate/Paginate'
 import { Albumes } from './components/albumes'
-import { Collection } from './components/collection'
+import { Collection } from './components/albumCollections'
 import { Figurites } from './components/figurites'
 import styleModule from './index.module.css'
 
@@ -46,18 +46,18 @@ export const Administration: React.FC = () => {
                     {/* COMPONENTES */}
                     {admin.action === typeActionsAdmin.Collection && <Collection />}
                     
-                    {admin.action === typeActionsAdmin.Albumes && <Albumes />}
+                    {/* {admin.action === typeActionsAdmin.Albumes && <Albumes />}
                     
-                    {admin.action === typeActionsAdmin.Figurites && <Figurites />}
+                    {admin.action === typeActionsAdmin.Figurites && <Figurites />} */}
 
                 </table>
 
                 <div>
-                    <Paginate
+                    {/* <Paginate
                         ChangePage={changePage}
                         PageCount={paginate.pagesTotal}
                         LocatedPageNumber={paginate.currentPage}
-                    />
+                    /> */}
                 </div>
             </div>
 

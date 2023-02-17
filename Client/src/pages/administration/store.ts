@@ -8,95 +8,86 @@ import { apiSrv } from "../../utils/apiSrv";
 
 interface IStore {
     readonly state: {
-        loginFormActive: boolean;
-        registerFormActive: boolean;
-        styleForm: string;
+        collection: any;
+        albumes: any;
+        figurites: any;
     },
     actions: {
-        getAll: (page: number) => Promise<any>,
-        create: () => Promise<any>,
-        update: () => Promise<any>,
-        delete: () => Promise<any>, 
-        changePage: ({selected}: any) => void
+        //Collection
+        getAllAlbumCollections: ({ page, filterText }: any) => Promise<any>,
+        // createCollection: () => Promise<any>,
+        // updateCollection: () => Promise<any>,
+        // deleteCollection: () => Promise<any>,
+        // //Albumes
+        // getAllAlbumes: (page: number) => Promise<any>,
+        // createAlbum: () => Promise<any>,
+        // updateAlbum: () => Promise<any>,
+        // deleteAlbum: () => Promise<any>,
+        // //Figurites
+        // // getAllFigurites: (page: number) => Promise<any>,
+        // createFigurine: () => Promise<any>,
+        // updateFigurine: () => Promise<any>,
+        // deleteFigurine: (id) => Promise<any>,
 
+
+        // changePage: ({ selected }: any) => void
     }
 }
 
 const store = create<IStore>((set, get) => {
     return {
         state: {
-            loginFormActive: true,
-            registerFormActive: false,
-            styleForm: '',
+            collection: undefined,
+            albumes: undefined,
+            figurites: undefined
         },
         actions: {
-            setLoginFormActive: (newState: boolean) => set(produce(
-                (store: IStore) => {
-                    store.state.loginFormActive = newState
-                })
-            ),
-            setRegisterFormActive: (newState: boolean) => set(produce(
-                (store: IStore) => {
-                    store.state.registerFormActive = newState
-                })
-            ),
-            changeStyleForm: () => {
-                let style = (get().state.loginFormActive && !get().state.registerFormActive)
-                    ? 'containerPage__Auth--loginActive'
-                    : 'containerPage__Auth--registerActive'
-
-                set(produce((store: IStore) => {
-                    store.state.styleForm = style
-                }))
-            },
-            login: async (formData: ILoginDto) => {
-                let flagIsLogin = false
+            getAllAlbumCollections: async ({ page, filterText }: any) => {
 
                 const res = await apiSrv.callBackend(async () => {
                     return await apiSrv.callSrv({
-                        method: 'POST',
-                        path: '/users/login',
-                        data: formData
+                        method: 'GET',
+                        path: `/albumCollections/getAllCollections`,
+                        data: { page, filterText }
                     })
                 }, { loader: true })
 
-                if (res.info.type === 'error') return flagIsLogin
-                flagIsLogin = true
+                if (res.info.type === 'error') return
 
-                const userAdapted: IUserModels = userMapper(res.info.data);
-                appStore.getState().actions.setUser(userAdapted)
+                // const userAdapted: IUserModels = userMapper(res.info.data);
+                // appStore.getState().actions.setUser(userAdapted)
 
-                apiSrv.setHeaders({
-                    usrid: userAdapted.id,
-                    authorization: userAdapted.tokenAuth
-                })
-                return flagIsLogin
+                // apiSrv.setHeaders({
+                //     usrid: userAdapted.id,
+                //     authorization: userAdapted.tokenAuth
+                // })
+                // return flagIsLogin
             },
-            register: async (formData: IFormRegister) => {
-                let flagIsRegister = false
+            // register: async (formData: IFormRegister) => {
+            //     let flagIsRegister = false
 
-                const res = await apiSrv.callBackend(async () => {
-                    return await apiSrv.callSrv({
-                        method: 'POST',
-                        path: '/users/register',
-                        data: {
-                            email: formData.emailRegister,
-                            fullName: formData.fullName,
-                            password: formData.passwordRegister,
-                            confirmPassword: formData.confirmPassword,
-                        } as IRegisterDto
-                    })
-                }, { loader: true, status: true })
+            //     const res = await apiSrv.callBackend(async () => {
+            //         return await apiSrv.callSrv({
+            //             method: 'POST',
+            //             path: '/users/register',
+            //             data: {
+            //                 email: formData.emailRegister,
+            //                 fullName: formData.fullName,
+            //                 password: formData.passwordRegister,
+            //                 confirmPassword: formData.confirmPassword,
+            //             } as IRegisterDto
+            //         })
+            //     }, { loader: true, status: true })
 
-                if (res.info.type === 'error') return flagIsRegister
-                flagIsRegister = true
+            //     if (res.info.type === 'error') return flagIsRegister
+            //     flagIsRegister = true
 
-                return flagIsRegister
-            }
+            //     return flagIsRegister
+            // }
         }
     }
 })
 
 // Utilizamos "shallow" para poder comparar a nivel atomico los {} y []
-export const useAuthUserStore = () => ({ ...store((state) => (state), shallow) })
+export const useAdministrationStore = () => ({ ...store((state) => (state), shallow) })
 export default store
