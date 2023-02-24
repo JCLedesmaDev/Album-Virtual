@@ -97,8 +97,6 @@ export const apiSrv = {
             if (method === "POST") res = await (await srv.post(path, data)).data
             if (method === "PUT") res = await (await srv.put(path, data)).data
             if (method === "DELETE") res = await (await srv.delete(path)).data
-
-            res = res
         } catch (error: any) {
             console.log('callSrv error:', error)
             error.data.info
