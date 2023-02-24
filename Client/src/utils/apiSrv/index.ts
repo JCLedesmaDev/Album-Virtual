@@ -41,8 +41,8 @@ export const apiSrv = {
                 if (error.response?.status === 401) { // Hice que el 401 sea especifico de token
                     localStorage.removeItem("User");
                     window.location.href = `${window.location.origin}/authUser`;
-                    return Promise.reject(error);
                 }
+                return Promise.reject(error.response);
             }
         )
     },
@@ -94,9 +94,11 @@ export const apiSrv = {
                 const params = { ...(data && data) }
                 res = await (await srv.get(path, { params: params })).data
             }
-            if (method === "POST") res = await (await srv.post(path, data)).data
-            if (method === "PUT") res = await (await srv.put(path, data)).data
-            if (method === "DELETE") res = await (await srv.delete(path)).data
+            if (method === "POST") res =await srv.post(path, data)
+            if (method === "PUT") res = await srv.put(path, data)
+            if (method === "DELETE") res = await srv.delete(path)
+
+            res = res
         } catch (error: any) {
             console.log('callSrv error:', error)
             error.data.info
