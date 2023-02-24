@@ -94,9 +94,9 @@ export const apiSrv = {
                 const params = { ...(data && data) }
                 res = await (await srv.get(path, { params: params })).data
             }
-            if (method === "POST") res =await srv.post(path, data)
-            if (method === "PUT") res = await srv.put(path, data)
-            if (method === "DELETE") res = await srv.delete(path)
+            if (method === "POST") res = await (await srv.post(path, data)).data
+            if (method === "PUT") res = await (await srv.put(path, data)).data
+            if (method === "DELETE") res = await (await srv.delete(path)).data
 
             res = res
         } catch (error: any) {
