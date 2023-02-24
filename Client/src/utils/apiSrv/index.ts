@@ -72,7 +72,7 @@ export const apiSrv = {
 
             if (res.info.type === 'error') throw new Error(res.info.msg)
 
-            if (options.loader || (options.status && res.info.msg)) {
+            if (options.status && res.info.msg) {
                 settingsSpinnerModal(false, options.status, res.info.msg as string)
             }
         } catch (error: any) {
