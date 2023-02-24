@@ -47,13 +47,21 @@ export const apiSrv = {
         )
     },
 
-    setHeaders: (headers: any) => {
-        srv.defaults.headers = { ...srv.defaults.headers, ...headers }
+    setHeaders: (headers: any) => {      
+        
+        const oldHeaders = srv.defaults.headers.common
+
+        // srv.defaults.headers.common.
+        https://github-com.translate.goog/axios/axios/issues/5034?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=wapp
+
+        // delete srv.defaults.headers['common']
+        srv.defaults.headers.common = { ...oldHeaders, ...headers }
+        console.log("🚀 ~ file: index.ts:52 ~ srv.defaults.headers:", srv.defaults.headers)
     },
 
     setMockFlag: (flag: boolean) => {
-        delete srv.defaults.headers.mockmode
-        srv.defaults.headers.mockmode = flag
+        delete srv.defaults.headers.common.mockmode
+        srv.defaults.headers.common.mockmode = flag
     },
 
     /**

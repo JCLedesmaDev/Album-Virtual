@@ -7,12 +7,12 @@ import styleModule from './index.module.css'
 
 
 export const Administration: React.FC = () => {
-    
-    // enum typeActionsAdmin {
-    //     Collection = 'Collection',
-    //     Figurites = 'Figurites',
-    //     Albumes = 'Albumes'
-    // }
+
+    enum typeActionsAdmin {
+        Collection = 'Collection',
+        Figurites = 'Figurites',
+        Albumes = 'Albumes'
+    }
 
     const [admin, setAdmin] = useState({
         title: 'Titulo de Coleccion de Album',
@@ -33,22 +33,28 @@ export const Administration: React.FC = () => {
                 <p className={`${styleModule.subTitle}`}>Bienvenidos al area administrativa</p>
 
                 <table className={`${styleModule.tableContainer}`} border={1}>
-                    <tr>
-                        <th>{admin.title}</th>
-                        <th>Selcciona la opcion deseada</th>
-                        <th>
-                            <button className={`${styleModule.button}`} onClick={openModalAdd}>
-                                Agregar {admin.action}
-                            </button>
-                        </th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>{admin.title}</th>
+                            <th>Selcciona la opcion deseada</th>
+                            <th>
+                                <button className={`${styleModule.button}`} onClick={openModalAdd}>
+                                    Agregar {admin.action}
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
 
-                    {/* COMPONENTES */}
-                    {/* {admin.action === typeActionsAdmin.Collection && <Collection />} */}
-                    
-                    {/* {admin.action === typeActionsAdmin.Albumes && <Albumes />}
-                    
-                    {admin.action === typeActionsAdmin.Figurites && <Figurites />} */}
+                    <tbody>
+
+                        {/* COMPONENTES */}
+                        {admin.action === typeActionsAdmin.Collection && <Collection />}
+
+                        {/* {admin.action === typeActionsAdmin.Albumes && <Albumes />} */}
+
+                        {/* {admin.action === typeActionsAdmin.Figurites && <Figurites />} */}
+
+                    </tbody>
 
                 </table>
 
