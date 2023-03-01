@@ -1,8 +1,20 @@
 import { NextFunction, Request, Response } from "express";
 import { matchedData } from 'express-validator'
+import { controllerWrapper } from "../../utils/controllerWrapper";
 import { ILoginDto } from "./dto/ILogin.dto";
 import { IRegisterDto } from "./dto/IRegister.dto";
 import logic from './logic'
+
+
+const loginUserPrueba = controllerWrapper(async (req: Request, res: Response, next: NextFunction) => {
+
+    //Almacenamos en "payload", los datos que cumplieron con el Validators y evita captar datos extras sin contemplar
+    const payload: ILoginDto = matchedData(req) as ILoginDto
+
+    req.locals.info = payload // Se utiliza en el eventHandler
+    return await logic.loginUser(payload)
+})
+
 
 
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
