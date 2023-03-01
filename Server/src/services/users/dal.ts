@@ -11,7 +11,8 @@ import { IRegisterDto } from "./dto/IRegister.dto";
  */
 const getUserByField = async (field: string, value: string): Promise<IUserSchema | null> => {
     try {
-        return await collections.Users.findOne({ [field]: value }).populate({ path: 'roles' });
+        const parameters = { [field]: value }
+        return await collections.Users.findOne(parameters).populate({ path: 'roles' });
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al obtener el usuario', source: error });
     }
@@ -23,14 +24,16 @@ const getUserByField = async (field: string, value: string): Promise<IUserSchema
  */
 const createUser = async (payload: IRegisterDto): Promise<void> => {
     try {
-
         const rolUser = await collections.Roles.findOne({ name: 'User' })
-        await collections.Users.create({
+        
+        const parameters = {
             email: payload.email,
             fullName: payload.fullName,
             password: payload.password,
             roles: [rolUser?._id] // Rol: User
-        })
+        }
+
+        await collections.Users.create(parameters)
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al crear un usuario', source: error });
     }
