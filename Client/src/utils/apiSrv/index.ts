@@ -23,6 +23,9 @@ export const apiSrv = {
             'Accept': 'application/json, text/plain, */*',
             'Accept-Language': 'es-ES,es;q=0.9',
             'Content-Type': 'application/json;charset=UTF-8',
+            authorization: '',
+            mockmode: '',
+            userid: ''
         }
         const headers = { ...headersDef, ...config.info }
         srv = axios.create({
