@@ -1,13 +1,14 @@
 // import axios from 'redaxios'
-import axios, { AxiosInstance, AxiosResponse } from 'axios'
+import axios, { AxiosInstance, RawAxiosRequestHeaders, HeadersDefaults, AxiosRequestHeaders } from 'axios'
 import appStore from '../../pages/appStore';
 import { ICallBackendOptions } from './interface/ICallBackendOptions';
 import { ICallSrv } from './interface/ICallSrv';
 import { ICallSrvResponse } from './interface/ICallSrvResponse';
 import { IConfigInit } from './interface/IConfigInit';
-
+import { IHeadersDef } from './interface/IHeadersDefault';
 
 let srv: AxiosInstance
+
 
 export const apiSrv = {
 
@@ -16,16 +17,17 @@ export const apiSrv = {
      * @param {*} config 
      */
     init: (config: IConfigInit) => {
-        const headersDef = {
+        // const headersDef: IHeadersDef = {
+        const headersDef: RawAxiosRequestHeaders = {
             // 'Access-Control-Allow-Credentials':'true',
             'Accept': 'application/json, text/plain, */*',
             'Accept-Language': 'es-ES,es;q=0.9',
-            'Content-Type': 'application/json;charset=UTF-8'
+            'Content-Type': 'application/json;charset=UTF-8',
         }
         const headers = { ...headersDef, ...config.info }
         srv = axios.create({
             baseURL: config.url,
-            headers: headers
+            headers: headers,
         })
         srv.interceptors.request.use(
             (request: any) => request,
@@ -47,21 +49,16 @@ export const apiSrv = {
         )
     },
 
-    setHeaders: (headers: any) => {      
-        
+    setHeaders: (headers: any) => {
         const oldHeaders = srv.defaults.headers.common
-
-        // srv.defaults.headers.common.
-        https://github-com.translate.goog/axios/axios/issues/5034?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=wapp
-
-        // delete srv.defaults.headers['common']
+        // delete srv.defaults.headers.common
         srv.defaults.headers.common = { ...oldHeaders, ...headers }
         console.log("🚀 ~ file: index.ts:52 ~ srv.defaults.headers:", srv.defaults.headers)
     },
 
     setMockFlag: (flag: boolean) => {
         delete srv.defaults.headers.common.mockmode
-        srv.defaults.headers.common.mockmode = flag
+        srv.defaults.headers.common.mockmode = flag.toString()
     },
 
     /**
