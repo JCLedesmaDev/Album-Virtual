@@ -1,14 +1,14 @@
 // import axios from 'redaxios'
-import axios, { AxiosInstance, RawAxiosRequestHeaders, HeadersDefaults, AxiosRequestHeaders } from 'axios'
+import axios, { AxiosInstance, RawAxiosRequestHeaders, HeadersDefaults, AxiosRequestHeaders, InternalAxiosRequestConfig, AxiosResponse } from 'axios'
 import appStore from '../../pages/appStore';
 import { ICallBackendOptions } from './interface/ICallBackendOptions';
 import { ICallSrv } from './interface/ICallSrv';
 import { ICallSrvResponse } from './interface/ICallSrvResponse';
 import { IConfigInit } from './interface/IConfigInit';
-import { IHeadersDef } from './interface/IHeadersDefault';
+import { IHeaders } from './interface/IHeaders';
 
 let srv: AxiosInstance
-
+let headersList: IHeaders;
 
 export const apiSrv = {
 
@@ -17,30 +17,33 @@ export const apiSrv = {
      * @param {*} config 
      */
     init: (config: IConfigInit) => {
-        // const headersDef: IHeadersDef = {
+        apiSrv.setHeaders(config.info)
         const headersDef: RawAxiosRequestHeaders = {
             // 'Access-Control-Allow-Credentials':'true',
             'Accept': 'application/json, text/plain, */*',
             'Accept-Language': 'es-ES,es;q=0.9',
             'Content-Type': 'application/json;charset=UTF-8',
-            authorization: '',
-            mockmode: '',
-            userid: ''
         }
-        const headers = { ...headersDef, ...config.info }
+
         srv = axios.create({
             baseURL: config.url,
-            headers: headers,
+            headers: headersDef,
         })
         srv.interceptors.request.use(
-            (request: any) => request,
+            (request: InternalAxiosRequestConfig<any>) => {
+                /// Setear los headers que actualice por aca....
+                for (const headerKey in headersList) {
+                    request.headers.set(headerKey, headersList[headerKey])
+                }
+                return request
+            },
             (error: any) => {
                 console.log("🚀 ~ file: index.ts:53 ~ err", error)
                 return Promise.reject(error);
             }
         )
         srv.interceptors.response.use(
-            (response: any) => response,
+            (response: AxiosResponse<any, any>) => response,
             (error: any) => {
                 console.log('Error ApiSrv!!!! :' + error)
                 if (error.response?.status === 401) { // Hice que el 401 sea especifico de token
@@ -52,16 +55,8 @@ export const apiSrv = {
         )
     },
 
-    setHeaders: (headers: any) => {
-        const oldHeaders = srv.defaults.headers.common
-        // delete srv.defaults.headers.common
-        srv.defaults.headers.common = { ...oldHeaders, ...headers }
-        console.log("🚀 ~ file: index.ts:52 ~ srv.defaults.headers:", srv.defaults.headers)
-    },
-
-    setMockFlag: (flag: boolean) => {
-        delete srv.defaults.headers.common.mockmode
-        srv.defaults.headers.common.mockmode = flag.toString()
+    setHeaders: (headers: IHeaders) => {
+        headersList = { ...headersList, ...headers }
     },
 
     /**
