@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import { matchedData } from "express-validator"
+import { controllerWrapper } from "../../utils/controllerWrapper"
 import { IBuyFigurineDto } from "./dto/IBuyFigurine.dto"
 import { ICreateFigurineDto } from "./dto/ICreateFigurine.dto"
 import { IDeleteFigurineDto } from "./dto/IDeleteFigurine.dto"
@@ -7,64 +8,33 @@ import { IUpdateFigurineDto } from "./dto/IUpdateFigurine.dto"
 import logic from './logic'
 
 
-const createFigurine = async (req: Request, res: Response, next: NextFunction) => {
-
+const createFigurine = controllerWrapper(async (req: Request) => {
     const payload: ICreateFigurineDto = matchedData(req) as ICreateFigurineDto
+
     req.locals.info = payload
-    const data = await logic.createFigurine(payload)
-    req.locals.result = data
+    return await logic.createFigurine(payload)
+})
 
-    req.locals.finished = true
-    if (data?.error) return next(data.error)
-    
-    res.json(data)
-    next()
-}
-
-const deleteFigurine = async (req: Request, res: Response, next: NextFunction) => {
-
+const deleteFigurine = controllerWrapper(async (req: Request) => {
     const payload: IDeleteFigurineDto = matchedData(req) as IDeleteFigurineDto
+
     req.locals.info = payload
-    const data = await logic.deleteFigurine(payload)
-    req.locals.result = data
+    return await logic.deleteFigurine(payload)
+})
 
-    req.locals.finished = true
-    if (data?.error) return next(data.error)
-    
-    // req.locals.finished = true
-    res.json(data)
-    next()
-}
-
-const updateFigurine = async (req: Request, res: Response, next: NextFunction) => {
-
+const updateFigurine = controllerWrapper(async (req: Request) => {
     const payload: IUpdateFigurineDto = matchedData(req) as IUpdateFigurineDto
+
     req.locals.info = payload
-    const data = await logic.updateFigurine(payload)
-    req.locals.result = data
+    return await logic.updateFigurine(payload)
+})
 
-    req.locals.finished = true
-    if (data?.error) return next(data.error)
-    
-    // req.locals.finished = true
-    res.json(data)
-    next()
-}
-
-const buyFigurine = async (req: Request, res: Response, next: NextFunction) => {
-
+const buyFigurine = controllerWrapper(async (req: Request) => {
     const payload: IBuyFigurineDto = matchedData(req) as IBuyFigurineDto
+
     req.locals.info = payload
     const data = await logic.buyFigurine(payload)
-    req.locals.result = data
-
-    req.locals.finished = true
-    if (data?.error) return next(data.error)
-    
-    // req.locals.finished = true
-    res.json(data)
-    next()
-}
+})
 
 
 

@@ -1,3 +1,5 @@
+🕐 PROBAR el controllerWrapper!!!
+
 🕐 Dentro del Mapper de Album, mapear las figuras - genera problema de asincronismo
 Ver sobre la expiracion de Token
 🕐 Arrancar proyecto original y copiar todos los datos que nos deuvelve y pegarlas en el JSON con el mock
