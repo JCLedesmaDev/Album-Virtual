@@ -70,7 +70,7 @@ const store = create<IStore>((set, get) => {
                 appStore.getState().actions.setUser(userAdapted)
 
                 apiSrv.setHeaders({
-                    usrid: userAdapted.id,
+                    userid: userAdapted.id,
                     authorization: userAdapted.tokenAuth
                 })
                 return flagIsLogin

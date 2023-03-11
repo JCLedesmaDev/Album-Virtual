@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"
-import { Input } from "../../../../Components/Input/Input";
+import { Input } from "../../../../components/Input/Input";
 import styleModule from "./FormLogin.module.css"
 
 import { InputsMockLogin } from "../../mocks/inputsLogin";
@@ -25,7 +25,7 @@ export const FormLogin: React.FC = () => {
 
     const isLogin = await store.actions.login(form)
 
-    if (isLogin) navigate("/Album");
+    if (isLogin) navigate("/administration");
     resetForm()
   }
 
