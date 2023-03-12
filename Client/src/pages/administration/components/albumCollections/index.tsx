@@ -17,7 +17,6 @@ export const Collection: React.FC = () => {
 
     //METODOS
     const getAll = async (page: number = 1) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
 
         await store.actions.getAllAlbumCollections({})
         // const data = await AdminCollectionService.GetAllAdminCollection(page);
