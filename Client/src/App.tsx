@@ -14,7 +14,7 @@ export default function App() {
       info: {
         authorization: '',
         mockmode: 'false',
-        usrid: ''
+        userid: ''
       },
       url: process.env.VITE_URL_API as string // Poner la variable de entorno
     }

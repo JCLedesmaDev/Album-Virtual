@@ -1,5 +1,5 @@
 
-import styleModule from "./messageRegister.module.css";
+import styleModule from "./index.module.css";
 import { useAuthUserStore } from "../../store";
 import { useFormsContext } from "../../context/useFormsContext";
 

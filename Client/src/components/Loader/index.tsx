@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useGlobalContext } from "../../Context/useGlobalContext";
-import LoaderCSS from "./Loader.module.css";
+import LoaderCSS from "./index.module.css";
 
 
 export const Loader: React.FC = () => {

@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { SpinnerModal } from "../../components/SpinnerModal/SpinnerModal";
-import { FormLogin } from "./components/formLogin/formLogin";
-import { FormRegister } from "./components/formRegister/formRegister";
-import { MessageLogin } from "./components/messageLogin/messageLogin";
-import { MessageRegister } from "./components/messageRegister/messageRegister";
+import { SpinnerModal } from "../../components/SpinnerModal";
+import { FormLogin } from "./components/formLogin";
+import { FormRegister } from "./components/formRegister";
+import { MessageLogin } from "./components/messageLogin";
+import { MessageRegister } from "./components/messageRegister";
 import { FormsProvider } from "./context/formsProvider";
 import styleModule from "./index.module.css"
 

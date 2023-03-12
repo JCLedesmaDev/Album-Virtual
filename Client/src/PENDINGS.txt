@@ -9,7 +9,6 @@ PARA EL FINAL
 
 
 Front:
-⏰ Al loguearse, actualizar los headers con el usrId y usrToken (error)
 
 ⏰ Re distribuir la carpeta interface, en vez de tener una generica, 
     tener dentro de cada modulo

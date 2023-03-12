@@ -7,7 +7,7 @@ import { IAlbumUsuarioData } from '../../Interface/DTO Back/AlbumUsuario/IAlbumU
 import { carouselTarjets } from '../../Utils/carouselTarjets';
 import { ConfigCarrouselModels } from '../../interface/models/ConfigCarrousel.models';
 import { usePaginate } from '../../Hooks/usePaginate';
-import { Paginate } from '../../Components/Paginate/Paginate';
+import { Paginate } from '../../components/Paginate';
 import { IAlbumUsuarioImagenes } from '../../Interface/DTO Back/AlbumUsuarioImagenes/IAlbumUsuarioImagenes';
 import AlbumUsuarioImagenService from './Services/AlbumUsuarioImagen.service';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';

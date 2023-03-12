@@ -1,5 +1,5 @@
-import { Input } from "../../../../Components/Input/Input";
-import styleModule from "./formRegister.module.css";
+import { Input } from "../../../../components/Input";
+import styleModule from "./index.module.css";
 import { InputsMockRegister } from "../../mocks/inputsRegister";
 import { IInputs } from "../../../../components/Input/IInputs";
 import { useAuthUserStore } from "../../store";

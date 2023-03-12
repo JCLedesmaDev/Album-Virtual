@@ -5,8 +5,8 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
-import NavigateModuleCSS from './Navigate.module.css'
-import { deleteStorage } from '../../Utils/updateStorage';
+import NavigateModuleCSS from './index.module.css'
+import { deleteStorage } from '../../utils/updateStorage';
 
 export const Navigate: React.FC = () => {
 

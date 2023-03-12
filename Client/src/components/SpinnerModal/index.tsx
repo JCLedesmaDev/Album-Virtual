@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAppStore } from "../../pages/appStore";
-import css from "./SpinnerModal.module.css";
+import css from "./index.module.css";
 
 export const SpinnerModal: React.FC = () => {
 

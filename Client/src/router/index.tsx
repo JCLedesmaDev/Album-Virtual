@@ -1,17 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
-import { AlbumUsuario } from '../pages/AlbumUsuario/Index';
-import { AlbumUsuarioImagen } from '../pages/AlbumUsuarioImagen/Index';
-import { AlbumImagenes } from '../pages/AlbumImagenes/Index';
-import { RoutePrivate } from '../components/RoutePrivate/RoutePrivate';
+import { RoutePrivate } from '../components/RoutePrivate';
 import { MainLayout } from "../layouts/MainLayout";
-
 import { AuthUser } from '../pages/authUser';
 import { NotFound } from "../pages/NotFound";
 import { Administration } from "../pages/administration";
 
 const router = createBrowserRouter([
   {
-    // path: '/',
     path: '/',
     element: (
       <RoutePrivate>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormsContext } from "../../context/useFormsContext";
 import { useAuthUserStore } from "../../store";
-import styleModule from "./messageLogin.module.css";
+import styleModule from "./index.module.css";
 
 
 

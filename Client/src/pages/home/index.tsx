@@ -8,9 +8,9 @@ import { IColeccionData } from "../../Interface/DTO Back/ColeccionAlbum/IColecci
 import { IAlbumData } from "../../Interface/DTO Back/Album/IAlbumData";
 import { ConfigCarrouselModels } from "../../interface/models/ConfigCarrousel.models";
 import { useGlobalContext } from "../../Context/useGlobalContext";
-import { Paginate } from '../../Components/Paginate/Paginate';
+import { Paginate } from '../../components/Paginate';
 import { usePaginate } from '../../Hooks/usePaginate';
-import { Loader } from '../../Components/Loader/Loader';
+import { Loader } from '../../components/Loader';
 import { carouselTarjets } from '../../Utils/carouselTarjets';
 
 export const Home: React.FC = () => {

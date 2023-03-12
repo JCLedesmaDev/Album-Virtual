@@ -11,8 +11,8 @@ import { ConfigCarrouselModels } from '../../interface/models/ConfigCarrousel.mo
 import AlbumImagenService from './Services/AlbumImagen.service';
 import { IAlbumData } from '../../Interface/DTO Back/Album/IAlbumData';
 import { usePaginate } from '../../Hooks/usePaginate';
-import { Paginate } from '../../Components/Paginate/Paginate';
-import { Loader } from '../../Components/Loader/Loader';
+import { Paginate } from '../../components/Paginate';
+import { Loader } from '../../components/Loader';
 import { useGlobalContext } from '../../Context/useGlobalContext';
 
 export const AlbumImagenes: React.FC = () => {

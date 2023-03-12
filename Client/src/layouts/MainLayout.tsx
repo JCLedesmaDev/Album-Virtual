@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { Outlet, useNavigate, useNavigation, useParams } from "react-router-dom"
-import { Navigate } from "../components/Navigate/Navigate"
-import { SpinnerModal } from "../components/SpinnerModal/SpinnerModal"
+import { Navigate } from "../components/Navigate"
+import { SpinnerModal } from "../components/SpinnerModal"
 import appStore from "../pages/appStore"
 
 

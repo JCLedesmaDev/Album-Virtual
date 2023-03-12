@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"
-import { Input } from "../../../../components/Input/Input";
-import styleModule from "./FormLogin.module.css"
+import { Input } from "../../../../components/Input";
+import styleModule from "./index.module.css"
 
 import { InputsMockLogin } from "../../mocks/inputsLogin";
 import { IInputs } from "../../../../components/Input/IInputs";

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { IInputs } from "../../components/Input/IInputs";
-import InputCSS from "./Input.module.css";
+import { IInputs } from "./IInputs";
+import styleCSS from "./index.module.css";
 
 interface Props {
   handleChange: any;
@@ -27,7 +27,7 @@ export const Input: React.FC<Props> = (props) => {
       integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
       crossorigin="anonymous"
     />*/
-  const IconFormClass = `${InputCSS.contact__form__iconValidate} fas fa-times-circle`;
+  const IconFormClass = `${styleCSS.contact__form__iconValidate} fas fa-times-circle`;
 
   /// METODOS
   const validateInput = () => {
@@ -42,9 +42,9 @@ export const Input: React.FC<Props> = (props) => {
     if (pattern.exec(value)) {
       //Cambiamos el color del icono a VERDE
       $iconInput.classList.remove(
-        `${InputCSS.iconValidate_incorrect}`
+        `${styleCSS.iconValidate_incorrect}`
       );
-      $iconInput.classList.add(`${InputCSS.iconValidate_correct}`);
+      $iconInput.classList.add(`${styleCSS.iconValidate_correct}`);
 
       //Cambiamos el icono de la X al icono valido
       $iconInput.classList.add("fa-check-circle");
@@ -52,13 +52,13 @@ export const Input: React.FC<Props> = (props) => {
 
       //Quitamos la clase para que no aparezca el mensaje de error
       $formError.classList.remove(
-        `${InputCSS.contact_messageErrorActive}`
+        `${styleCSS.contact_messageErrorActive}`
       );
 
     } else {
       //Cambiamos el color del icono a incorrecto(rojo)
-      $iconInput.classList.add(`${InputCSS.iconValidate_incorrect}`);
-      $iconInput.classList.remove(`${InputCSS.iconValidate_correct}`);
+      $iconInput.classList.add(`${styleCSS.iconValidate_incorrect}`);
+      $iconInput.classList.remove(`${styleCSS.iconValidate_correct}`);
 
       //Cambiamos el icono de valido a la X
       $iconInput.classList.remove("fa-check-circle");
@@ -66,7 +66,7 @@ export const Input: React.FC<Props> = (props) => {
 
       //Agregamos la clase para que aparezca el mensaje de error
       $formError.classList.add(
-        `${InputCSS.contact_messageErrorActive}`
+        `${styleCSS.contact_messageErrorActive}`
       );
     }
     
@@ -88,7 +88,7 @@ export const Input: React.FC<Props> = (props) => {
 
       //Quitamos la clase para que no aparezca el mensaje de error
       $formError.classList.remove(
-        `${InputCSS.contact_messageErrorActive}`
+        `${styleCSS.contact_messageErrorActive}`
       );
     }
   };
@@ -102,7 +102,7 @@ export const Input: React.FC<Props> = (props) => {
   return (
     <div id={`form__${inputProps["name"]}`}>
       {
-        <div className={InputCSS.contact__form__inputs}>
+        <div className={styleCSS.contact__form__inputs}>
           <input
             name={inputProps["name"]}
             placeholder={inputProps.placeholder}
@@ -117,7 +117,7 @@ export const Input: React.FC<Props> = (props) => {
         </div>
       }
 
-      <p className={InputCSS.contact_messageError}>{errorMessage}</p>
+      <p className={styleCSS.contact_messageError}>{errorMessage}</p>
     </div>
   );
 };

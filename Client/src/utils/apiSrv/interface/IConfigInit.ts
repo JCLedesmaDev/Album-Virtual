@@ -1,8 +1,6 @@
+import { IHeaders } from "./IHeaders";
+
 export interface IConfigInit{
-    info:{
-        authorization: string;
-        mockmode: string;
-        usrid: string
-    },
+    info:IHeaders,
     url: string
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Paginate } from '../../Components/Paginate/Paginate'
+import { Paginate } from '../../components/Paginate'
 import { Albumes } from './components/albumes'
 import { Collection } from './components/albumCollections'
 import { Figurites } from './components/figurites'
