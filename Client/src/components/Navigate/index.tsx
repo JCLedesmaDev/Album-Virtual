@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import NavigateModuleCSS from './index.module.css'
-import { deleteStorage } from '../../utils/updateStorage';
+import { deleteStorage } from '../../utils/magnamentStorage';
 
 export const Navigate: React.FC = () => {
 

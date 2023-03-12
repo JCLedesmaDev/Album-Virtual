@@ -1,4 +1,4 @@
-export const updateStorage = <TypeStorage extends Object>(
+export const setStorage = <TypeStorage extends Object>(
   nameStorage: string,
   datesStorage: TypeStorage
 ): void => {
@@ -9,7 +9,6 @@ export const updateStorage = <TypeStorage extends Object>(
 export const getStorage = <TypeStorage>(nameStorage: string) => {
     return JSON.parse(localStorage.getItem(nameStorage) as any) as TypeStorage;
 };
-
 
 export const deleteStorage = (nameStorage: string) => {
   localStorage.removeItem(nameStorage);

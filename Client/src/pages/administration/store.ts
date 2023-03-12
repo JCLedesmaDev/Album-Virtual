@@ -42,7 +42,7 @@ const store = create<IStore>((set, get) => {
             figurites: undefined
         },
         actions: {
-            getAllAlbumCollections: async ({ page, filterText }: any) => {
+            getAllAlbumCollections: async ({ page = '', filterText = '' }: any) => {
 
                 const res = await apiSrv.callBackend(async () => {
                     return await apiSrv.callSrv({
@@ -52,8 +52,9 @@ const store = create<IStore>((set, get) => {
                     })
                 }, { loader: true })
 
-                if (res.info.type === 'error') return
+                if (res.info.type === 'error') return ''
 
+                console.log('PASA XA CA')
                 // const userAdapted: IUserModels = userMapper(res.info.data);
                 // appStore.getState().actions.setUser(userAdapted)
 
@@ -63,27 +64,7 @@ const store = create<IStore>((set, get) => {
                 // })
                 // return flagIsLogin
             },
-            // register: async (formData: IFormRegister) => {
-            //     let flagIsRegister = false
 
-            //     const res = await apiSrv.callBackend(async () => {
-            //         return await apiSrv.callSrv({
-            //             method: 'POST',
-            //             path: '/users/register',
-            //             data: {
-            //                 email: formData.emailRegister,
-            //                 fullName: formData.fullName,
-            //                 password: formData.passwordRegister,
-            //                 confirmPassword: formData.confirmPassword,
-            //             } as IRegisterDto
-            //         })
-            //     }, { loader: true, status: true })
-
-            //     if (res.info.type === 'error') return flagIsRegister
-            //     flagIsRegister = true
-
-            //     return flagIsRegister
-            // }
         }
     }
 })

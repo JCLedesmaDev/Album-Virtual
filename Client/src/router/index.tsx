@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { RoutePrivate } from '../components/RoutePrivate';
 import { MainLayout } from "../layouts/MainLayout";
+
 import { AuthUser } from '../pages/authUser';
 import { NotFound } from "../pages/NotFound";
 import { Administration } from "../pages/administration";

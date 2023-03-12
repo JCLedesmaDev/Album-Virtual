@@ -1,7 +1,7 @@
 import {  } from "react-router";
  import { Route, Navigate} from "react-router-dom";
 import { IUserModels } from "../../interface/models/IUser.models";
-import { getStorage } from "../../utils/updateStorage";
+import { getStorage } from "../../utils/magnamentStorage";
 
 interface IRoutePrivate {
     children: JSX.Element;

@@ -1,6 +1,7 @@
 // import axios from 'redaxios'
 import axios, { AxiosInstance, RawAxiosRequestHeaders, HeadersDefaults, AxiosRequestHeaders, InternalAxiosRequestConfig, AxiosResponse } from 'axios'
 import appStore from '../../pages/appStore';
+import { getStorage, setStorage, deleteStorage } from '../magnamentStorage';
 import { ICallBackendOptions } from './interface/ICallBackendOptions';
 import { ICallSrv } from './interface/ICallSrv';
 import { ICallSrvResponse } from './interface/ICallSrvResponse';
@@ -8,7 +9,7 @@ import { IConfigInit } from './interface/IConfigInit';
 import { IHeaders } from './interface/IHeaders';
 
 let srv: AxiosInstance
-let headersList: IHeaders;
+// const headersList: IHeaders = getStorage('Headers') || {}
 
 export const apiSrv = {
 
@@ -32,6 +33,7 @@ export const apiSrv = {
         srv.interceptors.request.use(
             (request: InternalAxiosRequestConfig<any>) => {
                 /// Setear los headers que actualice por aca....
+                const headersList = getStorage<IHeaders>('Headers')
                 for (const headerKey in headersList) {
                     request.headers.set(headerKey, headersList[headerKey])
                 }
@@ -47,7 +49,9 @@ export const apiSrv = {
             (error: any) => {
                 console.log('Error ApiSrv!!!! :' + error)
                 if (error.response?.status === 401) { // Hice que el 401 sea especifico de token
-                    localStorage.removeItem("User");
+                    deleteStorage("User");
+                    deleteStorage('Headers')
+
                     window.location.href = `${window.location.origin}/authUser`;
                 }
                 return Promise.reject(error.response);
@@ -56,7 +60,16 @@ export const apiSrv = {
     },
 
     setHeaders: (headers: IHeaders) => {
-        headersList = { ...headersList, ...headers }
+        // let newHeaders = { ...headersList, ...headers }
+        // let newHeaders : IHeaders = {}
+        let headersList = getStorage<IHeaders>('Headers') || {}
+        
+        for (const key in headers) {
+            if (headers[key]) {
+                headersList = {...headersList, [key]: headers[key], }
+            }
+        }
+        setStorage<IHeaders>('Headers', headersList)
     },
 
     /**
@@ -95,7 +108,9 @@ export const apiSrv = {
         try {
             if (method === "GET") {
                 const params = { ...(data && data) }
-                res = await (await srv.get(path, { params: params })).data
+                res = await (await srv.get(path, { 
+                    params: params || {}
+                })).data
             }
             if (method === "POST") res = await (await srv.post(path, data)).data
             if (method === "PUT") res = await (await srv.put(path, data)).data

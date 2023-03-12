@@ -4,7 +4,7 @@ import produce from 'immer'
 
 import { ISpinnerModels } from "../interface/models/ISpinner.models";
 import { IUserModels } from "../interface/models/IUser.models";
-import { getStorage, updateStorage } from "../utils/updateStorage";
+import { getStorage, setStorage } from "../utils/magnamentStorage";
 
 interface IStore {
     readonly state: {
@@ -25,7 +25,7 @@ const appStore = create<IStore>((set, get) => ({
     actions: {
         setUser: (user: IUserModels) => {
             console.log("🚀 ~ setUser", user)
-            updateStorage("User", user)
+            setStorage("User", user)
             set(produce((store: IStore) => {
                 store.state.user = user
             }))

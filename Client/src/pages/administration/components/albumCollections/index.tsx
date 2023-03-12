@@ -19,7 +19,7 @@ export const Collection: React.FC = () => {
     const getAll = async (page: number = 1) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
 
-        store.actions.getAllAlbumCollections({})
+        await store.actions.getAllAlbumCollections({})
         // const data = await AdminCollectionService.GetAllAdminCollection(page);
 
         // setPaginate({
