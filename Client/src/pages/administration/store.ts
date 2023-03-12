@@ -1,11 +1,10 @@
 import { create } from "zustand";
 import { shallow } from "zustand/shallow";
-import produce from 'immer'
 
-import { IUserModels } from "../../interface/models/IUser.models";
 import { apiSrv } from "../../utils/apiSrv";
 import { IAlbumModels } from "../../interface/models/IAlbum.models";
 import { IAlbumCollectionModels } from "../../interface/models/IAlbumCollection.models";
+import { ICreateCollectionDto } from "./interface/frontToBack/ICreateCollection.dto";
 
 
 interface IStore {
@@ -17,7 +16,7 @@ interface IStore {
     actions: {
         //Collection
         getAllAlbumCollections: ({ page, filterText }: any) => Promise<any>,
-        createCollection: () => Promise<any>,
+        createCollection: (data: ICreateCollectionDto) => Promise<boolean>,
         // updateCollection: () => Promise<any>,
         // deleteCollection: () => Promise<any>,
         // //Albumes
@@ -53,15 +52,28 @@ const store = create<IStore>((set, get) => ({
                 })
             }, { loader: true })
 
-            if (res.info.type === 'error') return ''
+            if (res.info.type === 'error') return
 
             console.log('PASA XA CA')
             // const userAdapted: IUserModels = userMapper(res.info.data);
             // appStore.getState().actions.setUser(userAdapted)
         },
 
-        createCollection: async () => {
-            
+        createCollection: async (data: ICreateCollectionDto) => {
+            let flagIsCreate = false
+
+            const res = await apiSrv.callBackend(async () => {
+                return await apiSrv.callSrv({
+                    method: 'POST',
+                    path: `/albumCollections/createCollection`,
+                    data
+                })
+            }, { loader: true })
+
+            if (res.info.type === 'error') return flagIsCreate
+            flagIsCreate = true
+
+            return flagIsCreate
         }
 
     }

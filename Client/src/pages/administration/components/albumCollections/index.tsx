@@ -7,7 +7,6 @@ import { useFormCustom } from "../../../../Hooks/useFormCustom";
 import { InputsMockColeccion } from "./mocks/InputsColeccion";
 import { Input } from "../../../../components/Input";
 import { IInputs } from "../../../../components/Input/IInputs";
-import { Loader } from "../../../../components/Loader";
 import { ICreateCollectionDto } from "../../interface/frontToBack/ICreateCollection.dto";
 import { IAlbumCollectionModels } from "../../../../interface/models/IAlbumCollection.models";
 
@@ -27,12 +26,12 @@ export const Collection: React.FC = () => {
 
     //METODOS
 
-    const Add = async (event: any) => {
+    const createCollection = async (event: any) => {
         event.preventDefault();
 
+        const isCreate = await store.actions.createCollection(form)
         
-
-        await getAll();
+        if (isCreate) await getAll();
     };
 
     const getAll = async (page: number = 1) => {
@@ -72,64 +71,64 @@ export const Collection: React.FC = () => {
 
     const Put = async (event: any) => {
 
-    //     try {
-    //         event.preventDefault();
-    //         storeGlobal.SetShowLoader(true)
+        //     try {
+        //         event.preventDefault();
+        //         storeGlobal.SetShowLoader(true)
 
-    //         const { Result, MessageError } = await AdminCollectionService.updateAdminCollection(
-    //             statusAction.idColeccion, formulario.Titulo
-    //         );
+        //         const { Result, MessageError } = await AdminCollectionService.updateAdminCollection(
+        //             statusAction.idColeccion, formulario.Titulo
+        //         );
 
-    //         if (MessageError !== undefined) {
-    //             throw new Error(MessageError);
-    //         }
+        //         if (MessageError !== undefined) {
+        //             throw new Error(MessageError);
+        //         }
 
-    //         storeGlobal.SetShowLoader(false);
-    //         storeGlobal.SetMessageModalStatus(Result);
-    //         storeGlobal.SetShowModalStatus(true);
+        //         storeGlobal.SetShowLoader(false);
+        //         storeGlobal.SetMessageModalStatus(Result);
+        //         storeGlobal.SetShowModalStatus(true);
 
-    //         await getAll();
-    //     } catch (error: any) {
+        //         await getAll();
+        //     } catch (error: any) {
 
-    //         storeGlobal.SetShowLoader(false)
-    //         storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-    //         storeGlobal.SetShowModalStatus(true)
+        //         storeGlobal.SetShowLoader(false)
+        //         storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
+        //         storeGlobal.SetShowModalStatus(true)
 
-    //     } finally {
-    //         resetForm()
-    //         setTimeout(() => {
-    //             storeGlobal.SetShowModalStatus(false)
-    //         }, 5000);
-    //         storeGlobal.SetShowModalContainer(false)
-    //     }
+        //     } finally {
+        //         resetForm()
+        //         setTimeout(() => {
+        //             storeGlobal.SetShowModalStatus(false)
+        //         }, 5000);
+        //         storeGlobal.SetShowModalContainer(false)
+        //     }
     };
 
     const Delete = async (id: number) => {
-    //     try {
-    //         storeGlobal.SetShowLoader(true)
+        //     try {
+        //         storeGlobal.SetShowLoader(true)
 
-    //         const { Result, MessageError } = await AdminCollectionService.DeleteAdminCollection(id);
+        //         const { Result, MessageError } = await AdminCollectionService.DeleteAdminCollection(id);
 
-    //         if (MessageError !== undefined) {
-    //             throw new Error(MessageError);
-    //         }
+        //         if (MessageError !== undefined) {
+        //             throw new Error(MessageError);
+        //         }
 
-    //         storeGlobal.SetShowLoader(false);
-    //         storeGlobal.SetMessageModalStatus(Result);
-    //         storeGlobal.SetShowModalStatus(true);
+        //         storeGlobal.SetShowLoader(false);
+        //         storeGlobal.SetMessageModalStatus(Result);
+        //         storeGlobal.SetShowModalStatus(true);
 
-    //         await getAll();
-    //     } catch (error: any) {
+        //         await getAll();
+        //     } catch (error: any) {
 
-    //         storeGlobal.SetShowLoader(false)
-    //         storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-    //         storeGlobal.SetShowModalStatus(true)
+        //         storeGlobal.SetShowLoader(false)
+        //         storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
+        //         storeGlobal.SetShowModalStatus(true)
 
-    //     } finally {
-    //         setTimeout(() => {
-    //             storeGlobal.SetShowModalStatus(false)
-    //         }, 5000);
-    //     }
+        //     } finally {
+        //         setTimeout(() => {
+        //             storeGlobal.SetShowModalStatus(false)
+        //         }, 5000);
+        //     }
     };
 
     // const changePage = ({ selected }: any) => {
@@ -160,17 +159,13 @@ export const Collection: React.FC = () => {
                             <button
                                 className={`${styleCSS.buttonAdmin}`}
                                 onClick={() => Delete(ColeccionAlbumes.id)}
-                                >
+                            >
                                 Eliminar
                             </button>
                         </th>
                     </tr>
                 ))
             }
-
-
-
-            {allAlbunesColecion.length === 0 && <Loader />}
 
 
             <ModalContainer personCss={`${styleCSS.containerModalColeccion}`}>
@@ -183,7 +178,7 @@ export const Collection: React.FC = () => {
 
                 <h1>{statusAction.action === 'add' ? 'Crear' : 'Actualizar'}</h1>
 
-                <form onSubmit={statusAction.action === 'add' ? Add : Put} >
+                <form onSubmit={statusAction.action === 'add' ? createCollection : Put} >
 
                     {InputsMockColeccion.map((inputProps: IInputs, index: number) => (
                         <Input
