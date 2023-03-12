@@ -36,7 +36,7 @@ const verifyToken = (tokenJwt: string) => {
     try {
         return jwt.verify(tokenJwt, config.get('jwt_secret') as string)
     } catch (error) {
-        throw new ApplicationError({ message: 'Ocurrio un error de autenticacion.', source: error });
+        throw new ApplicationError({ message: 'Ocurrio un error de autenticacion.', source: error, status: 401 });
     }
 }
 

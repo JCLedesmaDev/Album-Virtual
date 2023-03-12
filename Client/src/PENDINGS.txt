@@ -14,3 +14,4 @@ Front:
     tener dentro de cada modulo
 ⏰ Dentro del mappers.ts agregar el mapeo de roles
 ⏰ Crear pagina NotFound
+Ver de cambiar el modal de manejo de error por una libreria propia de React

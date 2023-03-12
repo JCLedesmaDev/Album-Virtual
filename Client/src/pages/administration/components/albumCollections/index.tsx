@@ -1,21 +1,40 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useAdministrationStore } from "../../store";
+import styleCSS from '../../index.module.css'
+import { ModalContainer } from "../../../../components/ModalContainer";
+import { usePaginate } from "../../../../hooks/usePaginate";
+import { useFormCustom } from "../../../../Hooks/useFormCustom";
+import { InputsMockColeccion } from "./mocks/InputsColeccion";
+import { Input } from "../../../../components/Input";
+import { IInputs } from "../../../../components/Input/IInputs";
+import { Loader } from "../../../../components/Loader";
+import { ICreateCollectionDto } from "../../interface/frontToBack/ICreateCollection.dto";
+import { IAlbumCollectionModels } from "../../../../interface/models/IAlbumCollection.models";
 
 export const Collection: React.FC = () => {
 
     const store = useAdministrationStore()
 
-    // const [allAlbunesColecion, setAllAlbumes] = useState<IColeccionData[]>([]);
-    // const { paginate, setPaginate } = usePaginate()
+    const [allAlbunesColecion, setAllAlbumes] = useState<IAlbumCollectionModels[]>([]);
+    const { paginate, setPaginate } = usePaginate()
+    const [statusAction, setStatusAction] = useState({ action: "", idColeccion: 0 })
 
 
-    // const [statusAction, setStatusction] = useState({ action: "", idColeccion: 0 })
-    // const { form, handleChange, resetForm, setForm } = useFormCustom<IDataColeccionForm>({
-    //     title: ""
-    // });
+    const { form, handleChange, resetForm, setForm } = useFormCustom<ICreateCollectionDto>({
+        title: ""
+    });
 
 
     //METODOS
+
+    const Add = async (event: any) => {
+        event.preventDefault();
+
+        
+
+        await getAll();
+    };
+
     const getAll = async (page: number = 1) => {
 
         await store.actions.getAllAlbumCollections({})
@@ -29,59 +48,29 @@ export const Collection: React.FC = () => {
         // setAllAlbumes(data.Result.listItems);
     };
 
-    // const openAddColeccion = () => {
-    //     setFormulario({ Titulo: "" })
-    //     setStatusction({
-    //         action: "add",
-    //         idColeccion: 0
-    //     })
-    //     storeGlobal.SetShowModalContainer(true)
-    // }
+    const openAddColeccion = () => {
+        // setFormulario({ Titulo: "" })
+        // setStatusction({
+        //     action: "add",
+        //     idColeccion: 0
+        // })
+        // storeGlobal.SetShowModalContainer(true)
+    }
 
 
-    // const Add = async (event: any) => {
-
-    //     try {
-    //         event.preventDefault();
-    //         storeGlobal.SetShowLoader(true)
-
-    //         const { Result, MessageError } = await AdminCollectionService.AddAdminColeccion(formulario);
-
-    //         if (MessageError !== undefined) {
-    //             throw new Error(MessageError);
-    //         }
-
-    //         storeGlobal.SetShowLoader(false);
-    //         storeGlobal.SetMessageModalStatus(Result);
-    //         storeGlobal.SetShowModalStatus(true);
-
-    //         await getAll();
-    //     } catch (error: any) {
-
-    //         storeGlobal.SetShowLoader(false)
-    //         storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-    //         storeGlobal.SetShowModalStatus(true)
-
-    //     } finally {
-    //         resetForm()
-    //         setTimeout(() => {
-    //             storeGlobal.SetShowModalStatus(false)
-    //         }, 5000);
-    //         storeGlobal.SetShowModalContainer(false)
-    //     }
-    // };
 
 
-    // const openUpdateColeccion = (ColeccionAlbumes: IColeccionData) => {
-    //     setFormulario({ Titulo: ColeccionAlbumes.tituloColeccion })
-    //     setStatusction({
-    //         action: "update",
-    //         idColeccion: ColeccionAlbumes.id
-    //     })
-    //     storeGlobal.SetShowModalContainer(true)
-    // }
 
-    // const Put = async (event: any) => {
+    const openUpdateColeccion = (ColeccionAlbumes: ICreateCollectionDto) => {
+        setForm({ title: ColeccionAlbumes.title })
+        // setStatusAction({
+        //     action: "update",
+        //     idColeccion: ColeccionAlbumes.id
+        // })
+        // storeGlobal.SetShowModalContainer(true)
+    }
+
+    const Put = async (event: any) => {
 
     //     try {
     //         event.preventDefault();
@@ -113,9 +102,9 @@ export const Collection: React.FC = () => {
     //         }, 5000);
     //         storeGlobal.SetShowModalContainer(false)
     //     }
-    // };
+    };
 
-    // const Delete = async (id: number) => {
+    const Delete = async (id: number) => {
     //     try {
     //         storeGlobal.SetShowLoader(true)
 
@@ -141,7 +130,7 @@ export const Collection: React.FC = () => {
     //             storeGlobal.SetShowModalStatus(false)
     //         }, 5000);
     //     }
-    // };
+    };
 
     // const changePage = ({ selected }: any) => {
     //     window.scrollTo(0, 0);
@@ -154,51 +143,64 @@ export const Collection: React.FC = () => {
 
 
     return (
-      <p>asdasd</p>
-        // { allAlbunesColecion?.map((ColeccionAlbumes: IColeccionData, indexColeccion: number) => (
-        //     <tr>
-        //         <th>{ColeccionAlbumes.tituloColeccion}</th>
-        //         <th>
-        //             <button className={`${AdminColeccionCSS.buttonAdmin}`} onClick={() => openUpdateColeccion(ColeccionAlbumes)}>Modificar</button>
-        //             <button
-        //                 className={`${AdminColeccionCSS.buttonAdmin}`}
-        //                 onClick={() => Delete(ColeccionAlbumes.id)}
-        //             >
-        //                 Eliminar
-        //             </button>
-        //         </th>
-        //     </tr>
-        // ))}
 
-        // {allAlbunesColecion.length === 0 && <Loader />}
+        <Fragment>
+
+            <p>asdasd</p>
 
 
-        // <ModalContainer personCss={`${AdminColeccionCSS.containerModalColeccion}`}>
 
-        //   <p onClick={() => {
-        //     storeGlobal.SetShowModalContainer(false)
-        //   }} className={AdminColeccionCSS.containerModalColeccion__closeBtn}>
-        //     <i className="fas fa-times"></i>
-        //   </p>
+            {/* store.state.collection?.map((ColeccionAlbumes: IColeccionData, indexColeccion: number) => ( */}
+            {
+                store.state.collection?.map((ColeccionAlbumes: any, indexColeccion: number) => (
+                    <tr>
+                        <th>{ColeccionAlbumes.tituloColeccion}</th>
+                        <th>
+                            <button className={`${styleCSS.buttonAdmin}`} onClick={() => openUpdateColeccion(ColeccionAlbumes)}>Modificar</button>
+                            <button
+                                className={`${styleCSS.buttonAdmin}`}
+                                onClick={() => Delete(ColeccionAlbumes.id)}
+                                >
+                                Eliminar
+                            </button>
+                        </th>
+                    </tr>
+                ))
+            }
 
-        //   <h1>{statusAction.action === 'add' ? 'Crear' : 'Actualizar'}</h1>
 
-        //   <form onSubmit={statusAction.action === 'add' ? Add : Put} >
 
-        //     {InputsMockColeccion.map((inputProps: IInputs, index: number) => (
-        //       <Input
-        //         key={index}
-        //         inputProps={inputProps}
-        //         value={formulario[inputProps.name]}
-        //         handleChange={handleChange}
-        //         errorMessage={inputProps.errorMessage}
-        //         pattern={inputProps.expReg}
-        //       />
-        //     ))}
+            {allAlbunesColecion.length === 0 && <Loader />}
 
-        //     <button type="submit">{statusAction.action === 'add' ? 'Crear' : 'Actualizar'}</button>
-        //   </form>
 
-        // </ModalContainer>
+            <ModalContainer personCss={`${styleCSS.containerModalColeccion}`}>
+
+                <p onClick={() => {
+                    // storeGlobal.SetShowModalContainer(false)
+                }} className={styleCSS.containerModalColeccion__closeBtn}>
+                    <i className="fas fa-times"></i>
+                </p>
+
+                <h1>{statusAction.action === 'add' ? 'Crear' : 'Actualizar'}</h1>
+
+                <form onSubmit={statusAction.action === 'add' ? Add : Put} >
+
+                    {InputsMockColeccion.map((inputProps: IInputs, index: number) => (
+                        <Input
+                            key={index}
+                            inputProps={inputProps}
+                            value={form[inputProps.name]}
+                            handleChange={handleChange}
+                            errorMessage={inputProps.errorMessage}
+                            pattern={inputProps.expReg}
+                        />
+                    ))}
+
+                    <button type="submit">{statusAction.action === 'add' ? 'Crear' : 'Actualizar'}</button>
+                </form>
+
+            </ModalContainer>
+        </Fragment >
+
     )
 }

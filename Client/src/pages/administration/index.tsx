@@ -68,35 +68,6 @@ export const Administration: React.FC = () => {
             </div>
 
             {/* {allAlbunesColecion.length === 0 && <Loader />} */}
-
-
-            {/* <ModalContainer personCss={`${AdminColeccionCSS.containerModalColeccion}`}>
-
-                <p onClick={() => {
-                    storeGlobal.SetShowModalContainer(false)
-                }} className={AdminColeccionCSS.containerModalColeccion__closeBtn}>
-                    <i className="fas fa-times"></i>
-                </p>
-
-                <h1>{statusAction.action === 'add' ? 'Crear' : 'Actualizar'}</h1>
-
-                <form onSubmit={statusAction.action === 'add' ? Add : Put} >
-
-                    {InputsMockColeccion.map((inputProps: IInputs, index: number) => (
-                        <Input
-                            key={index}
-                            inputProps={inputProps}
-                            value={formulario[inputProps.name]}
-                            handleChange={handleChange}
-                            errorMessage={inputProps.errorMessage}
-                            pattern={inputProps.expReg}
-                        />
-                    ))}
-
-                    <button type="submit">{statusAction.action === 'add' ? 'Crear' : 'Actualizar'}</button>
-                </form>
-
-            </ModalContainer> */}
         </div>
     )
 }
