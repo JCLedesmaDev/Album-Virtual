@@ -15,7 +15,7 @@ export interface IFilterSearch {
 }
 
 interface IPagination {
-    pagesTotal: number;
+    totalPages: number;
     currentPage: number;
 }
 
@@ -31,7 +31,6 @@ interface IStore {
         //Collection
         getAllAlbumCollections: ({ page, filterText }: IFilterSearch) => Promise<any>,
         createCollection: (data: ICreateCollectionDto) => Promise<boolean>,
-        setPagination: (data: IPagination) => void
         // updateCollection: () => Promise<any>,
         // deleteCollection: () => Promise<any>,
         // //Albumes
@@ -46,7 +45,7 @@ interface IStore {
         // deleteFigurine: (id) => Promise<any>,
 
 
-        // changePage: ({ selected }: any) => void
+        setPagination: (data: IPagination) => void
     }
 }
 
@@ -55,10 +54,7 @@ const store = create<IStore>((set, get) => ({
         collection: [],
         albumes: [],
         figurites: [],
-        pagination: {
-            pagesTotal: 0,
-            currentPage: 0
-        }
+        pagination: { totalPages: 0, currentPage: 0 }
     },
     actions: {
         getAllAlbumCollections: async ({ page, filterText }: IFilterSearch) => {
@@ -73,12 +69,12 @@ const store = create<IStore>((set, get) => ({
             if (res.info.type === 'error') return
 
             get().actions.setPagination({
-                currentPage: res.info.data?.currentPage,
-                pagesTotal: res.info.data.pagesTotal                
+                currentPage: res.info.data.currentPage,
+                totalPages: res.info.data.totalPages
             })
 
             const albumCollectionsAdapted: IAlbumCollectionModels[] = multipleAlbumCollectionMapper(res.info.data?.docs);
-            
+
             set(produce((store: IStore) => {
                 store.state.collection = albumCollectionsAdapted
             }))
@@ -104,7 +100,7 @@ const store = create<IStore>((set, get) => ({
         setPagination: (data: IPagination) => {
             set(produce((store: IStore) => {
                 store.state.pagination = {
-                    pagesTotal: data.pagesTotal,
+                    totalPages: data.totalPages,
                     currentPage: data.currentPage
                 }
             }))

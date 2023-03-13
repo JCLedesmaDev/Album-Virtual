@@ -48,13 +48,12 @@ export const Administration: React.FC = () => {
                 <div>
                     <Paginate
                         ChangePage={changePage}
-                        PageCount={store.state.pagination.pagesTotal}
+                        PageCount={store.state.pagination.totalPages}
                         LocatedPageNumber={store.state.pagination.currentPage}
                     />
                 </div>
             </div>
 
-            {/* {allAlbunesColecion.length === 0 && <Loader />} */}
         </div>
     )
 }

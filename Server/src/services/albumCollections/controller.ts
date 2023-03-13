@@ -18,8 +18,8 @@ const createCollection = controllerWrapper(async (req: Request) => {
 const getAllCollections = controllerWrapper(async (req: Request) => {
 
     const payload = {
-        page: req.params.page || 1,
-        filterText: req.params.filterText
+        page: req.query.page || 1,
+        filterText: req.query.filterText
     } as IPagination
 
     req.locals.info = payload

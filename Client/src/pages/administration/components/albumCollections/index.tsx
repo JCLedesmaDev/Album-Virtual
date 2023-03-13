@@ -17,8 +17,7 @@ export const Collection: React.FC = () => {
     const store = useAdministrationStore()
     const appStore = useAppStore()
 
-    const [allAlbunesColecion, setAllAlbumes] = useState<IAlbumCollectionModels[]>([]);
-    const { paginate, setPaginate } = usePaginate()
+
     const [statusAction, setStatusAction] = useState({ action: "", idColeccion: 0 })
 
 
@@ -36,20 +35,12 @@ export const Collection: React.FC = () => {
 
         if (!isCreate) return
         await getAll();
+        appStore.actions.setShowPopup(false)
         resetForm()
     };
 
     const getAll = async (page: number = 1) => {
-
         await store.actions.getAllAlbumCollections({page})
-        // const data = await AdminCollectionService.GetAllAdminCollection(page);
-
-        // setPaginate({
-        //     currentPage: data.Result.currentPage - 1,
-        //     pagesTotal: data.Result.pages
-        // })
-
-        // setAllAlbumes(data.Result.listItems);
     };
 
     const showPopup = () => {
