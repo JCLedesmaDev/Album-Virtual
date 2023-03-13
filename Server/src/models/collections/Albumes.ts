@@ -7,14 +7,14 @@ import { IAlbumCollectionSchema } from './AlbumCollections';
 export interface IAlbumSchema extends Document, SoftDeleteInterface {
     title: string;
     image: string;
-    collectionAlbum: ObjectId | IAlbumCollectionSchema;
+    albumCollections: ObjectId | IAlbumCollectionSchema;
     figurites: ObjectId[] | IFigurineSchema[];
 }
 
 const AlbumSchema = new Schema<IAlbumSchema>({
     title: { type: String, required: true },
     image: { type: String, required: true },
-    collectionAlbum: { type: Types.ObjectId, ref: "CollectionAlbum" },
+    albumCollections: { type: Types.ObjectId, ref: "AlbumCollections" },
     figurites: [{ type: Types.ObjectId, ref: "Figurites" }]
 }, {
     timestamps: true, // Nos crea un campo mas con la fecha de creacion y actualizacion del registro

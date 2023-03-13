@@ -1,6 +1,6 @@
 import { tryCatchWrapper } from "../../utils/tryCatchWrapper"
 import externalDb from "./dal"
-// import mapper from './mapper'
+import mapper from './mapper'
 import responseMessage from "../../utils/responseMessage"
 import { IPagination } from "../../interface/IPagination"
 import { ApplicationError } from "../../utils/applicationError"
@@ -8,6 +8,7 @@ import { IPaginationResult, paginationMapper } from "../../utils/paginationMappe
 import { ICreateCollectionDto } from "./dto/ICreateCollection.dto"
 import { IDeleteCollectionDto } from "./dto/IDeleteCollection.dto"
 import { IUpdateCollectionDto } from "./dto/IUpdateCollection.dto"
+import { IAlbumCollection } from "../../interface/IAlbumCollection"
 
 const createCollection = tryCatchWrapper(async (payload: ICreateCollectionDto) => {
 
@@ -30,15 +31,14 @@ const getAllCollections = tryCatchWrapper(async (payload: IPagination) => {
 
     const listCollections = await externalDb.getListCollections(payload)
 
-    const listAlbumesMapper = ''
-    // const listAlbumesMapper: IPaginationResult<IAlbum> = paginationMapper<IAlbum>({
-    //     resource: listAlbumes,
-    //     callBackMapper: mapper.multipleAlbums
-    // })
+    // const listAlbumesMapper = ''
+    const listCollectionMapper: IPaginationResult<IAlbumCollection> = paginationMapper<IAlbumCollection>({
+        resource: listCollections,
+        callBackMapper: mapper.multipleCollections
+    })
 
-    return responseMessage.success<typeof listAlbumesMapper>({
-        // data: listAlbumesMapper
-        data: ''
+    return responseMessage.success<typeof listCollectionMapper>({
+        data: listCollectionMapper
     })
 })
 

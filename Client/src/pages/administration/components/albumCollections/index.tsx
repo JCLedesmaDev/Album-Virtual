@@ -34,8 +34,8 @@ export const Collection: React.FC = () => {
 
         const isCreate = await store.actions.createCollection(form)
 
-        if (isCreate) await getAll();
-
+        if (!isCreate) return
+        await getAll();
         resetForm()
     };
 
@@ -144,8 +144,6 @@ export const Collection: React.FC = () => {
     return (
 
         <Fragment>
-
-            <p>asdasd</p>
 
             <table className={`${styleCSS.tableContainer}`} border={1}>
                 <thead>

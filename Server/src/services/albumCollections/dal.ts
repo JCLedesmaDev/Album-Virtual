@@ -30,10 +30,10 @@ const getListCollections = async ({ page, filterText }: IPagination): Promise<Pa
         const options: PaginateOptions = {
             page,
             limit: 3,
-            populate: 'figurites'
+            populate: {strictPopulate: false, path:'Albumes'}
         }
         const query: FilterQuery<IAlbumCollectionSchema> = {
-            ...(filterText !== '' && {
+            ...(filterText && {
                 title: { $regex: new RegExp(filterText), $options: 'i' }
             }),
         }
