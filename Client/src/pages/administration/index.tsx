@@ -20,8 +20,8 @@ export const Administration: React.FC = () => {
     })
 
 
-    const openModalAdd = () => {
-
+    const openModalAdd = (callBack: any) => {
+        callBack()
     }
 
     return (
@@ -32,31 +32,13 @@ export const Administration: React.FC = () => {
                 <h1 className={`${styleModule.title}`}>Administracion de Collection Albumnes </h1>
                 <p className={`${styleModule.subTitle}`}>Bienvenidos al area administrativa</p>
 
-                <table className={`${styleModule.tableContainer}`} border={1}>
-                    <thead>
-                        <tr>
-                            <th>{admin.title}</th>
-                            <th>Selcciona la opcion deseada</th>
-                            <th>
-                                <button className={`${styleModule.button}`} onClick={openModalAdd}>
-                                    Agregar {admin.action}
-                                </button>
-                            </th>
-                        </tr>
-                    </thead>
 
-                    <tbody>
+                {admin.action === typeActionsAdmin.Collection && <Collection />}
 
-                        {/* COMPONENTES */}
-                        {admin.action === typeActionsAdmin.Collection && <Collection />}
+                {/* {admin.action === typeActionsAdmin.Albumes && <Albumes />} */}
 
-                        {/* {admin.action === typeActionsAdmin.Albumes && <Albumes />} */}
+                {/* {admin.action === typeActionsAdmin.Figurites && <Figurites />} */}
 
-                        {/* {admin.action === typeActionsAdmin.Figurites && <Figurites />} */}
-
-                    </tbody>
-
-                </table>
 
                 <div>
                     {/* <Paginate
