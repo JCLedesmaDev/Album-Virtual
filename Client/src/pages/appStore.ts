@@ -10,17 +10,20 @@ interface IStore {
     readonly state: {
         spinnerModal: ISpinnerModels;
         user: IUserModels;
+        showPopup: boolean;
     },
     actions: {
         setUser: (user: IUserModels) => void
         setSpinnerModal: (newObjStatus: ISpinnerModels) => void
+        setShowPopup: (newStatus: boolean) => void
     }
 }
 
 const appStore = create<IStore>((set, get) => ({
     state: {
         spinnerModal: {} as ISpinnerModels,
-        user: getStorage<IUserModels>("User") ?? {} as IUserModels
+        user: getStorage<IUserModels>("User") ?? {} as IUserModels,
+        showPopup: false
     },
     actions: {
         setUser: (user: IUserModels) => {
@@ -33,6 +36,11 @@ const appStore = create<IStore>((set, get) => ({
         setSpinnerModal: (newObjStatus: ISpinnerModels) => {
             set(produce((store: IStore) => {
                 store.state.spinnerModal = { ...store.state.spinnerModal, ...newObjStatus }
+            }))
+        },
+        setShowPopup: (newStatus: boolean) => {
+            set(produce((store: IStore) => {
+                store.state.showPopup = newStatus
             }))
         },
     }

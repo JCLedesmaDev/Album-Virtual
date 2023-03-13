@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { useAdministrationStore } from "../../store";
 import styleCSS from '../../index.module.css'
-import { ModalContainer } from "../../../../components/ModalContainer";
+import { ModalContainer } from "../../../../components/PopupModal";
 import { usePaginate } from "../../../../hooks/usePaginate";
 import { useFormCustom } from "../../../../Hooks/useFormCustom";
 import { InputsMockColeccion } from "./mocks/InputsColeccion";
@@ -9,10 +9,13 @@ import { Input } from "../../../../components/Input";
 import { IInputs } from "../../../../components/Input/IInputs";
 import { ICreateCollectionDto } from "../../interface/frontToBack/ICreateCollection.dto";
 import { IAlbumCollectionModels } from "../../../../interface/models/IAlbumCollection.models";
+import { useAppStore } from "../../../appStore";
+// import appStore from "../../../appStore";
 
 export const Collection: React.FC = () => {
 
     const store = useAdministrationStore()
+    const appStore = useAppStore()
 
     const [allAlbunesColecion, setAllAlbumes] = useState<IAlbumCollectionModels[]>([]);
     const { paginate, setPaginate } = usePaginate()
@@ -30,7 +33,7 @@ export const Collection: React.FC = () => {
         event.preventDefault();
 
         const isCreate = await store.actions.createCollection(form)
-        
+
         if (isCreate) await getAll();
     };
 
@@ -47,13 +50,13 @@ export const Collection: React.FC = () => {
         // setAllAlbumes(data.Result.listItems);
     };
 
-    const openAddColeccion = () => {
-        // setFormulario({ Titulo: "" })
-        // setStatusction({
-        //     action: "add",
-        //     idColeccion: 0
-        // })
-        // storeGlobal.SetShowModalContainer(true)
+    const showPopup = () => {
+        setForm({ title: "" })
+        setStatusAction({
+            action: "add",
+            idColeccion: 0
+        })
+        appStore.actions.setShowPopup(true)
     }
 
 
@@ -103,7 +106,7 @@ export const Collection: React.FC = () => {
         //     }
     };
 
-    const Delete = async (id: number) => {
+    const Delete = async (id: string) => {
         //     try {
         //         storeGlobal.SetShowLoader(true)
 
@@ -147,32 +150,43 @@ export const Collection: React.FC = () => {
 
             <p>asdasd</p>
 
-
-
-            {/* store.state.collection?.map((ColeccionAlbumes: IColeccionData, indexColeccion: number) => ( */}
-            {
-                store.state.collection?.map((ColeccionAlbumes: any, indexColeccion: number) => (
+            <table className={`${styleCSS.tableContainer}`} border={1}>
+                <thead>
                     <tr>
-                        <th>{ColeccionAlbumes.tituloColeccion}</th>
+                        <th>Selcciona la opcion deseada</th>
                         <th>
-                            <button className={`${styleCSS.buttonAdmin}`} onClick={() => openUpdateColeccion(ColeccionAlbumes)}>Modificar</button>
-                            <button
-                                className={`${styleCSS.buttonAdmin}`}
-                                onClick={() => Delete(ColeccionAlbumes.id)}
-                            >
-                                Eliminar
+                            <button className={`${styleCSS.button}`} onClick={showPopup}>
+                                Agregar coleccion
                             </button>
                         </th>
                     </tr>
-                ))
-            }
+                </thead>
 
+                <tbody>
+                    {
+                        store.state.collection?.map((albumCollection: IAlbumCollectionModels, indexColeccion: number) => (
+                            <tr>
+                                <th>{albumCollection.title}</th>
+                                <th>
+                                    <button className={`${styleCSS.buttonAdmin}`} onClick={() => openUpdateColeccion(albumCollection)}>Modificar</button>
+                                    <button
+                                        className={`${styleCSS.buttonAdmin}`}
+                                        onClick={() => Delete(albumCollection.id)}
+                                    >
+                                        Eliminar
+                                    </button>
+                                </th>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
 
             <ModalContainer personCss={`${styleCSS.containerModalColeccion}`}>
 
-                <p onClick={() => {
-                    // storeGlobal.SetShowModalContainer(false)
-                }} className={styleCSS.containerModalColeccion__closeBtn}>
+                <p onClick={() => { appStore.actions.setShowPopup(false) }}
+                    className={styleCSS.containerModalColeccion__closeBtn}
+                >
                     <i className="fas fa-times"></i>
                 </p>
 

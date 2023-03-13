@@ -1,6 +1,6 @@
 import React, { Children, useEffect } from "react";
-import { useGlobalContext } from "../../Context/useGlobalContext";
-import ModalContainerCSS from "./index.module.css";
+import { useAppStore } from "../../pages/appStore";
+import styleCss from "./index.module.css";
 
 interface Props {
     children: string | any;
@@ -10,30 +10,31 @@ interface Props {
 export const ModalContainer: React.FC<Props> = (props) => {
 
     const { children, personCss } = props;
-
+    
+    
     /// VARIABLES
-    const OpenModalCss = `${ModalContainerCSS.containerModal} ${ModalContainerCSS["containerModal--openModal"]}`;
-    const CloseModalCss = `${ModalContainerCSS.containerModal}`;
+    const OpenModalCss = `${styleCss.containerModal} ${styleCss["containerModal--openModal"]}`;
+    const CloseModalCss = `${styleCss.containerModal}`;
 
     /// HOOKS
-    const storeGlobal = useGlobalContext()
-
+    const appStore = useAppStore()
+    
 
     useEffect(() => {
         const $body = document.querySelector("body") as HTMLBodyElement;
-        if (storeGlobal.IsShowModalContainer()) {
+        if (appStore.state.showPopup) {
             // slideCarrusel();
             $body.style.overflowY = "hidden";
         } else {
             $body.style.overflowY = "scroll";
         }
-    }, [storeGlobal.IsShowModalContainer()])
+    }, [appStore.state.showPopup])
 
 
     return (
-        <article className={`${storeGlobal.IsShowModalContainer() ? OpenModalCss : CloseModalCss} `}>
+        <article className={`${appStore.state.showPopup ? OpenModalCss : CloseModalCss} `}>
             <div>
-                <article className={` ${ModalContainerCSS.contentModal} ${personCss}  `}>
+                <article className={` ${styleCss.contentModal} ${personCss}  `}>
                     {children}
                 </article>
             </div>
