@@ -31,7 +31,6 @@ const getAllCollections = tryCatchWrapper(async (payload: IPagination) => {
 
     const listCollections = await externalDb.getListCollections(payload)
 
-    // const listAlbumesMapper = ''
     const listCollectionMapper: IPaginationResult<IAlbumCollection> = paginationMapper<IAlbumCollection>({
         resource: listCollections,
         callBackMapper: mapper.multipleCollections

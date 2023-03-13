@@ -40,7 +40,7 @@ export const Collection: React.FC = () => {
     };
 
     const getAll = async (page: number = 1) => {
-        await store.actions.getAllAlbumCollections({page})
+        await store.actions.getAllAlbumCollections({ page })
     };
 
     const showPopup = () => {
@@ -154,7 +154,9 @@ export const Collection: React.FC = () => {
                             <tr key={indexColeccion}>
                                 <th>{albumCollection.title}</th>
                                 <th>
-                                    <button className={`${styleCSS.buttonAdmin}`} onClick={() => openUpdateColeccion(albumCollection)}>Modificar</button>
+                                    <button className={`${styleCSS.buttonAdmin}`} onClick={
+                                        () => openUpdateColeccion(albumCollection)
+                                    }>Modificar</button>
                                     <button
                                         className={`${styleCSS.buttonAdmin}`}
                                         onClick={() => Delete(albumCollection.id)}
