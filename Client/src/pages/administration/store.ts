@@ -31,6 +31,7 @@ interface IStore {
         //Collection
         getAllAlbumCollections: ({ page, filterText }: IFilterSearch) => Promise<any>,
         createCollection: (data: ICreateCollectionDto) => Promise<boolean>,
+        deleteCollection: (idCollection: number) => Promise<boolean>,
         // updateCollection: () => Promise<any>,
         // deleteCollection: () => Promise<any>,
         // //Albumes
@@ -81,6 +82,23 @@ const store = create<IStore>((set, get) => ({
         },
 
         createCollection: async (data: ICreateCollectionDto) => {
+            let flagIsCreate = false
+
+            const res = await apiSrv.callBackend(async () => {
+                return await apiSrv.callSrv({
+                    method: 'POST',
+                    path: `/albumCollections/createCollection`,
+                    data
+                })
+            }, { loader: true, status: true })
+
+            if (res.info.type === 'error') return flagIsCreate
+            flagIsCreate = true
+
+            return flagIsCreate
+        },
+
+        deleteCollection: async (data: ICreateCollectionDto) => {
             let flagIsCreate = false
 
             const res = await apiSrv.callBackend(async () => {
