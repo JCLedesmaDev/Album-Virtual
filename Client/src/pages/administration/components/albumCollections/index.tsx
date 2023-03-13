@@ -35,6 +35,8 @@ export const Collection: React.FC = () => {
         const isCreate = await store.actions.createCollection(form)
 
         if (isCreate) await getAll();
+
+        resetForm()
     };
 
     const getAll = async (page: number = 1) => {
@@ -133,11 +135,6 @@ export const Collection: React.FC = () => {
         //         }, 5000);
         //     }
     };
-
-    // const changePage = ({ selected }: any) => {
-    //     window.scrollTo(0, 0);
-    //     getAll(selected + 1)
-    // }
 
     useEffect(() => {
         getAll();

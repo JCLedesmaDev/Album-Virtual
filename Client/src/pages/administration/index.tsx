@@ -19,9 +19,9 @@ export const Administration: React.FC = () => {
         action: 'Collection'
     })
 
-
-    const openModalAdd = (callBack: any) => {
-        callBack()
+    const changePage = ({ selected }: any) => {
+        window.scrollTo(0, 0);
+        // getAll(selected + 1)
     }
 
     return (

@@ -55,6 +55,7 @@ const store = create<IStore>((set, get) => ({
             if (res.info.type === 'error') return
 
             console.log('PASA XA CA')
+            //Agregar paginacion global
             // const userAdapted: IUserModels = userMapper(res.info.data);
             // appStore.getState().actions.setUser(userAdapted)
         },
@@ -68,7 +69,7 @@ const store = create<IStore>((set, get) => ({
                     path: `/albumCollections/createCollection`,
                     data
                 })
-            }, { loader: true })
+            }, { loader: true, status: true })
 
             if (res.info.type === 'error') return flagIsCreate
             flagIsCreate = true
