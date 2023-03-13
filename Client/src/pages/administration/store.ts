@@ -5,6 +5,19 @@ import { apiSrv } from "../../utils/apiSrv";
 import { IAlbumModels } from "../../interface/models/IAlbum.models";
 import { IAlbumCollectionModels } from "../../interface/models/IAlbumCollection.models";
 import { ICreateCollectionDto } from "./interface/frontToBack/ICreateCollection.dto";
+import { multipleAlbumCollectionMapper } from "./mappers";
+import produce from "immer";
+
+
+export interface IFilterSearch {
+    page: number;
+    filterText?: string
+}
+
+interface IPagination {
+    pagesTotal: number;
+    currentPage: number;
+}
 
 
 interface IStore {
@@ -12,11 +25,13 @@ interface IStore {
         collection: IAlbumCollectionModels[];
         albumes: IAlbumModels[];
         figurites: any[];
+        pagination: IPagination
     },
     actions: {
         //Collection
-        getAllAlbumCollections: ({ page, filterText }: any) => Promise<any>,
+        getAllAlbumCollections: ({ page, filterText }: IFilterSearch) => Promise<any>,
         createCollection: (data: ICreateCollectionDto) => Promise<boolean>,
+        setPagination: (data: IPagination) => void
         // updateCollection: () => Promise<any>,
         // deleteCollection: () => Promise<any>,
         // //Albumes
@@ -39,11 +54,14 @@ const store = create<IStore>((set, get) => ({
     state: {
         collection: [],
         albumes: [],
-        figurites: []
+        figurites: [],
+        pagination: {
+            pagesTotal: 0,
+            currentPage: 0
+        }
     },
     actions: {
-        getAllAlbumCollections: async ({ page = '', filterText = '' }: any) => {
-
+        getAllAlbumCollections: async ({ page, filterText }: IFilterSearch) => {
             const res = await apiSrv.callBackend(async () => {
                 return await apiSrv.callSrv({
                     method: 'GET',
@@ -54,10 +72,16 @@ const store = create<IStore>((set, get) => ({
 
             if (res.info.type === 'error') return
 
-            console.log('PASA XA CA')
-            //Agregar paginacion global
-            // const userAdapted: IUserModels = userMapper(res.info.data);
-            // appStore.getState().actions.setUser(userAdapted)
+            get().actions.setPagination({
+                currentPage: res.info.data?.currentPage,
+                pagesTotal: res.info.data.pagesTotal                
+            })
+
+            const albumCollectionsAdapted: IAlbumCollectionModels[] = multipleAlbumCollectionMapper(res.info.data?.docs);
+            
+            set(produce((store: IStore) => {
+                store.state.collection = albumCollectionsAdapted
+            }))
         },
 
         createCollection: async (data: ICreateCollectionDto) => {
@@ -75,8 +99,16 @@ const store = create<IStore>((set, get) => ({
             flagIsCreate = true
 
             return flagIsCreate
-        }
+        },
 
+        setPagination: (data: IPagination) => {
+            set(produce((store: IStore) => {
+                store.state.pagination = {
+                    pagesTotal: data.pagesTotal,
+                    currentPage: data.currentPage
+                }
+            }))
+        }
     }
 
 }))

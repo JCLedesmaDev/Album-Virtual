@@ -41,7 +41,7 @@ export const Collection: React.FC = () => {
 
     const getAll = async (page: number = 1) => {
 
-        await store.actions.getAllAlbumCollections({})
+        await store.actions.getAllAlbumCollections({page})
         // const data = await AdminCollectionService.GetAllAdminCollection(page);
 
         // setPaginate({
@@ -160,7 +160,7 @@ export const Collection: React.FC = () => {
                 <tbody>
                     {
                         store.state.collection?.map((albumCollection: IAlbumCollectionModels, indexColeccion: number) => (
-                            <tr>
+                            <tr key={indexColeccion}>
                                 <th>{albumCollection.title}</th>
                                 <th>
                                     <button className={`${styleCSS.buttonAdmin}`} onClick={() => openUpdateColeccion(albumCollection)}>Modificar</button>

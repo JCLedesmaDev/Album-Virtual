@@ -9,7 +9,6 @@ const singleCollections = (resource: IAlbumCollectionSchema): IAlbumCollection =
         id: resource._id,
         title: resource.title,
         albumList: mapperAlbumes.multipleAlbums(resource.albumes as IAlbumSchema[])
-        // figurites: resource.figurites // TODO: mapear las figuras - genera problema de asincronismo
     }
     return mapper
 };

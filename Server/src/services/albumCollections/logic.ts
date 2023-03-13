@@ -38,7 +38,7 @@ const getAllCollections = tryCatchWrapper(async (payload: IPagination) => {
     })
 
     return responseMessage.success<typeof listCollectionMapper>({
-        data: listCollectionMapper
+        data: listCollectionMapper,
     })
 })
 
