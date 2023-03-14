@@ -98,14 +98,13 @@ const store = create<IStore>((set, get) => ({
             return flagIsCreate
         },
 
-        deleteCollection: async (data: ICreateCollectionDto) => {
+        deleteCollection: async (idCollection: number) => {
             let flagIsCreate = false
 
             const res = await apiSrv.callBackend(async () => {
                 return await apiSrv.callSrv({
                     method: 'POST',
-                    path: `/albumCollections/createCollection`,
-                    data
+                    path: `/albumCollections/deleteCollection/${idCollection}`,
                 })
             }, { loader: true, status: true })
 

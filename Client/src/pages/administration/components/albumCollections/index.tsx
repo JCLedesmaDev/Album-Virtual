@@ -17,9 +17,7 @@ export const Collection: React.FC = () => {
     const store = useAdministrationStore()
     const appStore = useAppStore()
 
-
-    const [statusAction, setStatusAction] = useState({ action: "", idColeccion: 0 })
-
+    const [statusAction, setStatusAction] = useState({ action: "", idColeccion: '' })
 
     const { form, handleChange, resetForm, setForm } = useFormCustom<ICreateCollectionDto>({
         title: ""
@@ -27,7 +25,6 @@ export const Collection: React.FC = () => {
 
 
     //METODOS
-
     const createCollection = async (event: any) => {
         event.preventDefault();
 
@@ -47,22 +44,18 @@ export const Collection: React.FC = () => {
         setForm({ title: "" })
         setStatusAction({
             action: "add",
-            idColeccion: 0
+            idColeccion: ''
         })
         appStore.actions.setShowPopup(true)
     }
 
-
-
-
-
-    const openUpdateColeccion = (ColeccionAlbumes: ICreateCollectionDto) => {
+    const openUpdateColeccion = (ColeccionAlbumes: IAlbumCollectionModels) => {
         setForm({ title: ColeccionAlbumes.title })
-        // setStatusAction({
-        //     action: "update",
-        //     idColeccion: ColeccionAlbumes.id
-        // })
-        // storeGlobal.SetShowModalContainer(true)
+        setStatusAction({
+            action: "update",
+            idColeccion: ColeccionAlbumes.id
+        })
+        appStore.actions.setShowPopup(true)
     }
 
     const Put = async (event: any) => {
