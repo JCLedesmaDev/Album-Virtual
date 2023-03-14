@@ -27,7 +27,6 @@ export const Collection: React.FC = () => {
     //METODOS
     const createCollection = async (event: any) => {
         event.preventDefault();
-
         const isCreate = await store.actions.createCollection(form)
 
         if (!isCreate) return
@@ -59,12 +58,16 @@ export const Collection: React.FC = () => {
     }
 
     const updateCollection = async (event: any) => {
+        event.preventDefault();
+        const isUpdate = await store.actions.updateCollection(form, statusAction.idColeccion)
 
-
+        if (!isUpdate) return
+        appStore.actions.setShowPopup(false)
+        resetForm()
+        await getAll();
     };
 
     const deleteCollection = async (id: string) => {
-
         const isDelete = await store.actions.deleteCollection(id)
         if (!isDelete) return
         await getAll();

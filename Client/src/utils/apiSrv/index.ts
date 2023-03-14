@@ -95,9 +95,9 @@ export const apiSrv = {
             settingsSpinnerModal(false, true, error.message)
         } finally {
             if (options.loader || options.status) {
-                setTimeout(() => {
+                // setTimeout(() => {
                     settingsSpinnerModal(false, false, '')
-                }, 2000);
+                // }, 2000);
             }
             return res
         }

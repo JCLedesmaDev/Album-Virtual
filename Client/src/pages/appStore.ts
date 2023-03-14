@@ -109,14 +109,6 @@ const appStore = create<IStore>((set, get) => ({
                 store.state.showPopup = newStatus
             }))
         }
-        // setPagination: (data: IPagination) => {
-        //     set(produce((store: IStore) => {
-        //         store.state.pagination = {
-        //             totalPages: data.totalPages,
-        //             currentPage: data.currentPage
-        //         }
-        //     }))
-        // }
     }
 }))
 
@@ -124,7 +116,7 @@ const setPagination =  (data: IPagination) => {
     appStore.setState((produce((store: IStore) => {
         store.state.pagination = {
             totalPages: data.totalPages,
-            currentPage: data.currentPage
+            currentPage: data.currentPage -1
         }
     })))
 }

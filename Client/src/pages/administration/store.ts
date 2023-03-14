@@ -10,6 +10,7 @@ interface IStore {
         //Collection
         createCollection: (data: ICreateCollectionDto) => Promise<boolean>,
         deleteCollection: (idCollection: string) => Promise<boolean>,
+        updateCollection: (data: ICreateCollectionDto, idCollection: string) => Promise<boolean>,
         // updateCollection: () => Promise<any>,
         // deleteCollection: () => Promise<any>,
         // //Albumes
@@ -50,7 +51,7 @@ const store = create<IStore>((set, get) => ({
 
             const res = await apiSrv.callBackend(async () => {
                 return await apiSrv.callSrv({
-                    method: 'POST',
+                    method: 'DELETE',
                     path: `/albumCollections/deleteCollection/${idCollection}`,
                 })
             }, { loader: true, status: true })
@@ -60,12 +61,12 @@ const store = create<IStore>((set, get) => ({
 
             return flagIsCreate
         },
-        updateCollection: async (data: IAlbumCollectionModels, id: string) => {
+        updateCollection: async (data: ICreateCollectionDto, id: string) => {
             let flagIsUpdate = false
 
             const res = await apiSrv.callBackend(async () => {
                 return await apiSrv.callSrv({
-                    method: 'POST',
+                    method: 'PUT',
                     path: `/albumCollections/updateCollection/${id}`,
                     data
                 })
