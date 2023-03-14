@@ -40,7 +40,7 @@ export const Collection: React.FC = () => {
         await store.actions.getAllAlbumCollections({ page })
     };
 
-    const showPopup = () => {
+    const showPopupCreateCollection = () => {
         setForm({ title: "" })
         setStatusAction({
             action: "add",
@@ -49,7 +49,7 @@ export const Collection: React.FC = () => {
         appStore.actions.setShowPopup(true)
     }
 
-    const openUpdateColeccion = (ColeccionAlbumes: IAlbumCollectionModels) => {
+    const showPopupUpdateCollection = (ColeccionAlbumes: IAlbumCollectionModels) => {
         setForm({ title: ColeccionAlbumes.title })
         setStatusAction({
             action: "update",
@@ -134,7 +134,7 @@ export const Collection: React.FC = () => {
                     <tr>
                         <th>Selcciona la opcion deseada</th>
                         <th>
-                            <button className={`${styleCSS.button}`} onClick={showPopup}>
+                            <button className={`${styleCSS.button}`} onClick={showPopupCreateCollection}>
                                 Agregar coleccion
                             </button>
                         </th>
@@ -148,7 +148,7 @@ export const Collection: React.FC = () => {
                                 <th>{albumCollection.title}</th>
                                 <th>
                                     <button className={`${styleCSS.buttonAdmin}`} onClick={
-                                        () => openUpdateColeccion(albumCollection)
+                                        () => showPopupUpdateCollection(albumCollection)
                                     }>Modificar</button>
                                     <button
                                         className={`${styleCSS.buttonAdmin}`}
