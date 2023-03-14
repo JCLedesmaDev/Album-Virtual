@@ -4,12 +4,12 @@ import { Albumes } from './components/albumes'
 import { Collection } from './components/albumCollections'
 import { Figurites } from './components/figurites'
 import styleModule from './index.module.css'
-import { useAdministrationStore } from './store'
+import { useAppStore } from '../appStore'
 
 
 export const Administration: React.FC = () => {
 
-    const store = useAdministrationStore()
+    const appStore = useAppStore()
 
     enum typeActionsAdmin {
         Collection = 'Collection',
@@ -26,7 +26,7 @@ export const Administration: React.FC = () => {
         window.scrollTo(0, 0);
         console.log('AAA')
         /// determianr segun la action, que metodo del store ejecutar (otros getAll)
-        store.actions.getAllAlbumCollections({  page: selected + 1})
+        appStore.actions.getAllAlbumCollections({  page: selected + 1})
     }
 
     return (
@@ -48,8 +48,8 @@ export const Administration: React.FC = () => {
                 <div>
                     <Paginate
                         ChangePage={changePage}
-                        PageCount={store.state.pagination.totalPages}
-                        LocatedPageNumber={store.state.pagination.currentPage}
+                        PageCount={appStore.state.pagination.totalPages}
+                        LocatedPageNumber={appStore.state.pagination.currentPage}
                     />
                 </div>
             </div>

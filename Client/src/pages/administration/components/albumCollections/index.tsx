@@ -1,5 +1,4 @@
 import { Fragment, useEffect, useState } from "react";
-import { useAdministrationStore } from "../../store";
 import styleCSS from '../../index.module.css'
 import { ModalContainer } from "../../../../components/PopupModal";
 import { usePaginate } from "../../../../hooks/usePaginate";
@@ -10,12 +9,13 @@ import { IInputs } from "../../../../components/Input/IInputs";
 import { ICreateCollectionDto } from "../../interface/frontToBack/ICreateCollection.dto";
 import { IAlbumCollectionModels } from "../../../../interface/models/IAlbumCollection.models";
 import { useAppStore } from "../../../appStore";
+import { useAdministrationStore } from "../../store";
 // import appStore from "../../../appStore";
 
 export const Collection: React.FC = () => {
 
-    const store = useAdministrationStore()
     const appStore = useAppStore()
+    const store = useAdministrationStore()
 
     const [statusAction, setStatusAction] = useState({ action: "", idColeccion: '' })
 
@@ -37,7 +37,7 @@ export const Collection: React.FC = () => {
     };
 
     const getAll = async (page: number = 1) => {
-        await store.actions.getAllAlbumCollections({ page })
+        await appStore.actions.getAllAlbumCollections({ page })
     };
 
     const showPopupCreateCollection = () => {
@@ -58,66 +58,16 @@ export const Collection: React.FC = () => {
         appStore.actions.setShowPopup(true)
     }
 
-    const Put = async (event: any) => {
+    const updateCollection = async (event: any) => {
 
-        //     try {
-        //         event.preventDefault();
-        //         storeGlobal.SetShowLoader(true)
 
-        //         const { Result, MessageError } = await AdminCollectionService.updateAdminCollection(
-        //             statusAction.idColeccion, formulario.Titulo
-        //         );
-
-        //         if (MessageError !== undefined) {
-        //             throw new Error(MessageError);
-        //         }
-
-        //         storeGlobal.SetShowLoader(false);
-        //         storeGlobal.SetMessageModalStatus(Result);
-        //         storeGlobal.SetShowModalStatus(true);
-
-        //         await getAll();
-        //     } catch (error: any) {
-
-        //         storeGlobal.SetShowLoader(false)
-        //         storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-        //         storeGlobal.SetShowModalStatus(true)
-
-        //     } finally {
-        //         resetForm()
-        //         setTimeout(() => {
-        //             storeGlobal.SetShowModalStatus(false)
-        //         }, 5000);
-        //         storeGlobal.SetShowModalContainer(false)
-        //     }
     };
 
-    const Delete = async (id: string) => {
-        //     try {
-        //         storeGlobal.SetShowLoader(true)
+    const deleteCollection = async (id: string) => {
 
-        //         const { Result, MessageError } = await AdminCollectionService.DeleteAdminCollection(id);
-
-        //         if (MessageError !== undefined) {
-        //             throw new Error(MessageError);
-        //         }
-
-        //         storeGlobal.SetShowLoader(false);
-        //         storeGlobal.SetMessageModalStatus(Result);
-        //         storeGlobal.SetShowModalStatus(true);
-
-        //         await getAll();
-        //     } catch (error: any) {
-
-        //         storeGlobal.SetShowLoader(false)
-        //         storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-        //         storeGlobal.SetShowModalStatus(true)
-
-        //     } finally {
-        //         setTimeout(() => {
-        //             storeGlobal.SetShowModalStatus(false)
-        //         }, 5000);
-        //     }
+        const isDelete = await store.actions.deleteCollection(id)
+        if (!isDelete) return
+        await getAll();
     };
 
     useEffect(() => {
@@ -143,7 +93,7 @@ export const Collection: React.FC = () => {
 
                 <tbody>
                     {
-                        store.state.collection?.map((albumCollection: IAlbumCollectionModels, indexColeccion: number) => (
+                        appStore.state.collection?.map((albumCollection: IAlbumCollectionModels, indexColeccion: number) => (
                             <tr key={indexColeccion}>
                                 <th>{albumCollection.title}</th>
                                 <th>
@@ -152,7 +102,7 @@ export const Collection: React.FC = () => {
                                     }>Modificar</button>
                                     <button
                                         className={`${styleCSS.buttonAdmin}`}
-                                        onClick={() => Delete(albumCollection.id)}
+                                        onClick={() => deleteCollection(albumCollection.id)}
                                     >
                                         Eliminar
                                     </button>
@@ -173,7 +123,7 @@ export const Collection: React.FC = () => {
 
                 <h1>{statusAction.action === 'add' ? 'Crear' : 'Actualizar'}</h1>
 
-                <form onSubmit={statusAction.action === 'add' ? createCollection : Put} >
+                <form onSubmit={statusAction.action === 'add' ? createCollection : updateCollection} >
 
                     {InputsMockColeccion.map((inputProps: IInputs, index: number) => (
                         <Input
