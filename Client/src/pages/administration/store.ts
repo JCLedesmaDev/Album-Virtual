@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { shallow } from "zustand/shallow";
+import { IAlbumCollectionModels } from "../../interface/models/IAlbumCollection.models";
 import { apiSrv } from "../../utils/apiSrv";
 import { ICreateCollectionDto } from "./interface/frontToBack/ICreateCollection.dto";
 
@@ -58,6 +59,22 @@ const store = create<IStore>((set, get) => ({
             flagIsCreate = true
 
             return flagIsCreate
+        },
+        updateCollection: async (data: IAlbumCollectionModels, id: string) => {
+            let flagIsUpdate = false
+
+            const res = await apiSrv.callBackend(async () => {
+                return await apiSrv.callSrv({
+                    method: 'POST',
+                    path: `/albumCollections/updateCollection/${id}`,
+                    data
+                })
+            }, { loader: true, status: true })
+
+            if (res.info.type === 'error') return flagIsUpdate
+            flagIsUpdate = true
+
+            return flagIsUpdate
         },
     }
 
