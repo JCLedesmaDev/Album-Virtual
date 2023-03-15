@@ -30,12 +30,12 @@ export const Collection: React.FC = () => {
         const isCreate = await store.actions.createCollection(form)
 
         if (!isCreate) return
-        await getAll();
+        await getAllCollection();
         appStore.actions.setShowPopup(false)
         resetForm()
     };
 
-    const getAll = async (page: number = 1) => {
+    const getAllCollection = async (page: number = 1) => {
         await appStore.actions.getAllAlbumCollections({ page })
     };
 
@@ -67,17 +67,17 @@ export const Collection: React.FC = () => {
         if (!isUpdate) return
         appStore.actions.setShowPopup(false)
         resetForm()
-        await getAll();
+        await getAllCollection();
     };
 
     const deleteCollection = async (id: string) => {
         const isDelete = await store.actions.deleteCollection(id)
         if (!isDelete) return
-        await getAll();
+        await getAllCollection();
     };
 
     useEffect(() => {
-        getAll();
+        getAllCollection();
     }, []);
 
 

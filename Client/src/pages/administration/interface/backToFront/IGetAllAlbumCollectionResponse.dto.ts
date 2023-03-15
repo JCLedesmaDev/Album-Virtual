@@ -8,5 +8,6 @@ export interface IAlbumResponseDto {
     id: string;
     title: string;
     image: string;
+    idCollection: string;
     figurites: any
 }

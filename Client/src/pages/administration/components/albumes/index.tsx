@@ -1,6 +1,15 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { useFormCustom } from "../../../../Hooks/useFormCustom";
 import { useAppStore } from "../../../appStore";
+import { ICreateAlbumDto } from "../../interface/frontToBack/ICreateAlbum.dto";
 import { useAdministrationStore } from "../../store";
+import styleCSS from '../../index.module.css'
+import { IInputs } from "../../../../components/Input/IInputs";
+import { InputsMockAlbum } from "./mocks/InputsAlbum";
+import { Input } from "@angular/core";
+import { ModalContainer } from "../../../../components/PopupModal";
+import { IAlbumModels } from "../../../../interface/models/IAlbum.models";
+
 
 export const Albumes: React.FC = () => {
 
@@ -10,46 +19,38 @@ export const Albumes: React.FC = () => {
     const store = useAdministrationStore()
 
     const [statusAction, setStatusAction] = useState({
-        action: "", idAlbum: 0
+        action: "", idAlbum: ''
     })
-    const { formulario, handleChange, resetForm, setFormulario } = useFormCustom<IDataAlbumForm>({
-        ImgAlbum: "", Titulo: "", IdColeccion: "",
-        CantidadImagen: "", CantidadImpreso: "", CodigoAlbum: "", Descripcion: ""
+    const { form, handleChange, resetForm, setForm } = useFormCustom<ICreateAlbumDto>({
+        idColeccion: '', image: '', title: ''
     });
 
     //METODOS
-    const getAll = async (page: number = 1) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-
-        const data = await AdminAlbumService.GetAllAdminAlbumes(page);
-
-        setPaginate({
-            currentPage: data.Result.currentPage - 1,
-            pagesTotal: data.Result.pages
-        })
-
-        setAllAlbumes(data.Result.listItems);
+    const getAllAlbumes = async (page: number = 1) => {
+        await appStore.actions.getAllAlbumes({ page }) // ver
     };
 
-    const getAllColecction = async () => {
-        const data = await AdminAlbumService.GetAllColecction();
-
-        setAllListColeccion(data.Result);
+    const showPopupCreateAlbum = () => {
+        setForm({ title: "", image: '', idColeccion: '' })
+        setStatusAction({
+            action: "add",
+            idAlbum: ''
+        })
+        appStore.actions.setShowPopup(true)
     }
 
-    const openAddAlbum = () => {
-        // setFormulario({
-        //     ImgAlbum: "", Titulo: "", IdColeccion: "",
-        //     CantidadImagen: "", CantidadImpreso: "", CodigoAlbum: "", Descripcion: ""
-        // })
-        // setStatusction({
-        //     action: "add",
-        //     idAlbum: 0
-        // })
-        // storeGlobal.SetShowModalContainer(true)
+    const showPopupUpdateCollection = (Album: IAlbumModels) => {
+        setForm({ title: Album.title, idColeccion: Album.idCollection, image: Album.image })
+        setStatusAction({
+            action: "update",
+            idAlbum: Album.id
+        })
+        appStore.actions.setShowPopup(true)
     }
 
-    const Add = async (event: any) => {
+
+    /////////
+    const createAlbum = async (event: any) => {
 
         // try {
         //     event.preventDefault();
@@ -83,25 +84,7 @@ export const Albumes: React.FC = () => {
 
     };
 
-
-    const openEditAlbum = (Albumes: IAlbumData) => {
-        // setFormulario({
-        //     ImgAlbum: Albumes.imagen,
-        //     Titulo: Albumes.titulo,
-        //     IdColeccion: Albumes.coleccionAlbumId,
-        //     CantidadImagen: Albumes.cantidadImagen,
-        //     CantidadImpreso: Albumes.cantidadImpreso,
-        //     CodigoAlbum: Albumes.codigoAlbum,
-        //     Descripcion: Albumes.descripcion
-        // })
-        // setStatusction({
-        //     action: "update",
-        //     idAlbum: Albumes.id
-        // })
-        // storeGlobal.SetShowModalContainer(true)
-    }
-
-    const Put = async (event: any) => {
+    const updateAlbum = async (event: any) => {
         // try {
         //     event.preventDefault();
         //     storeGlobal.SetShowLoader(true)
@@ -134,79 +117,70 @@ export const Albumes: React.FC = () => {
         // }
     };
 
-    const Delete = async (idAlbum: number) => {
-        // try {
-
-        //     storeGlobal.SetShowLoader(true)
-
-        //     const { Result, MessageError } = await AdminAlbumService.DeleteAdminAlbumes(idAlbum);
-
-        //     if (MessageError !== undefined) {
-        //         throw new Error(MessageError);
-        //     }
-
-        //     storeGlobal.SetShowLoader(false);
-        //     storeGlobal.SetMessageModalStatus(Result);
-        //     storeGlobal.SetShowModalStatus(true);
-
-        //     await getAll();
-        // } catch (error: any) {
-
-        //     storeGlobal.SetShowLoader(false)
-        //     storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-        //     storeGlobal.SetShowModalStatus(true)
-
-        // } finally {
-        //     setTimeout(() => {
-        //         storeGlobal.SetShowModalStatus(false)
-        //     }, 5000);
-        // }
+    const deleteAlbum = async (id: string) => {
+        // const isDelete = await store.actions.deleteCollection(id)
+        // if (!isDelete) return
+        // await getAllAlbumes();
     };
 
-    const changePage = ({ selected }: any) => {
-        window.scrollTo(0, 0);
-        getAll(selected + 1)
-    }
+
 
     useEffect(() => {
-        getAll();
-        getAllColecction();
+        getAllAlbumes();
     }, []);
 
     return (
 
-        <>
+        <Fragment>
 
-            {allAlbunes?.map((Albumes: IAlbumData, indexAlbum: number) => (
-                <tr key={indexAlbum}>
-                    <th>{Albumes.titulo}</th>
-                    <th>
-                        <button className={`${AdminAlbumCSS.buttonAdmin}`} onClick={() => openEditAlbum(Albumes)}>Modificar</button>
-                        <button
-                            className={`${AdminAlbumCSS.buttonAdmin}`}
-                            onClick={() => Delete(Albumes.id)}
-                        >
-                            Eliminar
-                        </button>
-                    </th>
-                </tr>
-            ))}
+            <table className={`${styleCSS.tableContainer}`} border={1}>
+                <thead>
+                    <tr>
+                        <th>Selcciona la opcion deseada</th>
+                        <th>
+                            <button className={`${styleCSS.button}`} onClick={showPopupCreateAlbum}>
+                                Agregar coleccion
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
 
-            {allAlbunes.length === 0 && <Loader />}
+                <tbody>
 
-            <ModalContainer personCss={`${AdminAlbumCSS.containerModalAlbum}`}>
+                    {appStore.state.albumes?.map((Albumes: IAlbumModels, indexAlbum: number) => (
+                        <tr key={indexAlbum}>
+                            <th>{Albumes.title}</th>
+                            <th>
+                                <button className={`${styleCSS.buttonAdmin}`} onClick={
+                                    () => showPopupUpdateCollection(Albumes)
+                                }>Modificar</button>
+                                <button
+                                    className={`${styleCSS.buttonAdmin}`}
+                                    onClick={() => deleteAlbum(Albumes.id)}
+                                >
+                                    Eliminar
+                                </button>
+                            </th>
+                        </tr>
+                    ))}
+
+                </tbody>
+            </table>
+
+
+            <ModalContainer personCss={`${styleCSS.containerModalAlbum}`}>
 
                 <p onClick={() => {
-                    storeGlobal.SetShowModalContainer(false)
-                }} className={AdminAlbumCSS.containerModalAlbum__closeBtn}>
+                    appStore.actions.setShowPopup(false)
+                }} className={styleCSS.containerModalAlbum__closeBtn}>
                     <i className="fas fa-times"></i>
                 </p>
 
                 <h1>{statusAction.action === 'add' ? 'Crear' : 'Actualizar'} Album</h1>
 
-                <form onSubmit={statusAction.action === 'add' ? Add : Put} >
+                <form onSubmit={statusAction.action === 'add' ? createAlbum : updateAlbum} >
 
-                    {
+                    {/* {
                         statusAction.action === 'add' && (
 
                             <label>
@@ -219,13 +193,13 @@ export const Albumes: React.FC = () => {
                                 </select>
                             </label>
                         )
-                    }
+                    } */}
 
                     {InputsMockAlbum.map((inputProps: IInputs, index: number) => (
                         <Input
                             key={index}
                             inputProps={inputProps}
-                            value={formulario[inputProps.name]}
+                            value={form[inputProps.name]}
                             handleChange={handleChange}
                             errorMessage={inputProps.errorMessage}
                             pattern={inputProps.expReg}
@@ -236,6 +210,6 @@ export const Albumes: React.FC = () => {
                 </form>
 
             </ModalContainer>
-        </>
+        </Fragment>
     )
 }

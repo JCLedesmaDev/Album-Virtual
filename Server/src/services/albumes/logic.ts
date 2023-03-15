@@ -34,7 +34,7 @@ const getListAlbumes = tryCatchWrapper(async (payload: IPagination) => {
 
     const listAlbumes = await externalDb.getListAlbumes(payload)
 
-    const listAlbumesMapper: IPaginationResult<IAlbum> = paginationMapper<IAlbum>({
+    const listAlbumesMapper: IPaginationResult<IAlbum[]> = paginationMapper<IAlbum[]>({
         resource: listAlbumes,
         callBackMapper: mapper.multipleAlbums
     })

@@ -9,7 +9,7 @@ import { IAlbumCollectionModels } from "../interface/models/IAlbumCollection.mod
 import { IAlbumModels } from "../interface/models/IAlbum.models";
 import { ICreateCollectionDto } from "./administration/interface/frontToBack/ICreateCollection.dto";
 import { apiSrv } from "../utils/apiSrv";
-import { multipleAlbumCollectionMapper } from "./administration/mappers";
+import { multipleAlbumCollectionMapper, multipleAlbumes } from "./administration/mappers";
 
 export interface IFilterSearch {
     page: number;
@@ -27,7 +27,7 @@ interface IStore {
         user: IUserModels;
         collection: IAlbumCollectionModels[];
         albumes: IAlbumModels[];
-        figurites: any[];
+        // figurites: any[];
 
         // extras
         spinnerModal: ISpinnerModels;
@@ -37,8 +37,8 @@ interface IStore {
     actions: {
         setUser: (user: IUserModels) => void
 
-        //Collection
         getAllAlbumCollections: ({ page, filterText }: IFilterSearch) => Promise<any>,
+        getAllAlbumes: ({ page, filterText }: IFilterSearch) => Promise<any>,
 
         // extras
         setSpinnerModal: (newObjStatus: ISpinnerModels) => void
@@ -51,10 +51,9 @@ const appStore = create<IStore>((set, get) => ({
     state: {
         user: getStorage<IUserModels>("User") ?? {} as IUserModels,
        
-        // colelctions
         collection: [],
         albumes: [],
-        figurites: [],
+        // figurites: [],
        
         //extras
         spinnerModal: {} as ISpinnerModels, 
@@ -94,9 +93,30 @@ const appStore = create<IStore>((set, get) => ({
                 store.state.collection = albumCollectionsAdapted
             }))
         },
-        getAllAlbumes: () => {
 
+        getAllAlbumes: async ({ page, filterText }: IFilterSearch) => {
+            const res = await apiSrv.callBackend(async () => {
+                return await apiSrv.callSrv({
+                    method: 'GET',
+                    path: `/albumes/getAllAlbumes`,
+                    data: { page, filterText }
+                })
+            }, { loader: true })
+
+            if (res.info.type === 'error') return
+
+            setPagination({
+                currentPage: res.info.data.currentPage,
+                totalPages: res.info.data.totalPages
+            })
+
+            const albumAdapted: IAlbumModels[] = multipleAlbumes(res.info.data?.docs);
+
+            set(produce((store: IStore) => {
+                store.state.albumes = albumAdapted
+            }))
         },
+
 
         // extras
         setSpinnerModal: (newObjStatus: ISpinnerModels) => {

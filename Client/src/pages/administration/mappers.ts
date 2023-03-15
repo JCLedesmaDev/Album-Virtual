@@ -3,14 +3,13 @@ import { IAlbumCollectionModels } from "../../interface/models/IAlbumCollection.
 import { IAlbumResponseDto, IGetAllAlbumCollectionResponseDto } from "./interface/backToFront/IGetAllAlbumCollectionResponse.dto";
 
 
-
+/// Collections
 export const multipleAlbumCollectionMapper = (albumCollections: IGetAllAlbumCollectionResponseDto[]): IAlbumCollectionModels[] => {
     const albumsCollectionsMapper: IAlbumCollectionModels[] = albumCollections.map(albumCollection => {
         return singleAlbumCollectionMapper(albumCollection)
     })
     return albumsCollectionsMapper
 }
-
 
 const singleAlbumCollectionMapper = (albumCollection: IGetAllAlbumCollectionResponseDto): IAlbumCollectionModels => {
     const formattedAlbumsCollection: IAlbumCollectionModels = {
@@ -21,13 +20,28 @@ const singleAlbumCollectionMapper = (albumCollection: IGetAllAlbumCollectionResp
     return formattedAlbumsCollection;
 };
 
-const multipleAlbumes = (albumList: IAlbumResponseDto[]): IAlbumModels[] => {
+
+/// Albumes
+export const multipleAlbumes = (albumList: IAlbumResponseDto[]): IAlbumModels[] => {
     const albumesMapper: IAlbumModels[] = albumList.map(album => {
-        return {
-            id: album.id,
-            image: album.image,
-            title: album.title,
-        }
+        return singleAlbumesMapper(album)
     })
     return albumesMapper
-} 
+}
+
+const singleAlbumesMapper = (album: IAlbumResponseDto): IAlbumModels => {
+    const formattedAlbums: IAlbumModels = {
+        id: album.id,
+        image: album.image,
+        title: album.title,
+        idCollection: album.idCollection
+    }
+    return formattedAlbums;
+};
+
+
+
+
+
+
+
