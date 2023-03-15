@@ -9,7 +9,6 @@ import appStore from "../appStore";
 import { ILoginDto } from "./interface/frontToBack/ILogin.dto";
 import { IFormRegister, IRegisterDto } from "./interface/frontToBack/IRegister.dto";
 
-
 interface IStore {
     readonly state: {
         loginFormActive: boolean;

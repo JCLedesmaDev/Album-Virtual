@@ -5,6 +5,7 @@ import { Collection } from './components/albumCollections'
 import { Figurites } from './components/figurites'
 import styleModule from './index.module.css'
 import { useAppStore } from '../appStore'
+import { Container, Nav, Navbar } from 'react-bootstrap'
 
 
 export const Administration: React.FC = () => {
@@ -12,13 +13,13 @@ export const Administration: React.FC = () => {
     const appStore = useAppStore()
 
     enum typeActionsAdmin {
-        Collection = 'Collection',
-        Figurites = 'Figurites',
-        Albumes = 'Albumes'
+        Collection = 'collection',
+        Figurites = 'figures',
+        Albumes = 'albumes'
     }
 
     const [admin, setAdmin] = useState({
-        title: 'Titulo de Coleccion de Album',
+        title: 'Coleccion de Albumes',
         action: 'Collection'
     })
 
@@ -26,24 +27,40 @@ export const Administration: React.FC = () => {
         window.scrollTo(0, 0);
         console.log('AAA')
         /// determianr segun la action, que metodo del store ejecutar (otros getAll)
-        appStore.actions.getAllAlbumCollections({  page: selected + 1})
+        appStore.actions.getAllAlbumCollections({ page: selected + 1 })
+    }
+
+    const changeActionPage = (action: string, title: string) => {
+        setAdmin({
+            action,
+            title
+        })
     }
 
     return (
-        <div>
-            {/* Implementar un navigate entre Collection | Albumes | Figuritas */}
+        <div className={`${styleModule.container}`}>
 
-            <div className={`${styleModule.container}`} >
-                <h1 className={`${styleModule.title}`}>Administracion de Collection Albumnes </h1>
-                <p className={`${styleModule.subTitle}`}>Bienvenidos al area administrativa</p>
+            <div>
 
+                <h1 className={`${styleModule.title}`}>Bienvenidos al area administrativa </h1>
+               
+                <Navbar bg="" variant="dark">
+                    <Container>
+                        <Nav className="me-auto">
+                            <Nav.Link onClick={() => changeActionPage('collection', 'coleccion de albumes')}>Collections</Nav.Link>
+                            <Nav.Link onClick={() => changeActionPage('albumes', 'albumes')}>Albumes</Nav.Link>
+                            <Nav.Link onClick={() => changeActionPage('figures', 'figuritas')}>Figuritas</Nav.Link>
+                        </Nav>
+                    </Container>
+                </Navbar>
+
+                <p className={`${styleModule.subTitle}`}>Administracion de {admin.title} </p>
 
                 {admin.action === typeActionsAdmin.Collection && <Collection />}
 
-                {/* {admin.action === typeActionsAdmin.Albumes && <Albumes />} */}
+                {admin.action === typeActionsAdmin.Albumes && <Albumes />}
 
                 {/* {admin.action === typeActionsAdmin.Figurites && <Figurites />} */}
-
 
                 <div>
                     <Paginate

@@ -121,6 +121,5 @@ const setPagination =  (data: IPagination) => {
     })))
 }
 
-
 export const useAppStore = () => ({ ...appStore((state) => (state), shallow) })
 export default appStore

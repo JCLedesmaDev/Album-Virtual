@@ -63,10 +63,10 @@ export const apiSrv = {
         // let newHeaders = { ...headersList, ...headers }
         // let newHeaders : IHeaders = {}
         let headersList = getStorage<IHeaders>('Headers') || {}
-        
+
         for (const key in headers) {
             if (headers[key]) {
-                headersList = {...headersList, [key]: headers[key], }
+                headersList = { ...headersList, [key]: headers[key], }
             }
         }
         setStorage<IHeaders>('Headers', headersList)
@@ -95,9 +95,7 @@ export const apiSrv = {
             settingsSpinnerModal(false, true, error.message)
         } finally {
             if (options.loader || options.status) {
-                // setTimeout(() => {
-                    settingsSpinnerModal(false, false, '')
-                // }, 2000);
+                settingsSpinnerModal(false, false, '')
             }
             return res
         }
@@ -108,7 +106,7 @@ export const apiSrv = {
         try {
             if (method === "GET") {
                 const params = { ...(data && data) }
-                res = await (await srv.get(path, { 
+                res = await (await srv.get(path, {
                     params: params || {}
                 })).data
             }

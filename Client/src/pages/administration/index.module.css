@@ -5,12 +5,12 @@
 }
 .title{
     color: purple;
-    /* padding: 50px; */
+    padding-top: 50px;
     text-align: center;
 }
 .subTitle{
     color: black;
-    margin-bottom: 6.25rem;
+    margin-bottom: 3.25rem;
     font-weight: bold;
     text-align: center;
     font-size: 1.875rem;

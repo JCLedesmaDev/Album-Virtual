@@ -59,7 +59,10 @@ export const Collection: React.FC = () => {
 
     const updateCollection = async (event: any) => {
         event.preventDefault();
-        const isUpdate = await store.actions.updateCollection(form, statusAction.idColeccion)
+        const isUpdate = await store.actions.updateCollection({
+            title: form.title,
+            idCollection: statusAction.idColeccion
+        })
 
         if (!isUpdate) return
         appStore.actions.setShowPopup(false)

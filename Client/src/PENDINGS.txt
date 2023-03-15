@@ -9,9 +9,8 @@ PARA EL FINAL
 
 
 Front:
-
+⏰ Agregar el mockMode en adminsitracion y traer los datos de lotro proyecto
 ⏰ Re distribuir la carpeta interface, en vez de tener una generica, 
     tener dentro de cada modulo
 ⏰ Dentro del mappers.ts agregar el mapeo de roles
 ⏰ Crear pagina NotFound
-Ver de cambiar el modal de manejo de error por una libreria propia de React

@@ -3,6 +3,7 @@ import { shallow } from "zustand/shallow";
 import { IAlbumCollectionModels } from "../../interface/models/IAlbumCollection.models";
 import { apiSrv } from "../../utils/apiSrv";
 import { ICreateCollectionDto } from "./interface/frontToBack/ICreateCollection.dto";
+import { IUpdateCollectionDto } from "./interface/frontToBack/IUpdateCollection.dto";
 
 
 interface IStore {
@@ -10,7 +11,7 @@ interface IStore {
         //Collection
         createCollection: (data: ICreateCollectionDto) => Promise<boolean>,
         deleteCollection: (idCollection: string) => Promise<boolean>,
-        updateCollection: (data: ICreateCollectionDto, idCollection: string) => Promise<boolean>,
+        updateCollection: (dataUpdate: IUpdateCollectionDto) => Promise<boolean>,
         // updateCollection: () => Promise<any>,
         // deleteCollection: () => Promise<any>,
         // //Albumes
@@ -61,14 +62,17 @@ const store = create<IStore>((set, get) => ({
 
             return flagIsCreate
         },
-        updateCollection: async (data: ICreateCollectionDto, id: string) => {
+        // updateCollection: async (data: ICreateCollectionDto, id: string) => {
+        updateCollection: async (dataUpdate: IUpdateCollectionDto) => {
+
+            const { title, idCollection } = dataUpdate
             let flagIsUpdate = false
 
             const res = await apiSrv.callBackend(async () => {
                 return await apiSrv.callSrv({
                     method: 'PUT',
-                    path: `/albumCollections/updateCollection/${id}`,
-                    data
+                    path: `/albumCollections/updateCollection/${idCollection}`,
+                    data: { title }
                 })
             }, { loader: true, status: true })
 
@@ -80,6 +84,7 @@ const store = create<IStore>((set, get) => ({
     }
 
 }))
+
 
 // Utilizamos "shallow" para poder comparar a nivel atomico los {} y []
 export const useAdministrationStore = () => ({ ...store((state) => (state), shallow) })

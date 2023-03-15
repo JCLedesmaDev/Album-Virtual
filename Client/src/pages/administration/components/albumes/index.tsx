@@ -1,10 +1,15 @@
+import { useEffect, useState } from "react";
+import { useAppStore } from "../../../appStore";
+import { useAdministrationStore } from "../../store";
+
 export const Albumes: React.FC = () => {
+
+
     //HOOKS
-    const [allAlbunes, setAllAlbumes] = useState<IAlbumData[]>([]);
-    const [allListColeccion, setAllListColeccion] = useState<IListColeccion[]>([]);
-    const { paginate, setPaginate } = usePaginate()
-    const storeGlobal = useGlobalContext();
-    const [statusAction, setStatusction] = useState({
+    const appStore = useAppStore()
+    const store = useAdministrationStore()
+
+    const [statusAction, setStatusAction] = useState({
         action: "", idAlbum: 0
     })
     const { formulario, handleChange, resetForm, setFormulario } = useFormCustom<IDataAlbumForm>({
@@ -33,130 +38,129 @@ export const Albumes: React.FC = () => {
     }
 
     const openAddAlbum = () => {
-        setFormulario({
-            ImgAlbum: "", Titulo: "", IdColeccion: "",
-            CantidadImagen: "", CantidadImpreso: "", CodigoAlbum: "", Descripcion: ""
-        })
-        setStatusction({
-            action: "add",
-            idAlbum: 0
-        })
-        storeGlobal.SetShowModalContainer(true)
+        // setFormulario({
+        //     ImgAlbum: "", Titulo: "", IdColeccion: "",
+        //     CantidadImagen: "", CantidadImpreso: "", CodigoAlbum: "", Descripcion: ""
+        // })
+        // setStatusction({
+        //     action: "add",
+        //     idAlbum: 0
+        // })
+        // storeGlobal.SetShowModalContainer(true)
     }
 
     const Add = async (event: any) => {
 
-        try {
-            event.preventDefault();
-            storeGlobal.SetShowLoader(true)
+        // try {
+        //     event.preventDefault();
+        //     storeGlobal.SetShowLoader(true)
 
 
-            console.log("Crear", formulario)
-            const { Result, MessageError } = await AdminAlbumService.AddAdminAlbumes(formulario);
+        //     console.log("Crear", formulario)
+        //     const { Result, MessageError } = await AdminAlbumService.AddAdminAlbumes(formulario);
 
-            if (MessageError !== undefined) {
-                throw new Error(MessageError);
-            }
+        //     if (MessageError !== undefined) {
+        //         throw new Error(MessageError);
+        //     }
 
-            storeGlobal.SetShowLoader(false);
-            storeGlobal.SetMessageModalStatus(Result);
-            storeGlobal.SetShowModalStatus(true);
+        //     storeGlobal.SetShowLoader(false);
+        //     storeGlobal.SetMessageModalStatus(Result);
+        //     storeGlobal.SetShowModalStatus(true);
 
-            await getAll();
-        } catch (error: any) {
+        //     await getAll();
+        // } catch (error: any) {
 
-            storeGlobal.SetShowLoader(false)
-            storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-            storeGlobal.SetShowModalStatus(true)
+        //     storeGlobal.SetShowLoader(false)
+        //     storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
+        //     storeGlobal.SetShowModalStatus(true)
 
-        } finally {
-            resetForm()
-            setTimeout(() => {
-                storeGlobal.SetShowModalStatus(false)
-            }, 5000);
-        }
+        // } finally {
+        //     resetForm()
+        //     setTimeout(() => {
+        //         storeGlobal.SetShowModalStatus(false)
+        //     }, 5000);
+        // }
 
     };
 
 
     const openEditAlbum = (Albumes: IAlbumData) => {
-        setFormulario({
-            ImgAlbum: Albumes.imagen,
-            Titulo: Albumes.titulo,
-            IdColeccion: Albumes.coleccionAlbumId,
-            CantidadImagen: Albumes.cantidadImagen,
-            CantidadImpreso: Albumes.cantidadImpreso,
-            CodigoAlbum: Albumes.codigoAlbum,
-            Descripcion: Albumes.descripcion
-        })
-        setStatusction({
-            action: "update",
-            idAlbum: Albumes.id
-        })
-        storeGlobal.SetShowModalContainer(true)
+        // setFormulario({
+        //     ImgAlbum: Albumes.imagen,
+        //     Titulo: Albumes.titulo,
+        //     IdColeccion: Albumes.coleccionAlbumId,
+        //     CantidadImagen: Albumes.cantidadImagen,
+        //     CantidadImpreso: Albumes.cantidadImpreso,
+        //     CodigoAlbum: Albumes.codigoAlbum,
+        //     Descripcion: Albumes.descripcion
+        // })
+        // setStatusction({
+        //     action: "update",
+        //     idAlbum: Albumes.id
+        // })
+        // storeGlobal.SetShowModalContainer(true)
     }
 
     const Put = async (event: any) => {
+        // try {
+        //     event.preventDefault();
+        //     storeGlobal.SetShowLoader(true)
 
-        try {
-            event.preventDefault();
-            storeGlobal.SetShowLoader(true)
 
+        //     console.log("Crear", formulario)
+        //     const { Result, MessageError } = await AdminAlbumService.updateAdminAlbumes(statusAction.idAlbum, formulario);
 
-            console.log("Crear", formulario)
-            const { Result, MessageError } = await AdminAlbumService.updateAdminAlbumes(statusAction.idAlbum, formulario);
+        //     if (MessageError !== undefined) {
+        //         throw new Error(MessageError);
+        //     }
 
-            if (MessageError !== undefined) {
-                throw new Error(MessageError);
-            }
+        //     storeGlobal.SetShowLoader(false);
+        //     storeGlobal.SetMessageModalStatus(Result);
+        //     storeGlobal.SetShowModalStatus(true);
 
-            storeGlobal.SetShowLoader(false);
-            storeGlobal.SetMessageModalStatus(Result);
-            storeGlobal.SetShowModalStatus(true);
+        //     await getAll();
+        // } catch (error: any) {
 
-            await getAll();
-        } catch (error: any) {
+        //     storeGlobal.SetShowLoader(false)
+        //     storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
+        //     storeGlobal.SetShowModalStatus(true)
 
-            storeGlobal.SetShowLoader(false)
-            storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-            storeGlobal.SetShowModalStatus(true)
-
-        } finally {
-            resetForm()
-            setTimeout(() => {
-                storeGlobal.SetShowModalStatus(false)
-            }, 5000);
-            storeGlobal.SetShowModalContainer(false)
-        }
+        // } finally {
+        //     resetForm()
+        //     setTimeout(() => {
+        //         storeGlobal.SetShowModalStatus(false)
+        //     }, 5000);
+        //     storeGlobal.SetShowModalContainer(false)
+        // }
     };
 
     const Delete = async (idAlbum: number) => {
-        try {
+        // try {
 
-            storeGlobal.SetShowLoader(true)
+        //     storeGlobal.SetShowLoader(true)
 
-            const { Result, MessageError } = await AdminAlbumService.DeleteAdminAlbumes(idAlbum);
+        //     const { Result, MessageError } = await AdminAlbumService.DeleteAdminAlbumes(idAlbum);
 
-            if (MessageError !== undefined) {
-                throw new Error(MessageError);
-            }
+        //     if (MessageError !== undefined) {
+        //         throw new Error(MessageError);
+        //     }
 
-            storeGlobal.SetShowLoader(false);
-            storeGlobal.SetMessageModalStatus(Result);
-            storeGlobal.SetShowModalStatus(true);
+        //     storeGlobal.SetShowLoader(false);
+        //     storeGlobal.SetMessageModalStatus(Result);
+        //     storeGlobal.SetShowModalStatus(true);
 
-            await getAll();
-        } catch (error: any) {
+        //     await getAll();
+        // } catch (error: any) {
 
-            storeGlobal.SetShowLoader(false)
-            storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-            storeGlobal.SetShowModalStatus(true)
+        //     storeGlobal.SetShowLoader(false)
+        //     storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
+        //     storeGlobal.SetShowModalStatus(true)
 
-        } finally {
-            setTimeout(() => {
-                storeGlobal.SetShowModalStatus(false)
-            }, 5000);
-        }
+        // } finally {
+        //     setTimeout(() => {
+        //         storeGlobal.SetShowModalStatus(false)
+        //     }, 5000);
+        // }
     };
 
     const changePage = ({ selected }: any) => {
