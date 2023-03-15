@@ -61,7 +61,7 @@ export const Collection: React.FC = () => {
         event.preventDefault();
         const isUpdate = await store.actions.updateCollection({
             title: form.title,
-            idCollection: statusAction.idColeccion
+            id: statusAction.idColeccion
         })
 
         if (!isUpdate) return

@@ -64,8 +64,10 @@ export const Albumes: React.FC = () => {
     const updateAlbum = async (event: any) => {
         event.preventDefault();
         const isUpdate = await store.actions.updateAlbum({
-            form: form,
-            idAlbum: statusAction.idAlbum
+            id: statusAction.idAlbum,
+            title: form.title,
+            idCollection: form.idColeccion,
+            image: form.image
         })
 
         if (!isUpdate) return
@@ -142,7 +144,7 @@ export const Albumes: React.FC = () => {
 
                             <label>
                                 Eliga coleccion de Album:
-                                <select onChange={handleChange} name="idCollection" value={form.idColeccion}>
+                                <select onChange={({ target }) => handleChange(target as any)} name="idCollection" value={form.idColeccion}>
                                     <option value={0}> </option>
                                     {appStore.state.collection.map((coleccion, index) => (
                                         <option value={coleccion.id} key={index}>{coleccion.title}</option>
@@ -166,7 +168,7 @@ export const Albumes: React.FC = () => {
                     <button type="submit">{statusAction.action === 'add' ? 'Crear' : 'Actualizar'}</button>
                 </form>
 
-            </ModalContainer>
-        </Fragment>
+            </ModalContainer >
+        </Fragment >
     )
 }

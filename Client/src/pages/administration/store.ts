@@ -2,7 +2,9 @@ import { create } from "zustand";
 import { shallow } from "zustand/shallow";
 import { IAlbumCollectionModels } from "../../interface/models/IAlbumCollection.models";
 import { apiSrv } from "../../utils/apiSrv";
+import { ICreateAlbumDto } from "./interface/frontToBack/ICreateAlbum.dto";
 import { ICreateCollectionDto } from "./interface/frontToBack/ICreateCollection.dto";
+import { IUpdateAlbumDto } from "./interface/frontToBack/IUpdateAlbum.dto";
 import { IUpdateCollectionDto } from "./interface/frontToBack/IUpdateCollection.dto";
 
 
@@ -16,9 +18,10 @@ interface IStore {
         // deleteCollection: () => Promise<any>,
         // //Albumes
         // getAllAlbumes: (page: number) => Promise<any>,
-        // createAlbum: () => Promise<any>,
-        // updateAlbum: () => Promise<any>,
-        // deleteAlbum: () => Promise<any>,
+        createAlbum: (data: ICreateAlbumDto) => Promise<boolean>,
+        deleteAlbum: (idCollection: string) => Promise<boolean>,
+        updateAlbum: (dataUpdate: IUpdateAlbumDto) => Promise<boolean>,
+
         // //Figurites
         // // getAllFigurites: (page: number) => Promise<any>,
         // createFigurine: () => Promise<any>,
@@ -65,14 +68,68 @@ const store = create<IStore>((set, get) => ({
         // updateCollection: async (data: ICreateCollectionDto, id: string) => {
         updateCollection: async (dataUpdate: IUpdateCollectionDto) => {
 
-            const { title, idCollection } = dataUpdate
+            const { title, id } = dataUpdate
             let flagIsUpdate = false
 
             const res = await apiSrv.callBackend(async () => {
                 return await apiSrv.callSrv({
                     method: 'PUT',
-                    path: `/albumCollections/updateCollection/${idCollection}`,
+                    path: `/albumCollections/updateCollection/${id}`,
                     data: { title }
+                })
+            }, { loader: true, status: true })
+
+            if (res.info.type === 'error') return flagIsUpdate
+            flagIsUpdate = true
+
+            return flagIsUpdate
+        },
+
+
+
+        createAlbum: async (data: ICreateAlbumDto) => {
+            let flagIsCreate = false
+
+            const res = await apiSrv.callBackend(async () => {
+                return await apiSrv.callSrv({
+                    method: 'POST',
+                    path: `/albumes/creatAlbum`,
+                    data
+                })
+            }, { loader: true, status: true })
+
+            if (res.info.type === 'error') return flagIsCreate
+            flagIsCreate = true
+
+            return flagIsCreate
+        },
+
+        deleteAlbum: async (idCollection: string) => {
+            let flagIsCreate = false
+
+            const res = await apiSrv.callBackend(async () => {
+                return await apiSrv.callSrv({
+                    method: 'DELETE',
+                    path: `/albumes/deleteAlbum/${idCollection}`,
+                })
+            }, { loader: true, status: true })
+
+            if (res.info.type === 'error') return flagIsCreate
+            flagIsCreate = true
+
+            return flagIsCreate
+        },
+        // updateCollection: async (data: ICreateCollectionDto, id: string) => {
+        updateAlbum: async (dataUpdate: IUpdateAlbumDto) => {
+
+            const { title, idCollection, image, id } = dataUpdate
+            let flagIsUpdate = false
+
+            const res = await apiSrv.callBackend(async () => {
+                return await apiSrv.callSrv({
+                    method: 'PUT',
+                    path: `/albumes/updateAlbum/${id}`,
+                    data: { title, idCollection, image }
                 })
             }, { loader: true, status: true })
 
