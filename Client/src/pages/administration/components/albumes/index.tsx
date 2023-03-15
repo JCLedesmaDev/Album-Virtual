@@ -27,7 +27,8 @@ export const Albumes: React.FC = () => {
 
     //METODOS
     const getAllAlbumes = async (page: number = 1) => {
-        await appStore.actions.getAllAlbumes({ page }) // ver
+        await appStore.actions.getAllAlbumes({ page })
+        await appStore.actions.getAllAlbumCollections({ page })
     };
 
     const showPopupCreateAlbum = () => {
@@ -51,76 +52,32 @@ export const Albumes: React.FC = () => {
 
     /////////
     const createAlbum = async (event: any) => {
+        event.preventDefault();
+        const isCreate = await store.actions.createAlbum(form)
 
-        // try {
-        //     event.preventDefault();
-        //     storeGlobal.SetShowLoader(true)
-
-
-        //     console.log("Crear", formulario)
-        //     const { Result, MessageError } = await AdminAlbumService.AddAdminAlbumes(formulario);
-
-        //     if (MessageError !== undefined) {
-        //         throw new Error(MessageError);
-        //     }
-
-        //     storeGlobal.SetShowLoader(false);
-        //     storeGlobal.SetMessageModalStatus(Result);
-        //     storeGlobal.SetShowModalStatus(true);
-
-        //     await getAll();
-        // } catch (error: any) {
-
-        //     storeGlobal.SetShowLoader(false)
-        //     storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-        //     storeGlobal.SetShowModalStatus(true)
-
-        // } finally {
-        //     resetForm()
-        //     setTimeout(() => {
-        //         storeGlobal.SetShowModalStatus(false)
-        //     }, 5000);
-        // }
-
+        if (!isCreate) return
+        await getAllAlbumes();
+        appStore.actions.setShowPopup(false)
+        resetForm()
     };
 
     const updateAlbum = async (event: any) => {
-        // try {
-        //     event.preventDefault();
-        //     storeGlobal.SetShowLoader(true)
+        event.preventDefault();
+        const isUpdate = await store.actions.updateAlbum({
+            form: form,
+            idAlbum: statusAction.idAlbum
+        })
 
-
-        //     console.log("Crear", formulario)
-        //     const { Result, MessageError } = await AdminAlbumService.updateAdminAlbumes(statusAction.idAlbum, formulario);
-
-        //     if (MessageError !== undefined) {
-        //         throw new Error(MessageError);
-        //     }
-
-        //     storeGlobal.SetShowLoader(false);
-        //     storeGlobal.SetMessageModalStatus(Result);
-        //     storeGlobal.SetShowModalStatus(true);
-
-        //     await getAll();
-        // } catch (error: any) {
-
-        //     storeGlobal.SetShowLoader(false)
-        //     storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-        //     storeGlobal.SetShowModalStatus(true)
-
-        // } finally {
-        //     resetForm()
-        //     setTimeout(() => {
-        //         storeGlobal.SetShowModalStatus(false)
-        //     }, 5000);
-        //     storeGlobal.SetShowModalContainer(false)
-        // }
+        if (!isUpdate) return
+        appStore.actions.setShowPopup(false)
+        resetForm()
+        await getAllAlbumes();
     };
 
     const deleteAlbum = async (id: string) => {
-        // const isDelete = await store.actions.deleteCollection(id)
-        // if (!isDelete) return
-        // await getAllAlbumes();
+        const isDelete = await store.actions.deleteAlbum(id)
+        if (!isDelete) return
+        await getAllAlbumes();
     };
 
 
@@ -180,20 +137,20 @@ export const Albumes: React.FC = () => {
 
                 <form onSubmit={statusAction.action === 'add' ? createAlbum : updateAlbum} >
 
-                    {/* {
+                    {
                         statusAction.action === 'add' && (
 
                             <label>
                                 Eliga coleccion de Album:
-                                <select onChange={handleChange} name="IdColeccion" value={formulario.IdColeccion}>
+                                <select onChange={handleChange} name="idCollection" value={form.idColeccion}>
                                     <option value={0}> </option>
-                                    {allListColeccion.map((coleccion, index) => (
-                                        <option value={coleccion.id} key={index}>{coleccion.nombreCompleto}</option>
+                                    {appStore.state.collection.map((coleccion, index) => (
+                                        <option value={coleccion.id} key={index}>{coleccion.title}</option>
                                     ))}
                                 </select>
                             </label>
                         )
-                    } */}
+                    }
 
                     {InputsMockAlbum.map((inputProps: IInputs, index: number) => (
                         <Input

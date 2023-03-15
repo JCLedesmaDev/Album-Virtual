@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from "react";
 
 export interface IResponseUseForm<TypeData> {
   form: TypeData;
-  handleChange: ({ target, }: ChangeEvent<HTMLInputElement>) => void;
+  handleChange: ({ target }: ChangeEvent<HTMLInputElement>) => void;
   resetForm: () => void;
   setForm: (value: React.SetStateAction<TypeData>) => void;
 }
@@ -18,9 +18,7 @@ export const useFormCustom = <TypeFormData extends Object>(
   */
   const [form, setForm] = useState<TypeFormData>(initialState);
 
-  const handleChange = ({
-    target,
-  }: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = ({ target }: ChangeEvent<HTMLInputElement> | any) => {
     const { name, value, files } = target;
 
     // En caso de cargar imagenes tb
