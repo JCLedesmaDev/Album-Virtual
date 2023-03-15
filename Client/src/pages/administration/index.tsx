@@ -20,7 +20,7 @@ export const Administration: React.FC = () => {
 
     const [admin, setAdmin] = useState({
         title: 'Coleccion de Albumes',
-        action: 'Collection'
+        action: 'collection'
     })
 
     const changePage = ({ selected }: any) => {
