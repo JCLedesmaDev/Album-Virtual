@@ -11,16 +11,14 @@ import { IUpdateCollectionDto } from "./interface/frontToBack/IUpdateCollection.
 interface IStore {
     actions: {
         //Collection
-        createCollection: (data: ICreateCollectionDto) => Promise<boolean>,
+        createCollection: (payload: ICreateCollectionDto) => Promise<boolean>,
         deleteCollection: (idCollection: string) => Promise<boolean>,
-        updateCollection: (dataUpdate: IUpdateCollectionDto) => Promise<boolean>,
-        // updateCollection: () => Promise<any>,
-        // deleteCollection: () => Promise<any>,
+        updateCollection: (payload: IUpdateCollectionDto) => Promise<boolean>,
+
         // //Albumes
-        // getAllAlbumes: (page: number) => Promise<any>,
-        createAlbum: (data: ICreateAlbumDto) => Promise<boolean>,
+        createAlbum: (payload: ICreateAlbumDto) => Promise<boolean>,
         deleteAlbum: (idCollection: string) => Promise<boolean>,
-        updateAlbum: (dataUpdate: IUpdateAlbumDto) => Promise<boolean>,
+        updateAlbum: (payload: IUpdateAlbumDto) => Promise<boolean>,
 
         // //Figurites
         // // getAllFigurites: (page: number) => Promise<any>,
@@ -33,14 +31,14 @@ interface IStore {
 
 const store = create<IStore>((set, get) => ({
     actions: {
-        createCollection: async (data: ICreateCollectionDto) => {
+        createCollection: async (payload: ICreateCollectionDto) => {
             let flagIsCreate = false
 
             const res = await apiSrv.callBackend(async () => {
                 return await apiSrv.callSrv({
                     method: 'POST',
                     path: `/albumCollections/createCollection`,
-                    data
+                    data: payload
                 })
             }, { loader: true, status: true })
 
@@ -66,9 +64,9 @@ const store = create<IStore>((set, get) => ({
             return flagIsCreate
         },
         // updateCollection: async (data: ICreateCollectionDto, id: string) => {
-        updateCollection: async (dataUpdate: IUpdateCollectionDto) => {
+        updateCollection: async (payload: IUpdateCollectionDto) => {
 
-            const { title, id } = dataUpdate
+            const { title, id } = payload
             let flagIsUpdate = false
 
             const res = await apiSrv.callBackend(async () => {
@@ -87,14 +85,14 @@ const store = create<IStore>((set, get) => ({
 
 
 
-        createAlbum: async (data: ICreateAlbumDto) => {
+        createAlbum: async (payload: ICreateAlbumDto) => {
             let flagIsCreate = false
 
             const res = await apiSrv.callBackend(async () => {
                 return await apiSrv.callSrv({
                     method: 'POST',
                     path: `/albumes/creatAlbum`,
-                    data
+                    data: payload
                 })
             }, { loader: true, status: true })
 
@@ -120,9 +118,9 @@ const store = create<IStore>((set, get) => ({
             return flagIsCreate
         },
         // updateCollection: async (data: ICreateCollectionDto, id: string) => {
-        updateAlbum: async (dataUpdate: IUpdateAlbumDto) => {
+        updateAlbum: async (payload: IUpdateAlbumDto) => {
 
-            const { title, idCollection, image, id } = dataUpdate
+            const { title, idCollection, image, id } = payload
             let flagIsUpdate = false
 
             const res = await apiSrv.callBackend(async () => {

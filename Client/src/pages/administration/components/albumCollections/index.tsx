@@ -10,6 +10,7 @@ import { ICreateCollectionDto } from "../../interface/frontToBack/ICreateCollect
 import { IAlbumCollectionModels } from "../../../../interface/models/IAlbumCollection.models";
 import { useAppStore } from "../../../appStore";
 import { useAdministrationStore } from "../../store";
+import { IUpdateCollectionDto } from "../../interface/frontToBack/IUpdateCollection.dto";
 // import appStore from "../../../appStore";
 
 export const Collection: React.FC = () => {
@@ -27,7 +28,11 @@ export const Collection: React.FC = () => {
     //METODOS
     const createCollection = async (event: any) => {
         event.preventDefault();
-        const isCreate = await store.actions.createCollection(form)
+        const payload: ICreateCollectionDto = {
+            title: form.title
+        }
+
+        const isCreate = await store.actions.createCollection(payload)
 
         if (!isCreate) return
         await getAllCollection();
@@ -59,10 +64,11 @@ export const Collection: React.FC = () => {
 
     const updateCollection = async (event: any) => {
         event.preventDefault();
-        const isUpdate = await store.actions.updateCollection({
+        const payload: IUpdateCollectionDto = {
             title: form.title,
             id: statusAction.idColeccion
-        })
+        }
+        const isUpdate = await store.actions.updateCollection(payload)
 
         if (!isUpdate) return
         appStore.actions.setShowPopup(false)

@@ -7,6 +7,7 @@ import { InputsMockLogin } from "../../mocks/inputsLogin";
 import { IInputs } from "../../../../components/Input/IInputs";
 import { useAuthUserStore } from "../../store";
 import { useFormsContext } from "../../context/useFormsContext";
+import { ILoginDto } from "../../interface/frontToBack/ILogin.dto";
 
 
 export const FormLogin: React.FC = () => {
@@ -23,7 +24,12 @@ export const FormLogin: React.FC = () => {
   const login = async (event: any) => {
     event.preventDefault();
 
-    const isLogin = await store.actions.login(form)
+    const payload: ILoginDto = {
+      email: form.email,
+      password: form.password
+    }
+
+    const isLogin = await store.actions.login(payload)
 
     if (isLogin) navigate("/administration");
     resetForm()

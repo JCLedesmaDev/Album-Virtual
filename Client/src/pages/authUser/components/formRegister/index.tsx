@@ -4,19 +4,27 @@ import { InputsMockRegister } from "../../mocks/inputsRegister";
 import { IInputs } from "../../../../components/Input/IInputs";
 import { useAuthUserStore } from "../../store";
 import { useFormsContext } from "../../context/useFormsContext";
+import { IRegisterDto } from "../../interface/frontToBack/IRegister.dto";
 
 
 export const FormRegister: React.FC = () => {
 
   /// HOOKS
   const store = useAuthUserStore()
-  const useForms = useFormsContext()  
+  const useForms = useFormsContext()
   const { form, handleChange, resetForm } = useForms.formRegister
 
   const register = async (event: any) => {
     event.preventDefault();
 
-    const isRegister = await store.actions.register(form)
+    const payload: IRegisterDto = {
+      email: form.emailRegister,
+      fullName: form.fullName,
+      password: form.passwordRegister,
+      confirmPassword: form.confirmPassword,
+    } 
+
+    const isRegister = await store.actions.register(payload)
 
     if (!isRegister) return
 

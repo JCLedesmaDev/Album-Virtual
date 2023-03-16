@@ -68,14 +68,25 @@ const appStore = create<IStore>((set, get) => ({
                 store.state.user = user
             }))
         },
+        setSpinnerModal: (newObjStatus: ISpinnerModels) => {
+            set(produce((store: IStore) => {
+                store.state.spinnerModal = { ...store.state.spinnerModal, ...newObjStatus }
+            }))
+        },
+        setShowPopup: (newStatus: boolean) => {
+            set(produce((store: IStore) => {
+                store.state.showPopup = newStatus
+            }))
+        },
+
 
         // Collections 
-        getAllAlbumCollections: async ({ page, filterText }: IFilterSearch) => {
+        getAllAlbumCollections: async (payload: IFilterSearch) => {
             const res = await apiSrv.callBackend(async () => {
                 return await apiSrv.callSrv({
                     method: 'GET',
                     path: `/albumCollections/getAllCollections`,
-                    data: { page, filterText }
+                    data: payload
                 })
             }, { loader: true })
 
@@ -94,12 +105,12 @@ const appStore = create<IStore>((set, get) => ({
             }))
         },
 
-        getAllAlbumes: async ({ page, filterText }: IFilterSearch) => {
+        getAllAlbumes: async (payload: IFilterSearch) => {
             const res = await apiSrv.callBackend(async () => {
                 return await apiSrv.callSrv({
                     method: 'GET',
                     path: `/albumes/getAllAlbumes`,
-                    data: { page, filterText }
+                    data: payload
                 })
             }, { loader: true })
 
@@ -117,18 +128,6 @@ const appStore = create<IStore>((set, get) => ({
             }))
         },
 
-
-        // extras
-        setSpinnerModal: (newObjStatus: ISpinnerModels) => {
-            set(produce((store: IStore) => {
-                store.state.spinnerModal = { ...store.state.spinnerModal, ...newObjStatus }
-            }))
-        },
-        setShowPopup: (newStatus: boolean) => {
-            set(produce((store: IStore) => {
-                store.state.showPopup = newStatus
-            }))
-        }
     }
 }))
 

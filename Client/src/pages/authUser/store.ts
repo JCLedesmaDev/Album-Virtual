@@ -19,8 +19,8 @@ interface IStore {
         setLoginFormActive: (newState: boolean) => void;
         setRegisterFormActive: (newState: boolean) => void;
         changeStyleForm: () => void
-        login: (formData: ILoginDto) => Promise<boolean>
-        register: (formData: IFormRegister) => Promise<boolean>
+        login: (payload: ILoginDto) => Promise<boolean>
+        register: (payload: IRegisterDto) => Promise<boolean>
     }
 }
 
@@ -51,14 +51,14 @@ const store = create<IStore>((set, get) => {
                     store.state.styleForm = style
                 }))
             },
-            login: async (formData: ILoginDto) => {
+            login: async (payload: ILoginDto) => {
                 let flagIsLogin = false
 
                 const res = await apiSrv.callBackend(async () => {
                     return await apiSrv.callSrv({
                         method: 'POST',
                         path: '/users/login',
-                        data: formData
+                        data: payload
                     })
                 }, { loader: true })
 
@@ -74,19 +74,14 @@ const store = create<IStore>((set, get) => {
                 })
                 return flagIsLogin
             },
-            register: async (formData: IFormRegister) => {
+            register: async (payload: IRegisterDto) => {
                 let flagIsRegister = false
 
                 const res = await apiSrv.callBackend(async () => {
                     return await apiSrv.callSrv({
                         method: 'POST',
                         path: '/users/register',
-                        data: {
-                            email: formData.emailRegister,
-                            fullName: formData.fullName,
-                            password: formData.passwordRegister,
-                            confirmPassword: formData.confirmPassword,
-                        } as IRegisterDto
+                        data: payload
                     })
                 }, { loader: true, status: true })
 

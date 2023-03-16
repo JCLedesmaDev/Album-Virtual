@@ -6,9 +6,10 @@ import { useAdministrationStore } from "../../store";
 import styleCSS from '../../index.module.css'
 import { IInputs } from "../../../../components/Input/IInputs";
 import { InputsMockAlbum } from "./mocks/InputsAlbum";
-import { Input } from "@angular/core";
 import { ModalContainer } from "../../../../components/PopupModal";
 import { IAlbumModels } from "../../../../interface/models/IAlbum.models";
+import { Input } from "../../../../components/Input";
+import { IUpdateAlbumDto } from "../../interface/frontToBack/IUpdateAlbum.dto";
 
 
 export const Albumes: React.FC = () => {
@@ -53,7 +54,12 @@ export const Albumes: React.FC = () => {
     /////////
     const createAlbum = async (event: any) => {
         event.preventDefault();
-        const isCreate = await store.actions.createAlbum(form)
+        const payload: ICreateAlbumDto = {
+            idColeccion: form.idColeccion,
+            image: form.image,
+            title: form.title
+        }
+        const isCreate = await store.actions.createAlbum(payload)
 
         if (!isCreate) return
         await getAllAlbumes();
@@ -63,14 +69,16 @@ export const Albumes: React.FC = () => {
 
     const updateAlbum = async (event: any) => {
         event.preventDefault();
-        const isUpdate = await store.actions.updateAlbum({
+        const payload: IUpdateAlbumDto = {
             id: statusAction.idAlbum,
             title: form.title,
             idCollection: form.idColeccion,
             image: form.image
-        })
+        }
 
+        const isUpdate = await store.actions.updateAlbum(payload)
         if (!isUpdate) return
+        
         appStore.actions.setShowPopup(false)
         resetForm()
         await getAllAlbumes();
@@ -89,9 +97,7 @@ export const Albumes: React.FC = () => {
     }, []);
 
     return (
-
         <Fragment>
-
             <table className={`${styleCSS.tableContainer}`} border={1}>
                 <thead>
                     <tr>
@@ -126,12 +132,11 @@ export const Albumes: React.FC = () => {
                 </tbody>
             </table>
 
-
-            <ModalContainer personCss={`${styleCSS.containerModalAlbum}`}>
+            <ModalContainer personCss={`${styleCSS.containerModalColeccion}`}>
 
                 <p onClick={() => {
                     appStore.actions.setShowPopup(false)
-                }} className={styleCSS.containerModalAlbum__closeBtn}>
+                }} className={styleCSS.containerModalColeccion__closeBtn}>
                     <i className="fas fa-times"></i>
                 </p>
 
@@ -139,20 +144,18 @@ export const Albumes: React.FC = () => {
 
                 <form onSubmit={statusAction.action === 'add' ? createAlbum : updateAlbum} >
 
-                    {
-                        statusAction.action === 'add' && (
+                    {statusAction.action === 'add' && (
 
-                            <label>
-                                Eliga coleccion de Album:
-                                <select onChange={({ target }) => handleChange(target as any)} name="idCollection" value={form.idColeccion}>
-                                    <option value={0}> </option>
-                                    {appStore.state.collection.map((coleccion, index) => (
-                                        <option value={coleccion.id} key={index}>{coleccion.title}</option>
-                                    ))}
-                                </select>
-                            </label>
-                        )
-                    }
+                        <label>
+                            Eliga coleccion de Album:
+                            <select onChange={({ target }) => handleChange(target as any)} name="idCollection" value={form.idColeccion}>
+                                <option value={0}> </option>
+                                {appStore.state.collection.map((coleccion, index) => (
+                                    <option value={coleccion.id} key={index}>{coleccion.title}</option>
+                                ))}
+                            </select>
+                        </label>
+                    )}
 
                     {InputsMockAlbum.map((inputProps: IInputs, index: number) => (
                         <Input
@@ -168,7 +171,7 @@ export const Albumes: React.FC = () => {
                     <button type="submit">{statusAction.action === 'add' ? 'Crear' : 'Actualizar'}</button>
                 </form>
 
-            </ModalContainer >
+            </ModalContainer>
         </Fragment >
     )
 }

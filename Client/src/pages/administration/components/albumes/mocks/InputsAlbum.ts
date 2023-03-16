@@ -4,7 +4,7 @@ export const InputsMockAlbum: IInputs[] = [
     {
         placeholder: "Titulo del album: ",
         type: "text",
-        name: "tile",
+        name: "title",
         expReg: /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]{2,40}$/i,
         errorMessage: "Solo puede contener letras. Minimo 2 caracteres",
     },
