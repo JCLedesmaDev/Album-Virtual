@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { ChangeEventHandler, Fragment, useEffect, useState } from "react";
 import { useFormCustom } from "../../../../Hooks/useFormCustom";
 import { useAppStore } from "../../../appStore";
 import { ICreateAlbumDto } from "../../interface/frontToBack/ICreateAlbum.dto";
@@ -23,7 +23,7 @@ export const Albumes: React.FC = () => {
         action: "", idAlbum: ''
     })
     const { form, handleChange, resetForm, setForm } = useFormCustom<ICreateAlbumDto>({
-        idColeccion: '', image: '', title: ''
+        idCollection: '', image: '', title: ''
     });
 
     //METODOS
@@ -33,7 +33,7 @@ export const Albumes: React.FC = () => {
     };
 
     const showPopupCreateAlbum = () => {
-        setForm({ title: "", image: '', idColeccion: '' })
+        setForm({ title: "", image: '', idCollection: '' })
         setStatusAction({
             action: "add",
             idAlbum: ''
@@ -42,7 +42,7 @@ export const Albumes: React.FC = () => {
     }
 
     const showPopupUpdateCollection = (Album: IAlbumModels) => {
-        setForm({ title: Album.title, idColeccion: Album.idCollection, image: Album.image })
+        setForm({ title: Album.title, idCollection: Album.idCollection, image: Album.image })
         setStatusAction({
             action: "update",
             idAlbum: Album.id
@@ -55,7 +55,7 @@ export const Albumes: React.FC = () => {
     const createAlbum = async (event: any) => {
         event.preventDefault();
         const payload: ICreateAlbumDto = {
-            idColeccion: form.idColeccion,
+            idCollection: form.idCollection,
             image: form.image,
             title: form.title
         }
@@ -72,13 +72,13 @@ export const Albumes: React.FC = () => {
         const payload: IUpdateAlbumDto = {
             id: statusAction.idAlbum,
             title: form.title,
-            idCollection: form.idColeccion,
+            idCollection: form.idCollection,
             image: form.image
         }
 
         const isUpdate = await store.actions.updateAlbum(payload)
         if (!isUpdate) return
-        
+
         appStore.actions.setShowPopup(false)
         resetForm()
         await getAllAlbumes();
@@ -89,7 +89,6 @@ export const Albumes: React.FC = () => {
         if (!isDelete) return
         await getAllAlbumes();
     };
-
 
 
     useEffect(() => {
@@ -148,7 +147,7 @@ export const Albumes: React.FC = () => {
 
                         <label>
                             Eliga coleccion de Album:
-                            <select onChange={({ target }) => handleChange(target as any)} name="idCollection" value={form.idColeccion}>
+                            <select onChange={handleChange} name="idCollection" value={form.idCollection}>
                                 <option value={0}> </option>
                                 {appStore.state.collection.map((coleccion, index) => (
                                     <option value={coleccion.id} key={index}>{coleccion.title}</option>

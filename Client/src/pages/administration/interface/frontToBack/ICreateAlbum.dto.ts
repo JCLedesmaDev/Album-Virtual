@@ -1,5 +1,5 @@
 export interface ICreateAlbumDto {
-    idColeccion: string;
+    idCollection: string;
     title: string;
     image: string;
 }

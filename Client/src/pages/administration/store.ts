@@ -47,7 +47,6 @@ const store = create<IStore>((set, get) => ({
 
             return flagIsCreate
         },
-
         deleteCollection: async (idCollection: string) => {
             let flagIsCreate = false
 
@@ -63,7 +62,6 @@ const store = create<IStore>((set, get) => ({
 
             return flagIsCreate
         },
-        // updateCollection: async (data: ICreateCollectionDto, id: string) => {
         updateCollection: async (payload: IUpdateCollectionDto) => {
 
             const { title, id } = payload
@@ -91,7 +89,7 @@ const store = create<IStore>((set, get) => ({
             const res = await apiSrv.callBackend(async () => {
                 return await apiSrv.callSrv({
                     method: 'POST',
-                    path: `/albumes/creatAlbum`,
+                    path: `/albumes/createAlbum`,
                     data: payload
                 })
             }, { loader: true, status: true })
@@ -101,7 +99,6 @@ const store = create<IStore>((set, get) => ({
 
             return flagIsCreate
         },
-
         deleteAlbum: async (idCollection: string) => {
             let flagIsCreate = false
 
@@ -117,7 +114,6 @@ const store = create<IStore>((set, get) => ({
 
             return flagIsCreate
         },
-        // updateCollection: async (data: ICreateCollectionDto, id: string) => {
         updateAlbum: async (payload: IUpdateAlbumDto) => {
 
             const { title, idCollection, image, id } = payload

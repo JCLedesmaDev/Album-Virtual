@@ -13,7 +13,7 @@ import { IUpdateAlbumDto } from "./dto/IUpdateAlbum.dto"
 const createAlbum = async (payload: ICreateAlbumDto): Promise<IAlbumSchema> => {
     try {
         return await collections.Albumes.create({
-            collectionAlbum: new Types.ObjectId(payload.idCollection),
+            albumCollections: new Types.ObjectId(payload.idCollection),
             image: payload.image,
             title: payload.title
         })
