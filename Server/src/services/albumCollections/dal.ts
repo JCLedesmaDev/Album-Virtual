@@ -1,6 +1,6 @@
 import { FilterQuery, PaginateOptions, PaginateResult, Types } from "mongoose"
 import { IPagination } from "../../interface/IPagination"
-import { IAlbumCollectionSchema } from "../../models/collections/AlbumCollections"
+import AlbumCollections, { IAlbumCollectionSchema } from "../../models/collections/AlbumCollections"
 import collections from "../../models/index.models"
 import { ApplicationError } from "../../utils/applicationError"
 import { ICreateCollectionDto } from "./dto/ICreateCollection.dto"
@@ -30,8 +30,15 @@ const getListCollections = async ({ page, filterText }: IPagination): Promise<Pa
         const options: PaginateOptions = {
             page,
             limit: 3,
-            populate: {strictPopulate: false, path:'Albumes'}
+            populate: {
+                // Hacmeos populate de Album
+                strictPopulate: false, path: 'albumes', populate: {
+                    // Hacmeos populate de las fifuritas que tiene un album
+                    path: 'figurites', strictPopulate: false,
+                }
+            }
         }
+
         const query: FilterQuery<IAlbumCollectionSchema> = {
             ...(filterText && {
                 title: { $regex: new RegExp(filterText), $options: 'i' }

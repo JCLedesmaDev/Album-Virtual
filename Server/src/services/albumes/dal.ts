@@ -12,11 +12,17 @@ import { IUpdateAlbumDto } from "./dto/IUpdateAlbum.dto"
 
 const createAlbum = async (payload: ICreateAlbumDto): Promise<IAlbumSchema> => {
     try {
-        return await collections.Albumes.create({
+        const newAlbum = await collections.Albumes.create({
             albumCollections: new Types.ObjectId(payload.idCollection),
             image: payload.image,
             title: payload.title
         })
+
+        await collections.AlbumCollections.findByIdAndUpdate(payload.idCollection, {
+            $push: { albumes: new Types.ObjectId(newAlbum._id) }
+        })
+
+        return newAlbum
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al crear un Album', source: error })
     }
@@ -35,7 +41,7 @@ const getListAlbumes = async ({ page, filterText }: IPagination): Promise<Pagina
         const options: PaginateOptions = {
             page,
             limit: 3,
-            populate: {strictPopulate: false, path:'figurites'}
+            populate: [{ strictPopulate: false, path: 'figurites' }, { strictPopulate: false, path: 'albumCollections' }]
         }
         const query: FilterQuery<IAlbumSchema> = {
             ...(filterText !== '' && {
@@ -95,12 +101,13 @@ const getAllPurchasedAlbumes = async (payload: IGetAllPurchasedAlbumesDto): Prom
         const options: PaginateOptions = {
             page: payload.page,
             limit: 3,
+            //Corregir
             populate: ['albumRef', 'purchasedFigures.figurineRef'],
         }
         const query: FilterQuery<IPurchasedAlbumSchema> = {
-            // ...(payload.filterText !== '' && {
-            //     title: { $regex: new RegExp(payload.filterText), $options: 'i' }
-            // }), // Investigar como hacer un filtrado aca
+            ...(payload.filterText !== '' && {
+                title: { $regex: new RegExp(payload.filterText), $options: 'i' }
+            }), // Investigar como hacer un filtrado aca
         }
         return await collections.PurchasedAlbumes.paginate(query, options)
     } catch (error) {
