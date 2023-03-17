@@ -20,11 +20,17 @@ const findFigurine = async (objFind: any): Promise<IFigurineSchema | null> => {
 
 const createFigurine = async (payload: ICreateFigurineDto): Promise<IFigurineSchema> => {
     try {
-        return await collections.Figurites.create({
+        const newFigurine = await collections.Figurites.create({
             album: new Types.ObjectId(payload.idAlbum),
             image: payload.image,
             title: payload.title
         })
+
+        await collections.Albumes.findByIdAndUpdate(payload.idAlbum, {
+            $push: {figurites: new Types.ObjectId(newFigurine._id)}
+        })
+
+        return newFigurine
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al crear una Figurita', source: error })
     }

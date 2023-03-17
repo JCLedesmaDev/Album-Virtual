@@ -101,8 +101,15 @@ const getAllPurchasedAlbumes = async (payload: IGetAllPurchasedAlbumesDto): Prom
         const options: PaginateOptions = {
             page: payload.page,
             limit: 3,
-            //Corregir
-            populate: ['albumRef', 'purchasedFigures.figurineRef'],
+            populate: [
+                { strictPopulate: false, path: 'albumRef' },
+                { // Hacmeos populate de purchasedFigures
+                    strictPopulate: false, path: 'purchasedFigures', populate: {
+                        // Hacmeos populate de las figurineRef que tiene un purchasedFigures
+                        path: 'figurineRef', strictPopulate: false,
+                    }
+                }
+            ]
         }
         const query: FilterQuery<IPurchasedAlbumSchema> = {
             ...(payload.filterText !== '' && {
