@@ -1,45 +1,35 @@
-Aclaracion
+### Aclaracion: 
 Debemos tener instalado TypeScript de manera global para poder iniciar un proyecto con TypeScript
-PD: Si surge un error, posiblemente ver este articulo: https://www.cdmon.com/es/blog/la-ejecucion-de-scripts-esta-deshabilitada-en-este-sistema-te-contamos-como-actuar
+Si surge un error, posiblemente ver este articulo: 
+https://www.cdmon.com/es/blog/la-ejecucion-de-scripts-esta-deshabilitada-en-este-sistema-te-contamos-como-actuar
 
-Pasos:
-1) Al empezar el proyecto con "npm init", debemos indicarle a Node que tenemos un proyecto con TypeScript escribiendo: "tsc -init"
+=============================================================
 
-2) Crearemos una carpeta llamada "dist" y otra llamada "src", seguido de esto, nos dirigimos
-   al archivo "tsconfig.json" para especificar que cuando querramos compilar todo el proyecto BE
-   se nos almacene en la carpeta "dist" que creamos recientemente.
-   Para esto, agregaremos dentro de "compilerOptions" la sig linea:
-    "outDir": "./dist", /* Specify an output folder for all emitted files. */
+### Anotaciones del proyecto:
+
+1) Al empezar el proyecto con "npm init", debemos indicarle a NodeJS que tenemos un proyecto con TypeScript escribiendo: "tsc -init"
+
+2) Una vez inicializado el proyecto, hacemos los siguientes pasos:
+   * Crear carpeta llamada 'dist' y 'src'
+   * En el archivo 'tsconfig.json' especificamos que cuando querramos compilar todo el proyecto BE, se nos almacene en la carpeta "dist" que creamos recientemente. Para esto, agregaremos dentro de "compilerOptions" la sig linea: "outDir": "./dist"
 
 3) Librerias a utilizar: 
-   * express
-   * cors -> Conexiones de los cors BE y FE
-   * dotenv -> Variable entorno
-   * multer -> Permite el manejo de la carga de archivos multimedia
-   * mongoose
-   * nodemon
-   * express-validator
-   * mongoose-delete -> Este paquete nos permite indicarle a nuestros modelos (colecciones) que hagan uso de estrategias de "Soft Delete - borrado logico"
-      Esta liberria, nos agrega nuevos metodos para realizar la consulta de eliminar y nos permite persistir los registros eliminados (por medio de otra propiedad que se incorpora de manera autoamtica) sin poder obtenerlos al querer hacer un getAll o getById.
-      Nos define esa estrategia de neogico de no perder los registros eliminados. PD: Es opcional, tb podemos usar los metodos naturales
-   * jsonwebtokens 
-   * bcrypt -> Permite hashear las claves y guardalas en la BD
-   * sequelize -> ORM de bd relacional
-   * mySql2 -> Instalamos el proveedor de BD q nos permite utilizar sequelize (Instalamos este xq es el que particularmente utilizamos en este caso ya que sequelize puede utilizar diferentes proveedores)
-   * mongoose-paginate-v2 -> Para paginar todos los registro de una coleccion de mongoose   
-   * swagger-ui-express 
-   * swagger-jsdoc
-   * Config: Nos permite definir un conjunto de parámetros predeterminados y extenderlos para diferentes entornos de implementación (desarrollo, control de calidad, preparación, producción, etc.).
+   * typescript
+   * express | @types/express
+   * cors | @types/cors - (Permite el acceso a las peticiones HTTP hacia nuestro BE)
+   * dotenv - (Permite el uso de las variables de entorno)
+   * mongoose - (ORM de MongoDB)
+   * nodemon - (utilidad que monitorea los cambios en el código fuente que se está desarrollando y automáticamente reinicia el servidor)
+   * mongoose-delete | @types/mongoose-delete - (Este paquete nos permite indicarle a nuestros modelos (colecciones) que hagan uso de estrategias de "Soft Delete - borrado logico, permitiendonos persistir los registros eliminados
+   * ts-node | @types/node - (nos permite ejecutar Typescript en un proyecto de Nodejs)
+   * bcrypt | @types/bcrypt - (Permite hashear las claves y guardalas en la BD)
+   * mongoose-paginate-v2 - (Para paginar todos los registro de una coleccion de mongoose)   
+   * config | @types/config - (Nos permite definir un conjunto de parámetros predeterminados y extenderlos para diferentes entornos de implementación (desarrollo, control de calidad, preparación, producción, etc.).)
    * node-config: Permite pasarle valores a nuestros parametros del "Config" por medio de las variables de entorno del .ENV 
-   * express-async-errors: Esta biblioteca trata sobre lo que sucede cuando se produce un error, es decir, nos permite manipular los Exceptions de los throw new Error() por medio de un middleware
    * rimraf: Eliminados de carpetas por comando
-
-
-   NOTA: Seguramente varias de estas librerias necesitaremos instalar su respectivo @types por typescript como seria el caso de:
-   @types/node 
-   @types/expres
-   @types/swagger-jsdoc 
-   @types/swagger-ui-express
+   * morgan | @types/mogan - ()   
+   * express-validators (Middleware que permite validar los datos provenientes del Request)
+   * jsonwebtokens | @types/jsonwebtokens 
 
 4) Configuraciones del package.json:
    Dentro del package, debemos especificar unas cuantas cosas:
@@ -48,31 +38,5 @@ Pasos:
      "scripts": {
          "dev": "nodemon --watch './**/*.ts' --exec ts-node app.ts",
          "start": "node ./dist/app.js",
-         "build": "tsc -p ."
+         "build": "rimraf ./dist && tsc -p ."
       },
-      Nota: Especificamos los archivos que se ejecutara en cada entorno de ejecucion.
-
-
-5) Extendemmos las propeidades del Request https://github.com/3mard/ts-node-example
-
-
-
-
-
-
-
-
-
-
-
-
-A FUTURO: 
-
-
-NOTAS RECORDATORIAS:
-* Dentro de la carpeta "storage", tendremos todos los archivos multimedia 
-
-
-* Al hacer uso de una BD relacional, es recomendable instalar un programa llamado Laragon, nos servira para iniciar una BD relacional en nuesrta pc. Idem XAMMP o phpMyAdmin e instalar mysql
-https://dev.mysql.com/downloads/file/?id=514518
-
