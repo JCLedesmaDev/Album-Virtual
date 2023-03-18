@@ -12,9 +12,10 @@ API CRUD en NodeJS implemenatndo una arquitectura orientada a Microservicios des
 ## Requerimientos
 Instalar el entorno de NodeJS en tu Sistema Operativo - https://nodejs.org/es/
 
-This project connects to a database hosted in Mongo Atlas, but you can install MongoDB on your PC and use your own database locally or create an account at Mongo Atlas.  
 
-Use [Mongo Atlas](https://expressjs.com/)  
+Este proyecto se conecta a una Base de Datos ubicada en Mongo Atlas, pero puede instalar MongoDB en su PC y utilizar su propia Base de Datos o sino, crear una cuenta en Mongo Atlas.
+
+Use [Mongo Atlas](https://www.mongodb.com/atlas/database/)  
 Download [MongoDB](https://www.mongodb.com/try/download/community)
 
 ## Project setup installation
