@@ -30,13 +30,14 @@ const getListCollections = async ({ page, filterText }: IPagination): Promise<Pa
         const options: PaginateOptions = {
             page,
             limit: 3,
-            populate: {
-                // Hacmeos populate de Album
-                strictPopulate: false, path: 'albumes', populate: {
-                    // Hacmeos populate de las fifuritas que tiene un album
-                    path: 'figurites', strictPopulate: false,
-                }
-            }
+            populate: { strictPopulate: false, path: 'albumes' }
+            // populate: {
+            //     // Hacmeos populate de Album
+            //     strictPopulate: false, path: 'albumes', populate: {
+            //         // Hacmeos populate de las fifuritas que tiene un album
+            //         path: 'figurites', strictPopulate: false,
+            //     }
+            // }
         }
 
         const query: FilterQuery<IAlbumCollectionSchema> = {

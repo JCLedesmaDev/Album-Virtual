@@ -12,16 +12,17 @@ const singleAlbum = (resource: IAlbumSchema): IAlbum => {
         title: resource.title,
         image: resource.image,
         idCollection: resource.albumCollections as ObjectId,
-        figurites: multlipeFigures(resource.figurites as IFigurineSchema[])
+        figurites: multilpeFigures(resource.figurites as IFigurineSchema[])
     }
     return mapper
 };
 
 
-const multlipeFigures = (figurites: IFigurineSchema[]): IFigurine[] => {
+const multilpeFigures = (figurites: IFigurineSchema[]): IFigurine[] => {
     const mapper = figurites.map((figurine: IFigurineSchema) => {
         const mapper: IFigurine = {
-            album: figurine.album as ObjectId,
+            id: figurine._id,
+            idAlbum: figurine.album as ObjectId,
             image: figurine.image,
             title: figurine.title
         }

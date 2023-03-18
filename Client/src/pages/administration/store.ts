@@ -4,8 +4,10 @@ import { IAlbumCollectionModels } from "../../interface/models/IAlbumCollection.
 import { apiSrv } from "../../utils/apiSrv";
 import { ICreateAlbumDto } from "./interface/frontToBack/ICreateAlbum.dto";
 import { ICreateCollectionDto } from "./interface/frontToBack/ICreateCollection.dto";
+import { ICreateFigurineDto } from "./interface/frontToBack/ICreateFigurine.dto";
 import { IUpdateAlbumDto } from "./interface/frontToBack/IUpdateAlbum.dto";
 import { IUpdateCollectionDto } from "./interface/frontToBack/IUpdateCollection.dto";
+import { IUpdateFigurineDto } from "./interface/frontToBack/IUpdateFigurine.dto";
 
 
 interface IStore {
@@ -21,11 +23,9 @@ interface IStore {
         updateAlbum: (payload: IUpdateAlbumDto) => Promise<boolean>,
 
         // //Figurites
-        // // getAllFigurites: (page: number) => Promise<any>,
-        // createFigurine: () => Promise<any>,
-        // updateFigurine: () => Promise<any>,
-        // deleteFigurine: (id) => Promise<any>,
-
+        createFigurine: (payload: ICreateFigurineDto) => Promise<boolean>,
+        deleteFigurine: (idAlbum: string) => Promise<boolean>,
+        updateFigurine: (payload: IUpdateFigurineDto) => Promise<boolean>,
     }
 }
 
@@ -48,7 +48,7 @@ const store = create<IStore>((set, get) => ({
             return flagIsCreate
         },
         deleteCollection: async (idCollection: string) => {
-            let flagIsCreate = false
+            let flagIsDelete = false
 
             const res = await apiSrv.callBackend(async () => {
                 return await apiSrv.callSrv({
@@ -57,10 +57,10 @@ const store = create<IStore>((set, get) => ({
                 })
             }, { loader: true, status: true })
 
-            if (res.info.type === 'error') return flagIsCreate
-            flagIsCreate = true
+            if (res.info.type === 'error') return flagIsDelete
+            flagIsDelete = true
 
-            return flagIsCreate
+            return flagIsDelete
         },
         updateCollection: async (payload: IUpdateCollectionDto) => {
 
@@ -82,7 +82,6 @@ const store = create<IStore>((set, get) => ({
         },
 
 
-
         createAlbum: async (payload: ICreateAlbumDto) => {
             let flagIsCreate = false
 
@@ -99,20 +98,20 @@ const store = create<IStore>((set, get) => ({
 
             return flagIsCreate
         },
-        deleteAlbum: async (idCollection: string) => {
-            let flagIsCreate = false
+        deleteAlbum: async (idAlbum: string) => {
+            let flagIsDelete = false
 
             const res = await apiSrv.callBackend(async () => {
                 return await apiSrv.callSrv({
                     method: 'DELETE',
-                    path: `/albumes/deleteAlbum/${idCollection}`,
+                    path: `/albumes/deleteAlbum/${idAlbum}`,
                 })
             }, { loader: true, status: true })
 
-            if (res.info.type === 'error') return flagIsCreate
-            flagIsCreate = true
+            if (res.info.type === 'error') return flagIsDelete
+            flagIsDelete = true
 
-            return flagIsCreate
+            return flagIsDelete
         },
         updateAlbum: async (payload: IUpdateAlbumDto) => {
 
@@ -132,6 +131,57 @@ const store = create<IStore>((set, get) => ({
 
             return flagIsUpdate
         },
+
+
+        createFigurine: async (payload: ICreateFigurineDto) => {
+            let flagIsCreate = false
+
+            const res = await apiSrv.callBackend(async () => {
+                return await apiSrv.callSrv({
+                    method: 'POST',
+                    path: `/figurites/createFigurine`,
+                    data: payload
+                })
+            }, { loader: true, status: true })
+
+            if (res.info.type === 'error') return flagIsCreate
+            flagIsCreate = true
+
+            return flagIsCreate
+        },
+        deleteFigurine: async (idFigurine: string) => {
+            let flagIsDelete = false
+
+            const res = await apiSrv.callBackend(async () => {
+                return await apiSrv.callSrv({
+                    method: 'DELETE',
+                    path: `/figurites/deleteFigurine/${idFigurine}`,
+                })
+            }, { loader: true, status: true })
+
+            if (res.info.type === 'error') return flagIsDelete
+            flagIsDelete = true
+
+            return flagIsDelete
+        },
+        updateFigurine: async (payload: IUpdateFigurineDto) => {
+
+            const { title, idAlbum, image, id } = payload
+            let flagIsUpdate = false
+
+            const res = await apiSrv.callBackend(async () => {
+                return await apiSrv.callSrv({
+                    method: 'PUT',
+                    path: `/figurites/updateFigurine/${id}`,
+                    data: { title, idAlbum, image }
+                })
+            }, { loader: true, status: true })
+
+            if (res.info.type === 'error') return flagIsUpdate
+            flagIsUpdate = true
+
+            return flagIsUpdate
+        }
     }
 
 }))

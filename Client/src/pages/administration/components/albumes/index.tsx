@@ -10,6 +10,7 @@ import { ModalContainer } from "../../../../components/PopupModal";
 import { IAlbumModels } from "../../../../interface/models/IAlbum.models";
 import { Input } from "../../../../components/Input";
 import { IUpdateAlbumDto } from "../../interface/frontToBack/IUpdateAlbum.dto";
+import { IAlbumCollectionModels } from "../../../../interface/models/IAlbumCollection.models";
 
 
 export const Albumes: React.FC = () => {
@@ -28,7 +29,6 @@ export const Albumes: React.FC = () => {
 
     //METODOS
     const getAllAlbumes = async (page: number = 1) => {
-        await appStore.actions.getAllAlbumes({ page })
         await appStore.actions.getAllAlbumCollections({ page })
     };
 
@@ -103,32 +103,38 @@ export const Albumes: React.FC = () => {
                         <th>Selcciona la opcion deseada</th>
                         <th>
                             <button className={`${styleCSS.button}`} onClick={showPopupCreateAlbum}>
-                                Agregar coleccion
+                                Agregar album
                             </button>
                         </th>
                     </tr>
                 </thead>
 
-                <tbody>
 
-                    {appStore.state.albumes?.map((Albumes: IAlbumModels, indexAlbum: number) => (
-                        <tr key={indexAlbum}>
-                            <th>{Albumes.title}</th>
-                            <th>
-                                <button className={`${styleCSS.buttonAdmin}`} onClick={
-                                    () => showPopupUpdateCollection(Albumes)
-                                }>Modificar</button>
-                                <button
-                                    className={`${styleCSS.buttonAdmin}`}
-                                    onClick={() => deleteAlbum(Albumes.id)}
-                                >
-                                    Eliminar
-                                </button>
-                            </th>
-                        </tr>
-                    ))}
+                {appStore.state.collection?.map((collection: IAlbumCollectionModels, indexCollection: number) => (
+                    <>
+                        <h6>{collection.title}</h6>
+                        <tbody key={indexCollection}>
+                            {collection.albumList.map((album: IAlbumModels, index: number) => (
+                                <tr key={index}>
+                                    <th>{album.title}</th>
+                                    <th>
+                                        <button className={`${styleCSS.buttonAdmin}`} onClick={
+                                            () => showPopupUpdateCollection(album)
+                                        }>Modificar</button>
+                                        <button
+                                            className={`${styleCSS.buttonAdmin}`}
+                                            onClick={() => deleteAlbum(album.id)}
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </th>
+                                </tr>
+                            ))}
+                        </tbody>
 
-                </tbody>
+                    </>
+                ))}
+
             </table>
 
             <ModalContainer personCss={`${styleCSS.containerModalColeccion}`}>

@@ -7,7 +7,6 @@ import { IUserModels } from "../interface/models/IUser.models";
 import { getStorage, setStorage } from "../utils/magnamentStorage";
 import { IAlbumCollectionModels } from "../interface/models/IAlbumCollection.models";
 import { IAlbumModels } from "../interface/models/IAlbum.models";
-import { ICreateCollectionDto } from "./administration/interface/frontToBack/ICreateCollection.dto";
 import { apiSrv } from "../utils/apiSrv";
 import { multipleAlbumCollectionMapper, multipleAlbumes } from "./administration/mappers";
 
@@ -53,7 +52,6 @@ const appStore = create<IStore>((set, get) => ({
        
         collection: [],
         albumes: [],
-        // figurites: [],
        
         //extras
         spinnerModal: {} as ISpinnerModels, 
@@ -92,7 +90,6 @@ const appStore = create<IStore>((set, get) => ({
 
             if (res.info.type === 'error') return
 
-            // get().actions.setPagination({
             setPagination({
                 currentPage: res.info.data.currentPage,
                 totalPages: res.info.data.totalPages

@@ -60,7 +60,7 @@ export const Administration: React.FC = () => {
 
             {admin.action === typeActionsAdmin.Albumes && <Albumes />}
 
-            {/* {admin.action === typeActionsAdmin.Figurites && <Figurites />} */}
+            {admin.action === typeActionsAdmin.Figurites && <Figurites />}
 
             <div>
                 <Paginate

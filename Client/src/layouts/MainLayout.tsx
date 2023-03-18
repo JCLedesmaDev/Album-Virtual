@@ -27,7 +27,7 @@ export const MainLayout: React.FC = () => {
                 <Outlet />
             </main>
             <SpinnerModal />
-            <footer>Foooter</footer>
+            {/* <footer>Foooter</footer> */}
         </>
     )
 }

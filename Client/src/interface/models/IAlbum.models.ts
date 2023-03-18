@@ -5,5 +5,5 @@ export interface IAlbumModels {
     title: string;
     image: string;
     idCollection: string;
-    figurites?: IFigurineModels
+    figurites: IFigurineModels[]
 }

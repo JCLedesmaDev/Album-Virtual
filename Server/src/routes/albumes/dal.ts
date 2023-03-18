@@ -41,7 +41,8 @@ const getListAlbumes = async ({ page, filterText }: IPagination): Promise<Pagina
         const options: PaginateOptions = {
             page,
             limit: 3,
-            populate: [{ strictPopulate: false, path: 'figurites' }, { strictPopulate: false, path: 'albumCollections' }]
+            // populate: [{ strictPopulate: false, path: 'figurites' }, { strictPopulate: false, path: 'albumCollections' }]
+            populate: [{ strictPopulate: false, path: 'figurites' }]
         }
         const query: FilterQuery<IAlbumSchema> = {
             ...(filterText !== '' && {

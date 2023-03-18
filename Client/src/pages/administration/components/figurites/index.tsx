@@ -1,221 +1,159 @@
+import { Fragment, useEffect, useState } from "react";
+import { ModalContainer } from "../../../../components/PopupModal";
+import { useFormCustom } from "../../../../Hooks/useFormCustom";
+import { IFigurineModels } from "../../../../interface/models/IFigurine.models";
+import { useAppStore } from "../../../appStore";
+import { ICreateFigurineDto } from "../../interface/frontToBack/ICreateFigurine.dto";
+import { IUpdateFigurineDto } from "../../interface/frontToBack/IUpdateFigurine.dto";
+import { useAdministrationStore } from "../../store";
+import styleCSS from '../../index.module.css'
+import { IAlbumModels } from "../../../../interface/models/IAlbum.models";
+import { InputsMockFiguritas } from "./mocks/InputsFiguritas";
+import { Input } from "../../../../components/Input";
+import { IInputs } from "../../../../components/Input/IInputs";
+
+
 export const Figurites: React.FC = () => {
 
     //HOOKS
-    const [allFigurita, setAllFigurita] = useState<IAlbumImagenesData[]>([]);
-    const [allListAlbumes, setAllListAlbum] = useState<IListAlbum[]>([]);
-    const { paginate, setPaginate } = usePaginate()
-    const storeGlobal = useGlobalContext();
+    const appStore = useAppStore()
+    const store = useAdministrationStore()
+
     const [statusAction, setStatusAction] = useState({
-        action: "", idAlbumFigurita: 0
+        action: "", idFigurine: ''
     })
-    const { formulario, handleChange, resetForm, setFormulario } = useFormCustom<IDataFiguritaForm>({
-        NumeroImagen: "", CodigoImagenOriginal: "", CantidadImpresa: "",
-        Imagen: "", Titulo: "", AlbumId: 0
+    const { form, handleChange, resetForm, setForm } = useFormCustom<ICreateFigurineDto>({
+        image: "", title: "", idAlbum: ''
     });
 
     //METODOS
-    const getAll = async (page: number = 1) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-
-        const data = await AdminFiguritaService.GetAllAdminFiguritas(page);
-        console.log("🚀 ~ file: Index.tsx:18 ~ getAll ~ data", data)
-
-        setPaginate({
-            currentPage: data.Result.currentPage - 1,
-            pagesTotal: data.Result.pages
-        })
-
-        setAllFigurita(data.Result.listItems);
+    const getAllFigurites = async (page: number = 1) => {
+        await appStore.actions.getAllAlbumes({ page })
     };
 
-    const getAllAlbumes = async () => {
-        const data = await AdminFiguritaService.getAllAlbumes();
 
-        setAllListAlbum(data.Result);
-    }
-
-    const openAddFigurita = () => {
-        setFormulario({
-            NumeroImagen: "", CodigoImagenOriginal: "", CantidadImpresa: "",
-            Imagen: "", Titulo: "", AlbumId: 0
-        })
+    const showPopupCreateAlbum = () => {
+        setForm({ title: "", image: '', idAlbum: '' })
         setStatusAction({
             action: "add",
-            idAlbumFigurita: 0
+            idFigurine: ''
         })
-        storeGlobal.SetShowModalContainer(true)
+        appStore.actions.setShowPopup(true)
     }
-
-    const Add = async (event: any) => {
-
-        try {
-            event.preventDefault();
-            storeGlobal.SetShowLoader(true)
-
-            const data = {
-                ...formulario,
-                idAlbumFigurita: statusAction.idAlbumFigurita
-            }
-
-
-            console.log("Crear", formulario)
-            const { Result, MessageError } = await AdminFiguritaService.AddAdminAlbumes(data);
-
-            if (MessageError !== undefined) {
-                throw new Error(MessageError);
-            }
-
-            storeGlobal.SetShowLoader(false);
-            storeGlobal.SetMessageModalStatus(Result);
-            storeGlobal.SetShowModalStatus(true);
-
-            await getAll();
-        } catch (error: any) {
-
-            storeGlobal.SetShowLoader(false)
-            storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-            storeGlobal.SetShowModalStatus(true)
-
-        } finally {
-            resetForm()
-            setTimeout(() => {
-                storeGlobal.SetShowModalStatus(false)
-            }, 5000);
-        }
-    };
-
-
-    const openEditFigurita = (Figurita: IAlbumImagenesData) => {
-        setFormulario({
-            NumeroImagen: Figurita.numeroImagen,
-            CodigoImagenOriginal: Figurita.codigoImagenOriginal,
-            CantidadImpresa: Figurita.cantidadImpresa,
-            Imagen: Figurita.imagen,
-            Titulo: Figurita.titulo,
-            AlbumId: Figurita.albumId
-        })
+    const showPopupUpdateCollection = (figurine: IFigurineModels) => {
+        setForm({ title: figurine.title, idAlbum: figurine.idAlbum, image: figurine.image })
         setStatusAction({
             action: "update",
-            idAlbumFigurita: Figurita.id,
+            idFigurine: figurine.id
         })
-        storeGlobal.SetShowModalContainer(true)
+        appStore.actions.setShowPopup(true)
     }
 
-    const Put = async (event: any) => {
 
-        try {
-            event.preventDefault();
-            storeGlobal.SetShowLoader(true)
-
-            const { Result, MessageError } = await AdminFiguritaService.updateAdminAlbumes(
-                statusAction.idAlbumFigurita,
-                formulario
-            );
-
-            if (MessageError !== undefined) {
-                throw new Error(MessageError);
-            }
-
-            storeGlobal.SetShowLoader(false);
-            storeGlobal.SetMessageModalStatus(Result);
-            storeGlobal.SetShowModalStatus(true);
-
-            await getAll();
-        } catch (error: any) {
-
-            storeGlobal.SetShowLoader(false)
-            storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-            storeGlobal.SetShowModalStatus(true)
-
-        } finally {
-            resetForm()
-            setTimeout(() => {
-                storeGlobal.SetShowModalStatus(false)
-            }, 5000);
-            storeGlobal.SetShowModalContainer(false)
+    /////////
+    const createFigurine = async (event: any) => {
+        event.preventDefault();
+        const payload: ICreateFigurineDto = {
+            idAlbum: form.idAlbum,
+            image: form.image,
+            title: form.title
         }
+        const isCreate = await store.actions.createFigurine(payload)
+
+        if (!isCreate) return
+        await getAllFigurites();
+        appStore.actions.setShowPopup(false)
+        resetForm()
     };
 
-    const Delete = async (idAlbumFigurita: number) => {
-        try {
-            storeGlobal.SetShowLoader(true)
-
-            const { Result, MessageError } = await AdminFiguritaService.DeleteAdminAlbumes(idAlbumFigurita);
-
-            if (MessageError !== undefined) {
-                throw new Error(MessageError);
-            }
-
-            storeGlobal.SetShowLoader(false);
-            storeGlobal.SetMessageModalStatus(Result);
-            storeGlobal.SetShowModalStatus(true);
-
-            await getAll();
-        } catch (error: any) {
-
-            storeGlobal.SetShowLoader(false)
-            storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-            storeGlobal.SetShowModalStatus(true)
-
-        } finally {
-            setTimeout(() => {
-                storeGlobal.SetShowModalStatus(false)
-            }, 5000);
+    const updateFigurine = async (event: any) => {
+        event.preventDefault();
+        const payload: IUpdateFigurineDto = {
+            id: statusAction.idFigurine,
+            title: form.title,
+            idAlbum: form.idAlbum,
+            image: form.image
         }
+        const isUpdate = await store.actions.updateFigurine(payload)
+
+        if (!isUpdate) return
+        await getAllFigurites();
+        appStore.actions.setShowPopup(false)
+        resetForm()
     };
 
-    const changePage = ({ selected }: any) => {
-        window.scrollTo(0, 0);
-        getAll(selected + 1)
-    }
+    const deleteFigurine = async (id: string) => {
+        console.log("🚀 ~ file: index.tsx:86 ~ deleteFigurine ~ id:", id)
+        const isDelete = await store.actions.deleteFigurine(id)
+        if (!isDelete) return
+        await getAllFigurites();
+    };
 
     useEffect(() => {
-        getAll();
-        getAllAlbumes();
+        getAllFigurites();
     }, []);
 
     return (
-        <>
+        <Fragment>
+            <table className={`${styleCSS.tableContainer}`} border={1}>
+                <thead>
+                    <tr>
+                        <th>Selcciona la opcion deseada</th>
+                        <th>
+                            <button className={`${styleCSS.button}`} onClick={showPopupCreateAlbum}>
+                                Agregar figuritas
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
 
-            {allFigurita?.map((Figurita: IAlbumImagenesData, indexAlbum: number) => (
-                <tr key={indexAlbum}>
-                    <th>{Figurita.titulo}</th>
-                    <th>
-                        <button className={`${AdminFiguritaCSS.buttonAdmin}`} onClick={() => openEditFigurita(Figurita)}>Modificar</button>
-                        <button
-                            className={`${AdminFiguritaCSS.buttonAdmin}`}
-                            onClick={() => Delete(Figurita.id)}
-                        >
-                            Eliminar
-                        </button>
-                    </th>
-                </tr>
-            ))}
+                {appStore.state.albumes?.map((album: IAlbumModels, indexAlbum: number) => (
+                    <>
+                        <h6>{album.title}</h6>
+                        <tbody key={indexAlbum}>
+                            {album.figurites.map((figurine: IFigurineModels, iFigurine: number) => (
+                                <tr key={iFigurine}>
+                                    <th>{figurine.title}</th>
+                                    <th>
+                                        <button className={`${styleCSS.buttonAdmin}`} onClick={
+                                            () => showPopupUpdateCollection(figurine)
+                                        }>Modificar</button>
+                                        <button
+                                            className={`${styleCSS.buttonAdmin}`}
+                                            onClick={() => deleteFigurine(figurine.id)}
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </th>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </>
+                ))}
 
-            {allFigurita.length === 0 && <Loader />}
 
+            </table>
 
-            <ModalContainer personCss={`${AdminFiguritaCSS.containerModalFiguritas}`}>
+            <ModalContainer personCss={`${styleCSS.containerModalColeccion}`}>
 
                 <p onClick={() => {
-                    storeGlobal.SetShowModalContainer(false)
-                }} className={AdminFiguritaCSS.containerModalFiguritas__closeBtn}>
+                    appStore.actions.setShowPopup(false)
+                }} className={styleCSS.containerModalColeccion__closeBtn}>
                     <i className="fas fa-times"></i>
                 </p>
 
                 <h1>{statusAction.action === 'add' ? 'Crear' : 'Actualizar'} Figurita</h1>
 
-                <form onSubmit={statusAction.action === 'add' ? Add : Put} >
+                <form onSubmit={statusAction.action === 'add' ? createFigurine : updateFigurine} >
 
                     {
                         statusAction.action === 'add' && (
-
                             <label>
                                 Eliga el Album al que pertenece:
-                                <select onChange={handleChange} name="AlbumId" value={formulario.AlbumId}>
+                                <select onChange={handleChange} name="idAlbum" value={form.idAlbum}>
                                     <option value={0}> </option>
-                                    {allListAlbumes.map((coleccion, index) => (
-                                        <option value={coleccion.id} key={index}>{coleccion.nombreCompleto}</option>
+                                    {appStore.state.albumes.map((album: IAlbumModels, index) => (
+                                        <option value={album.id} key={index}>{album.title}</option>
                                     ))}
                                 </select>
                             </label>
@@ -226,7 +164,7 @@ export const Figurites: React.FC = () => {
                         <Input
                             key={index}
                             inputProps={inputProps}
-                            value={formulario[inputProps.name]}
+                            value={form[inputProps.name]}
                             handleChange={handleChange}
                             errorMessage={inputProps.errorMessage}
                             pattern={inputProps.expReg}
@@ -238,6 +176,6 @@ export const Figurites: React.FC = () => {
 
             </ModalContainer>
 
-        </>
+        </Fragment>
     )
 }
