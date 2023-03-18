@@ -1,5 +1,4 @@
-Aca aplicamos la arquitectura de Telecom en la que dividimos
-todo por servicios (x eje.: Users) y cada servicio
+
 tiene su archivo de :
 - index.js (el manejo de las rutas en particular)
 - controller.js (el manejo de payloads y datos que utilizara la logica en cuestion, aca va todo lo relacionado al req.body, etc)
@@ -7,8 +6,3 @@ tiene su archivo de :
 - dal.js / dao.js (consumo a la BD - Data Access Layer / Data Access Object )
 - service.js (en caso de q sea una api externa)
 - xxx.cache.js (en caso de que haya algo con la cache)
-
--> DTO
-
-https://github.com/fega/node-best-practices-layers
-

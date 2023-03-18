@@ -8,8 +8,6 @@ import { errorHandler } from './middlewares/errorHandler';
 import { eventHandler } from './middlewares/eventHandler';
 import { notFoundRouterHandler } from './middlewares/notFoundRouteHandler';
 import { createMocksDateHandler } from './middlewares/createMocksDateHandler';
-import swaggerUi from "swagger-ui-express";
-import swaggerSetup from "./docs/swagger";
 
 function startServer(PORT: number) {
 
@@ -28,7 +26,6 @@ function startServer(PORT: number) {
     app.use(headersHandler) // Definimos como manejamos todos los datos provenientes del headers
 
     app.use('/api', indexRoutes)
-    app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerSetup))
     app.use("*", notFoundRouterHandler);
 
     app.use(eventHandler)
