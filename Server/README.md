@@ -1,15 +1,16 @@
 
-# Simple CRUD Api with NodeJs + ExpressJs + Typescript and MongoDB.
-
-CRUD MVC Api in NodeJs developed with Typescript using ExpressJs framework, mongoose and MongoDB.
-
-* [ExpressJS](https://expressjs.com/) - Web framework for NodeJs
-* [Mongoose](https://mongoosejs.com/) - ORM Library for MongoDB
-* [Nodemon](https://nodemon.io/) - Used for hot reload.
+# API CRUD con NodeJS + ExpressJS + TypeScript y MongoDB. 
 
 
-## Requeriments
-Install Nodejs environment in your O.S. - https://nodejs.org/en/
+API CRUD en NodeJS implemenatndo una arquitectura orientada a Microservicios desarrollada con TypeScript utilizando ExpressJS como framework y Mongoose como ODM de MongoDB.
+
+* [ExpressJS](https://expressjs.com/) - Web del Framework de NodeJS.
+* [Mongoose](https://mongoosejs.com/) - ODM de MongoDB.
+* [Nodemon](https://nodemon.io/) - Utilizado para la recarga automatica.
+
+
+## Requerimientos
+Instalar el entorno de NodeJS en tu Sistema Operativo - https://nodejs.org/es/
 
 This project connects to a database hosted in Mongo Atlas, but you can install MongoDB on your PC and use your own database locally or create an account at Mongo Atlas.  
 
