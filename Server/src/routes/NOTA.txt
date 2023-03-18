@@ -12,6 +12,3 @@ tiene su archivo de :
 
 https://github.com/fega/node-best-practices-layers
 
-
-Services
-Servicios cross a toda la solucion

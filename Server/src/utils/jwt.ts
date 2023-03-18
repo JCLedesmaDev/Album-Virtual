@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { IRolSchema } from '../models/collections/Roles'
 import { IUserSchema } from '../models/collections/Users'
-import mapper from '../services/users/mapper'
+import mapper from '../routes/users/mapper'
 import config from 'config'
 import { ApplicationError } from './applicationError'
 

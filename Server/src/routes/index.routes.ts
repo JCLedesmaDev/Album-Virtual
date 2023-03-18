@@ -1,8 +1,8 @@
 import express from "express";
-import UsersRoutes from '../services/users'
-import AlbumesRoutes from '../services/albumes'
-import FiguritesRoutes from '../services/figurites'
-import AlbumCollectionRoutes from '../services/albumCollections'
+import UsersRoutes from './/users'
+import AlbumesRoutes from './/albumes'
+import FiguritesRoutes from './/figurites'
+import AlbumCollectionRoutes from './/albumCollections'
 const router = express.Router();
 
 router.use('/albumes', AlbumesRoutes)
