@@ -15,15 +15,15 @@ Instalar el entorno de NodeJS en tu Sistema Operativo - https://nodejs.org/es/
 
 Este proyecto se conecta a una Base de Datos ubicada en Mongo Atlas, pero puede instalar MongoDB en su PC y utilizar su propia Base de Datos o sino, crear una cuenta en Mongo Atlas.
 
-Use [Mongo Atlas](https://www.mongodb.com/atlas/database/)  
-Download [MongoDB](https://www.mongodb.com/try/download/community)
+Utiliza [Mongo Atlas](https://www.mongodb.com/atlas/database/)  
+Descarga [MongoDB](https://www.mongodb.com/try/download/community)
 
-## Project setup installation
+## Instalación de configuración del proyecto
 
-Install project dependencies, from the root path of the project run in terminal:
+Instale las depedencias del proyecto, ejecutando en la terminal, desde la ruta raiz del proyecto:
 
 ```bash
-  npm i
+  npm install
 ```
 
 ## Environment variables
@@ -34,7 +34,7 @@ To run this project, you will need to add the following environment variables to
 PORT=port
 DB_NAME=databaseName
 DB_USER=databaseUser
-
+```
 ------------------------------------
 
 # NodeJs API with ExpressJs + Typescript and MongoDB using Clean Architecture.
