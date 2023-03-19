@@ -1,4 +1,3 @@
-------------------------------------
 
 # API CRUD con NodeJS + ExpressJS + TypeScript y MongoDB. 
 
@@ -27,15 +26,16 @@ Instale las depedencias del proyecto, ejecutando en la terminal, desde la ruta r
   npm install
 ```
 
-## Environment variables
+## Variables de entorno
 
-To run this project, you will need to add the following environment variables to the `.env` file.
+Para ejecutar este proyecto Back End, deberá agregar las siguientes variables de entorno al archivo `.env`:
 
 ```bash
-PORT=port
-DB_NAME=databaseName
-DB_USER=databaseUser
+NODE_ENV=nombreEntorno
+jwt_secret=claveSuperSecreta
+
 ```
+
 ------------------------------------
 
 # NodeJs API with ExpressJs + Typescript and MongoDB using Clean Architecture.
