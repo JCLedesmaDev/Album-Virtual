@@ -5,46 +5,23 @@
 API CRUD en NodeJS implemenatndo una arquitectura orientada a Microservicios desarrollada con TypeScript utilizando ExpressJS como framework y Mongoose como ODM de MongoDB.
 
 Dependencias utilizadas:
-* [ExpressJS](https://expressjs.com/) - Web del Framework de NodeJS.
-* [Mongoose](https://mongoosejs.com/) - ODM de MongoDB.
-* [Nodemon](https://nodemon.io/) - Utilizado para la recarga automatica.
+ * [TypeScript](https://www.npmjs.com/package/typescript)
+ * [Express](https://expressjs.com/) | [@types/express](https://www.npmjs.com/package/@types/express) - Framework de NodeJS.
+ * [Cors](https://www.npmjs.com/package/cors) | [@types/cors](https://www.npmjs.com/package/@types/cors) - Permite el acceso a las peticiones HTTP hacia nuestro BE.
+ * [Dotenv](https://www.npmjs.com/package/dotenv) - Permite el uso de las variables de entorno.
+ * [Mongoose](https://mongoosejs.com/) - ODM de MongoDB
+ * [Nodemon](https://nodemon.io/) - Monitorea los cambios en el código fuente que se está desarrollando y automáticamente reinicia el servidor.
+ * [Mongoose-delete](https://www.npmjs.com/package/mongoose-delete) | [@types/mongoose-delete](https://www.npmjs.com/package/@types/mongoose-delete) - Este paquete nos permite indicarle a nuestros modelos (colecciones) que hagan uso de estrategias de "Soft Delete - borrado logico, permitiendonos persistir los registros eliminados.
+ * [Ts-node](https://www.npmjs.com/package/ts-node) - Nos permite ejecutar Typescript en un proyecto de Nodejs.
+ * [Bcrypt](https://www.npmjs.com/package/bcrypt) | [@types/bcrypt](https://www.npmjs.com/package/@types/bcrypt) - Permite el hasheo de claves.
+ * [Mongoose-paginate-v2](https://www.npmjs.com/package/mongoose-paginate-v2) - Para paginar todos los registro de una coleccion de mongoose.   
+ * [Config](https://www.npmjs.com/package/config) | [@types/config](https://www.npmjs.com/package/@types/config) - Nos permite definir un conjunto de parámetros predeterminados y extenderlos para diferentes entornos de implementación (desarrollo, control de calidad, preparación, producción, etc.).
+ * [Node-config](https://www.npmjs.com/package/config) | [@types/node](https://www.npmjs.com/package/ts-node) - Permite pasarle valores a nuestros parametros del "Config" por medio de las variables de entorno del .ENV 
+ * [Rimraf](https://www.npmjs.com/package/rimraf) - Eliminados de carpetas por comando
+ * [Morgan](https://www.npmjs.com/package/morgan) | [@types/mogan](https://www.npmjs.com/package/@types/morgan) - Loguea en consola, las peticiones HTTP Request.  
+ * [Express-validators](https://express-validator.github.io/docs/) - Middleware que permite validar los datos provenientes del Request
+ * [Jsonwebtokens](https://www.npmjs.com/package/jsonwebtoken) | [@types/jsonwebtokens](https://www.npmjs.com/package/@types/jsonwebtoken)
 
-
-
-
-
-----------------------
-
-   * [TypeScript]
-   * [Express] | [@types/express]
-   * [Cors] | [@types/cors] - (Permite el acceso a las peticiones HTTP hacia nuestro BE)
-   * [Dotenv] - (Permite el uso de las variables de entorno)
-   * [Mongoose] - (ORM de MongoDB)
-   * [Nodemon] - (utilidad que monitorea los cambios en el código fuente que se está desarrollando y automáticamente reinicia el servidor)
-   * [Mongoose-delete] | [@types/mongoose-delete] - (Este paquete nos permite indicarle a nuestros modelos (colecciones) que hagan uso de estrategias de "Soft Delete - borrado logico, permitiendonos persistir los registros eliminados
-   * [Ts-node] | [@types/node] - (nos permite ejecutar Typescript en un proyecto de Nodejs)
-   * [Bcrypt] | [@types/bcrypt] - (Permite hashear las claves y guardalas en la BD)
-   * [Mongoose-paginate-v2] - (Para paginar todos los registro de una coleccion de mongoose)   
-   * [Config] | [@types/config] - (Nos permite definir un conjunto de parámetros predeterminados y extenderlos para diferentes entornos de implementación (desarrollo, control de calidad, preparación, producción, etc.).)
-   * [Node-config]: Permite pasarle valores a nuestros parametros del "Config" por medio de las variables de entorno del .ENV 
-   * [Rimraf]: Eliminados de carpetas por comando
-   * [Morgan] | [@types/mogan] - ()   
-   * [Express-validators] (Middleware que permite validar los datos provenientes del Request)
-   * [Jsonwebtokens] | [@types/jsonwebtokens] 
-
-
-
-----------------------
-
-* [ExpressJS](https://expressjs.com/) - Web framework for NodeJs.
-* [Mongoose](https://mongoosejs.com/) - ORM Library for MongoDB.
-* [Express validator](https://express-validator.github.io/docs/) - Library for validate and sanitize input data.
-* [Bcrypt](https://www.npmjs.com/package/bcrypt) - Library for password hashing.
-* [Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - Library for implementation of JSON Web Tokens.
-* [Dotenv](https://www.npmjs.com/package/dotenv) - Library to load environment variables.
-* [Jest](https://jestjs.io/) - Library for Unit testing and Integration testing.
-* [Supertest](https://www.npmjs.com/package/supertest) - Library for test API endpoints.
-* [Nodemon](https://nodemon.io/) - Used for hot reload.
 
 ## Requerimientos
 Instalar el entorno de NodeJS en tu Sistema Operativo - https://nodejs.org/es/
