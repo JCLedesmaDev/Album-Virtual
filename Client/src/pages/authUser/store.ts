@@ -3,7 +3,7 @@ import { shallow } from "zustand/shallow";
 import produce from 'immer'
 
 import { userMapper } from "./mappers";
-import { IUserModels } from "../../interface/models/IUser.models";
+import { IUserModels } from "../../models/IUser.models";
 import { apiSrv } from "../../utils/apiSrv";
 import appStore from "../appStore";
 import { ILoginDto } from "./interface/frontToBack/ILogin.dto";

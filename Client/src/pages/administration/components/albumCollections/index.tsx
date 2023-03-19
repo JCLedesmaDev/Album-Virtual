@@ -7,7 +7,7 @@ import { InputsMockColeccion } from "./mocks/InputsColeccion";
 import { Input } from "../../../../components/Input";
 import { IInputs } from "../../../../components/Input/IInputs";
 import { ICreateCollectionDto } from "../../interface/frontToBack/ICreateCollection.dto";
-import { IAlbumCollectionModels } from "../../../../interface/models/IAlbumCollection.models";
+import { IAlbumCollectionModels } from "../../../../models/IAlbumCollection.models";
 import { useAppStore } from "../../../appStore";
 import { useAdministrationStore } from "../../store";
 import { IUpdateCollectionDto } from "../../interface/frontToBack/IUpdateCollection.dto";

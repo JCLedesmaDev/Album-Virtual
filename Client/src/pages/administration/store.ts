@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { shallow } from "zustand/shallow";
-import { IAlbumCollectionModels } from "../../interface/models/IAlbumCollection.models";
+import { IAlbumCollectionModels } from "../../models/IAlbumCollection.models";
 import { apiSrv } from "../../utils/apiSrv";
 import { ICreateAlbumDto } from "./interface/frontToBack/ICreateAlbum.dto";
 import { ICreateCollectionDto } from "./interface/frontToBack/ICreateCollection.dto";

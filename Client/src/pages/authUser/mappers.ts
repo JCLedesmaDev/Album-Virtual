@@ -1,5 +1,5 @@
-import { IRolModels } from "../../interface/models/IRol.models";
-import { IUserModels } from "../../interface/models/IUser.models";
+import { IRolModels } from "../../models/IRol.models";
+import { IUserModels } from "../../models/IUser.models";
 import { ILoginResponseDto, IRol } from "./interface/backToFront/ILoginResponse.dto";
 
 export const userMapper = (LoginResponse: ILoginResponseDto): IUserModels => {

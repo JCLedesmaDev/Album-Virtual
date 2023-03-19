@@ -1,6 +1,6 @@
 import {  } from "react-router";
  import { Route, Navigate} from "react-router-dom";
-import { IUserModels } from "../../interface/models/IUser.models";
+import { IUserModels } from "../../models/IUser.models";
 import { getStorage } from "../../utils/magnamentStorage";
 
 interface IRoutePrivate {

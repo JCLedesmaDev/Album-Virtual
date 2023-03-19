@@ -7,10 +7,10 @@ import styleCSS from '../../index.module.css'
 import { IInputs } from "../../../../components/Input/IInputs";
 import { InputsMockAlbum } from "./mocks/InputsAlbum";
 import { ModalContainer } from "../../../../components/PopupModal";
-import { IAlbumModels } from "../../../../interface/models/IAlbum.models";
+import { IAlbumModels } from "../../../../models/IAlbum.models";
 import { Input } from "../../../../components/Input";
 import { IUpdateAlbumDto } from "../../interface/frontToBack/IUpdateAlbum.dto";
-import { IAlbumCollectionModels } from "../../../../interface/models/IAlbumCollection.models";
+import { IAlbumCollectionModels } from "../../../../models/IAlbumCollection.models";
 
 
 export const Albumes: React.FC = () => {

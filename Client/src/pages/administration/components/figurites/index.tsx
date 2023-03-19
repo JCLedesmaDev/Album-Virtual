@@ -1,13 +1,13 @@
 import { Fragment, useEffect, useState } from "react";
 import { ModalContainer } from "../../../../components/PopupModal";
 import { useFormCustom } from "../../../../Hooks/useFormCustom";
-import { IFigurineModels } from "../../../../interface/models/IFigurine.models";
+import { IFigurineModels } from "../../../../models/IFigurine.models";
 import { useAppStore } from "../../../appStore";
 import { ICreateFigurineDto } from "../../interface/frontToBack/ICreateFigurine.dto";
 import { IUpdateFigurineDto } from "../../interface/frontToBack/IUpdateFigurine.dto";
 import { useAdministrationStore } from "../../store";
 import styleCSS from '../../index.module.css'
-import { IAlbumModels } from "../../../../interface/models/IAlbum.models";
+import { IAlbumModels } from "../../../../models/IAlbum.models";
 import { InputsMockFiguritas } from "./mocks/InputsFiguritas";
 import { Input } from "../../../../components/Input";
 import { IInputs } from "../../../../components/Input/IInputs";

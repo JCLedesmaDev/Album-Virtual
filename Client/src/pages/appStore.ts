@@ -2,11 +2,11 @@ import { create } from "zustand";
 import { shallow } from "zustand/shallow";
 import produce from 'immer'
 
-import { ISpinnerModels } from "../interface/models/ISpinner.models";
-import { IUserModels } from "../interface/models/IUser.models";
+import { ISpinnerModels } from "../models/ISpinner.models";
+import { IUserModels } from "../models/IUser.models";
 import { getStorage, setStorage } from "../utils/magnamentStorage";
-import { IAlbumCollectionModels } from "../interface/models/IAlbumCollection.models";
-import { IAlbumModels } from "../interface/models/IAlbum.models";
+import { IAlbumCollectionModels } from "../models/IAlbumCollection.models";
+import { IAlbumModels } from "../models/IAlbum.models";
 import { apiSrv } from "../utils/apiSrv";
 import { multipleAlbumCollectionMapper, multipleAlbumes } from "./administration/mappers";
 

@@ -5,7 +5,7 @@ import { useGlobalContext } from '../../Context/useGlobalContext';
 import AlbumUnitarioService from './Services/AlbumUsuarioImagen.service';
 import { IAlbumUsuarioData } from '../../Interface/DTO Back/AlbumUsuario/IAlbumUsuario';
 import { carouselTarjets } from '../../Utils/carouselTarjets';
-import { ConfigCarrouselModels } from '../../interface/models/ConfigCarrousel.models';
+import { ConfigCarrouselModels } from '../../models/ConfigCarrousel.models';
 import { usePaginate } from '../../Hooks/usePaginate';
 import { Paginate } from '../../components/Paginate';
 import { IAlbumUsuarioImagenes } from '../../Interface/DTO Back/AlbumUsuarioImagenes/IAlbumUsuarioImagenes';

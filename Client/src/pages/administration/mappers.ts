@@ -1,6 +1,6 @@
-import { IAlbumModels } from "../../interface/models/IAlbum.models";
-import { IAlbumCollectionModels } from "../../interface/models/IAlbumCollection.models";
-import { IFigurineModels } from "../../interface/models/IFigurine.models";
+import { IAlbumModels } from "../../models/IAlbum.models";
+import { IAlbumCollectionModels } from "../../models/IAlbumCollection.models";
+import { IFigurineModels } from "../../models/IFigurine.models";
 import { IGetAllAlbumCollectionResponseDto } from "./interface/backToFront/IGetAllAlbumCollectionResponse.dto";
 import { IGetAllAlbumesResponseDto } from "./interface/backToFront/IGetAllAlbumesResponse.dto";
 import { IGetAllFiguritesResponseDto } from "./interface/backToFront/IGetAllFiguritesResponse.dto";

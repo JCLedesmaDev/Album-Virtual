@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import AlbumService from './Services/Album.service';
 import { IColeccionData } from "../../Interface/DTO Back/ColeccionAlbum/IColeccionAlbumData";
 import { IAlbumData } from "../../Interface/DTO Back/Album/IAlbumData";
-import { ConfigCarrouselModels } from "../../interface/models/ConfigCarrousel.models";
+import { ConfigCarrouselModels } from "../../models/ConfigCarrousel.models";
 import { useGlobalContext } from "../../Context/useGlobalContext";
 import { Paginate } from '../../components/Paginate';
 import { usePaginate } from '../../Hooks/usePaginate';
