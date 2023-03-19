@@ -2,10 +2,9 @@
 
 # API CRUD con NodeJS + ExpressJS + TypeScript y MongoDB. 
 
-
 API CRUD en NodeJS implementando una arquitectura orientada a Microservicios desarrollada con TypeScript utilizando ExpressJS como framework y Mongoose como ODM de MongoDB.
 
-Dependencias utilizadas:
+## Dependencias utilizadas:
  * [TypeScript](https://www.npmjs.com/package/typescript).
  * [Express](https://expressjs.com/) | [@types/express](https://www.npmjs.com/package/@types/express) - Framework de NodeJS.
  * [Cors](https://www.npmjs.com/package/cors) | [@types/cors](https://www.npmjs.com/package/@types/cors) - Permite el acceso a las peticiones HTTP hacia nuestro BE.
@@ -24,7 +23,7 @@ Dependencias utilizadas:
  * [Jsonwebtokens](https://www.npmjs.com/package/jsonwebtoken) | [@types/jsonwebtokens](https://www.npmjs.com/package/@types/jsonwebtoken).
 
 
-## Requerimientos
+## Requerimientos:
 Instalar el entorno de NodeJS en tu Sistema Operativo - https://nodejs.org/es/.
 
 Este proyecto se conecta a una Base de Datos ubicada en Mongo Atlas, pero puede instalar MongoDB en su PC y utilizar su propia Base de Datos o sino, crear una cuenta en Mongo Atlas.
@@ -32,7 +31,7 @@ Este proyecto se conecta a una Base de Datos ubicada en Mongo Atlas, pero puede 
  * Utiliza [Mongo Atlas](https://www.mongodb.com/atlas/database/).
  * Descarga [MongoDB](https://www.mongodb.com/try/download/community).
 
-## Instalación de configuración del proyecto
+## Instalación de configuración del proyecto:
 
 Instale las depedencias del proyecto, ejecutando en la terminal, desde la ruta raiz del proyecto:
 
@@ -40,7 +39,7 @@ Instale las depedencias del proyecto, ejecutando en la terminal, desde la ruta r
   npm install
 ```
 
-## Variables de entorno
+## Variables de entorno:
 
 Para ejecutar este proyecto Back End, deberá agregar las siguientes variables de entorno al archivo `.env`:
 
@@ -52,7 +51,7 @@ nameBD=nombreBaseDeDatos
 El archivo `.env` debe estar en la ruta raíz del proyecto.
 
 
-## Despliegue
+## Despliegue:
 
 **Development**
 
