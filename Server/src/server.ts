@@ -19,7 +19,6 @@ function startServer(PORT: number) {
 
     app.listen(PORT, () => {
         console.log(`⚡️[server]: Server is running in ${config.util.getEnv("NODE_ENV")} at ${config.get('server.public_url')}${PORT}`);
-        console.log(`⚡️[server]: Swagger Server at ${config.get('server.public_url')}${PORT}/documentation`);
     });
 
     app.use(createMocksDateHandler)

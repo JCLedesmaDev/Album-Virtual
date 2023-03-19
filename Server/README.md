@@ -46,7 +46,7 @@ Para ejecutar este proyecto Back End, deberá agregar las siguientes variables d
 ```bash
 NODE_ENV=nombreEntorno
 jwt_secret=claveSuperSecreta
-
+nameBD=nombreBaseDeDatos
 ```
 El archivo `.env` debe estar en la ruta raíz del proyecto.
 
