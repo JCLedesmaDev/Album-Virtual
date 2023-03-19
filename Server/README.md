@@ -29,8 +29,8 @@ Instalar el entorno de NodeJS en tu Sistema Operativo - https://nodejs.org/es/.
 
 Este proyecto se conecta a una Base de Datos ubicada en Mongo Atlas, pero puede instalar MongoDB en su PC y utilizar su propia Base de Datos o sino, crear una cuenta en Mongo Atlas.
 
-Utiliza [Mongo Atlas](https://www.mongodb.com/atlas/database/) .
-Descarga [MongoDB](https://www.mongodb.com/try/download/community) .
+Utiliza [Mongo Atlas](https://www.mongodb.com/atlas/database/)
+Descarga [MongoDB](https://www.mongodb.com/try/download/community)
 
 ## Instalación de configuración del proyecto
 
