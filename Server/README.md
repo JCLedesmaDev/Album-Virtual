@@ -10,6 +10,32 @@ Dependencias utilizadas:
 * [Nodemon](https://nodemon.io/) - Utilizado para la recarga automatica.
 
 
+
+
+
+----------------------
+
+   * [TypeScript]
+   * [Express] | [@types/express]
+   * [Cors] | [@types/cors] - (Permite el acceso a las peticiones HTTP hacia nuestro BE)
+   * [Dotenv] - (Permite el uso de las variables de entorno)
+   * [Mongoose] - (ORM de MongoDB)
+   * [Nodemon] - (utilidad que monitorea los cambios en el código fuente que se está desarrollando y automáticamente reinicia el servidor)
+   * [Mongoose-delete] | [@types/mongoose-delete] - (Este paquete nos permite indicarle a nuestros modelos (colecciones) que hagan uso de estrategias de "Soft Delete - borrado logico, permitiendonos persistir los registros eliminados
+   * [Ts-node] | [@types/node] - (nos permite ejecutar Typescript en un proyecto de Nodejs)
+   * [Bcrypt] | [@types/bcrypt] - (Permite hashear las claves y guardalas en la BD)
+   * [Mongoose-paginate-v2] - (Para paginar todos los registro de una coleccion de mongoose)   
+   * [Config] | [@types/config] - (Nos permite definir un conjunto de parámetros predeterminados y extenderlos para diferentes entornos de implementación (desarrollo, control de calidad, preparación, producción, etc.).)
+   * [Node-config]: Permite pasarle valores a nuestros parametros del "Config" por medio de las variables de entorno del .ENV 
+   * [Rimraf]: Eliminados de carpetas por comando
+   * [Morgan] | [@types/mogan] - ()   
+   * [Express-validators] (Middleware que permite validar los datos provenientes del Request)
+   * [Jsonwebtokens] | [@types/jsonwebtokens] 
+
+
+
+----------------------
+
 * [ExpressJS](https://expressjs.com/) - Web framework for NodeJs.
 * [Mongoose](https://mongoosejs.com/) - ORM Library for MongoDB.
 * [Express validator](https://express-validator.github.io/docs/) - Library for validate and sanitize input data.
@@ -47,13 +73,12 @@ jwt_secret=claveSuperSecreta
 ```
 El archivo `.env` debe estar en la ruta raíz del proyecto.
 
-<!-- ------------------------------------ -->
 
-## Deployment
+## Despliegue
 
 **Development**
 
-To run project in development mode execute in terminal:
+Para ejecutar el proyecto en modo de desarrollo, ejecute en la terminal:
 
 ```bash
   npm run dev
@@ -61,9 +86,9 @@ To run project in development mode execute in terminal:
 
 **Production**
 
-To generate the project files for production, run the command:
+Para generar los archivos del proyecto para producción, ejecute el comando:
 
 ```bash
   npm run build
 ```
-The production folder will be generated in the root path of the project. The name of the folder will be **dist**.
+La carpeta de producción se generará en la ruta raíz del proyecto. El nombre de la carpeta será **dist**.
