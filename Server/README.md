@@ -12,11 +12,11 @@ API CRUD en NodeJS implementando una arquitectura orientada a Microservicios des
  * [Mongoose](https://mongoosejs.com/) - ODM de MongoDB.
  * [Nodemon](https://nodemon.io/) - Monitorea los cambios en el código fuente que se está desarrollando y automáticamente reinicia el servidor.
  * [Mongoose-delete](https://www.npmjs.com/package/mongoose-delete) | [@types/mongoose-delete](https://www.npmjs.com/package/@types/mongoose-delete) - Este paquete nos permite indicarle a nuestros modelos (colecciones) que hagan uso de estrategias de "Soft Delete - borrado logico, permitiendonos persistir los registros eliminados.
- * [Ts-node](https://www.npmjs.com/package/ts-node) - Nos permite ejecutar Typescript en un proyecto de Nodejs.
+ * [Ts-node](https://www.npmjs.com/package/ts-node) | [@types/node](https://www.npmjs.com/package/ts-node) - Nos permite ejecutar Typescript en un proyecto de Nodejs.
  * [Bcrypt](https://www.npmjs.com/package/bcrypt) | [@types/bcrypt](https://www.npmjs.com/package/@types/bcrypt) - Permite el hasheo de claves.
  * [Mongoose-paginate-v2](https://www.npmjs.com/package/mongoose-paginate-v2) - Para paginar todos los registro de una coleccion de mongoose.   
  * [Config](https://www.npmjs.com/package/config) | [@types/config](https://www.npmjs.com/package/@types/config) - Nos permite definir un conjunto de parámetros predeterminados y extenderlos para diferentes entornos de implementación (desarrollo, control de calidad, preparación, producción, etc.).
- * [Node-config](https://www.npmjs.com/package/config) | [@types/node](https://www.npmjs.com/package/ts-node) - Permite pasarle valores a nuestros parametros del "Config" por medio de las variables de entorno del .ENV .
+ * [Node-config](https://www.npmjs.com/package/config) - Permite pasarle valores a nuestros parametros del "Config" por medio de las variables de entorno del .ENV .
  * [Rimraf](https://www.npmjs.com/package/rimraf) - Eliminados de carpetas por comando.
  * [Morgan](https://www.npmjs.com/package/morgan) | [@types/mogan](https://www.npmjs.com/package/@types/morgan) - Loguea en consola, las peticiones HTTP Request.  
  * [Express-validators](https://express-validator.github.io/docs/) - Middleware que permite validar los datos provenientes del Request.
