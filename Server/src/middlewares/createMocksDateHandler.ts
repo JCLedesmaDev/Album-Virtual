@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express"
 import collections from "../models/index.models"
 import { ApplicationError } from "../utils/applicationError";
 import bcrypt from '../utils/bcryptPassword'
+import config from 'config'
 
 const createMocksDateHandler = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -17,7 +18,7 @@ const createMocksDateHandler = async (req: Request, res: Response, next: NextFun
             await collections.Users.create({
                 email: 'admin@gmail.com',
                 fullName: 'Administrador',
-                password: await bcrypt.encrypt('Administrador123'),
+                password: await bcrypt.encrypt(config.util.getEnv("password_admin")),
                 roles: [roles[0]._id] // Rol: Admin
             })        
         }
