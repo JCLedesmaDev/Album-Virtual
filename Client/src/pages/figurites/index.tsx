@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { ConfigCarrouselModels } from '../../models/ConfigCarrousel.models';
+import { IAlbumModels } from '../../models/IAlbum.models';
 import { useAppStore } from '../appStore';
+import store from '../authUser/store';
 import './style.css'
 
 
@@ -14,13 +17,13 @@ export const Figurites: React.FC = () => {
     /// METODOS
 
 
-    const getAllAlbumImagenes = async (page: number = 1, query?: string) => {
+    const getAllAlbumes = async (page: number = 1, query?: string) => {
+        const arrAlbumImg: ConfigCarrouselModels[] = []
 
-        const data = await AlbumImagenService.GetAllFiguritasAlbumes(page, query)
+        await appStore.actions.getAllAlbumes({ page, filterText: query })
 
-        let arrAlbumImg: ConfigCarrouselModels[] = []
 
-        data.Result?.listItems.map((coleccion: any, index: number) => {
+        appStore.state.albumes.map((albumes: IAlbumModels, index: number) => {
             arrAlbumImg.push({
                 individualItem: `#album-item${index}`,
                 carouselWidth: 1000, // in p
@@ -28,10 +31,7 @@ export const Figurites: React.FC = () => {
                 carouselHolderId: `#album-rotator-holder${index}`,
             })
         })
-        setPaginate({
-            currentPage: data.Result.currentPage - 1,
-            pagesTotal: data.Result.pages
-        })
+
         setAllAlbumImagenes(data.Result.listItems)
         carouselTarjets(arrAlbumImg)
     }
@@ -43,40 +43,40 @@ export const Figurites: React.FC = () => {
 
     const buyFigurita = async (idFigurita: number, IdAlbum: number) => {
 
-        try {
+        // try {
 
-            storeGlobal.SetShowLoader(true)
+        //     storeGlobal.SetShowLoader(true)
 
-            const { Result, MessageError } = await AlbumImagenService.buyFigurita({
-                IdUsuario: storeGlobal.GetMyUserData().Id,
-                IdAlbumImagen: idFigurita,
-                IdAlbum: IdAlbum
-            })
+        //     const { Result, MessageError } = await AlbumImagenService.buyFigurita({
+        //         IdUsuario: storeGlobal.GetMyUserData().Id,
+        //         IdAlbumImagen: idFigurita,
+        //         IdAlbum: IdAlbum
+        //     })
 
-            if (MessageError != undefined) {
-                throw new Error(MessageError);
-            }
+        //     if (MessageError != undefined) {
+        //         throw new Error(MessageError);
+        //     }
 
-            storeGlobal.SetShowLoader(false)
-            storeGlobal.SetMessageModalStatus(Result)
+        //     storeGlobal.SetShowLoader(false)
+        //     storeGlobal.SetMessageModalStatus(Result)
 
-        } catch (error: any) {
+        // } catch (error: any) {
 
-            storeGlobal.SetShowLoader(false)
-            storeGlobal.SetMessageModalStatus(`Uups... ${error}. \n \n Intentelo nuevamente`)
+        //     storeGlobal.SetShowLoader(false)
+        //     storeGlobal.SetMessageModalStatus(`Uups... ${error}. \n \n Intentelo nuevamente`)
 
-        } finally {
-            storeGlobal.SetShowModalStatus(true)
+        // } finally {
+        //     storeGlobal.SetShowModalStatus(true)
 
-            setTimeout(() => {
-                storeGlobal.SetShowModalStatus(false)
-            }, 5000);
+        //     setTimeout(() => {
+        //         storeGlobal.SetShowModalStatus(false)
+        //     }, 5000);
 
-        }
+        // }
     }
 
     useEffect(() => {
-        getAllAlbumImagenes()
+        getAllAlbumes()
     }, [])
 
     return (
@@ -88,7 +88,7 @@ export const Figurites: React.FC = () => {
                 <div id="m">
 
 
-                <div className="container">
+                    <div className="container">
                         <div className="input-group mb-3">
                             <input
                                 type="text" className="form-control"
@@ -96,8 +96,8 @@ export const Figurites: React.FC = () => {
                                 onChange={(e) => setQuery(e.target.value)}
                             />
                             <div className="input-group-append">
-                                <button type="button" className="btn btn-primary" 
-                                    onClick={()=> getAllAlbumImagenes(1, query)}>
+                                <button type="button" className="btn btn-primary"
+                                    onClick={() => getAllAlbumImagenes(1, query)}>
                                     <i className="fas fa-search"></i>
                                 </button>
                             </div>
