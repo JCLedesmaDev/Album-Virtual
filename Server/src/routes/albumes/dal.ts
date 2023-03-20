@@ -120,7 +120,7 @@ const getAllPurchasedAlbumes = async (payload: IGetAllPurchasedAlbumesDto): Prom
         const query: FilterQuery<IPurchasedAlbumSchema> = {
             ...(payload.filterText !== '' && {
                 title: { $regex: new RegExp(payload.filterText), $options: 'i' }
-            }), // Investigar como hacer un filtrado aca
+            }),
         }
         return await collections.PurchasedAlbumes.paginate(query, options)
     } catch (error) {

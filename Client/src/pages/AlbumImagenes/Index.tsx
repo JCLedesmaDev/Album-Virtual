@@ -1,29 +1,15 @@
-//import { useEffect } from "react";
-//import { FormLogin } from "./Components/FormLogin/FormLogin";
+import { useState } from 'react';
+import { useAppStore } from '../appStore';
 import './style.css'
-import { useNavigate } from 'react-router-dom'
 
-import AlbumImagenesMock from './Mocks/AlbumImagenes.json'
-import { useEffect, useState } from 'react';
-import { carouselTarjets } from '../../Utils/carouselTarjets';
-import { IAlbumImagenesData } from '../../Interface/DTO Back/AlbumImagenes/IAlbumImagenes';
-import { ConfigCarrouselModels } from '../../models/ConfigCarrousel.models';
-import AlbumImagenService from './Services/AlbumImagen.service';
-import { IAlbumData } from '../../Interface/DTO Back/Album/IAlbumData';
-import { usePaginate } from '../../Hooks/usePaginate';
-import { Paginate } from '../../components/Paginate';
-import { Loader } from '../../components/Loader';
-import { useGlobalContext } from '../../Context/useGlobalContext';
 
-export const AlbumImagenes: React.FC = () => {
+export const Figurites: React.FC = () => {
 
 
     /// HOOKS
-    const [allAlbumImagenes, setAllAlbumImagenes] = useState<IAlbumData[]>([])
-    const { paginate, setPaginate } = usePaginate()
-    const storeGlobal = useGlobalContext();
-    const [query, setQuery] = useState('');
+    const appStore = useAppStore()
 
+    const [query, setQuery] = useState('');
 
     /// METODOS
 
