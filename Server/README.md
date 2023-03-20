@@ -2,7 +2,7 @@
 
 # API CRUD con NodeJS + ExpressJS + TypeScript y MongoDB. 
 
-API CRUD en NodeJS implementando una arquitectura orientada a Microservicios desarrollada con TypeScript utilizando ExpressJS como framework y Mongoose como ODM de MongoDB.
+API CRUD en NodeJS con manejo de Roles implementando una arquitectura orientada a Microservicios desarrollada con TypeScript utilizando ExpressJS como framework y Mongoose como ODM de MongoDB.
 
 ## Dependencias utilizadas:
  * [TypeScript](https://www.npmjs.com/package/typescript).
@@ -47,6 +47,7 @@ Para ejecutar este proyecto Back End, deberá agregar las siguientes variables d
 NODE_ENV=nombreEntorno
 jwt_secret=claveSuperSecreta
 nameBD=nombreBaseDeDatos
+password_admin=password_admin
 ```
 El archivo `.env` debe estar en la ruta raíz del proyecto.
 
