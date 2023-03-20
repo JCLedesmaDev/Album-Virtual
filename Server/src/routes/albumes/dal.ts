@@ -41,12 +41,18 @@ const getListAlbumes = async ({ page, filterText }: IPagination): Promise<Pagina
         const options: PaginateOptions = {
             page,
             limit: 3,
-            populate: [{ strictPopulate: false, path: 'figurites' }]
+            populate: [{
+                strictPopulate: false, path: 'figurites', match: {
+                    title: {
+                        $regex: new RegExp(filterText), $options: 'i'
+                    }
+                }
+            }]
         }
         const query: FilterQuery<IAlbumSchema> = {
-            ...(filterText !== '' && {
-                title: { $regex: new RegExp(filterText), $options: 'i' }
-            }),
+            // ...(filterText !== '' && {
+            //     title: { $regex: new RegExp(filterText), $options: 'i' }
+            // }),
         }
         return await collections.Albumes.paginate(query, options)
     } catch (error) {
@@ -77,8 +83,8 @@ const updateAlbum = async (payload: IUpdateAlbumDto): Promise<IAlbumSchema | nul
 const findPurchasedAlbum = async (payload: IBuyAlbumDto): Promise<IPurchasedAlbumSchema | null> => {
     try {
         return await collections.PurchasedAlbumes.findOne({
-            album: payload.idAlbum,
-            user: payload.idUsuario
+            albumRef: payload.idAlbum,
+            user: payload.idUser
         })
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al verificar la compra del Album', source: error })
@@ -88,8 +94,8 @@ const findPurchasedAlbum = async (payload: IBuyAlbumDto): Promise<IPurchasedAlbu
 const buyAlbum = async (payload: IBuyAlbumDto): Promise<IPurchasedAlbumSchema> => {
     try {
         return await collections.PurchasedAlbumes.create({
-            album: new Types.ObjectId(payload.idAlbum),
-            user: new Types.ObjectId(payload.idUsuario)
+            albumRef: new Types.ObjectId(payload.idAlbum),
+            user: new Types.ObjectId(payload.idUser)
         })
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al comprar este Album', source: error })

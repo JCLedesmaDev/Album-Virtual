@@ -41,14 +41,15 @@ const updateAlbum = controllerWrapper(async (req: Request) => {
     return await logic.updateAlbum(payload)
 })
 
-const buyAlbum = controllerWrapper( async (req: Request) => {
-    const payload: IBuyAlbumDto = matchedData(req) as IBuyAlbumDto
+const buyAlbum = controllerWrapper(async (req: Request) => {
+    let payload: IBuyAlbumDto = matchedData(req) as IBuyAlbumDto
+    payload.idUser = req.locals.usrId
 
     req.locals.info = payload
     return await logic.buyAlbum(payload)
 })
 
-const getAllPurchasedAlbumes = controllerWrapper( async (req: Request) => {
+const getAllPurchasedAlbumes = controllerWrapper(async (req: Request) => {
     const payload = {
         page: req.query.page || 1,
         userId: req.locals.usrId,

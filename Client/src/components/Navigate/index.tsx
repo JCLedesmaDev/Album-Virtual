@@ -13,11 +13,11 @@ export const Navigate: React.FC = () => {
   const navigate = useNavigate()
 
   const closeSesion = () => {
-    navigate("/")
+    navigate("/authUser")
     deleteStorage("User")
   }
 
-  if (useLocation().pathname === '/') {
+  if (useLocation().pathname === '/authUser') {
     return <></>
   }
 
@@ -29,22 +29,17 @@ export const Navigate: React.FC = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            {/* <Nav.Link href="Home">Inicio</Nav.Link> */}
-            {/* <Nav.Link href="AlbumUsuario">Mis albumes</Nav.Link> */}
-            <Nav.Link href="/Album">Albumes</Nav.Link>
+            <Nav.Link href="/">Albumes</Nav.Link>
             <Nav.Link href="/AlbumImagenes">Figuritas</Nav.Link>
             <NavDropdown title="Mi cuenta" id="basic-nav-dropdown">
               <NavDropdown.Item href="/AlbumUsuario">Mis albumes</NavDropdown.Item>
-              <NavDropdown.Item href="/AdminAlbum">Admin album</NavDropdown.Item>
-              <NavDropdown.Item href="/AdminCollection">Admin coleccion</NavDropdown.Item>
-              <NavDropdown.Item href="/AdminFigurita">Admin Figurta</NavDropdown.Item>
-              {/* <NavDropdown.Item href="AlbumUsuario">Comprar albumes</NavDropdown.Item> */}
+              <NavDropdown.Item href="/administration">Administracion</NavDropdown.Item>
               <NavDropdown.Item href="" onClick={closeSesion}> Cerrar sesion </NavDropdown.Item>
             </NavDropdown>
           </Nav>
 
 
-          <Form className="d-flex">
+          {/* <Form className="d-flex">
             <Form.Control
               type="search"
               placeholder="Buscar album, figus"
@@ -52,7 +47,7 @@ export const Navigate: React.FC = () => {
               aria-label="Search"
             />
             <Button variant="outline-success">Buscar</Button>
-          </Form>
+          </Form> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>

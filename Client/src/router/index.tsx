@@ -5,6 +5,7 @@ import { MainLayout } from "../layouts/MainLayout";
 import { AuthUser } from '../pages/authUser';
 import { NotFound } from "../pages/NotFound";
 import { Administration } from "../pages/administration";
+import { Albumes } from "../pages/albumes";
 
 const router = createBrowserRouter([
   {
@@ -19,16 +20,11 @@ const router = createBrowserRouter([
       {
         path: 'administration',
         element: (<Administration />),
-      }
-      // {
-      //   index: true, // Definimos que dentro de los componentes hijos, este es el principal
-      //   element: (
-      //     <RoutePrivate>
-      //       <Home />
-      //     </RoutePrivate>
-      //   ),
-      //   // action: (args) => args.context // Investigar si puede funcionar con ruta privada
-      // },
+      },
+      {
+        index: true, // Definimos que dentro de los componentes hijos, este es el principal
+        element: (<Albumes />),
+      },
     ]
   },
   {

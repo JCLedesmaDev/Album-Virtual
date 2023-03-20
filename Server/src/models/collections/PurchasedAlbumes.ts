@@ -11,8 +11,8 @@ export interface IPurchasedAlbumSchema extends Document {
 }
 
 const PurchasedAlbumSchema = new Schema<IPurchasedAlbumSchema>({
-    albumRef: { type: Types.ObjectId, ref: "Albumes" },
-    user: { type: Types.ObjectId, ref: "Users" },
+    albumRef: { type: Types.ObjectId, ref: "Albumes", required: true },
+    user: { type: Types.ObjectId, ref: "Users", required: true },
     purchasedFigures: [{ type: Types.ObjectId, ref: "PurchasedFigures" }]
 }, {
     timestamps: true, // Nos crea un campo mas con la fecha de creacion y actualizacion del registro

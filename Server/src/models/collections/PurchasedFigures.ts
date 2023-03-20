@@ -10,8 +10,8 @@ export interface IPurchasedFiguresSchema extends Document {
 }
 
 const PurchasedFiguresSchema = new Schema<IPurchasedFiguresSchema>({
-    figurineRef: { type: Types.ObjectId, ref: "Figurites" },
-    purchasedAlbum: { type: Types.ObjectId, ref: 'PurchasedAlbumes' }
+    figurineRef: { type: Types.ObjectId, ref: "Figurites", required: true },
+    purchasedAlbum: { type: Types.ObjectId, ref: 'PurchasedAlbumes', required: true }
 }, {
     timestamps: true, // Nos crea un campo mas con la fecha de creacion y actualizacion del registro
     versionKey: false // Desactivamos la version del dato dentro de mongoose  
