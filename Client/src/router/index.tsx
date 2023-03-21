@@ -6,6 +6,7 @@ import { AuthUser } from '../pages/authUser';
 import { NotFound } from "../pages/NotFound";
 import { Administration } from "../pages/administration";
 import { Albumes } from "../pages/albumes";
+import { Figurites } from "../pages/figurites";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         index: true, // Definimos que dentro de los componentes hijos, este es el principal
         element: (<Albumes />),
+      },
+      {
+        path: 'figurites',
+        element: (<Figurites />),
       },
     ]
   },

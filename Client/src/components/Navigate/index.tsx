@@ -30,7 +30,7 @@ export const Navigate: React.FC = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/">Albumes</Nav.Link>
-            <Nav.Link href="/AlbumImagenes">Figuritas</Nav.Link>
+            <Nav.Link href="/figurites">Figuritas</Nav.Link>
             <NavDropdown title="Mi cuenta" id="basic-nav-dropdown">
               <NavDropdown.Item href="/AlbumUsuario">Mis albumes</NavDropdown.Item>
               <NavDropdown.Item href="/administration">Administracion</NavDropdown.Item>

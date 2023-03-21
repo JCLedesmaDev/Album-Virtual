@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
+import { Paginate } from '../../components/Paginate';
 import { ConfigCarrouselModels } from '../../models/ConfigCarrousel.models';
 import { IAlbumModels } from '../../models/IAlbum.models';
+import { IFigurineModels } from '../../models/IFigurine.models';
+import { carouselTarjets } from '../../utils/carouselTarjets';
 import { useAppStore } from '../appStore';
 import store from '../authUser/store';
+import { useFigurineStore } from './store';
 import './style.css'
 
 
@@ -11,6 +15,7 @@ export const Figurites: React.FC = () => {
 
     /// HOOKS
     const appStore = useAppStore()
+    const store = useFigurineStore()
 
     const [query, setQuery] = useState('');
 
@@ -22,7 +27,6 @@ export const Figurites: React.FC = () => {
 
         await appStore.actions.getAllAlbumes({ page, filterText: query })
 
-
         appStore.state.albumes.map((albumes: IAlbumModels, index: number) => {
             arrAlbumImg.push({
                 individualItem: `#album-item${index}`,
@@ -32,47 +36,16 @@ export const Figurites: React.FC = () => {
             })
         })
 
-        setAllAlbumImagenes(data.Result.listItems)
         carouselTarjets(arrAlbumImg)
     }
 
     const changePage = ({ selected }: any) => {
         window.scrollTo(0, 0);
-        getAllAlbumImagenes(selected + 1, query)
+        getAllAlbumes(selected + 1, query)
     }
 
-    const buyFigurita = async (idFigurita: number, IdAlbum: number) => {
-
-        // try {
-
-        //     storeGlobal.SetShowLoader(true)
-
-        //     const { Result, MessageError } = await AlbumImagenService.buyFigurita({
-        //         IdUsuario: storeGlobal.GetMyUserData().Id,
-        //         IdAlbumImagen: idFigurita,
-        //         IdAlbum: IdAlbum
-        //     })
-
-        //     if (MessageError != undefined) {
-        //         throw new Error(MessageError);
-        //     }
-
-        //     storeGlobal.SetShowLoader(false)
-        //     storeGlobal.SetMessageModalStatus(Result)
-
-        // } catch (error: any) {
-
-        //     storeGlobal.SetShowLoader(false)
-        //     storeGlobal.SetMessageModalStatus(`Uups... ${error}. \n \n Intentelo nuevamente`)
-
-        // } finally {
-        //     storeGlobal.SetShowModalStatus(true)
-
-        //     setTimeout(() => {
-        //         storeGlobal.SetShowModalStatus(false)
-        //     }, 5000);
-
-        // }
+    const buyFigurita = async (idFigurine: string, idAlbum: string) => {
+        await store.actions.buyFigurine({idFigurine, idAlbum})
     }
 
     useEffect(() => {
@@ -80,73 +53,63 @@ export const Figurites: React.FC = () => {
     }, [])
 
     return (
+        <div className="containerPageAlbum">
 
-        <>
+            <div id="m">
 
-            <div className="containerPageAlbum">
-
-                <div id="m">
-
-
-                    <div className="container">
-                        <div className="input-group mb-3">
-                            <input
-                                type="text" className="form-control"
-                                placeholder="Escribe album o torneo deseado"
-                                onChange={(e) => setQuery(e.target.value)}
-                            />
-                            <div className="input-group-append">
-                                <button type="button" className="btn btn-primary"
-                                    onClick={() => getAllAlbumImagenes(1, query)}>
-                                    <i className="fas fa-search"></i>
-                                </button>
-                            </div>
+                <div className="container">
+                    <div className="input-group mb-3">
+                        <input
+                            type="text" className="form-control"
+                            placeholder="Escribe album o torneo deseado"
+                            onChange={(e) => setQuery(e.target.value)}
+                        />
+                        <div className="input-group-append">
+                            <button type="button" className="btn btn-primary"
+                                onClick={() => getAllAlbumes(1, query)}>
+                                <i className="fas fa-search"></i>
+                            </button>
                         </div>
                     </div>
-
-                    {allAlbumImagenes.length === 0 && <Loader />}
-
-                    {
-                        allAlbumImagenes.map((AlbumIMG: IAlbumData, indexAlbum: number) => (
-
-                            <div id={`album-rotator${indexAlbum}`} key={indexAlbum} className="albumRotatorContainer">
-
-                                <h1 className='title'>{AlbumIMG.titulo}</h1>
-
-                                <section id={`album-rotator-holder${indexAlbum}`} className="albumRotatorHolder">
-                                    {
-                                        AlbumIMG.listadoImagenes.map((figuritas: IAlbumImagenesData, indexEsport: number) => (
-                                            <article id={`album-item${indexAlbum}`} style={{ cursor: 'pointer' }}
-                                                className={`albumItem`} key={indexEsport}
-                                            >
-                                                <img src={figuritas.imagen} alt="" className="image" />
-
-                                                <div className={`albumItem__details`}>
-                                                    <h3>{figuritas.titulo}</h3>
-                                                    <button className="btnFiguritasComprar" type='submit'
-                                                        onClick={() => buyFigurita(figuritas.id, figuritas.albumId)}>Comprar</button>
-                                                </div>
-
-                                            </article>
-                                        ))
-                                    }
-                                </section>
-                            </div>
-
-                        ))
-                    }
-                    <div>
-                        <Paginate
-                            ChangePage={changePage}
-                            PageCount={paginate.pagesTotal}
-                            LocatedPageNumber={paginate.currentPage}
-                        />
-                    </div>
-
                 </div>
 
-            </div></>
 
+                {appStore.state.albumes.map((Album: IAlbumModels, indexAlbum: number) => (
 
+                    <div id={`album-rotator${indexAlbum}`} key={indexAlbum} className="albumRotatorContainer">
+
+                        <h1 className='title'>{Album.title}</h1>
+
+                        <section id={`album-rotator-holder${indexAlbum}`} className="albumRotatorHolder">
+                            {
+                                Album.figurites.map((figurine: IFigurineModels, indexEsport: number) => (
+                                    <article id={`album-item${indexAlbum}`} style={{ cursor: 'pointer' }}
+                                        className={`albumItem`} key={indexEsport}
+                                    >
+                                        <img src={figurine.image} alt="" className="image" />
+
+                                        <div className={`albumItem__details`}>
+                                            <h3>{figurine.title}</h3>
+                                            <button className="btnFiguritasComprar" type='submit'
+                                                onClick={() => buyFigurita(figurine.id, figurine.idAlbum)}>Comprar</button>
+                                        </div>
+
+                                    </article>
+                                ))
+                            }
+                        </section>
+                    </div>
+                ))}
+                <div>
+                    <Paginate
+                        ChangePage={changePage}
+                        PageCount={appStore.state.pagination.totalPages}
+                        LocatedPageNumber={appStore.state.pagination.currentPage}
+                    />
+                </div>
+
+            </div>
+
+        </div>
     )
 }
