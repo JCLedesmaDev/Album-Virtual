@@ -77,7 +77,7 @@ const buyFigurine = tryCatchWrapper(async (payload: IBuyFigurineDto) => {
 
     const findPurchasedFigurine = await externalDb.findPurchasedFigurine({
         idFigurine: payload.idFigurine,
-        idPurchasedAlbum: findPurchasedAlbum._id
+        idPurchasedAlbum: findPurchasedAlbum.id
     })
 
     if (findPurchasedFigurine !== null) {
@@ -86,7 +86,7 @@ const buyFigurine = tryCatchWrapper(async (payload: IBuyFigurineDto) => {
 
     await externalDb.buyFigurine({
         idFigurine: payload.idFigurine,
-        idPurchasedAlbum: findPurchasedAlbum._id
+        idPurchasedAlbum: findPurchasedAlbum.id
     })
 
     return responseMessage.success<any>({
