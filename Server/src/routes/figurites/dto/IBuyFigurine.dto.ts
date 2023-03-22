@@ -1,5 +1,5 @@
 export interface IBuyFigurineDto {
-    idUsuario: string;
-    idPurchasedAlbum: string;
+    idUser: string;
+    idAlbum: string;
     idFigurine: string
 }

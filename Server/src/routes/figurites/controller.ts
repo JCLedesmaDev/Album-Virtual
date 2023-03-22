@@ -31,6 +31,7 @@ const updateFigurine = controllerWrapper(async (req: Request) => {
 
 const buyFigurine = controllerWrapper(async (req: Request) => {
     const payload: IBuyFigurineDto = matchedData(req) as IBuyFigurineDto
+    payload.idUser = req.locals.usrId
 
     req.locals.info = payload
     const data = await logic.buyFigurine(payload)

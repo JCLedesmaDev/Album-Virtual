@@ -66,19 +66,28 @@ const updateFigurine = tryCatchWrapper(async (payload: IUpdateFigurineDto) => {
 
 const buyFigurine = tryCatchWrapper(async (payload: IBuyFigurineDto) => {
 
-    const findPurchasedAlbum = await externalDb.findPurchasedAlbum(payload)
+    const findPurchasedAlbum = await externalDb.findPurchasedAlbum({
+        idAlbum: payload.idAlbum,
+        idUser: payload.idUser
+    })
 
     if (findPurchasedAlbum === null) {
         throw new ApplicationError({ message: 'No tenes comprado el Album de esta Figurita!.' });
     }
 
-    const findPurchasedFigurine = await externalDb.findPurchasedFigurine(payload)
+    const findPurchasedFigurine = await externalDb.findPurchasedFigurine({
+        idFigurine: payload.idFigurine,
+        idPurchasedAlbum: findPurchasedAlbum._id
+    })
 
     if (findPurchasedFigurine !== null) {
         throw new ApplicationError({ message: 'Ya has comprado esta figurita antes!.' });
     }
 
-    await externalDb.buyFigurine(payload)
+    await externalDb.buyFigurine({
+        idFigurine: payload.idFigurine,
+        idPurchasedAlbum: findPurchasedAlbum._id
+    })
 
     return responseMessage.success<any>({
         message: 'Compraste esta Figurita!!'

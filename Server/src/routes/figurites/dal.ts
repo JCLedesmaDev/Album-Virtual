@@ -8,6 +8,8 @@ import { IUpdateFigurineDto } from "./dto/IUpdateFigurine.dto"
 import { IBuyFigurineDto } from "./dto/IBuyFigurine.dto"
 import { IPurchasedAlbumSchema } from "../../models/collections/PurchasedAlbumes"
 import { IPurchasedFiguresSchema } from "../../models/collections/PurchasedFigures"
+import { IGetPurchasedAlbumDto } from "./dto/IGetPurchasedAlbum.dto"
+import { IGetPurchasedFigurineDto } from "./dto/IGetPurchasedFigurine.dto"
 
 
 const findFigurine = async (objFind: any): Promise<IFigurineSchema | null> => {
@@ -56,18 +58,18 @@ const updateFigurine = async (payload: IUpdateFigurineDto): Promise<IFigurineSch
     }
 }
 
-const findPurchasedAlbum = async (payload: IBuyFigurineDto): Promise<IPurchasedAlbumSchema | null> => {
+const findPurchasedAlbum = async (payload: IGetPurchasedAlbumDto): Promise<IPurchasedAlbumSchema | null> => {
     try {
         return await collections.PurchasedAlbumes.findOne({
-            _id: payload.idPurchasedAlbum,
-            user: payload.idUsuario
+            albumRef:payload.idAlbum,
+            user: payload.idUser
         })
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al verificar la compra del Album', source: error })
     }
 }
 
-const findPurchasedFigurine = async (payload: IBuyFigurineDto): Promise<IPurchasedFiguresSchema | null> => {
+const findPurchasedFigurine = async (payload: IGetPurchasedFigurineDto): Promise<IPurchasedFiguresSchema | null> => {
     try {
         return await collections.PurchasedFigures.findOne({
             figurineRef: payload.idFigurine,
@@ -78,7 +80,7 @@ const findPurchasedFigurine = async (payload: IBuyFigurineDto): Promise<IPurchas
     }
 }
 
-const buyFigurine = async (payload: IBuyFigurineDto): Promise<IPurchasedFiguresSchema> => {
+const buyFigurine = async (payload: IGetPurchasedFigurineDto): Promise<IPurchasedFiguresSchema> => {
     try {
         return await collections.PurchasedFigures.create({
             figurineRef: new Types.ObjectId(payload.idFigurine),
