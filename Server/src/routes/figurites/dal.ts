@@ -9,7 +9,7 @@ import { IBuyFigurineDto } from "./dto/IBuyFigurine.dto"
 import { IPurchasedAlbumSchema } from "../../models/collections/PurchasedAlbumes"
 import { IPurchasedFiguresSchema } from "../../models/collections/PurchasedFigures"
 import { IGetPurchasedAlbumDto } from "./dto/IGetPurchasedAlbum.dto"
-import { IGetPurchasedFigurineDto } from "./dto/IGetPurchasedFigurine.dto"
+import { IPurchasedFigurineDto } from "./dto/IpurchasedFigurine.dto"
 
 
 const findFigurine = async (objFind: any): Promise<IFigurineSchema | null> => {
@@ -69,7 +69,7 @@ const findPurchasedAlbum = async (payload: IGetPurchasedAlbumDto): Promise<IPurc
     }
 }
 
-const findPurchasedFigurine = async (payload: IGetPurchasedFigurineDto): Promise<IPurchasedFiguresSchema | null> => {
+const findPurchasedFigurine = async (payload: IPurchasedFigurineDto): Promise<IPurchasedFiguresSchema | null> => {
     try {
         return await collections.PurchasedFigures.findOne({
             figurineRef: payload.idFigurine,
@@ -80,7 +80,7 @@ const findPurchasedFigurine = async (payload: IGetPurchasedFigurineDto): Promise
     }
 }
 
-const buyFigurine = async (payload: IGetPurchasedFigurineDto): Promise<IPurchasedFiguresSchema> => {
+const buyFigurine = async (payload: IPurchasedFigurineDto): Promise<IPurchasedFiguresSchema> => {
     try {
         return await collections.PurchasedFigures.create({
             figurineRef: new Types.ObjectId(payload.idFigurine),

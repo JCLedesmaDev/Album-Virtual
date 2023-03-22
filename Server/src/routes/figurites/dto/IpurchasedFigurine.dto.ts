@@ -1,4 +1,4 @@
-export interface IGetPurchasedFigurineDto {
+export interface IPurchasedFigurineDto {
     idFigurine: string;
     idPurchasedAlbum: string;
 }
