@@ -9,6 +9,6 @@ PARA EL FINAL
 
 
 Front:
-⏰ Agregar el mockMode en adminsitracion y traer los datos de lotro proyecto
+⏰ traer los datos de lotro proyecto
 ⏰ Imitar el filtrado y el renderizado de categ y albumes de admin y mis albumes comprados
 ⏰ Crear pagina NotFound
