@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-export const AlbumUsuario: React.FC = () => {
+export const PurchasedAlbumes: React.FC = () => {
 
     /// HOOKS
     const navigate = useNavigate()

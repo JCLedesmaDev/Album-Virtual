@@ -90,7 +90,7 @@ const buyFigurine = tryCatchWrapper(async (payload: IBuyFigurineDto) => {
     })
 
     return responseMessage.success<any>({
-        message: 'Compraste esta Figurita!!'
+        message: 'Compraste esta Figurita!!'        
     })
 })
 

@@ -30,6 +30,10 @@ const router = createBrowserRouter([
         path: 'figurites',
         element: (<Figurites />),
       },
+      // {
+      //   path: 'purchasedAlbumes',
+      //   element: (<PurchasedAlbumes />),
+      // },
     ]
   },
   {
@@ -42,36 +46,6 @@ export default router
 
 {/* <Routes>
 
-        <Route path="/AdminCollection" element={
-          <RoutePrivate>
-            <AdminCollection />
-          </RoutePrivate>
-        } />
-
-        <Route path="/AdminAlbum" element={
-          <RoutePrivate>
-            <AdminAlbum />
-          </RoutePrivate>
-        } />
-
-        <Route path="/AdminFigurita" element={
-          <RoutePrivate>
-            <AdminFiguritas />
-          </RoutePrivate>
-        } />
-
-        <Route path="/" element={
-          <AuthProvider>
-            <Authentication />
-          </AuthProvider>
-        } />
-
-
-        <Route path="/home" element={
-          <RoutePrivate>
-            <Home />
-          </RoutePrivate>
-        } />
 
 
         <Route path="/AlbumUsuario" element={
@@ -83,12 +57,6 @@ export default router
         <Route path="/AlbumUsuarioImagen/:nombreAlbum/:id" element={
           <RoutePrivate>
             <AlbumUsuarioImagen />
-          </RoutePrivate>
-        } />
-
-        <Route path="/AlbumImagenes" element={
-          <RoutePrivate>
-            <AlbumImagenes />
           </RoutePrivate>
         } />
 

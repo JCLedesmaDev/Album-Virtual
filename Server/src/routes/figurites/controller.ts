@@ -34,7 +34,7 @@ const buyFigurine = controllerWrapper(async (req: Request) => {
     payload.idUser = req.locals.usrId
 
     req.locals.info = payload
-    const data = await logic.buyFigurine(payload)
+    return await logic.buyFigurine(payload)
 })
 
 
