@@ -10,7 +10,5 @@ PARA EL FINAL
 
 Front:
 ⏰ Agregar el mockMode en adminsitracion y traer los datos de lotro proyecto
-⏰ Re distribuir la carpeta interface, en vez de tener una generica, 
-    tener dentro de cada modulo
-⏰ Dentro del mappers.ts agregar el mapeo de roles
+⏰ Imitar el filtrado y el renderizado de categ y albumes de admin y mis albumes comprados
 ⏰ Crear pagina NotFound

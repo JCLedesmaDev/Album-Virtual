@@ -7,6 +7,7 @@ import { NotFound } from "../pages/NotFound";
 import { Administration } from "../pages/administration";
 import { Albumes } from "../pages/albumes";
 import { Figurites } from "../pages/figurites";
+import { PurchasedAlbumes } from "../pages/purchasedAlbumes";
 
 const router = createBrowserRouter([
   {
@@ -30,10 +31,14 @@ const router = createBrowserRouter([
         path: 'figurites',
         element: (<Figurites />),
       },
-      // {
-      //   path: 'purchasedAlbumes',
-      //   element: (<PurchasedAlbumes />),
-      // },
+      {
+        path: 'purchasedAlbumes',
+        element: (<PurchasedAlbumes />),
+      },
+      {
+        path: 'purchasedFigures/:idPurchasedAlbum',
+        element: (<PurchasedAlbumes />),
+      },
     ]
   },
   {
@@ -43,21 +48,3 @@ const router = createBrowserRouter([
 ])
 
 export default router
-
-{/* <Routes>
-
-
-
-        <Route path="/AlbumUsuario" element={
-          <RoutePrivate>
-            <AlbumUsuario />
-          </RoutePrivate>
-        } />
-
-        <Route path="/AlbumUsuarioImagen/:nombreAlbum/:id" element={
-          <RoutePrivate>
-            <AlbumUsuarioImagen />
-          </RoutePrivate>
-        } />
-
-</Routes> */}

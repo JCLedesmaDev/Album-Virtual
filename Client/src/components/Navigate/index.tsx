@@ -3,7 +3,6 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Form } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import NavigateModuleCSS from './index.module.css'
 import { deleteStorage } from '../../utils/magnamentStorage';
@@ -37,7 +36,7 @@ export const Navigate: React.FC = () => {
 
     <Navbar bg="dark" variant="dark" className={NavigateModuleCSS.containerNavigate}>
       <Container>
-        <Navbar.Brand href="">G7Album</Navbar.Brand>
+        <Navbar.Brand href="">Coleccion de Albumes</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

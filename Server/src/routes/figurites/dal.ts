@@ -5,7 +5,6 @@ import { IFigurineSchema } from "../../models/collections/Figurites"
 import { ICreateFigurineDto } from "./dto/ICreateFigurine.dto"
 import { IDeleteFigurineDto } from "./dto/IDeleteFigurine.dto"
 import { IUpdateFigurineDto } from "./dto/IUpdateFigurine.dto"
-import { IBuyFigurineDto } from "./dto/IBuyFigurine.dto"
 import { IPurchasedAlbumSchema } from "../../models/collections/PurchasedAlbumes"
 import { IPurchasedFiguresSchema } from "../../models/collections/PurchasedFigures"
 import { IGetPurchasedAlbumDto } from "./dto/IGetPurchasedAlbum.dto"
@@ -82,10 +81,16 @@ const findPurchasedFigurine = async (payload: IPurchasedFigurineDto): Promise<IP
 
 const buyFigurine = async (payload: IPurchasedFigurineDto): Promise<IPurchasedFiguresSchema> => {
     try {
-        return await collections.PurchasedFigures.create({
+        const newFigurine = await collections.PurchasedFigures.create({
             figurineRef: new Types.ObjectId(payload.idFigurine),
             purchasedAlbum: new Types.ObjectId(payload.idPurchasedAlbum),
         })
+
+        await collections.PurchasedAlbumes.findByIdAndUpdate(payload.idPurchasedAlbum, {
+            $push: { purchasedFigures: new Types.ObjectId(newFigurine._id)}
+        })
+
+        return newFigurine
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al comprar esta Figurita', source: error })
     }

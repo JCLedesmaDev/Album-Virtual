@@ -26,7 +26,7 @@ interface IStore {
         user: IUserModels;
         collection: IAlbumCollectionModels[];
         albumes: IAlbumModels[];
-        // figurites: any[];
+        purchasedAlbumes: any[]
 
         // extras
         spinnerModal: ISpinnerModels;
@@ -36,25 +36,25 @@ interface IStore {
     actions: {
         setUser: (user: IUserModels) => void
 
-        getAllAlbumCollections: ({ page, filterText }: IFilterSearch) => Promise<any>,
-        getAllAlbumes: ({ page, filterText }: IFilterSearch) => Promise<any>,
+        getAllAlbumCollections: ({ page, filterText }: IFilterSearch) => Promise<any>;
+        getAllAlbumes: ({ page, filterText }: IFilterSearch) => Promise<any>;
+        getAllPurchasedAlbumes: ({ page, filterText }: IFilterSearch) => Promise<void>;
 
         // extras
-        setSpinnerModal: (newObjStatus: ISpinnerModels) => void
-        setShowPopup: (newStatus: boolean) => void
-        // setPagination: (data: IPagination) => void
+        setSpinnerModal: (newObjStatus: ISpinnerModels) => void;
+        setShowPopup: (newStatus: boolean) => void;
     }
 }
 
 const appStore = create<IStore>((set, get) => ({
     state: {
         user: getStorage<IUserModels>("User") ?? {} as IUserModels,
-       
         collection: [],
         albumes: [],
-       
+        purchasedAlbumes: [],
+
         //extras
-        spinnerModal: {} as ISpinnerModels, 
+        spinnerModal: {} as ISpinnerModels,
         showPopup: false,
         pagination: { totalPages: 0, currentPage: 0 }
     },
@@ -78,7 +78,6 @@ const appStore = create<IStore>((set, get) => ({
         },
 
 
-        // Collections 
         getAllAlbumCollections: async (payload: IFilterSearch) => {
             const res = await apiSrv.callBackend(async () => {
                 return await apiSrv.callSrv({
@@ -125,14 +124,37 @@ const appStore = create<IStore>((set, get) => ({
             }))
         },
 
+        getAllPurchasedAlbumes: async (payload: IFilterSearch) => {
+            const res = await apiSrv.callBackend(async () => {
+                return await apiSrv.callSrv({
+                    method: 'GET',
+                    path: `/albumes/getAllPurchasedAlbumes`,
+                    data: payload
+                })
+            }, { loader: true })
+
+            if (res.info.type === 'error') return
+
+            setPagination({
+                currentPage: res.info.data.currentPage,
+                totalPages: res.info.data.totalPages
+            })
+
+            // const albumAdapted: IAlbumModels[] = multipleAlbumes(res.info.data?.docs);
+
+            // set(produce((store: IStore) => {
+            //     store.state.purchasedAlbumes = albumAdapted
+            // }))
+        },
+
     }
 }))
 
-const setPagination =  (data: IPagination) => {
+const setPagination = (data: IPagination) => {
     appStore.setState((produce((store: IStore) => {
         store.state.pagination = {
             totalPages: data.totalPages,
-            currentPage: data.currentPage -1
+            currentPage: data.currentPage - 1
         }
     })))
 }

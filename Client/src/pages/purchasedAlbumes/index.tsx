@@ -1,81 +1,34 @@
 
 import './style.css'
 import { useEffect, useState } from 'react';
-import { useGlobalContext } from '../../Context/useGlobalContext';
-import AlbumUsuarioService from './Services/AlbumUsuario.service';
-import { IAlbumUsuarioData } from '../../Interface/DTO Back/AlbumUsuario/IAlbumUsuario';
-import { carouselTarjets } from '../../Utils/carouselTarjets';
-import { ConfigCarrouselModels } from '../../models/ConfigCarrousel.models';
-import { usePaginate } from '../../Hooks/usePaginate';
-import { Paginate } from '../../components/Paginate';
 import { useNavigate } from 'react-router-dom';
+import { useAppStore } from '../appStore';
+import { Paginate } from '../../components/Paginate';
+
 
 
 
 export const PurchasedAlbumes: React.FC = () => {
 
     /// HOOKS
+    const appStore = useAppStore()
     const navigate = useNavigate()
-    const { paginate, setPaginate } = usePaginate()
-    const storeGlobal = useGlobalContext();
-    const [allMyAlbumes, setAllMyAlbumes] = useState<IAlbumUsuarioData[]>([])
 
 
     /// METODOS
-    const getAllMyAlbumes = async (page: number = 1) => {
-
-        try {
-
-            storeGlobal.SetShowLoader(true)
-
-            const { Result, MessageError } = await AlbumUsuarioService.GetAllMyAlbumes({
-                page,
-                idUsuario: storeGlobal.GetMyUserData().Id
-            })
-
-            if (MessageError !== undefined) {
-                throw new Error(MessageError);
-            }
-
-            let arrAlbum: ConfigCarrouselModels[] = []
-
-            Result?.listItems.map((coleccion: any, index: number) => {
-                arrAlbum.push({
-                    individualItem: `#album-item${index}`,
-                    carouselWidth: 1000, // in p
-                    carouselId: `#album-rotator${index}`,
-                    carouselHolderId: `#album-rotator-holder${index}`,
-                })
-            })
-            setPaginate({
-                currentPage: Result.currentPage - 1,
-                pagesTotal: Result.pages
-            })
-            setAllMyAlbumes(Result.listItems)
-            carouselTarjets(arrAlbum)
-
-            storeGlobal.SetShowLoader(false)
-
-        } catch (error: any) {
-            storeGlobal.SetShowLoader(false)
-            storeGlobal.SetShowModalStatus(true)
-            storeGlobal.SetMessageModalStatus(`Uups... ha occurrido un ${error}. \n \n Intentelo nuevamente`)
-        } finally {
-            setTimeout(() => {
-                storeGlobal.SetShowModalStatus(false)
-            }, 5000);
-        }
+    const getAllPurchasedAlbumes = async (page: number = 1) => {
+        await appStore.actions.getAllPurchasedAlbumes({page, filterText: ''})
     }
 
     const changePage = ({ selected }: any) => {
         window.scrollTo(0, 0);
-        getAllMyAlbumes(selected + 1)
+        getAllPurchasedAlbumes(selected + 1)
     }
 
 
 
     useEffect(() => {
-        getAllMyAlbumes()
+        getAllPurchasedAlbumes()
     }, [])
 
     return (
@@ -87,11 +40,11 @@ export const PurchasedAlbumes: React.FC = () => {
                 <h1>Mis Albumes </h1>
 
 
-                {allMyAlbumes.length === 0 &&
+                {appStore.state.purchasedAlbumes.length === 0 &&
                     <div className='containerNotAlbum'>
                         <h3>Uups... Aun no tiene ningun Album! ¿Desea comprar uno? </h3>
 
-                        <button className='btnAlbumComprar' onClick={() => navigate('/Album')}>Ir a Album</button>
+                        <button className='btnAlbumComprar' onClick={() => navigate('/')}>Ir a Album</button>
                     </div>
                 }
 
@@ -100,7 +53,7 @@ export const PurchasedAlbumes: React.FC = () => {
 
                         <section id={`album-rotator-holder0`} className="albumRotatorHolder">
                             {
-                                allMyAlbumes.map((myAlbum: IAlbumUsuarioData, indexEsport: number) => (
+                                appStore.state.purchasedAlbumes.map((myAlbum: any, indexEsport: number) => (
                                     <article id={`album-item0`} style={{ cursor: 'pointer' }}
                                         className={`albumItem`} key={indexEsport}
                                     >
@@ -110,7 +63,7 @@ export const PurchasedAlbumes: React.FC = () => {
                                             <h3>{myAlbum.album.titulo}</h3>
 
                                             <button
-                                              onClick={() => navigate(`/AlbumUsuarioImagen/${myAlbum.album.titulo}/${myAlbum.albumId}`)}
+                                                onClick={() => navigate(`/purchasedFigures/${myAlbum.albumId}`)}
                                             > Ver figuritas</button>
                                         </div>
                                     </article>
@@ -120,13 +73,15 @@ export const PurchasedAlbumes: React.FC = () => {
                     </div>
                 }
 
-                {allMyAlbumes.length != 0 && <div>
-                    <Paginate
-                        ChangePage={changePage}
-                        PageCount={paginate.pagesTotal}
-                        LocatedPageNumber={paginate.currentPage}
-                    />
-                </div>}
+                {
+                    appStore.state.purchasedAlbumes.length != 0 && <div>
+                        <Paginate
+                            ChangePage={changePage}
+                            PageCount={appStore.state.pagination.totalPages}
+                            LocatedPageNumber={appStore.state.pagination.currentPage}
+                        />
+                    </div>
+                }
 
             </div>
         </div>
