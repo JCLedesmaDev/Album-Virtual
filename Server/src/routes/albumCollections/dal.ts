@@ -30,21 +30,14 @@ const getListCollections = async ({ page, filterText }: IPagination): Promise<Pa
         const options: PaginateOptions = {
             page,
             limit: 3,
-            populate: {
-                strictPopulate: false, path: 'albumes', match: {
-                    // Filtramos por el titulo de los albumes
-                    title: {
-                        $regex: new RegExp(filterText), $options: 'i'
-                    }
-                }
-            }
+            populate: { strictPopulate: false, path: 'albumes' }
         }
         const query: FilterQuery<IAlbumCollectionSchema> = {
-            // ...(filterText && {
-            //     title: { $regex: new RegExp(filterText), $options: 'i' }
-            // }),
+            ...(filterText && {
+                title: { $regex: new RegExp(filterText), $options: 'i' }
+            }),
         }
-        
+
         return await collections.AlbumCollections.paginate(query, options)
     } catch (error) {
         throw new ApplicationError({ message: 'Ha ocurrido un error al obtener el listado de colecciones', source: error })

@@ -41,18 +41,12 @@ const getListAlbumes = async ({ page, filterText }: IPagination): Promise<Pagina
         const options: PaginateOptions = {
             page,
             limit: 3,
-            populate: [{
-                strictPopulate: false, path: 'figurites', match: {
-                    title: {
-                        $regex: new RegExp(filterText), $options: 'i'
-                    }
-                }
-            }]
+            populate: { strictPopulate: false, path: 'figurites' }
         }
         const query: FilterQuery<IAlbumSchema> = {
-            // ...(filterText !== '' && {
-            //     title: { $regex: new RegExp(filterText), $options: 'i' }
-            // }),
+            ...(filterText !== '' && {
+                title: { $regex: new RegExp(filterText), $options: 'i' }
+            }),
         }
         return await collections.Albumes.paginate(query, options)
     } catch (error) {

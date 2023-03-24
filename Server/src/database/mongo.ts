@@ -8,7 +8,7 @@ const options: ConnectOptions = {
 } as ConnectOptions
 
 
-set('strictQuery', false) // TODO: Investigar para que era
+set('strictQuery', false)
 const dbConnect = async (): Promise<void> => {
     connect(DB_URI, options, (cbError: CallbackError) => {
         if (!cbError) {

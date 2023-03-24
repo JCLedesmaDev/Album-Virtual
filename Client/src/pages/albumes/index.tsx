@@ -59,7 +59,7 @@ export const Albumes: React.FC = () => {
                     <div className="input-group mb-3">
                         <input
                             type="text" className="form-control"
-                            placeholder="Escribe album o torneo deseado"
+                            placeholder="Escribe la tematica deseada"
                             onChange={(e) => setQuery(e.target.value)}
                         />
                         <div className="input-group-append">
@@ -73,31 +73,31 @@ export const Albumes: React.FC = () => {
 
                 <br />
 
-                {appStore.state.collection?.map((collection: IAlbumCollectionModels, indexAlbum: number) => (
+                {appStore.state.collection?.map((collection: IAlbumCollectionModels, indexAlbum: number) => {
+                    return (
+                        <div id={`album-rotator${indexAlbum}`} key={indexAlbum} className="albumRotatorContainer">
+                            <h1 className='title'>{collection.title}</h1>
 
-                    <div id={`album-rotator${indexAlbum}`} key={indexAlbum} className="albumRotatorContainer">
-                        <h1 className='title'>{collection.title}</h1>
-
-                        <section id={`album-rotator-holder${indexAlbum}`} className="albumRotatorHolder">
-                            {
-                                collection?.albumList.map((album: IAlbumModels, indexEsport: number) => (
-                                    <article
-                                        id={`album-item${indexAlbum}`}
-                                        className={`albumItem`} key={indexEsport}
-                                        style={{ cursor: 'pointer' }}
-                                    >
-                                        <img src={album.image} className="image" alt="" />
-                                        <div className={`albumItem__details`} >
-                                            <h3>{album.title}</h3>
-                                            <button className="btnAlbumComprar" type='submit' onClick={() => buyAlbum(album.id)}>Comprar</button>
-                                        </div>
-                                    </article>
-                                ))
-                            }
-                        </section>
-                    </div>
-                ))
-                }
+                            <section id={`album-rotator-holder${indexAlbum}`} className="albumRotatorHolder">
+                                {
+                                    collection?.albumList.map((album: IAlbumModels, indexEsport: number) => (
+                                        <article
+                                            id={`album-item${indexAlbum}`}
+                                            className={`albumItem`} key={indexEsport}
+                                            style={{ cursor: 'pointer' }}
+                                        >
+                                            <img src={album.image} className="image" alt="" />
+                                            <div className={`albumItem__details`} >
+                                                <h3>{album.title}</h3>
+                                                <button className="btnAlbumComprar" type='submit' onClick={() => buyAlbum(album.id)}>Comprar</button>
+                                            </div>
+                                        </article>
+                                    ))
+                                }
+                            </section>
+                        </div>
+                    )
+                })}
                 <div>
                     <Paginate
                         ChangePage={changePage}
