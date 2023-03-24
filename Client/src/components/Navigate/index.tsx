@@ -8,6 +8,7 @@ import NavigateModuleCSS from './index.module.css'
 import { deleteStorage } from '../../utils/magnamentStorage';
 import { useAppStore } from '../../pages/appStore';
 import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom'
 
 export const Navigate: React.FC = () => {
 
@@ -24,7 +25,6 @@ export const Navigate: React.FC = () => {
 
   useEffect(() => {
     const isAdmin = appStore.state.user.roles.some(rol => rol.name === 'Admin')
-    console.log("🚀 ~ file: index.tsx:31 ~ useEffect ~ isAdmin:", isAdmin)
     setUserAdmin(isAdmin)
   }, [])
 
@@ -38,16 +38,39 @@ export const Navigate: React.FC = () => {
       <Container>
         <Navbar.Brand href="">Coleccion de Albumes</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse id="basic-navbar-nav" >
           <Nav className="me-auto">
-            <Nav.Link href="/">Albumes</Nav.Link>
-            <Nav.Link href="/figurites">Figuritas</Nav.Link>
+            <NavLink className={
+              ({ isActive }) => isActive
+                ? `${NavigateModuleCSS.navItem} ${NavigateModuleCSS.isActive}`
+                : NavigateModuleCSS.navItem
+            } to="/">Albumes</NavLink>
+            <NavLink className={
+              ({ isActive }) => isActive
+                ? `${NavigateModuleCSS.navItem} ${NavigateModuleCSS.isActive}`
+                : NavigateModuleCSS.navItem
+            } to="/figurites">Figuritas</NavLink>
             <NavDropdown title="Mi cuenta" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/purchasedAlbumes">Mis albumes comprados</NavDropdown.Item>
-              {
-                userAdmin && <NavDropdown.Item href="/administration">Administracion</NavDropdown.Item>
-              }
-              <NavDropdown.Item href="" onClick={closeSesion}> Cerrar sesion </NavDropdown.Item>
+              <div className={NavigateModuleCSS.navDropdown}>
+                {
+                  userAdmin && <NavLink className={
+                    ({ isActive }) => isActive
+                      ? `${NavigateModuleCSS.navItemDrop} ${NavigateModuleCSS.isActive}`
+                      : NavigateModuleCSS.navItemDrop
+                  } to="/administration">Administracion</NavLink>
+                }
+                <NavLink className={
+                  ({ isActive }) => isActive
+                    ? `${NavigateModuleCSS.navItemDrop} ${NavigateModuleCSS.isActive}`
+                    : NavigateModuleCSS.navItemDrop
+                } to="/purchasedAlbumes">Mis albumes comprados</NavLink>
+                <NavLink className={
+                  ({ isActive }) => isActive
+                    ? `${NavigateModuleCSS.navItemDrop} ${NavigateModuleCSS.isActive}`
+                    : NavigateModuleCSS.navItemDrop
+                } to='/authUser' onClick={closeSesion}> Cerrar sesion </NavLink>
+              </div>
+
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

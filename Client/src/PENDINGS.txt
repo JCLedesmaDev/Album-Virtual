@@ -9,6 +9,8 @@ PARA EL FINAL
 
 
 Front:
-⏰ traer los datos de lotro proyecto
-⏰ Imitar el filtrado y el renderizado de categ y albumes de admin y mis albumes comprados
+⏰ Realizar el suspense
+⏰ Ver si es posible modificar tema headers sin guardar en localStorage
+⏰ Imitar el filtrado y el renderizado de categ y albumes de
+    admin y mis albumes comprados
 ⏰ Crear pagina NotFound
