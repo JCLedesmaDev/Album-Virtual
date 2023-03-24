@@ -5,7 +5,7 @@ import { IPurchasedFiguresSchema } from './PurchasedFigures';
 import { IUserSchema } from './Users';
 
 export interface IPurchasedAlbumSchema extends Document {
-    albumRef: ObjectId | IAlbumSchema; // TODO: cambiar por la interface de Roles
+    albumRef: ObjectId | IAlbumSchema;
     user: ObjectId | IUserSchema;
     purchasedFigures: ObjectId[] | IPurchasedFiguresSchema[];
 }

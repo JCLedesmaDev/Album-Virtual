@@ -15,9 +15,7 @@ const authHandler = (req: Request = request, res: Response = response, next: Nex
         if (tokenData.id != req.locals.usrId) {
             throw new ApplicationError({message: 'Token no corresponde al usuario', status: 401})            
         }
-
-        /// TODO: Verificar la fecha de expiracion del token
-
+        
         req.locals.usrRoles = tokenData.roles
         return next();
     } catch (error) {
