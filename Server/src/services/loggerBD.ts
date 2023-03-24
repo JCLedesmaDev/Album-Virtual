@@ -1,4 +1,4 @@
-import collections from "../models/index.models"
+import collections from "../models/index.collections"
 import { ApplicationError } from "../utils/applicationError";
 
 interface ILogger {

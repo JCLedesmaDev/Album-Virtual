@@ -1,4 +1,4 @@
-import collections from "../../models/index.models"
+import collections from "../../models/index.collections"
 import { FilterQuery, PaginateOptions, PaginateResult, Types } from "mongoose"
 import { ApplicationError } from "../../utils/applicationError"
 import { IFigurineSchema } from "../../models/collections/Figurites"

@@ -14,7 +14,7 @@ export interface IAlbumSchema extends Document, SoftDeleteInterface {
 const AlbumSchema = new Schema<IAlbumSchema>({
     title: { type: String, required: true },
     image: { type: String, required: true },
-    albumCollections: { type: Types.ObjectId, ref: "AlbumCollections" },
+    albumCollections: { type: Types.ObjectId, required: true, ref: "AlbumCollections" },
     figurites: [{ type: Types.ObjectId, ref: "Figurites" }]
 }, {
     timestamps: true, // Nos crea un campo mas con la fecha de creacion y actualizacion del registro

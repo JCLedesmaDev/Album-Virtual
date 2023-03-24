@@ -1,7 +1,7 @@
 import { FilterQuery, PaginateOptions, PaginateResult, Types } from "mongoose"
 import { IPagination } from "../../interface/IPagination"
 import AlbumCollections, { IAlbumCollectionSchema } from "../../models/collections/AlbumCollections"
-import collections from "../../models/index.models"
+import collections from "../../models/index.collections"
 import { ApplicationError } from "../../utils/applicationError"
 import { ICreateCollectionDto } from "./dto/ICreateCollection.dto"
 import { IUpdateCollectionDto } from "./dto/IUpdateCollection.dto"

@@ -7,7 +7,7 @@ import { headersHandler } from './middlewares/headersHandler';
 import { errorHandler } from './middlewares/errorHandler';
 import { eventHandler } from './middlewares/eventHandler';
 import { notFoundRouterHandler } from './middlewares/notFoundRouteHandler';
-import { createMocksDateHandler } from './middlewares/createMocksDateHandler';
+import { createMocksDateHandler } from './utils/createMocksDate';
 
 function startServer(PORT: number) {
 
@@ -17,11 +17,11 @@ function startServer(PORT: number) {
     app.use(express.json()) //--> Comprende mensajes JSON
     app.use(cors({ origin: '*' }));
 
-    app.listen(PORT, () => {
+    app.listen(PORT, async () => {
+        await createMocksDateHandler()
         console.log(`⚡️[server]: Server is running in ${config.util.getEnv("NODE_ENV")} at ${config.get('server.public_url')}${PORT}`);
     });
 
-    app.use(createMocksDateHandler)
     app.use(headersHandler) // Definimos como manejamos todos los datos provenientes del headers
 
     app.use('/api', indexRoutes)

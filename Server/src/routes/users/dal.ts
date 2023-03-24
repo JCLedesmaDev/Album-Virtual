@@ -1,5 +1,5 @@
 import { IUserSchema } from "../../models/collections/Users";
-import collections from "../../models/index.models"
+import collections from "../../models/index.collections"
 import { ApplicationError } from "../../utils/applicationError";
 import { IRegisterDto } from "./dto/IRegister.dto";
 

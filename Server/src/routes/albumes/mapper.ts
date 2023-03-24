@@ -4,7 +4,6 @@ import { IAlbum } from "../../interface/IAlbum";
 import { IFigurine } from "../../interface/IFigurine";
 import { IPurchasedAlbum } from "../../interface/IPurchasedAlbum";
 import { IPurchasedFigurine } from "../../interface/IPurchasedFigurine";
-import { IAlbumCollectionSchema } from "../../models/collections/AlbumCollections";
 import { IAlbumSchema } from "../../models/collections/Albumes";
 import { IFigurineSchema } from "../../models/collections/Figurites";
 import { IPurchasedAlbumSchema } from "../../models/collections/PurchasedAlbumes";
