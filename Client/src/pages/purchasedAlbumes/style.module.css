@@ -1,0 +1,43 @@
+.btnAlbumComprar{
+    font-size: 16px;
+    border-radius: .75rem;
+}
+
+.containerNotAlbum {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 3rem;
+    color: #fff;
+}
+.containerNotAlbum button {
+    width: 100px;
+    height: 35px;
+}
+
+.containerModal {
+    width: 100%;
+    padding: 0.5rem;
+}
+.asd{
+    position: relative;
+    /* height: 75vh; */
+}
+
+.containerModal__closeBtn{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 20px;
+    cursor: pointer;
+}
+.containerModal__closeBtn > i {
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: #dc143c;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 1.5rem;
+    color: #fff;
+}

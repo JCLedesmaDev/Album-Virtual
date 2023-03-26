@@ -9,10 +9,10 @@ import { IFigurineSchema } from "../../models/collections/Figurites";
 import { IPurchasedAlbumSchema } from "../../models/collections/PurchasedAlbumes";
 import { IPurchasedFiguresSchema } from "../../models/collections/PurchasedFigures";
 
-const multipleAlbums = (Albums: IAlbumSchema[]): IAlbum[] => (
+export const multipleAlbums = (Albums: IAlbumSchema[]): IAlbum[] => (
     Albums.map(album => singleAlbum(album))
 )
-const singleAlbum = (resource: IAlbumSchema): IAlbum => {
+export const singleAlbum = (resource: IAlbumSchema): IAlbum => {
     const mapper: IAlbum = {
         id: resource._id,
         title: resource.title,
@@ -25,7 +25,7 @@ const singleAlbum = (resource: IAlbumSchema): IAlbum => {
 
 
 const multipleFigures = (figurites: IFigurineSchema[]): IFigurine[] => (
-    figurites.map((figurine)=> singleFigurine(figurine))
+    figurites.map((figurine) => singleFigurine(figurine))
 )
 const singleFigurine = (figurine: IFigurineSchema): IFigurine => {
     const mapper: IFigurine = {
@@ -38,7 +38,7 @@ const singleFigurine = (figurine: IFigurineSchema): IFigurine => {
 }
 
 
-const multiplePurchasedAlbumes = (purchasedAlbumes: IPurchasedAlbumSchema[]): IPurchasedAlbum[] => (
+export const multiplePurchasedAlbumes = (purchasedAlbumes: IPurchasedAlbumSchema[]): IPurchasedAlbum[] => (
     purchasedAlbumes.map(purchasedAlbum => singlePurchasedAlbum(purchasedAlbum))
 )
 const singlePurchasedAlbum = (purchasedAlbum: IPurchasedAlbumSchema): IPurchasedAlbum => {
@@ -63,9 +63,3 @@ const singlePurchasedFigurine = (purchasedFigurine: IPurchasedFiguresSchema): IP
     }
     return mapper
 }
-
-
-export default {
-    multipleAlbums,
-    multiplePurchasedAlbumes
-};

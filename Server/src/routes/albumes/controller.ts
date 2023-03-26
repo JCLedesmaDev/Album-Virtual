@@ -8,6 +8,7 @@ import { IDeleteAlbumDto } from "./dto/IDeleteAlbum.dto"
 import { IGetAllPurchasedAlbumesDto } from "./dto/IGetAllPurchasedAlbumes.dto"
 import { IUpdateAlbumDto } from "./dto/IUpdateAlbum.dto"
 import { controllerWrapper } from "../../utils/controllerWrapper"
+import { IGetAlbumDto } from "./dto/IGetAlbum.dto"
 
 
 const createAlbum = controllerWrapper(async (req: Request) => {
@@ -60,9 +61,19 @@ const getAllPurchasedAlbumes = controllerWrapper(async (req: Request) => {
     return await logic.getAllPurchasedAlbumes(payload)
 })
 
+const getAlbum = controllerWrapper(async (req: Request) => {
+    const payload = {
+        idAlbum: req.query.idAlbum
+    } as IGetAlbumDto
+
+    req.locals.info = payload
+    return await logic.getAlbum(payload)
+})
+
 export {
     createAlbum,
     getListAlbumes,
+    getAlbum,
     deleteAlbum,
     updateAlbum,
     buyAlbum,

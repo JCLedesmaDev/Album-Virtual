@@ -1,6 +1,6 @@
 import { tryCatchWrapper } from "../../utils/tryCatchWrapper"
 import externalDb from "./dal"
-import mapper from './mapper'
+import * as mapper from './mapper'
 import responseMessage from "../../utils/responseMessage"
 import { IPagination } from "../../interface/IPagination"
 import { ApplicationError } from "../../utils/applicationError"
@@ -12,6 +12,7 @@ import { IAlbum } from "../../interface/IAlbum"
 import { IBuyAlbumDto } from "./dto/IBuyAlbum.dto"
 import { IGetAllPurchasedAlbumesDto } from "./dto/IGetAllPurchasedAlbumes.dto"
 import { IPurchasedAlbum } from "../../interface/IPurchasedAlbum"
+import { IGetAlbumDto } from "./dto/IGetAlbum.dto"
 
 
 const createAlbum = tryCatchWrapper(async (payload: ICreateAlbumDto) => {
@@ -44,6 +45,22 @@ const getListAlbumes = tryCatchWrapper(async (payload: IPagination) => {
         data: listAlbumesMapper
     })
 })
+
+const getAlbum = tryCatchWrapper(async (payload: IGetAlbumDto) => {
+
+    const findAlbum = await externalDb.findAlbum({ '_id': payload.idAlbum })
+
+    if (findAlbum === null) {
+        throw new ApplicationError({ message: 'No existe un Album con este nombre. Intentelo con otro.' });
+    }
+    const albumMapper: IAlbum = mapper.singleAlbum(findAlbum)
+
+    return responseMessage.success<typeof albumMapper>({
+        data: albumMapper
+    })
+})
+
+
 
 const deteleAlbum = tryCatchWrapper(async (payload: IDeleteAlbumDto) => {
     const album = await externalDb.findAlbum({
@@ -117,6 +134,7 @@ const getAllPurchasedAlbumes = tryCatchWrapper(async (payload: IGetAllPurchasedA
 export default {
     createAlbum,
     getListAlbumes,
+    getAlbum,
     deteleAlbum,
     updateAlbum,
     buyAlbum,

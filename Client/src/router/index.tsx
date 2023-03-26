@@ -25,6 +25,7 @@ const router = createBrowserRouter([
       },
       {
         index: true, // Definimos que dentro de los componentes hijos, este es el principal
+        path:'albumes',
         element: (<Albumes />),
       },
       {
@@ -34,11 +35,7 @@ const router = createBrowserRouter([
       {
         path: 'purchasedAlbumes',
         element: (<PurchasedAlbumes />),
-      },
-      {
-        path: 'purchasedFigures/:idPurchasedAlbum',
-        element: (<PurchasedAlbumes />),
-      },
+      }
     ]
   },
   {

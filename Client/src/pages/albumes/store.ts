@@ -15,7 +15,7 @@ interface IStore {
 
 const store = create<IStore>((set, get) => ({
     actions: {
-        buyAlbum: async (payload: any) => {
+        buyAlbum: async (payload: IBuyAlbumDto) => {
             const res = await apiSrv.callBackend(async () => {
                 return await apiSrv.callSrv({
                     method: 'POST',

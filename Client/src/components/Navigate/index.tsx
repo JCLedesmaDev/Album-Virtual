@@ -44,7 +44,7 @@ export const Navigate: React.FC = () => {
               ({ isActive }) => isActive
                 ? `${NavigateModuleCSS.navItem} ${NavigateModuleCSS.isActive}`
                 : NavigateModuleCSS.navItem
-            } to="/">Albumes</NavLink>
+            } to="/albumes">Albumes</NavLink>
             <NavLink className={
               ({ isActive }) => isActive
                 ? `${NavigateModuleCSS.navItem} ${NavigateModuleCSS.isActive}`
