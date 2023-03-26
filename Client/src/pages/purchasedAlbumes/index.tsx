@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../appStore';
 import { Paginate } from '../../components/Paginate';
+import { IPurchasedAlbumModels } from '../../models/IPurchasedAlbum.models';
 
 
 
@@ -17,7 +18,7 @@ export const PurchasedAlbumes: React.FC = () => {
 
     /// METODOS
     const getAllPurchasedAlbumes = async (page: number = 1) => {
-        await appStore.actions.getAllPurchasedAlbumes({page, filterText: ''})
+        await appStore.actions.getAllPurchasedAlbumes({ page, filterText: '' })
     }
 
     const changePage = ({ selected }: any) => {
@@ -32,56 +33,48 @@ export const PurchasedAlbumes: React.FC = () => {
     }, [])
 
     return (
-
-
         <div className="containerPageAlbum">
             <div id="m">
 
                 <h1>Mis Albumes </h1>
-
 
                 {appStore.state.purchasedAlbumes.length === 0 &&
                     <div className='containerNotAlbum'>
                         <h3>Uups... Aun no tiene ningun Album! ¿Desea comprar uno? </h3>
 
                         <button className='btnAlbumComprar' onClick={() => navigate('/')}>Ir a Album</button>
-                    </div>
-                }
+                    </div>}
 
-                {
-                    <div id={`album-rotator0`} className="albumRotatorContainer">
+                {<div id={`album-rotator0`} className="albumRotatorContainer">
 
-                        <section id={`album-rotator-holder0`} className="albumRotatorHolder">
-                            {
-                                appStore.state.purchasedAlbumes.map((myAlbum: any, indexEsport: number) => (
-                                    <article id={`album-item0`} style={{ cursor: 'pointer' }}
-                                        className={`albumItem`} key={indexEsport}
-                                    >
-                                        <img src={myAlbum.album.imagen} className="image" alt="" />
+                    <section id={`album-rotator-holder0`} className="albumRotatorHolder">
+                        {
+                            appStore.state.purchasedAlbumes.map((myAlbum: IPurchasedAlbumModels, indexEsport: number) => (
+                                <article id={`album-item0`} style={{ cursor: 'pointer' }}
+                                    className={`albumItem`} key={indexEsport}
+                                >
+                                    <img src={myAlbum.albumRef.image} className="image" alt="" />
 
-                                        <div className={`albumItem__details`}>
-                                            <h3>{myAlbum.album.titulo}</h3>
+                                    <div className={`albumItem__details`}>
+                                        <h3>{myAlbum.albumRef.title}</h3>
 
-                                            <button
-                                                onClick={() => navigate(`/purchasedFigures/${myAlbum.albumId}`)}
-                                            > Ver figuritas</button>
-                                        </div>
-                                    </article>
-                                ))
-                            }
-                        </section>
-                    </div>
-                }
+                                        <button
+                                            onClick={() => navigate(`/purchasedFigures/${myAlbum.id}`)}
+                                        > Ver figuritas</button>
+                                    </div>
+                                </article>
+                            ))
+                        }
+                    </section>
+                </div>}
 
-                {
-                    appStore.state.purchasedAlbumes.length != 0 && <div>
-                        <Paginate
-                            ChangePage={changePage}
-                            PageCount={appStore.state.pagination.totalPages}
-                            LocatedPageNumber={appStore.state.pagination.currentPage}
-                        />
-                    </div>
-                }
+                {appStore.state.purchasedAlbumes.length != 0 && <div>
+                    <Paginate
+                        ChangePage={changePage}
+                        PageCount={appStore.state.pagination.totalPages}
+                        LocatedPageNumber={appStore.state.pagination.currentPage}
+                    />
+                </div>}
 
             </div>
         </div>

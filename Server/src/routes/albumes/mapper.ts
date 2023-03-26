@@ -43,6 +43,7 @@ const multiplePurchasedAlbumes = (purchasedAlbumes: IPurchasedAlbumSchema[]): IP
 )
 const singlePurchasedAlbum = (purchasedAlbum: IPurchasedAlbumSchema): IPurchasedAlbum => {
     const mapper: IPurchasedAlbum = {
+        id: purchasedAlbum._id,
         albumRef: singleAlbum(purchasedAlbum.albumRef as IAlbumSchema),
         purchasedFigurites: multiplePurchasedFigurites(purchasedAlbum.purchasedFigures as IPurchasedFiguresSchema[]),
         idUser: purchasedAlbum.user as ObjectId
@@ -56,6 +57,7 @@ const multiplePurchasedFigurites = (purchasedFigurites: IPurchasedFiguresSchema[
 )
 const singlePurchasedFigurine = (purchasedFigurine: IPurchasedFiguresSchema): IPurchasedFigurine => {
     const mapper: IPurchasedFigurine = {
+        id: purchasedFigurine._id,
         figurineRef: singleFigurine(purchasedFigurine.figurineRef as IFigurineSchema),
         idPurchasedAlbum: purchasedFigurine.purchasedAlbum as ObjectId
     }

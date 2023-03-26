@@ -9,6 +9,8 @@ import { IAlbumCollectionModels } from "../models/IAlbumCollection.models";
 import { IAlbumModels } from "../models/IAlbum.models";
 import { apiSrv } from "../utils/apiSrv";
 import { multipleAlbumCollectionMapper, multipleAlbumes } from "./administration/mappers";
+import { multiplePurchasedAlbumes } from "./purchasedAlbumes/mappers";
+import { IPurchasedAlbumModels } from "../models/IPurchasedAlbum.models";
 
 export interface IFilterSearch {
     page: number;
@@ -140,11 +142,11 @@ const appStore = create<IStore>((set, get) => ({
                 totalPages: res.info.data.totalPages
             })
 
-            // const albumAdapted: IAlbumModels[] = multipleAlbumes(res.info.data?.docs);
+            const purchasedAlbumAdapted: IPurchasedAlbumModels[] = multiplePurchasedAlbumes(res.info.data?.docs);
 
-            // set(produce((store: IStore) => {
-            //     store.state.purchasedAlbumes = albumAdapted
-            // }))
+            set(produce((store: IStore) => {
+                store.state.purchasedAlbumes = purchasedAlbumAdapted
+            }))
         },
 
     }

@@ -32,7 +32,7 @@ export const multipleAlbumes = (albumList: IGetAllAlbumesResponseDto[]): IAlbumM
     return albumesMapper
 }
 
-const singleAlbumesMapper = (album: IGetAllAlbumesResponseDto): IAlbumModels => {
+export const singleAlbumesMapper = (album: IGetAllAlbumesResponseDto): IAlbumModels => {
     const formattedAlbums: IAlbumModels = {
         id: album.id,
         image: album.image,
@@ -53,7 +53,7 @@ export const multipleFiguritas = (figuritas: IGetAllFiguritesResponseDto[]): IFi
     return figurineMapper
 }
 
-const singleFiguritasMapper = (figurine: IGetAllFiguritesResponseDto): IFigurineModels => {
+export const singleFiguritasMapper = (figurine: IGetAllFiguritesResponseDto): IFigurineModels => {
     const formattedAlbums: IFigurineModels = {
         id: figurine.id,
         image: figurine.image,
