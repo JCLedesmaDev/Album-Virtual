@@ -109,11 +109,11 @@ const getAllPurchasedAlbumes = async (payload: IGetAllPurchasedAlbumesDto): Prom
                         path: 'figurineRef', strictPopulate: false,
                     }
                 }
-            ]
+            ],
         }
         const query: FilterQuery<IPurchasedAlbumSchema> = {
             ...(payload.filterText !== '' && {
-                title: { $regex: new RegExp(payload.filterText), $options: 'i' }
+                'albumRef.title': { $regex: new RegExp(payload.filterText), $options: 'i' }
             }),
         }
         return await collections.PurchasedAlbumes.paginate(query, options)
