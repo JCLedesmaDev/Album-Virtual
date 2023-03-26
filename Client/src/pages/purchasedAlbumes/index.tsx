@@ -8,6 +8,8 @@ import { ModalContainer } from '../../components/PopupModal';
 import styleCSS from './style.module.css'
 import { IPurchasedFigurineModels } from '../../models/IPurchasedFigurine.models';
 import { usePurchasedAlbumStore } from './store';
+import { ConfigCarrouselModels } from '../../models/ConfigCarrousel.models';
+import { carouselTarjets } from '../../utils/carouselTarjets';
 
 
 
@@ -24,7 +26,18 @@ export const PurchasedAlbumes: React.FC = () => {
 
     /// METODOS
     const getAllPurchasedAlbumes = async (page: number = 1) => {
+        const arrAlbum: ConfigCarrouselModels[] = []
         await appStore.actions.getAllPurchasedAlbumes({ page, filterText: '' })
+
+        appStore.state.purchasedAlbumes.forEach((x: any, index: number) => {
+            arrAlbum.push({
+                individualItem: `#album-item${index}`,
+                carouselWidth: 1000, // in p
+                carouselId: `#album-rotator${index}`,
+                carouselHolderId: `#album-rotator-holder${index}`,
+            })
+        })
+        carouselTarjets(arrAlbum)
     }
 
     const changePage = ({ selected }: any) => {
@@ -41,9 +54,24 @@ export const PurchasedAlbumes: React.FC = () => {
     }
 
     const openModal = async (myAlbum: IPurchasedAlbumModels) => {
-        await store.actions.getAlbum({ idAlbum: myAlbum.albumRef.id })
+
+        const arrAlbum: ConfigCarrouselModels[] = []
+
         setPurchasedAlbumSelected(myAlbum)
         appStore.actions.setShowPopup(true)
+        await store.actions.getAlbum({ idAlbum: myAlbum.albumRef.id })
+
+
+        purchasedAlbumSelected?.purchasedFigurites.forEach((x: any, index: number) => {
+            arrAlbum.push({
+                individualItem: `#modalAlbum-item${index}`,
+                carouselWidth: 1000, // in p
+                carouselId: `#modalAlbum-rotator${index}`,
+                carouselHolderId: `#modalAlbum-rotator-holder${index}`,
+            })
+        })
+
+        carouselTarjets(arrAlbum)
     }
 
     useEffect(() => {
@@ -68,7 +96,7 @@ export const PurchasedAlbumes: React.FC = () => {
                     <section id={`album-rotator-holder0`} className="albumRotatorHolder">
                         {
                             appStore.state.purchasedAlbumes.map((myAlbum: IPurchasedAlbumModels, indexEsport: number) => (
-                                <article id={`album-item0`} style={{ cursor: 'pointer' }}
+                                <article id={`album-item${indexEsport}`} style={{ cursor: 'pointer' }}
                                     className={`albumItem`} key={indexEsport}
                                 >
                                     <img src={myAlbum.albumRef.image} className="image" alt="" />
@@ -107,13 +135,13 @@ export const PurchasedAlbumes: React.FC = () => {
                                     <button className={`${styleCSS.btnAlbumComprar}`} onClick={() => navigate('/figurites')}>Ir a Figuritas</button>
                                 </div>}
 
-                            {<div id={`album-rotator0`} className="albumRotatorContainer">
+                            {<div id='modalAlbum-rotator0' className="albumRotatorContainer">
 
-                                <section id={`album-rotator-holder0`} className="albumRotatorHolder">
+                                <section id='modalAlbum-rotator-holder0' className="albumRotatorHolder">
                                     {
-                                        purchasedAlbumSelected?.purchasedFigurites.map((myFigus: IPurchasedFigurineModels, indexEsport: number) => (
-                                            <article id={`album-item${indexEsport}`} style={{ cursor: 'pointer' }}
-                                                className={`albumItem`} key={indexEsport}
+                                        purchasedAlbumSelected?.purchasedFigurites.map((myFigus: IPurchasedFigurineModels, index: number) => (
+                                            <article id={`modalAlbum-item${index}`} style={{ cursor: 'pointer' }}
+                                                className={`albumItem`} key={index}
                                             >
                                                 <img className="image" src={myFigus.figurineRef.image} alt="" />
 

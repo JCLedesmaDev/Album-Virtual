@@ -1,17 +1,5 @@
 
-(Aca esta lo del suspense) )https://reactrouter.com/en/main/start/overview
-\wiki\web\desa\toolbox\index.html
 
-
-PARA EL FINAL
-3) https://www.youtube.com/watch?v=srMBmtVeS00
-4) https://www.youtube.com/watch?v=1Ytp_M3P6Xc
-
-
-Front:
-⏰ Concluir vista de albumes comprados y figuritas compradas
-⏰ Realizar el suspense
 ⏰ Ver si es posible modificar tema headers sin guardar en localStorage
 ⏰ Imitar el filtrado y el renderizado de categ y albumes de
     admin y mis albumes comprados
-⏰ Crear pagina NotFound
