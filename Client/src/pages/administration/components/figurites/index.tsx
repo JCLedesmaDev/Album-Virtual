@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { ModalContainer } from "../../../../components/PopupModal";
-import { useFormCustom } from "../../../../Hooks/useFormCustom";
+import { useFormCustom } from "../../../../hooks/useFormCustom";
 import { IFigurineModels } from "../../../../models/IFigurine.models";
 import { useAppStore } from "../../../appStore";
 import { ICreateFigurineDto } from "../../interface/frontToBack/ICreateFigurine.dto";

@@ -10,6 +10,7 @@ import { carouselTarjets } from '../../utils/carouselTarjets';
 import { IAlbumModels } from '../../models/IAlbum.models';
 import { Paginate } from '../../components/Paginate';
 import { useAlbumStore } from './store';
+import { useSearchParams } from 'react-router-dom';
 
 
 
@@ -19,14 +20,15 @@ export const Albumes: React.FC = () => {
     const appStore = useAppStore()
     const store = useAlbumStore()
 
-    const [query, setQuery] = useState('');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const filter: string = searchParams.get("filter") ?? "";
 
 
     /// METODOS
-    const getAllAlbumCollections = async (page: number = 1, query?: string) => {
+    const getAllAlbumCollections = async (page: number = 1) => {
         const arrAlbum: ConfigCarrouselModels[] = []
 
-        await appStore.actions.getAllAlbumCollections({ page, filterText: query })
+        await appStore.actions.getAllAlbumCollections({ page, filterText: filter })
 
         appStore.state.collection.map((collection: IAlbumCollectionModels, index: number) => {
             arrAlbum.push({
@@ -45,9 +47,14 @@ export const Albumes: React.FC = () => {
 
     const changePage = ({ selected }: any) => {
         window.scrollTo(0, 0);
-        getAllAlbumCollections(selected + 1, query)
+        getAllAlbumCollections(selected + 1)
     }
 
+    const handleFilter = (e: any) => {
+        setSearchParams({
+            filter: e.target.value
+        });
+    };
 
 
     useEffect(() => { getAllAlbumCollections() }, [])
@@ -60,11 +67,12 @@ export const Albumes: React.FC = () => {
                         <input
                             type="text" className="form-control"
                             placeholder="Escribe la tematica deseada"
-                            onChange={(e) => setQuery(e.target.value)}
+                            onChange={handleFilter}
+                            value={filter}
                         />
                         <div className="input-group-append">
                             <button type="button" className="btn btn-primary"
-                                onClick={() => getAllAlbumCollections(1, query)}>
+                                onClick={() => getAllAlbumCollections(1)}>
                                 <i className="fas fa-search"></i>
                             </button>
                         </div>

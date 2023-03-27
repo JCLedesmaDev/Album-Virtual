@@ -1,5 +1,5 @@
 import { ChangeEventHandler, Fragment, useEffect, useState } from "react";
-import { useFormCustom } from "../../../../Hooks/useFormCustom";
+import { useFormCustom } from "../../../../hooks/useFormCustom";
 import { useAppStore } from "../../../appStore";
 import { ICreateAlbumDto } from "../../interface/frontToBack/ICreateAlbum.dto";
 import { useAdministrationStore } from "../../store";

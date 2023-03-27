@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Paginate } from '../../components/Paginate';
 import { ConfigCarrouselModels } from '../../models/ConfigCarrousel.models';
 import { IAlbumModels } from '../../models/IAlbum.models';
@@ -17,15 +18,14 @@ export const Figurites: React.FC = () => {
     const appStore = useAppStore()
     const store = useFigurineStore()
 
-    const [query, setQuery] = useState('');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const filter: string = searchParams.get("filter") ?? "";
 
     /// METODOS
-
-
-    const getAllAlbumes = async (page: number = 1, query?: string) => {
+    const getAllAlbumes = async (page: number = 1) => {
         const arrAlbumImg: ConfigCarrouselModels[] = []
 
-        await appStore.actions.getAllAlbumes({ page, filterText: query })
+        await appStore.actions.getAllAlbumes({ page, filterText: filter })
 
         appStore.state.albumes.map((albumes: IAlbumModels, index: number) => {
             arrAlbumImg.push({
@@ -41,12 +41,18 @@ export const Figurites: React.FC = () => {
 
     const changePage = ({ selected }: any) => {
         window.scrollTo(0, 0);
-        getAllAlbumes(selected + 1, query)
+        getAllAlbumes(selected + 1)
     }
 
     const buyFigurita = async (idFigurine: string, idAlbum: string) => {
-        await store.actions.buyFigurine({idFigurine, idAlbum})
+        await store.actions.buyFigurine({ idFigurine, idAlbum })
     }
+
+    const handleFilter = (e: any) => {
+        setSearchParams({
+            filter: e.target.value
+        });
+    };
 
     useEffect(() => {
         getAllAlbumes()
@@ -62,11 +68,12 @@ export const Figurites: React.FC = () => {
                         <input
                             type="text" className="form-control"
                             placeholder="Escribe album o torneo deseado"
-                            onChange={(e) => setQuery(e.target.value)}
+                            onChange={handleFilter}
+                            value={filter}
                         />
                         <div className="input-group-append">
                             <button type="button" className="btn btn-primary"
-                                onClick={() => getAllAlbumes(1, query)}>
+                                onClick={() => getAllAlbumes(1)}>
                                 <i className="fas fa-search"></i>
                             </button>
                         </div>

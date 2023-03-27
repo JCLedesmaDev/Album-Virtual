@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import styleCSS from '../../index.module.css'
 import { ModalContainer } from "../../../../components/PopupModal";
-import { useFormCustom } from "../../../../Hooks/useFormCustom";
+import { useFormCustom } from "../../../../hooks/useFormCustom";
 import { InputsMockColeccion } from "./mocks/InputsColeccion";
 import { Input } from "../../../../components/Input";
 import { IInputs } from "../../../../components/Input/IInputs";
