@@ -1,6 +1,7 @@
 ---------------------------------------------
 
-# ¡Bienvenidos a la coleccion de Albumes!. 
+# ¡Bienvenidos a tu Album Virtual!. 
+
 
 
 ## Sitio del proyecto:
