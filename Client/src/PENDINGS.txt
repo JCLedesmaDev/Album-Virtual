@@ -1,8 +1,0 @@
-
-
-⏰ Ver si es posible modificar tema headers sin guardar en localStorage
-⏰ Imitar el filtrado y el renderizado de categ y albumes de admin y mis albumes comprados....
-
-
-
-

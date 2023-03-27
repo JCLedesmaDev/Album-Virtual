@@ -20,7 +20,6 @@ export const PurchasedAlbumes: React.FC = () => {
     const appStore = useAppStore()
     const store = usePurchasedAlbumStore()
     const navigate = useNavigate()
-    const [query, setQuery] = useState('');
 
     const [purchasedAlbumSelected, setPurchasedAlbumSelected] = useState<IPurchasedAlbumModels>()
 
@@ -84,23 +83,6 @@ export const PurchasedAlbumes: React.FC = () => {
             <div id="m">
 
                 <h1>Mis Albumes </h1>
-
-                <div className="container">
-                    <div className="input-group mb-3">
-                        <input
-                            type="text" className="form-control"
-                            placeholder="Escribe el album deseada"
-                            onChange={(e) => setQuery(e.target.value)}
-                        />
-                        <div className="input-group-append">
-                            <button type="button" className="btn btn-primary"
-                                onClick={() => getAllPurchasedAlbumes(1, query)}>
-                                <i className="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
 
                 {appStore.state.purchasedAlbumes.length === 0 &&
                     <div className={`${styleCSS.containerNotAlbum}`}>
