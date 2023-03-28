@@ -40,14 +40,14 @@ export const apiSrv = {
                 return request
             },
             (error: any) => {
-                console.log("🚀 ~ file: index.ts:53 ~ err", error)
+                // console.log("🚀 ~ file: index.ts:53 ~ err", error)
                 return Promise.reject(error);
             }
         )
         srv.interceptors.response.use(
             (response: AxiosResponse<any, any>) => response,
             (error: any) => {
-                console.log('Error ApiSrv!!!! :' + error)
+                // console.log('Error ApiSrv!!!! :' + error)
                 if (error.response?.status === 401) { // Hice que el 401 sea especifico de token
                     deleteStorage("User");
                     deleteStorage('Headers')
@@ -115,7 +115,7 @@ export const apiSrv = {
             if (method === "PUT") res = await (await srv.put(path, data)).data
             if (method === "DELETE") res = await (await srv.delete(path)).data
         } catch (error: any) {
-            console.log('callSrv error:', error)
+            // console.log('callSrv error:', error)
             error.data.info
                 ? res = error.data
                 : res = { info: { type: 'error', msg: error.message } }

@@ -11,7 +11,7 @@
 // -- End Helper Functions
 
 export const carouselTarjets = (arrayConfigs: any) : any => {
-    console.log("🚀 ~ file: carouselTarjets.js ~ line 14 ~ carouselTarjets ~ arrayConfigs", arrayConfigs)
+    // console.log("🚀 ~ file: carouselTarjets.js ~ line 14 ~ carouselTarjets ~ arrayConfigs", arrayConfigs)
 
     setTimeout(() => {
         arrayConfigs.forEach((configCarousel: any) => {
@@ -23,8 +23,6 @@ export const carouselTarjets = (arrayConfigs: any) : any => {
                 parseFloat(window.getComputedStyle(el).width) +
                 parseFloat(window.getComputedStyle(el).marginLeft) +
                 parseFloat(window.getComputedStyle(el).marginRight)
-
-            console.log("🚀 ~ file: carouselTarjets.js ~ line 24 ~ carouselTarjets ~ elWidth", elWidth)
 
             // Track carousel
             let mousedown = false;

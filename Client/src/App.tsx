@@ -20,7 +20,7 @@ export default function App() {
   } 
 
   useLayoutEffect(() => {
-    console.log('initializate CONSTRUCTOR')
+    // console.log('initializate CONSTRUCTOR')
     initializate()
   }, [])
 
