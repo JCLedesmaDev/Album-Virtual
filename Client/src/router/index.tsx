@@ -3,7 +3,7 @@ import { RoutePrivate } from '../components/RoutePrivate';
 import { MainLayout } from "../layouts/MainLayout";
 
 import { AuthUser } from '../pages/authUser';
-import { NotFound } from "../pages/NotFound";
+import { NotFound } from "../pages/notFound";
 import { Administration } from "../pages/administration";
 import { Albumes } from "../pages/albumes";
 import { Figurites } from "../pages/figurites";

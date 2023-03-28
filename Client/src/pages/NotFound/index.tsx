@@ -1,6 +1,6 @@
 import { Link, useRouteError } from "react-router-dom"
 import notFoundCSS from "./index.module.css"
-import notFoundImg from "../../Assets/Error-404.png";
+import notFoundImg from "../../assets/Error-404.png";
 
 
 
