@@ -15,7 +15,7 @@ export const NotFound: React.FC = () => {
             <div>
                 <img src={notFoundImg} alt="asd" />
             </div>
-            <Link className={`${notFoundCSS.title}`} to="/albumes">Regresar al inicio</Link>
+            <Link className={`${notFoundCSS.title}`} to="/">Regresar al inicio</Link>
         </div>
     )
 }

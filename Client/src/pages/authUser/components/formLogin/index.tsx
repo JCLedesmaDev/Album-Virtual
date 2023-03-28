@@ -31,7 +31,7 @@ export const FormLogin: React.FC = () => {
 
     const isLogin = await store.actions.login(payload)
 
-    if (isLogin) navigate("/albumes");
+    if (isLogin) navigate("/");
     resetForm()
   }
 
