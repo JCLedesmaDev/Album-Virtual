@@ -56,8 +56,8 @@ PORT=99999
 ## Clave super secreta
 JWT_SECRET=claveSuperSecreta
 
-## Nombre de base de datos
-CONNECTION_DB=nombreBaseDatos
+## Conexion de base de datos
+CONNECTION_DB=conexionBaseDatos
 ```
 El archivo `.env` debe estar en la ruta raíz del proyecto.
 
