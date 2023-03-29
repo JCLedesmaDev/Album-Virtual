@@ -20,7 +20,6 @@ export const useFormCustom = <TypeFormData extends Object>(
 
   const handleChange = ({ target }: ChangeEvent<HTMLInputElement | HTMLSelectElement> | any) => {
     const { name, value, files } = target;
-    console.log("🚀 ~ file: useFormCustom.ts:24 ~ handleChange ~ value:", value)
 
     // En caso de cargar imagenes tb
     const imageInput = files != null && files[0];
