@@ -44,12 +44,26 @@ Instale las depedencias del proyecto, ejecutando en la terminal, desde la ruta r
 Para ejecutar este proyecto Back End, deberá agregar las siguientes variables de entorno al archivo `.env`:
 
 ```bash
-NODE_ENV=nombreEntorno
-jwt_secret=claveSuperSecreta
-nameBD=nombreBaseDeDatos
-password_admin=password_admin
+## Contrasena de administrador 
+PASSWORD_ADMIN=password_admin
+
+## Entorno de desarrollo
+NODE_ENV=development || production
+
+## Puerto de SV
+PORT=99999
+
+## Clave super secreta
+JWT_SECRET=claveSuperSecreta
+
+## Nombre de base de datos
+CONNECTION_DB=nombreBaseDatos
 ```
 El archivo `.env` debe estar en la ruta raíz del proyecto.
+
+**Aclaraciones:**
+
+Dado el caso de que no se llegase a crear el archivo `.env`, existen valores cargados por defecto dentro de `Server > config > default.js`
 
 
 ## Despliegue:

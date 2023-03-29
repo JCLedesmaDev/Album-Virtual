@@ -1,7 +1,7 @@
 import { CallbackError, connect, ConnectOptions, set } from "mongoose"
 import config from 'config'
 
-const DB_URI: string = `${config.get('mongoDb.host')}:${config.get('mongoDb.port')}/${config.get('mongoDb.name')}` as string
+const DB_URI: string = config.get('connectionBD') as string
 const options: ConnectOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true

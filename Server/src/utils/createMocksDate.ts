@@ -22,7 +22,6 @@ const createMocksDateHandler = async () => {
 
     } catch (error) {
         throw new ApplicationError({ message: 'Ocurrio un error al crear los datos por default', source: error })
-        // next(new ApplicationError({ message: 'Ocurrio un error al crear los datos por default', source: error }))
     }
 }
 
