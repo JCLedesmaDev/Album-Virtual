@@ -83,7 +83,6 @@ export const Figurites: React.FC = () => {
     };
 
     const deleteFigurine = async (id: string) => {
-        console.log("🚀 ~ file: index.tsx:86 ~ deleteFigurine ~ id:", id)
         const isDelete = await store.actions.deleteFigurine(id)
         if (!isDelete) return
         await getAllFigurites();
