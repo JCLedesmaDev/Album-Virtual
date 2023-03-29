@@ -9,4 +9,4 @@ Para comprar los álbumes y las figuritas, los usuarios deberán crear una cuent
 En resumen, el proyecto es crear un sitio web donde los usuarios puedan comprar y coleccionar álbumes y figuritas de diferentes temáticas.
 
 ## Sitio del proyecto:
- * Haz click [aqui](https://axios-http.com/docs/intro).
+ * Haz click [aqui](https://album-virtual.netlify.app).
