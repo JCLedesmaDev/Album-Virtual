@@ -52,12 +52,15 @@ NODE_ENV=development || production
 
 ## Puerto de SV
 PORT=99999
+PUBLIC_URL=http://localhost....
 
 ## Clave super secreta
 JWT_SECRET=claveSuperSecreta
 
 ## Conexion de base de datos
 CONNECTION_DB=conexionBaseDatos
+
+
 ```
 El archivo `.env` debe estar en la ruta raíz del proyecto.
 

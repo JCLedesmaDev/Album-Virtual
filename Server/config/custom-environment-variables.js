@@ -4,5 +4,9 @@ module.exports = {
     connectionBD: 'CONNECTION_DB',
     node_env: 'NODE_ENV',
 
-    server: { port: 'PORT' },
+    server: {
+        port: 'PORT',
+        public_url: 'PUBLIC_URL'
+    },
+
 }
