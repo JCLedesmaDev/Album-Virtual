@@ -19,6 +19,7 @@ export const Navigate: React.FC = () => {
   const closeSesion = () => {
     navigate("/authUser")
     deleteStorage("User")
+    deleteStorage("Headers")
   }
 
 
