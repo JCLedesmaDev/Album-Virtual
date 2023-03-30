@@ -1,10 +1,7 @@
 import * as dotenv from "dotenv"
 
-let connectionServer = config.get('server.public_url') as string
-
 if (process.env.NODE_ENV !== "production") {
     dotenv.config({ path: ".env" });
-    connectionServer = `${config.get('server.public_url')}${config.get('server.port')}`
 }
 
 import dbConnect from "./src/database/mongo";
@@ -18,6 +15,10 @@ if (!config.get('server.port')) {
 
 dbConnect()
     .then(() => {
+        const connectionServer = process.env.NODE_ENV === "production"
+            ? config.get('server.public_url') as string
+            : `${config.get('server.public_url')}${config.get('server.port')}`
+
         server.startServer(connectionServer)
     })
     .catch((err: Error) => {
