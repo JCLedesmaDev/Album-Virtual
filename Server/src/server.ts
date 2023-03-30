@@ -9,7 +9,7 @@ import { eventHandler } from './middlewares/eventHandler';
 import { notFoundRouterHandler } from './middlewares/notFoundRouteHandler';
 import { createMocksDateHandler } from './utils/createMocksDate';
 
- function startServer(PORT: number) {
+ function startServer(connectionServer: string) {
 
     const app: Express = express();
 
@@ -17,9 +17,9 @@ import { createMocksDateHandler } from './utils/createMocksDate';
     app.use(express.json()) //--> Comprende mensajes JSON
     app.use(cors({ origin: '*' }));
 
-    app.listen(PORT, async () => {
+    app.listen(config.get('server.port'), async () => {
         await createMocksDateHandler()
-        console.log(`⚡️[server]: Server is running in ${config.get("node_env")} at ${config.get('server.public_url')}${PORT}`);
+        console.log(`⚡️[server]: Server is running in ${connectionServer}`);
     });
 
     app.use(headersHandler) // Definimos como manejamos todos los datos provenientes del headers

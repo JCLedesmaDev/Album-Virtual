@@ -1,6 +1,10 @@
 import * as dotenv from "dotenv"
+
+let connectionServer = config.get('server.public_url') as string
+
 if (process.env.NODE_ENV !== "production") {
     dotenv.config({ path: ".env" });
+    connectionServer = `${config.get('server.public_url')}${config.get('server.port')}`
 }
 
 import dbConnect from "./src/database/mongo";
@@ -12,11 +16,9 @@ if (!config.get('server.port')) {
     process.exit(1);
 }
 
-const PORT: number = config.get('server.port')
-
 dbConnect()
     .then(() => {
-        server.startServer(PORT)
+        server.startServer(connectionServer)
     })
     .catch((err: Error) => {
         console.log("No se pudo conectar a la BD", err)
