@@ -6,19 +6,19 @@ Permite a los usuarios, poder simular la compra de albumes y figuras de coleccio
 
 El usuario comun podra realizar las siguientes funcionalidades:
 <ul>
-  <li> 🔹 Inicio de sesión. </li>
-  <li> 🔹 Visualizar y comprar Albumes. </li>
-  <li> 🔹 Visualizar Albumes comprados. </li>
-  <li> 🔹 Visualizar y comprar Figuritas. </li>
-  <li> 🔹 Visualizar Figuritas compradas. </li>
+  <li> Inicio de sesión. </li>
+  <li> Visualizar y comprar Albumes. </li>
+  <li> Visualizar Albumes comprados. </li>
+  <li> Visualizar y comprar Figuritas. </li>
+  <li> Visualizar Figuritas compradas. </li>
 </ul>
 
 Además, genere un rol de administrador para aquellos usuarios autorizados a realizar tareas administrativas y de mantenimiento sobre los otros usuarios. 
 Un usuario administrador puede:
 <ul>
-🔹 Crear y eliminar usuarios.
-🔹 Gestionar Albumes.
-🔹 Gestionar figuritas de coleccion.
+  <li> Crear y eliminar usuarios. </li>
+  <li> Gestionar Albumes. </li>
+  <li> Gestionar figuritas de coleccion. </li>
 </ul>
 
 ## Dependencias utilizadas:
