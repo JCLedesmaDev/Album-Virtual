@@ -64,8 +64,7 @@ CONNECTION_DB=conexionBaseDatos
 El archivo `.env` debe estar en la ruta raíz del proyecto.
 
 **Aclaraciones:**
-
-Dado el caso de que no se llegase a crear el archivo `.env`, existen valores cargados por defecto dentro de `Server > config > default.js`
+Dado el caso de que no se llegase a crear el archivo `.env`, existen valores cargados por defecto dentro de `Server > config > default.js`, por lo que puede proseguir directamente con el despliegue.
 
 
 ## Despliegue:
