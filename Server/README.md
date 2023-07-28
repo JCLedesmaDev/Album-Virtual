@@ -83,5 +83,6 @@ Para generar los archivos del proyecto para producción, ejecute el comando:
 
 ```bash
   npm run build
+  npm start
 ```
 La carpeta de producción se generará en la ruta raíz del proyecto. El nombre de la carpeta será **dist**.
