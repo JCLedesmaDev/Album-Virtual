@@ -41,7 +41,7 @@ Instale las depedencias del proyecto, ejecutando en la terminal, desde la ruta r
 
 ## Variables de entorno:
 
-Para ejecutar este proyecto Back End, deberá agregar las siguientes variables de entorno al archivo `.env`:
+Para ejecutar este proyecto Back End y tener su propia autonomia, deberá agregar las siguientes variables de entorno al archivo `.env`:
 
 ```bash
 ## Contrasena de administrador 
@@ -59,7 +59,6 @@ JWT_SECRET=claveSuperSecreta
 
 ## Conexion de base de datos
 CONNECTION_DB=conexionBaseDatos
-
 
 ```
 El archivo `.env` debe estar en la ruta raíz del proyecto.
