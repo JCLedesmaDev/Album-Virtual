@@ -17,8 +17,8 @@ Un usuario administrador puede:
  * Gestionar Albumes.
  * Gestionar figuritas de coleccion.
 
- **Aclaraciones:**
- Por defecto, existe un usuario administrador con el email de 'admin@gmail.com' cuya contraseña se define dentro del ".env" del back-end.
+**Aclaraciones:**
+Por defecto, existe un usuario administrador con el email de 'admin@gmail.com' cuya contraseña es 'tuContraseñaAdmin' pero tambien, se puede cambiar, definiendola dentro del ".env" del back-end.
 
 ## Dependencias utilizadas:
  * [TypeScript](https://www.npmjs.com/package/typescript).
