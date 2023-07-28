@@ -6,11 +6,11 @@ Permite a los usuarios, poder simular la compra de albumes y figuras de coleccio
 
 El usuario comun podra realizar las siguientes funcionalidades:
 <ul>
-🔹 Inicio de sesión.
-🔹 Visualizar y comprar Albumes.
-🔹 Visualizar Albumes comprados.
-🔹 Visualizar y comprar Figuritas.
-🔹 Visualizar Figuritas compradas.  
+  <li> 🔹 Inicio de sesión. </li>
+  <li> 🔹 Visualizar y comprar Albumes. </li>
+  <li> 🔹 Visualizar Albumes comprados. </li>
+  <li> 🔹 Visualizar y comprar Figuritas. </li>
+  <li> 🔹 Visualizar Figuritas compradas. </li>
 </ul>
 
 Además, genere un rol de administrador para aquellos usuarios autorizados a realizar tareas administrativas y de mantenimiento sobre los otros usuarios. 
