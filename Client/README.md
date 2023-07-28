@@ -2,7 +2,7 @@
 
 # CRUD con ReactJS + TypeScript + Zustand y Vite. 
 
-Permite a los usuarios, poder simular la compra de albumes y figuras de coleccion de diferentes tipos de generos. Tambien cuenta con una area administrativa (ingresando a "/administracion"), en donde se podran agregar, editar, eliminar y visualizar respectivamente estos albumes y figuritas de coleccion.
+Permite a los usuarios, poder simular la compra de albumes y figuras de coleccion de diferentes tipos de generos. Tambien cuenta con una area administrativa (ingresando a "/administration"), en donde se podran agregar, editar, eliminar y visualizar respectivamente estos albumes y figuritas de coleccion.
 
 El usuario comun podra realizar las siguientes funcionalidades:
  * Inicio de sesión. </li>
