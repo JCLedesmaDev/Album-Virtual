@@ -48,7 +48,7 @@ Para ejecutar este proyecto Back End y tener su propia autonomia, deberá agrega
 PASSWORD_ADMIN=password_admin
 
 ## Entorno de desarrollo
-NODE_ENV=development || production
+NODE_ENV=development | production (Dejar solo una de las opciones sin el | )
 
 ## Puerto de SV
 PORT=99999
