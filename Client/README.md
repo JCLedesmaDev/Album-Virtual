@@ -5,17 +5,21 @@
 Permite a los usuarios, poder simular la compra de albumes y figuras de coleccion de diferentes tipos de generos. Tambien cuenta con una area administrativa (ingresando a "/administracion"), en donde se podran agregar, editar, eliminar y visualizar respectivamente estos albumes y figuritas de coleccion.
 
 El usuario comun podra realizar las siguientes funcionalidades:
+<ul>
 🔹 Inicio de sesión.
 🔹 Visualizar y comprar Albumes.
 🔹 Visualizar Albumes comprados.
 🔹 Visualizar y comprar Figuritas.
-🔹 Visualizar Figuritas compradas.
+🔹 Visualizar Figuritas compradas.  
+</ul>
 
 Además, genere un rol de administrador para aquellos usuarios autorizados a realizar tareas administrativas y de mantenimiento sobre los otros usuarios. 
 Un usuario administrador puede:
+<ul>
 🔹 Crear y eliminar usuarios.
 🔹 Gestionar Albumes.
 🔹 Gestionar figuritas de coleccion.
+</ul>
 
 ## Dependencias utilizadas:
  * [TypeScript](https://www.npmjs.com/package/typescript).
