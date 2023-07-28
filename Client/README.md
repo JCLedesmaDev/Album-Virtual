@@ -62,7 +62,7 @@ Para ejecutar el proyecto en modo de desarrollo, ejecute en la terminal:
 
 **Production**
 
-Para generar los archivos del proyecto para producción, ejecute el comando:
+Para generar los archivos del proyecto para deployarlo en producción, ejecute el comando:
 
 ```bash
   npm run build
